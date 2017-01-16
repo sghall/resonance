@@ -1,0 +1,14 @@
+# Exclude compiled files
+build
+coverage
+/lib
+/dist
+/test/regressions/screenshots/output
+/test/selenium-output
+
+# OS files
+.DS_STORE
+
+# npm files
+node_modules
+*.log
