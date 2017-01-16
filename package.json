@@ -1,0 +1,26 @@
+{
+  "name": "material-charts",
+  "version": "0.1.0",
+  "description": "React charts that conform to Google material design principles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delimited-technologies/material-charts.git"
+  },
+  "keywords": [
+    "react",
+    "charts",
+    "material",
+    "design",
+    "d3"
+  ],
+  "author": "Steven Hall",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/delimited-technologies/material-charts/issues"
+  },
+  "homepage": "https://github.com/delimited-technologies/material-charts#readme"
+}
