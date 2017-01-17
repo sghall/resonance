@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import classNames from 'classnames';
 
-export const styleSheet = createStyleSheet('Paper', (theme) => {
+export const styleSheet = createStyleSheet('Chart', (theme) => {
   const { palette } = theme;
   const shadows = {};
 
@@ -29,12 +29,12 @@ export const styleSheet = createStyleSheet('Paper', (theme) => {
  * A piece of material paper.
  *
  * ```js
- * import Paper from 'material-ui/Paper';
+ * import Chart from 'material-ui/Chart';
  *
- * const Component = () => <Paper zDepth={8}>Hello World</Paper>;
+ * const Component = () => <Chart zDepth={8}>Hello World</Chart>;
  * ```
  */
-export default function Paper(props, context) {
+export default function Chart(props, context) {
   const {
     className: classNameProp,
     rounded,
@@ -53,7 +53,7 @@ export default function Paper(props, context) {
   );
 }
 
-Paper.propTypes = {
+Chart.propTypes = {
   /**
    * The CSS class name of the root element.
    */
@@ -68,11 +68,11 @@ Paper.propTypes = {
   zDepth: PropTypes.number,
 };
 
-Paper.defaultProps = {
+Chart.defaultProps = {
   rounded: true,
   zDepth: 2,
 };
 
-Paper.contextTypes = {
+Chart.contextTypes = {
   styleManager: PropTypes.object.isRequired,
 };
