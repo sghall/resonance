@@ -27,10 +27,7 @@
     "test:regressions": "node test regressions -l",
     "flow": "flow"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/delimited-technologies/material-charts.git"
-  },
+  "repository": "git+https://github.com/delimited-technologies/material-charts.git",
   "keywords": [
     "react",
     "charts",
