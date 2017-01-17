@@ -26,7 +26,7 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
 });
 
 /**
- * A piece of material paper.
+ * Material chart wrapper.
  *
  * ```js
  * import Chart from 'material-ui/Chart';
