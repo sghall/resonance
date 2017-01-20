@@ -1,7 +1,7 @@
 Chip
 ====
 
-Chips represents complex entities in small blocks, such as a contact.
+Chips represent complex entities in small blocks, such as a contact.
 
 ```jsx
 <Chip avatar={<Avatar />} label="Label text" />
