@@ -1,12 +1,8 @@
 {
-  "name": "material-ui-docs",
-  "private": true,
-  "version": "0.16.0",
-  "description": "Documentation site for material-ui",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/callemall/material-ui.git"
-  },
+  "name": "material-charts-docs",
+  "version": "0.1.0",
+  "description": "Documentation site for material-charts",
+  "repository": "git+https://github.com/delimited-technologies/material-charts.git",
   "scripts": {
     "start": "node webpack.dev.server.js",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
@@ -39,5 +35,8 @@
     "react-redux": "^5.0.1",
     "react-router": "^3.0.0",
     "redux": "^3.5.2"
-  }
+  },
+  "main": "index.js",
+  "author": "Steven Hall",
+  "license": "MIT"
 }
