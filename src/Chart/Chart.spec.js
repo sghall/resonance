@@ -24,7 +24,7 @@ describe('<Chart />', () => {
 
   it('should render with the Chart class, default depth class, and rounded', () => {
     const wrapper = shallow(<Chart>Hello World</Chart>);
-    assert.strictEqual(wrapper.hasClass(classes.Chart), true, 'should have the Chart class');
+    assert.strictEqual(wrapper.hasClass(classes.paper), true, 'should have the paper class');
     assert.strictEqual(wrapper.hasClass(classes.rounded), true, 'should be rounded by default');
   });
 
