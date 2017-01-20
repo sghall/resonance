@@ -1,35 +1,57 @@
-/* eslint-disable */
-var path = require('path');
-var webpack = require('webpack');
+// @flow weak
 
-module.exports = {
-  entry: './src/main.js',
-  output: {
-    path: __dirname,
-    filename: './build/build.js'
+const path = require('path');
+
+const libraryName = 'material-ui';
+const outputFile = `${libraryName}.js`;
+const INDEX = path.join(__dirname, 'src/index.js');
+const DIST = path.join(__dirname, 'dist');
+
+const config = {
+  entry: {
+    'material-ui': INDEX,
   },
+  devtool: 'source-map',
+  output: {
+    path: DIST,
+    filename: outputFile,
+    library: libraryName,
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+  },
+  externals: [
+    'react-addons-create-fragment',
+    'react-addons-transition-group',
+    {
+      react: {
+        root: 'React',
+        commonjs2: './react',
+        commonjs: ['./react'],
+        amd: 'react',
+      },
+    },
+    {
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: './react-dom',
+        commonjs: ['./react-dom'],
+        amd: 'react-dom',
+      },
+    },
+  ],
   module: {
     loaders: [
       {
-        test: path.join(__dirname, 'src'),
+        test: /\.js$/,
         loader: 'babel',
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
+        exclude: /(node_modules)/,
+      },
+    ],
   },
-  plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('development')
-      }
-    })
-  ],
-  stats: {
-    colors: true
+  resolve: {
+    root: path.resolve('./src'),
+    extensions: ['', '.js'],
   },
-  devtool: 'source-map'
 };
+
+module.exports = config;
