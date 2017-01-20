@@ -25,7 +25,8 @@
     "test:e2e:local": "node test e2e -l -e chrome",
     "test:e2e:all": "node test e2e -e chrome_51,safari_9,firefox_46,ie_edge,ie_10",
     "test:regressions": "node test regressions -l",
-    "flow": "flow"
+    "flow": "flow",
+    "diff": "git diff --name-only master material-ui/next"
   },
   "repository": "git+https://github.com/delimited-technologies/material-charts.git",
   "keywords": [
