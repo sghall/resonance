@@ -181,16 +181,13 @@ Chip.propTypes = {
   /**
    * The label text.
    */
-  label: PropTypes.string,
+  label: PropTypes.node,
   /**
    * CSS `className` of the label.
    */
   labelClassName: PropTypes.string,
   /**
    * @ignore
-   * Callback function fired when the `Chip` element is clicked.
-   * If set, the chip will by styled for hover focus and active states.
-   * @param {object} event `onClick` event targeting the root element.
    */
   onClick: PropTypes.func,
   /**
