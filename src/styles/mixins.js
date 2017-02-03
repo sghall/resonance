@@ -1,12 +1,12 @@
 // @flow weak
 
-export default function createMixins(breakpoints, spacing) {
+export default function createMixins(breakpoints) {
   function gutters(styles) {
-    styles.paddingLeft = spacing.unit * 2;
-    styles.paddingRight = spacing.unit * 2;
+    styles.paddingLeft = 16;
+    styles.paddingRight = 16;
     styles[breakpoints.up('sm')] = {
-      paddingLeft: spacing.unit * 3,
-      paddingRight: spacing.unit * 3,
+      paddingLeft: 24,
+      paddingRight: 24,
     };
     return styles;
   }
