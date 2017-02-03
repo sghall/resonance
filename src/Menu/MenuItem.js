@@ -12,7 +12,6 @@ export const styleSheet = createStyleSheet('MenuItem', (theme) => {
     root: {
       ...typography.subheading,
       height: 48,
-      boxSizing: 'border-box',
       background: 'none',
       transition: transitions.create('background-color', '250ms'),
       overflow: 'hidden',
@@ -41,7 +40,6 @@ export default class MenuItem extends Component {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     /**
      * @ignore
      */
@@ -64,7 +62,6 @@ export default class MenuItem extends Component {
   render() {
     const {
       className: classNameProp,
-      component,
       selected,
       role,
       ...other
@@ -75,20 +72,13 @@ export default class MenuItem extends Component {
       [classes.selected]: selected,
     }, classNameProp);
 
-    const listItemProps = {};
-
-    if (!component) {
-      listItemProps.ripple = false;
-    }
-
     return (
       <ListItem
         button
         role={role}
         tabIndex="-1"
         className={className}
-        component={component}
-        {...listItemProps}
+        ripple={false}
         {...other}
       />
     );

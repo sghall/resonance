@@ -1,11 +1,10 @@
 // @flow weak
 
-import React, { PropTypes, Children, cloneElement } from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from '../utils/customPropTypes';
 import ButtonBase from '../internal/ButtonBase';
-import Icon from '../Icon';
+import customPropTypes from '../utils/customPropTypes';
 
 export const styleSheet = createStyleSheet('IconButton', (theme) => {
   const { palette, transitions } = theme;
@@ -41,10 +40,10 @@ export const styleSheet = createStyleSheet('IconButton', (theme) => {
       display: 'flex',
       alignItems: 'inherit',
       justifyContent: 'inherit',
-    },
-    icon: {
-      width: '1em',
-      height: '1em',
+      '& .material-icons': {
+        width: '1em',
+        height: '1em',
+      },
     },
     keyboardFocused: {
       backgroundColor: palette.text.divider,
@@ -69,11 +68,10 @@ export default function IconButton(props, context) {
     className,
     contrast,
     disabled,
-    iconClassName: iconClassNameProp,
     ...other
   } = props;
   const classes = context.styleManager.render(styleSheet);
-  const iconClassName = classNames(classes.icon, iconClassNameProp);
+
   return (
     <ButtonBase
       className={classNames(classes.iconButton, {
@@ -87,18 +85,9 @@ export default function IconButton(props, context) {
       ref={buttonRef}
       {...other}
     >
-      <span className={classes.label}>
+      <span className={classNames(classes.label)}>
         {typeof children === 'string' ?
-          <Icon className={iconClassName}>{children}</Icon> :
-          Children.map(children, (child) => {
-            if (child.type && child.type.muiName === 'Icon') {
-              return cloneElement(child, {
-                className: classNames(iconClassName, child.props.className),
-              });
-            }
-
-            return child;
-          })
+          <span className="material-icons">{children}</span> : children
         }
       </span>
     </ButtonBase>
@@ -131,10 +120,6 @@ IconButton.propTypes = {
    * If `true`, the button will be disabled.
    */
   disabled: PropTypes.bool,
-  /**
-   * The CSS class name of the icon element if child is a string.
-   */
-  iconClassName: PropTypes.string,
   /**
    * If false, the ripple effect will be disabled.
    */

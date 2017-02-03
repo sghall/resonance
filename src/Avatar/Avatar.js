@@ -39,7 +39,7 @@ export default function Avatar(props, context) {
     className: classNameProp,
     children: childrenProp,
     childrenClassName: childrenClassNameProp,
-    component: ComponentProp,
+    component,
     sizes,
     src,
     srcSet,
@@ -75,11 +75,7 @@ export default function Avatar(props, context) {
     children = React.createElement('img', imgProps);
   }
 
-  return (
-    <ComponentProp {...containerProps}>
-      {children}
-    </ComponentProp>
-  );
+  return React.createElement(component, containerProps, children);
 }
 
 Avatar.propTypes = {
@@ -109,7 +105,7 @@ Avatar.propTypes = {
   /**
    * The component type of the root element.
    */
-  component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  component: PropTypes.string,
   /**
    * sizes desc
    */

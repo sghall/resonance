@@ -34,13 +34,6 @@ export const styleSheet = createStyleSheet('Dialog', (theme) => {
     'dialogWidth-md': {
       maxWidth: theme.breakpoints.getWidth('md'),
     },
-    fullScreen: {
-      width: '100%',
-      maxWidth: '100%',
-      height: '100%',
-      maxHeight: '100%',
-      borderRadius: 0,
-    },
   };
 });
 
@@ -65,10 +58,6 @@ export default class Dialog extends Component {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
-    /**
-     * If `true`, The dialog will be full-screen.
-     */
-    fullScreen: PropTypes.bool,
     /**
      * If `true`, clicking the backdrop will fire the `onRequestClose` callback.
      */
@@ -143,7 +132,6 @@ export default class Dialog extends Component {
   };
 
   static defaultProps = {
-    fullScreen: false,
     hideOnBackdropClick: true,
     hideOnEscapeKeyUp: true,
     maxWidth: 'sm',
@@ -160,7 +148,6 @@ export default class Dialog extends Component {
     const {
       children,
       className,
-      fullScreen,
       hideOnBackdropClick,
       hideOnEscapeKeyUp,
       maxWidth,
@@ -219,7 +206,7 @@ export default class Dialog extends Component {
             data-mui-test="Dialog"
             zDepth={24}
             className={classNames(classes.dialog, classes[`dialogWidth-${maxWidth}`],
-              paperClassName, { [classes.fullScreen]: fullScreen })}
+              paperClassName)}
           >
             {children}
           </Paper>

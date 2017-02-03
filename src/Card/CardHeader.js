@@ -72,8 +72,8 @@ CardHeader.propTypes = {
    * The CSS class name of the root element.
    */
   className: PropTypes.string,
-  subhead: PropTypes.node,
-  title: PropTypes.node,
+  subhead: PropTypes.string,
+  title: PropTypes.string,
 };
 
 CardHeader.contextTypes = {
