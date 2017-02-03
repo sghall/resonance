@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
 import ButtonBase from '../internal/ButtonBase';
 import customPropTypes from '../utils/customPropTypes';
-import Icon from '../Icon';
 
 export const styleSheet = createStyleSheet('Tab', (theme) => {
   return {
@@ -140,7 +139,7 @@ export default class Tab extends Component {
     if (iconProp !== undefined) {
       icon = isValidElement(iconProp) ?
         iconProp :
-        <Icon>{iconProp}</Icon>;
+        <span className="material-icons">{iconProp}</span>;
     }
 
     let label;

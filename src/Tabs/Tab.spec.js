@@ -6,12 +6,11 @@ import { assert } from 'chai';
 import { spy } from 'sinon';
 import { createShallowWithContext } from 'test/utils';
 import Tab, { styleSheet } from './Tab';
-import Icon from '../Icon';
 
 describe('<Tab />', () => {
   let shallow;
   let classes;
-  const icon = <Icon>restore</Icon>;
+  const icon = <span className="material-icons">restore</span>;
 
   before(() => {
     shallow = createShallowWithContext();
@@ -69,13 +68,13 @@ describe('<Tab />', () => {
     it('should render icon element', () => {
       const wrapper = shallow(<Tab icon={icon} />);
       const iconWrapper = wrapper.childAt(0);
-      assert.strictEqual(iconWrapper.is('Icon'), true);
+      assert.strictEqual(iconWrapper.hasClass('material-icons'), true);
     });
 
     it('should render a font icon if a icon string is passed', () => {
       const wrapper = shallow(<Tab icon="book" />);
-      assert.strictEqual(wrapper.find('Icon').length, 1,
-        'should have an Icon');
+      assert.strictEqual(wrapper.find('.material-icons').length, 1,
+        'should have the material icons class');
     });
   });
 
