@@ -6,12 +6,11 @@ import { assert } from 'chai';
 import { spy } from 'sinon';
 import { createShallowWithContext } from 'test/utils';
 import BottomNavigationButton, { styleSheet } from './BottomNavigationButton';
-import Icon from '../Icon';
 
 describe('<BottomNavigationButton / />', () => {
   let shallow;
   let classes;
-  const icon = <Icon>restore</Icon>;
+  const icon = <span className="material-icons">restore</span>;
 
   before(() => {
     shallow = createShallowWithContext();
@@ -59,7 +58,8 @@ describe('<BottomNavigationButton / />', () => {
     const wrapper = shallow(<BottomNavigationButton icon={icon} />);
 
     const iconWrapper = wrapper.childAt(0);
-    assert.strictEqual(iconWrapper.is('Icon'), true, 'should be an Icon');
+    assert.strictEqual(iconWrapper.hasClass('material-icons'), true,
+      'should have the material-icons class');
     assert.strictEqual(iconWrapper.hasClass(classes.icon), true, 'should have the icon class');
 
     const labelWrapper = wrapper.childAt(1);
@@ -83,8 +83,8 @@ describe('<BottomNavigationButton / />', () => {
 
   it('should render a font icon if a icon string is passed', () => {
     const wrapper = shallow(<BottomNavigationButton icon="book" />);
-    const iconWrapper = wrapper.childAt(0);
-    assert.strictEqual(iconWrapper.is('Icon'), true, 'should be an Icon');
+    assert.strictEqual(wrapper.find('.material-icons').length, 1,
+      'should have the material icons class');
   });
 
   describe('prop: onClick', () => {
