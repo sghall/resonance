@@ -10,14 +10,12 @@ export const styleSheet = createStyleSheet('ListItem', (theme) => {
   return {
     listItem: {
       display: 'flex',
-      flex: '1 1 auto',  // grow primary portion so that secondary is right-aligned
       alignItems: 'center',
       position: 'relative',
       textDecoration: 'none',
     },
     listItemContainer: {
-      display: 'flex',
-      alignItems: 'center',
+      position: 'relative',
     },
     keyboardFocused: {
       background: theme.palette.text.divider,
@@ -96,11 +94,11 @@ export default class ListItem extends Component {
     }, classNameProp);
 
     const listItemProps = { className, disabled, ...other };
-    let component = componentProp;
+    let ComponentMain = componentProp;
 
     if (button) {
-      component = ButtonBase;
-      listItemProps.component = 'div';
+      ComponentMain = ButtonBase;
+      listItemProps.component = componentProp || 'div';
       listItemProps.keyboardFocusedClassName = classes.keyboardFocused;
     }
 
@@ -114,12 +112,18 @@ export default class ListItem extends Component {
       const secondaryAction = children.pop();
       return (
         <div className={classes.listItemContainer}>
-          {React.createElement(component, listItemProps, children)}
+          <ComponentMain {...listItemProps}>
+            {children}
+          </ComponentMain>
           {secondaryAction}
         </div>
       );
     }
 
-    return React.createElement(component, listItemProps, children);
+    return (
+      <ComponentMain {...listItemProps}>
+        {children}
+      </ComponentMain>
+    );
   }
 }

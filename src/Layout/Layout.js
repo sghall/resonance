@@ -36,7 +36,7 @@ function generateGrid(globalStyles, theme, breakpoint) {
     }
 
     // Only keep 6 significant numbers.
-    const width = `${Math.round((size / 12) * (10 ** 6)) / (10 ** 4)}%`;
+    const width = `${Math.round((size / 12) * Math.pow(10, 6)) / Math.pow(10, 4)}%`;
 
     /* eslint-disable max-len */
     // Close to the bootstrap implementation:
@@ -85,10 +85,12 @@ export const styleSheet = createStyleSheet('Layout', (theme) => {
 
   return {
     typeContainer: {
+      boxSizing: 'border-box',
       display: 'flex',
       flexWrap: 'wrap',
     },
     typeItem: {
+      boxSizing: 'border-box',
       flex: '0 0 auto',
     },
     'direction-xs-column': {
@@ -184,8 +186,6 @@ function Layout(props, context) {
   );
 }
 
-const gridPropType = PropTypes.oneOf(GRID_SIZES);
-
 Layout.propTypes = {
   /**
    * The content of the component.
@@ -198,10 +198,7 @@ Layout.propTypes = {
   /**
    * The element or component used for the root node.
    */
-  component: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   /**
    * It true, the component will have the flex *container* behavior.
    * You should be wrapping *items* with a *container*.
@@ -216,27 +213,27 @@ Layout.propTypes = {
    * Defines the number of grids the component is going to use.
    * It's applied for all the screen sizes with the lowest priority.
    */
-  xs: gridPropType,
+  xs: PropTypes.oneOf(GRID_SIZES),
   /**
    * Defines the number of grids the component is going to use.
    * It's applied for the `sm` breakpoint and wider screens if not overridden.
    */
-  sm: gridPropType, // eslint-disable-line react/sort-prop-types
+  sm: PropTypes.oneOf(GRID_SIZES), // eslint-disable-line react/sort-prop-types
   /**
    * Defines the number of grids the component is going to use.
    * It's applied for the `md` breakpoint and wider screens if not overridden.
    */
-  md: gridPropType, // eslint-disable-line react/sort-prop-types
+  md: PropTypes.oneOf(GRID_SIZES), // eslint-disable-line react/sort-prop-types
   /**
    * Defines the number of grids the component is going to use.
    * It's applied for the `lg` breakpoint and wider screens if not overridden.
    */
-  lg: gridPropType, // eslint-disable-line react/sort-prop-types
+  lg: PropTypes.oneOf(GRID_SIZES), // eslint-disable-line react/sort-prop-types
   /**
    * Defines the number of grids the component is going to use.
    * It's applied for the `xl` breakpoint and wider screens.
    */
-  xl: gridPropType, // eslint-disable-line react/sort-prop-types
+  xl: PropTypes.oneOf(GRID_SIZES), // eslint-disable-line react/sort-prop-types
   /**
    * Defines the `align-items` style property.
    * It's applied for all the screen sizes.
@@ -299,4 +296,40 @@ Layout.contextTypes = {
   styleManager: customPropTypes.muiRequired,
 };
 
-export default Layout;
+/**
+ * Add a wrapper component to generate some helper messages in the development
+ * environment.
+ */
+let LayoutWrapper = Layout; // eslint-disable-line import/no-mutable-exports
+
+if (process.env.NODE_ENV !== 'production') {
+  const requireProp = (requiredProp) =>
+    (props, propName, componentName, location, propFullName) => {
+      const propFullNameSafe = propFullName || propName;
+
+      if (typeof props[propName] !== 'undefined' && !props[requiredProp]) {
+        return new Error(
+          `The property \`${propFullNameSafe}\` of ` +
+          `\`Layout\` must be used on \`${requiredProp}\`.`,
+        );
+      }
+
+      return null;
+    };
+
+  LayoutWrapper = (props) => <Layout {...props} />;
+
+  LayoutWrapper.propTypes = {
+    align: requireProp('container'),
+    direction: requireProp('container'),
+    gutter: requireProp('container'),
+    justify: requireProp('container'),
+    lg: requireProp('item'),
+    md: requireProp('item'),
+    sm: requireProp('item'),
+    wrap: requireProp('container'),
+    xs: requireProp('item'),
+  };
+}
+
+export default LayoutWrapper;
