@@ -8,7 +8,7 @@
     "build:icon-index": "babel-node ./scripts/icon-index-generator.js",
     "build:babel": "babel ./src --ignore *.spec.js --out-dir ./build",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
-    "build:min": "cross-env NODE_ENV=production webpack -p src/index.js --output-filename material-ui.min.js",
+    "build:min": "cross-env NODE_ENV=production webpack -p src/index.js --output-filename material-charts.min.js",
     "build:docs": "babel-node ./scripts/build-api-docs.js",
     "clean": "npm run clean:build",
     "clean:docs": "rimraf docs/api/*",
