@@ -30,7 +30,7 @@ export const styleSheet = createStyleSheet('Axis', (theme) => {
  * A piece of material axis.
  *
  * ```js
- * import Axis from 'material-ui/Axis';
+ * import Axis from 'material-charts/Axis';
  *
  * const Component = () => <Axis zDepth={8}>Hello World</Axis>;
  * ```

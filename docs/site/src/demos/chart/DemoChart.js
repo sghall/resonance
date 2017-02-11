@@ -3,7 +3,7 @@
 import React from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import SVG from 'material-charts/SVG';
+import Chart from 'material-charts/Chart';
 import Text from 'material-ui/Text';
 
 const styleSheet = createStyleSheet('PaperSheet', (theme) => ({
@@ -18,14 +18,14 @@ export default function PaperSheet(props, context) {
 
   return (
     <div>
-      <SVG className={classes.root} zDepth={4}>
+      <Chart className={classes.root} zDepth={4}>
         <Text type="headline" component="h3">
           This is a sheet of paper.
         </Text>
         <Text type="body1" component="p">
           Paper can be used to build surface or other elements for your application.
         </Text>
-      </SVG>
+      </Chart>
     </div>
   );
 }

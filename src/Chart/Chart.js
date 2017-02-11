@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from '../utils/customPropTypes';
 
-export const styleSheet = createStyleSheet('SVG', (theme) => {
+export const styleSheet = createStyleSheet('Chart', (theme) => {
   const { palette } = theme;
   const shadows = {};
 
@@ -16,7 +16,7 @@ export const styleSheet = createStyleSheet('SVG', (theme) => {
   });
 
   return {
-    svg: {
+    chart: {
       backgroundColor: palette.background.paper,
     },
     rounded: {
@@ -27,15 +27,15 @@ export const styleSheet = createStyleSheet('SVG', (theme) => {
 });
 
 /**
- * A piece of material svg.
+ * A piece of material Chart.
  *
  * ```js
- * import SVG from 'material-charts/SVG';
+ * import Chart from 'material-charts/Chart';
  *
- * const Component = () => <SVG zDepth={8}>Hello World</SVG>;
+ * const Component = () => <Chart zDepth={8}>Hello World</Chart>;
  * ```
  */
-export default function SVG(props, context) {
+export default function Chart(props, context) {
   const {
     className: classNameProp,
     rounded,
@@ -45,7 +45,7 @@ export default function SVG(props, context) {
   const classes = context.styleManager.render(styleSheet);
 
   const classNameZDepth = `dp${zDepth >= 0 ? zDepth : 0}`;
-  const className = classNames(classes.svg, classes[classNameZDepth], {
+  const className = classNames(classes.chart, classes[classNameZDepth], {
     [classes.rounded]: rounded,
   }, classNameProp);
 
@@ -54,7 +54,7 @@ export default function SVG(props, context) {
   );
 }
 
-SVG.propTypes = {
+Chart.propTypes = {
   /**
    * The CSS class name of the root element.
    */
@@ -69,11 +69,11 @@ SVG.propTypes = {
   zDepth: PropTypes.number,
 };
 
-SVG.defaultProps = {
+Chart.defaultProps = {
   rounded: true,
   zDepth: 2,
 };
 
-SVG.contextTypes = {
+Chart.contextTypes = {
   styleManager: customPropTypes.muiRequired,
 };

@@ -1,3 +1,3 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
-export default from './SVG';
+export default from './Chart';

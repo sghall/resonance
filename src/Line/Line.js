@@ -30,7 +30,7 @@ export const styleSheet = createStyleSheet('Line', (theme) => {
  * A piece of material Line.
  *
  * ```js
- * import Line from 'material-ui/Line';
+ * import Line from 'material-charts/Line';
  *
  * const Component = () => <Line zDepth={8}>Hello World</Line>;
  * ```
