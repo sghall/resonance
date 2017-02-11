@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from '../utils/customPropTypes';
 
-export const styleSheet = createStyleSheet('Paper', (theme) => {
+export const styleSheet = createStyleSheet('Axis', (theme) => {
   const { palette } = theme;
   const shadows = {};
 
@@ -16,7 +16,7 @@ export const styleSheet = createStyleSheet('Paper', (theme) => {
   });
 
   return {
-    paper: {
+    axis: {
       backgroundColor: palette.background.paper,
     },
     rounded: {
@@ -27,15 +27,15 @@ export const styleSheet = createStyleSheet('Paper', (theme) => {
 });
 
 /**
- * A piece of material paper.
+ * A piece of material axis.
  *
  * ```js
- * import Paper from 'material-ui/Paper';
+ * import Axis from 'material-ui/Axis';
  *
- * const Component = () => <Paper zDepth={8}>Hello World</Paper>;
+ * const Component = () => <Axis zDepth={8}>Hello World</Axis>;
  * ```
  */
-export default function Paper(props, context) {
+export default function Axis(props, context) {
   const {
     className: classNameProp,
     rounded,
@@ -45,7 +45,7 @@ export default function Paper(props, context) {
   const classes = context.styleManager.render(styleSheet);
 
   const classNameZDepth = `dp${zDepth >= 0 ? zDepth : 0}`;
-  const className = classNames(classes.paper, classes[classNameZDepth], {
+  const className = classNames(classes.axis, classes[classNameZDepth], {
     [classes.rounded]: rounded,
   }, classNameProp);
 
@@ -54,7 +54,7 @@ export default function Paper(props, context) {
   );
 }
 
-Paper.propTypes = {
+Axis.propTypes = {
   /**
    * The CSS class name of the root element.
    */
@@ -69,11 +69,11 @@ Paper.propTypes = {
   zDepth: PropTypes.number,
 };
 
-Paper.defaultProps = {
+Axis.defaultProps = {
   rounded: true,
   zDepth: 2,
 };
 
-Paper.contextTypes = {
+Axis.contextTypes = {
   styleManager: customPropTypes.muiRequired,
 };

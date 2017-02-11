@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from '../utils/customPropTypes';
 
-export const styleSheet = createStyleSheet('Paper', (theme) => {
+export const styleSheet = createStyleSheet('SVG', (theme) => {
   const { palette } = theme;
   const shadows = {};
 
@@ -16,7 +16,7 @@ export const styleSheet = createStyleSheet('Paper', (theme) => {
   });
 
   return {
-    paper: {
+    svg: {
       backgroundColor: palette.background.paper,
     },
     rounded: {
@@ -27,15 +27,15 @@ export const styleSheet = createStyleSheet('Paper', (theme) => {
 });
 
 /**
- * A piece of material paper.
+ * A piece of material svg.
  *
  * ```js
- * import Paper from 'material-ui/Paper';
+ * import SVG from 'material-charts/SVG';
  *
- * const Component = () => <Paper zDepth={8}>Hello World</Paper>;
+ * const Component = () => <SVG zDepth={8}>Hello World</SVG>;
  * ```
  */
-export default function Paper(props, context) {
+export default function SVG(props, context) {
   const {
     className: classNameProp,
     rounded,
@@ -45,7 +45,7 @@ export default function Paper(props, context) {
   const classes = context.styleManager.render(styleSheet);
 
   const classNameZDepth = `dp${zDepth >= 0 ? zDepth : 0}`;
-  const className = classNames(classes.paper, classes[classNameZDepth], {
+  const className = classNames(classes.svg, classes[classNameZDepth], {
     [classes.rounded]: rounded,
   }, classNameProp);
 
@@ -54,7 +54,7 @@ export default function Paper(props, context) {
   );
 }
 
-Paper.propTypes = {
+SVG.propTypes = {
   /**
    * The CSS class name of the root element.
    */
@@ -69,11 +69,11 @@ Paper.propTypes = {
   zDepth: PropTypes.number,
 };
 
-Paper.defaultProps = {
+SVG.defaultProps = {
   rounded: true,
   zDepth: 2,
 };
 
-Paper.contextTypes = {
+SVG.contextTypes = {
   styleManager: customPropTypes.muiRequired,
 };
