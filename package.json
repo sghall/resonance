@@ -29,7 +29,7 @@
     "diff": "git remote update; git diff --name-only master material-ui/next",
     "start": "babel-watch src/main.js"
   },
-  "repository": "git+https://github.com/delimited-technologies/material-charts.git",
+  "repository": "git+https://github.com/sghall/material-charts.git",
   "keywords": [
     "react",
     "charts",
@@ -40,12 +40,13 @@
   "author": "Steven Hall",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/delimited-technologies/material-charts/issues"
+    "url": "https://github.com/sghall/material-charts/issues"
   },
-  "homepage": "https://github.com/delimited-technologies/material-charts#readme",
+  "homepage": "https://github.com/sghall/material-charts#readme",
   "peerDependencies": {
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "material-ui": "v1.0.0-alpha.2"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -54,7 +55,6 @@
     "jss-theme-reactor": "^0.9.0",
     "keycode": "^2.1.8",
     "lodash": "^4.17.4",
-    "material-ui": "v1.0.0-alpha.2",
     "object-assign": "^4.1.1",
     "react-addons-transition-group": "^15.0.0",
     "react-event-listener": "^0.4.1",
