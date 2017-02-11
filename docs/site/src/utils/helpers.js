@@ -15,6 +15,10 @@ export function kebabCase(string) {
 }
 
 export function titleize(string) {
+  if (string.length <= 3) { // e.g SVG
+    return string.toUpperCase();
+  }
+
   return string.split('-')
     .map((word) => word.split(''))
     .map((letters) => {
