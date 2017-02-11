@@ -7,6 +7,6 @@
  */
 
 import { assert } from 'chai';
-import * as MaterialUI from './index';
+import * as MaterialCharts from './index';
 
-describe('Material UI', () => it('should have exports', () => assert.ok(MaterialUI)));
+describe('Material Charts', () => it('should have exports', () => assert.ok(MaterialCharts)));

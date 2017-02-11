@@ -1,11 +1,11 @@
 // @flow weak
 
 import React, { Component } from 'react';
+import { keys } from 'material-ui/styles/breakpoints';
 import EventListener from 'react-event-listener';
 import createHelper from 'recompose/createHelper';
 import createEagerFactory from 'recompose/createEagerFactory';
 import customPropTypes from '../utils/customPropTypes';
-import { keys } from '../styles/breakpoints';
 
 export const isWidthUp = (baseWidth, width) => (
   keys.indexOf(baseWidth) <= keys.indexOf(width)

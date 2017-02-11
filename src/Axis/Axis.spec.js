@@ -22,9 +22,9 @@ describe('<Axis />', () => {
     assert.strictEqual(wrapper.is('div'), true, 'should be a div');
   });
 
-  it('should render with the paper class, default depth class, and rounded', () => {
+  it('should render with the axis class, default depth class, and rounded', () => {
     const wrapper = shallow(<Axis>Hello World</Axis>);
-    assert.strictEqual(wrapper.hasClass(classes.Axis), true, 'should have the Axis class');
+    assert.strictEqual(wrapper.hasClass(classes.axis), true, 'should have the Axis class');
     assert.strictEqual(wrapper.hasClass(classes.rounded), true, 'should be rounded by default');
   });
 
