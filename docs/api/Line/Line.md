@@ -1,12 +1,12 @@
-Paper
-=====
+Line
+====
 
-A piece of material paper.
+A piece of material Line.
 
 ```js
-import Paper from 'material-ui/Paper';
+import Line from 'material-ui/Line';
 
-const Component = () => <Paper zDepth={8}>Hello World</Paper>;
+const Component = () => <Line zDepth={8}>Hello World</Line>;
 ```
 
 Props

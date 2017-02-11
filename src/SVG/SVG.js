@@ -15,8 +15,6 @@ export const styleSheet = createStyleSheet('SVG', (theme) => {
     };
   });
 
-  console.log(theme);
-
   return {
     svg: {
       backgroundColor: palette.background.paper,
