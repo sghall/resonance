@@ -54,6 +54,7 @@
     "jss-theme-reactor": "^0.9.0",
     "keycode": "^2.1.8",
     "lodash": "^4.17.4",
+    "material-ui": "v1.0.0-alpha.2",
     "object-assign": "^4.1.1",
     "react-addons-transition-group": "^15.0.0",
     "react-event-listener": "^0.4.1",
