@@ -5,9 +5,9 @@ import React from 'react';
 import { assert } from 'chai';
 import { spy } from 'sinon';
 import { createMountWithContext } from 'test/utils';
-import List from 'src/List';
+import Line from 'src/Line';
 
-describe('<List> integration', () => {
+describe('<Line> integration', () => {
   let mount;
 
   before(() => {
@@ -20,7 +20,7 @@ describe('<List> integration', () => {
   describe('prop: rootRef', () => {
     it('should be able to get a ref of the root element', () => {
       const refCallback = spy();
-      mount(<List rootRef={refCallback} />);
+      mount(<Line rootRef={refCallback} />);
       assert.strictEqual(refCallback.callCount, 1, 'should call the ref function');
     });
   });

@@ -8,7 +8,7 @@ function runMochaTests({ module = '*', grep, types = ['unit', 'integration'] }) 
 
   const globPatterns = {
     unit: `src/**/${module}.spec.js`,
-    integration: `test/integration/**/${module}.test.js`,
+    // integration: `test/integration/**/${module}.test.js`,
   };
 
   let pattern;
