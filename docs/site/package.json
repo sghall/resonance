@@ -1,11 +1,11 @@
 {
-  "name": "material-ui-docs",
+  "name": "material-charts-docs",
   "private": true,
-  "version": "0.16.0",
-  "description": "Documentation site for material-ui",
+  "version": "0.1.0",
+  "description": "Documentation site for material-charts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/callemall/material-ui.git"
+    "url": "https://github.com/callemall/material-charts.git"
   },
   "scripts": {
     "start": "node webpack.dev.server.js",
@@ -35,7 +35,6 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "material-ui": "v1.0.0-alpha.2",
     "prismjs": "^1.6.0",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",

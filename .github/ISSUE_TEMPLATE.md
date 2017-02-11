@@ -4,7 +4,7 @@
 
 ### Versions
 
-- Material-UI: 
+- Material-Charts: 
 - React: 
 - Browser: 
 

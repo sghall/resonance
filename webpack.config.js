@@ -9,7 +9,7 @@ const DIST = path.join(__dirname, 'dist');
 
 const config = {
   entry: {
-    'material-ui': INDEX,
+    [libraryName]: INDEX,
   },
   devtool: 'source-map',
   output: {
