@@ -10,7 +10,6 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
 
   return {
     chart: {
-      backgroundColor: palette.background.paper,
       width: '100%',
       height: '0px',
       position: 'relative',
@@ -19,6 +18,7 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
       top: 0,
       left: 0,
       position: 'absolute',
+      backgroundColor: palette.background.paper,
     },
   };
 });
@@ -36,6 +36,11 @@ export default function Chart(props, context) {
   const { className, view, trbl } = props;
   const classes = context.styleManager.render(styleSheet);
 
+  const dims = [
+    view[0] - trbl[1] - trbl[3],
+    view[1] - trbl[0] - trbl[2],
+  ];
+
   return (
     <div
       className={classNames(classes.chart, className)}
@@ -46,7 +51,7 @@ export default function Chart(props, context) {
         viewBox={`0 0 ${view[0]} ${view[1]}`}
       >
         <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
-          {props.children}
+          <rect fill="rgba(0,0,0,0.3)" width={dims[0]} height={dims[1]} />
         </g>
       </svg>
     </div>
@@ -74,7 +79,7 @@ Chart.propTypes = {
 
 Chart.defaultProps = {
   view: [1000, 500],
-  trbl: [0, 0, 0, 0],
+  trbl: [10, 10, 10, 10],
 };
 
 Chart.contextTypes = {
