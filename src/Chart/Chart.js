@@ -22,7 +22,6 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
     rounded: {
       borderRadius: '2px',
     },
-    ...shadows,
   };
 });
 
@@ -49,12 +48,36 @@ export default function Chart(props, context) {
     [classes.rounded]: rounded,
   }, classNameProp);
 
+  const view = [1000, 500];
+  const trbl = [0, 0, 0, 0];
+
   return (
-    <div className={className} {...other} />
+    <div
+      className={className} {...other}
+      style={{
+        width: '100%',
+        height: '0px',
+        paddingTop: `${(Math.round(view[1] / view[0]) * 100)}%`,
+        position: 'relative',
+      }}
+    >
+      <svg
+        style={{ position: 'absolute', top: 0, left: 0 }}
+        viewBox={`0 0 ${view[0]} ${view[1]}`}
+      >
+        <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
+          {props.children}
+        </g>
+      </svg>
+    </div>
   );
 }
 
 Chart.propTypes = {
+  /**
+   * The CSS class name of the root element.
+   */
+  children: PropTypes.node,
   /**
    * The CSS class name of the root element.
    */
