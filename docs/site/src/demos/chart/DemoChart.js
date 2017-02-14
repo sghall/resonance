@@ -1,35 +1,22 @@
 // @flow weak
-
 import React from 'react';
-// import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Chart from 'material-charts/Chart';
 import Text from 'material-ui/Text';
 
-// const styleSheet = createStyleSheet('PaperSheet', (theme) => ({
-//   root: theme.mixins.gutters({
-//     paddingTop: 16,
-//     paddingBottom: 16,
-//   }),
-// }));
-
-export default function PaperSheet(/* props, context */) {
-  // const classes = context.styleManager.render(styleSheet);
-
+export default function DemoChart() {
   return (
-    <div>
-      <Chart>
-        <Text type="headline" component="h3">
-          This is a sheet of paper.
-        </Text>
-        <Text type="body1" component="p">
-          Paper can be used to build surface or other elements for your application.
-        </Text>
-      </Chart>
-    </div>
+    <Chart>
+      <Text type="headline" component="h3">
+        This is a sheet of paper.
+      </Text>
+      <Text type="body1" component="p">
+        Paper can be used to build surface or other elements for your application.
+      </Text>
+    </Chart>
   );
 }
 
-PaperSheet.contextTypes = {
+DemoChart.contextTypes = {
   styleManager: customPropTypes.muiRequired,
 };
