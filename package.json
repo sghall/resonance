@@ -46,7 +46,7 @@
   "peerDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "material-ui": "v1.0.0-alpha.2"
+    "material-ui": "v1.0.0-alpha.3"
   },
   "dependencies": {
     "classnames": "^2.2.5",
