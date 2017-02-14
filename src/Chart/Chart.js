@@ -11,9 +11,14 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
   return {
     chart: {
       backgroundColor: palette.background.paper,
-      width: '500px',
+      width: '100%',
       height: '0px',
       position: 'relative',
+    },
+    svg: {
+      top: 0,
+      left: 0,
+      position: 'absolute',
     },
   };
 });
@@ -37,7 +42,7 @@ export default function Chart(props, context) {
       style={{ paddingTop: `${(Math.round(view[1] / view[0]) * 100)}%` }}
     >
       <svg
-        style={{ position: 'absolute', top: 0, left: 0 }}
+        className={classes.svg}
         viewBox={`0 0 ${view[0]} ${view[1]}`}
       >
         <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
