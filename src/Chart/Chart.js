@@ -7,20 +7,13 @@ import customPropTypes from '../utils/customPropTypes';
 
 export const styleSheet = createStyleSheet('Chart', (theme) => {
   const { palette } = theme;
-  const shadows = {};
-
-  theme.shadows.forEach((shadow, index) => {
-    shadows[`dp${index}`] = {
-      boxShadow: shadow,
-    };
-  });
 
   return {
     chart: {
       backgroundColor: palette.background.paper,
-    },
-    rounded: {
-      borderRadius: '2px',
+      width: '500px',
+      height: '0px',
+      position: 'relative',
     },
   };
 });
@@ -35,31 +28,13 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
  * ```
  */
 export default function Chart(props, context) {
-  const {
-    className: classNameProp,
-    rounded,
-    zDepth,
-    ...other
-  } = props;
+  const { className, view, trbl } = props;
   const classes = context.styleManager.render(styleSheet);
-
-  const classNameZDepth = `dp${zDepth >= 0 ? zDepth : 0}`;
-  const className = classNames(classes.chart, classes[classNameZDepth], {
-    [classes.rounded]: rounded,
-  }, classNameProp);
-
-  const view = [1000, 500];
-  const trbl = [0, 0, 0, 0];
 
   return (
     <div
-      className={className} {...other}
-      style={{
-        width: '100%',
-        height: '0px',
-        paddingTop: `${(Math.round(view[1] / view[0]) * 100)}%`,
-        position: 'relative',
-      }}
+      className={classNames(classes.chart, className)}
+      style={{ paddingTop: `${(Math.round(view[1] / view[0]) * 100)}%` }}
     >
       <svg
         style={{ position: 'absolute', top: 0, left: 0 }}
@@ -83,18 +58,18 @@ Chart.propTypes = {
    */
   className: PropTypes.string,
   /**
-   * Set to false to disable rounded corners.
-   */
-  rounded: PropTypes.bool,
-  /**
    * Shadow depth, corresponds to `dp` in the spec.
    */
-  zDepth: PropTypes.number,
+  trbl: PropTypes.array,
+  /**
+   * Set to false to disable rounded corners.
+   */
+  view: PropTypes.array,
 };
 
 Chart.defaultProps = {
-  rounded: true,
-  zDepth: 2,
+  view: [1000, 500],
+  trbl: [0, 0, 0, 0],
 };
 
 Chart.contextTypes = {
