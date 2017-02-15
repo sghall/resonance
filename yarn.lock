@@ -3704,9 +3704,9 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-material-ui@v1.0.0-alpha.2:
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-alpha.2.tgz#bd31e12fc85d97abac24ca3141a51791fe5666b3"
+material-ui@v1.0.0-alpha.3:
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-alpha.3.tgz#5f128b5e698faee2e0d433e659c28708bf0f2b1c"
   dependencies:
     classnames "^2.2.5"
     dom-helpers "^3.2.0"
