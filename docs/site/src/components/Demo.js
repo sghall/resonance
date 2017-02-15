@@ -23,7 +23,6 @@ const styleSheet = createStyleSheet('Demo', (theme) => {
       marginRight: -16,
     },
     demo: mixins.gutters({
-      display: 'flex',
       justifyContent: 'center',
       paddingTop: 20,
       paddingBottom: 20,
