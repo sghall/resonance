@@ -5,9 +5,12 @@ import Chart from 'material-charts/Chart';
 import Text from 'material-ui/Text';
 
 export default function DemoChart() {
+  const view = [1000, 500];
+  const trbl = [10, 10, 10, 10];
+
   return (
-    <Chart>
-      <Text type="headline" component="h3">
+    <Chart {...{ view, trbl }}>
+      <Text type="body1" component="h3">
         This is a sheet of paper.
       </Text>
       <Text type="body1" component="p">
