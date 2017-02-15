@@ -1,6 +1,6 @@
 // @flow weak
 
-import { createMuiTheme } from 'src/styles/theme';
+import { createMuiTheme } from 'material-ui/styles/theme';
 import { create } from 'jss';
 import jssPreset from 'jss-preset-default';
 import { createStyleManager } from 'jss-theme-reactor';
