@@ -53,7 +53,7 @@ export default function AppRouter() {
       history={hashHistory}
       render={applyRouterMiddleware(useScroll())}
     >
-      <Route title="Material UI" path="/" component={AppFrame}>
+      <Route title="Material Charts" path="/" component={AppFrame}>
         <IndexRoute dockDrawer component={Home} title={null} />
         <Route
           title="Getting Started"
