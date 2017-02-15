@@ -7,6 +7,7 @@ import customPropTypes from '../utils/customPropTypes';
 
 export const styleSheet = createStyleSheet('Chart', (theme) => {
   const { palette } = theme;
+  console.log(theme);
 
   return {
     chart: {
@@ -33,13 +34,8 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
  * ```
  */
 export default function Chart(props, context) {
-  const { className, view, trbl } = props;
+  const { className, view, trbl, children } = props;
   const classes = context.styleManager.render(styleSheet);
-
-  const dims = [
-    view[0] - trbl[1] - trbl[3],
-    view[1] - trbl[0] - trbl[2],
-  ];
 
   return (
     <div
@@ -51,7 +47,7 @@ export default function Chart(props, context) {
         viewBox={`0 0 ${view[0]} ${view[1]}`}
       >
         <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
-          <rect fill="rgba(0,0,0,0.3)" width={dims[0]} height={dims[1]} />
+          {children}
         </g>
       </svg>
     </div>
@@ -78,7 +74,7 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
-  view: [1000, 500],
+  view: [1000, 250],
   trbl: [10, 10, 10, 10],
 };
 
