@@ -10,6 +10,18 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
   console.log(theme);
 
   return {
+    row: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    wrapper: {
+      margin: '8px',
+      border: '1px solid grey',
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+    },
     chart: {
       width: '100%',
       height: '0px',
@@ -34,20 +46,22 @@ export const styleSheet = createStyleSheet('Chart', (theme) => {
  * ```
  */
 export default function Chart(props, context) {
-  const { className, view, trbl, children } = props;
+  // const { className, view, trbl, children } = props;
   const classes = context.styleManager.render(styleSheet);
 
   return (
-    <div className="content row">
-      <div className="chart">
-        <svg viewBox="0 0 50 50">
-          <circle r="25" cx="25" cy="25" />
-        </svg>
-      </div>
-      <div className="chart">
-        <svg viewBox="0 0 50 50">
-          <circle r="25" cx="25" cy="25" />
-        </svg>
+    <div style={{ height: 100 }}>
+      <div className={classes.row}>
+        <div className={classes.wrapper}>
+          <svg viewBox="0 0 50 50">
+            <circle r="25" cx="25" cy="25" />
+          </svg>
+        </div>
+        <div className={classes.wrapper}>
+          <svg viewBox="0 0 50 50">
+            <circle r="25" cx="25" cy="25" />
+          </svg>
+        </div>
       </div>
     </div>
   );
