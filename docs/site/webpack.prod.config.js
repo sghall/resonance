@@ -37,10 +37,6 @@ module.exports = {
         test: /\.md$/,
         loader: 'raw',
       },
-      {
-        test: /\.css$/,
-        loader: 'style!css',
-      },
     ],
   },
   resolve: {
