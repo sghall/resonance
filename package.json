@@ -3,32 +3,6 @@
   "version": "0.1.0",
   "description": "React charts that conform to Google material design principles",
   "main": "index.js",
-  "scripts": {
-    "build": "npm run build:babel && npm run build:copy-files && npm run build:min",
-    "build:icon-index": "babel-node ./scripts/icon-index-generator.js",
-    "build:babel": "babel ./src --ignore *.spec.js --out-dir ./build",
-    "build:copy-files": "babel-node ./scripts/copy-files.js",
-    "build:min": "cross-env NODE_ENV=production webpack -p src/index.js --output-filename material-charts.min.js",
-    "build:docs": "babel-node ./scripts/build-api-docs.js",
-    "clean": "npm run clean:build",
-    "clean:docs": "rimraf docs/api/*",
-    "clean:build": "rimraf build",
-    "docs:start": "(cd docs/site; npm start)",
-    "lint": "eslint . --cache && echo \"eslint: no lint errors\"",
-    "lint:find-rules": "eslint-find-rules -u .eslintrc.js",
-    "prebuild": "npm run clean:build",
-    "test": "node test mocha",
-    "test:watch": "node test mocha -w",
-    "test:coverage": "istanbul cover test/index.js -- mocha",
-    "test:karma": "node test karma",
-    "test:e2e": "node test e2e -e chrome_51",
-    "test:e2e:local": "node test e2e -l -e chrome",
-    "test:e2e:all": "node test e2e -e chrome_51,safari_9,firefox_46,ie_edge,ie_10",
-    "test:regressions": "node test regressions -l",
-    "flow": "flow",
-    "diff": "git remote update; git diff --name-only master material-ui/next",
-    "start": "babel-watch src/main.js"
-  },
   "repository": "git+https://github.com/sghall/material-charts.git",
   "keywords": [
     "react",
@@ -43,10 +17,30 @@
     "url": "https://github.com/sghall/material-charts/issues"
   },
   "homepage": "https://github.com/sghall/material-charts#readme",
+  "scripts": {
+    "build": "npm run build:babel && npm run build:copy-files && npm run build:min",
+    "build:icon-index": "babel-node ./scripts/icon-index-generator.js",
+    "build:babel": "babel ./src --ignore *.spec.js --out-dir ./build",
+    "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "build:min": "cross-env NODE_ENV=production webpack -p src/index.js --output-filename material-ui.min.js",
+    "build:docs": "babel-node ./scripts/build-api-docs.js",
+    "clean": "npm run clean:build",
+    "clean:docs": "rimraf docs/api/*",
+    "clean:build": "rimraf build",
+    "docs:start": "(cd docs/site; npm start)",
+    "lint": "eslint . --cache && echo \"eslint: no lint errors\"",
+    "lint:find-rules": "eslint-find-rules -u .eslintrc.js",
+    "prebuild": "npm run clean:build",
+    "test": "cross-env NODE_ENV=test mocha",
+    "test:watch": "cross-env NODE_ENV=test mocha -w",
+    "test:coverage": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha && nyc report -r lcovonly",
+    "test:karma": "cross-env NODE_ENV=test karma start test/karma.conf.js --single-run",
+    "test:regressions": "webpack --config test/regressions/webpack.config.js && vrtest run --config test/vrtest.config.js",
+    "flow": "flow"
+  },
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "material-ui": "v1.0.0-alpha.3"
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -67,6 +61,7 @@
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-react-remove-properties": "^0.2.3",
     "babel-plugin-transform-dev-warning": "^0.1.0",
     "babel-plugin-transform-react-constant-elements": "^6.22.0",
@@ -79,10 +74,7 @@
     "babel-preset-stage-1": "^6.22.0",
     "babel-register": "^6.22.0",
     "babel-runtime": "^6.22.0",
-    "blink-diff": "^1.0.13",
     "chai": "^3.5.0",
-    "commander": "^2.9.0",
-    "coveralls": "^2.11.15",
     "cross-env": "^3.1.4",
     "doctrine": "^2.0.0",
     "enzyme": "^2.7.0",
@@ -100,8 +92,6 @@
     "flow-bin": "^0.38.0",
     "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
-    "http-server": "^0.9.0",
-    "istanbul": "^1.1.0-alpha.1",
     "jsdom": "^9.9.1",
     "json-loader": "^0.5.4",
     "karma": "^1.4.0",
@@ -111,13 +101,9 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.1",
-    "material-ui": "v1.0.0-alpha.3",
     "mocha": "^3.2.0",
-    "ngrok": "^2.2.5",
-    "nightwatch": "^0.9.12",
-    "nodemon": "^1.11.0",
+    "nyc": "^10.1.2",
     "phantomjs-prebuilt": "^2.1.14",
-    "png-crop": "0.0.1",
     "random-words": "0.0.1",
     "raw-loader": "^0.5.1",
     "react": "^15.4.2",
@@ -130,6 +116,19 @@
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.5.2",
     "sinon": "^1.17.7",
+    "url-loader": "^0.5.7",
+    "vrtest": "0.1.1-beta.2",
+    "webfontloader": "^1.6.27",
     "webpack": "^1.14.0"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
