@@ -44,8 +44,8 @@
   },
   "homepage": "https://github.com/sghall/material-charts#readme",
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "material-ui": "v1.0.0-alpha.3"
   },
   "dependencies": {
@@ -111,6 +111,7 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.1",
+    "material-ui": "v1.0.0-alpha.3"
     "mocha": "^3.2.0",
     "ngrok": "^2.2.5",
     "nightwatch": "^0.9.12",
