@@ -38,20 +38,36 @@ export default function Chart(props, context) {
   const classes = context.styleManager.render(styleSheet);
 
   return (
-    <div
-      className={classNames(classes.chart, className)}
-      style={{ paddingTop: `${(Math.round(view[1] / view[0]) * 100)}%` }}
-    >
-      <svg
-        className={classes.svg}
-        viewBox={`0 0 ${view[0]} ${view[1]}`}
-      >
-        <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
-          {children}
-        </g>
-      </svg>
+    <div className="content row">
+      <div className="chart">
+        <svg viewBox="0 0 50 50">
+          <circle r="25" cx="25" cy="25" />
+        </svg>
+      </div>
+      <div className="chart">
+        <svg viewBox="0 0 50 50">
+          <circle r="25" cx="25" cy="25" />
+        </svg>
+      </div>
     </div>
   );
+
+
+  // return (
+  //   <div
+  //     className={classNames(classes.chart, className)}
+  //     style={{ paddingTop: `${(Math.round(view[1] / view[0]) * 100)}%` }}
+  //   >
+  //     <svg
+  //       className={classes.svg}
+  //       viewBox={`0 0 ${view[0]} ${view[1]}`}
+  //     >
+  //       <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
+  //         {children}
+  //       </g>
+  //     </svg>
+  //   </div>
+  // );
 }
 
 Chart.propTypes = {
