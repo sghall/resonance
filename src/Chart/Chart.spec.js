@@ -4,21 +4,31 @@
 import React from 'react';
 import { assert } from 'chai';
 import { createShallowWithContext } from 'test/utils';
-import Chart, { styleSheet } from './Chart';
+import Chart from './Chart';
 
 describe('<Chart />', () => {
   let shallow;
-  let classes;
 
   before(() => {
     shallow = createShallowWithContext();
-    classes = shallow.context.styleManager.render(styleSheet);
   });
 
-  it('should render a div', () => {
+  it('should render an svg element', () => {
     const wrapper = shallow(
-      <Chart>Hello World</Chart>,
+      <Chart />,
     );
-    assert.strictEqual(wrapper.is('div'), true, 'should be a div');
+    assert.strictEqual(wrapper.is('svg'), true, 'should be an svg');
+  });
+
+  it('should spread props', () => {
+    const wrapper = shallow(
+      <Chart data-test="hello" />,
+    );
+    assert.strictEqual(wrapper.prop('data-test'), 'hello', 'should be spread on the Chart element');
+  });
+
+  it('should add user classes', () => {
+    const wrapper = shallow(<Chart className="wu-tang" />);
+    assert.strictEqual(wrapper.hasClass('wu-tang'), true, 'should have the wu-tang class');
   });
 });
