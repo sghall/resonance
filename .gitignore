@@ -5,6 +5,7 @@ coverage
 /test/regressions/screenshots/output
 /test/selenium-output
 .eslintcache
+.nyc_output
 tmp
 
 # OS files
