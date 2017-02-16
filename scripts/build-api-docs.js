@@ -25,7 +25,6 @@ function buildDocs(componentPath) {
     const outputDir = path.resolve(docsDir, relativePath.dir);
 
     let componentInfo;
-
     try {
       componentInfo = reactDocgen.parse(src);
     } catch (err2) {
