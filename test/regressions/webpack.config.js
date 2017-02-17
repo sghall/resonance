@@ -23,7 +23,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'material-ui': path.resolve(__dirname, '../../src'),
+      'material-charts': path.resolve(__dirname, '../../src'),
     },
   },
 };

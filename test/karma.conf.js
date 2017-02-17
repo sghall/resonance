@@ -62,7 +62,7 @@ module.exports = function setKarmaConfig(config) {
       },
       resolve: {
         alias: {
-          'material-ui': path.resolve(__dirname, '../src'),
+          'material-charts': path.resolve(__dirname, '../src'),
           sinon: 'sinon/pkg/sinon.js',
         },
         extensions: ['.js'],
