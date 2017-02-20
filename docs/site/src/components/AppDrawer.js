@@ -105,7 +105,7 @@ export default class AppDrawer extends Component {
         <div className={classes.nav}>
           <Toolbar>
             <Link className={classes.title} to="/" onClick={this.props.onRequestClose}>
-              <Text type="title">Material UI</Text>
+              <Text type="title">Material Charts</Text>
             </Link>
             <Divider absolute />
           </Toolbar>
