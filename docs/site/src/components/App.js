@@ -5,15 +5,15 @@ import { connect } from 'react-redux';
 import MuiThemeProvider, { MUI_SHEET_ORDER } from 'material-ui/styles/MuiThemeProvider';
 import createPalette from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
-import { blue, pink } from 'material-ui/styles/colors';
+import { grey, pink } from 'material-ui/styles/colors';
 import { lightTheme, darkTheme, setPrismTheme } from 'docs/site/src/utils/prism';
-import AppRouter from './AppRouter';
+import AppRouter from '../routes';
 
 function App(props) {
   const { dark } = props;
 
   const palette = createPalette({
-    primary: blue,
+    primary: grey,
     accent: pink,
     type: dark ? 'dark' : 'light',
   });
