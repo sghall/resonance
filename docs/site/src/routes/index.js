@@ -11,9 +11,9 @@ import {
 } from 'react-router';
 import { useScroll } from 'react-router-scroll';
 import { kebabCase, titleize } from 'docs/site/src/utils/helpers';
-import AppFrame from './AppFrame';
-import AppContent from './AppContent';
-import MarkdownDocs from './MarkdownDocs';
+import AppFrame from '../components/AppFrame';
+import AppContent from '../components/AppContent';
+import MarkdownDocs from '../components/MarkdownDocs';
 import Home from '../pages/Home';
 
 /**
