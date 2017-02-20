@@ -17,7 +17,7 @@ import App from 'docs/site/src/components/App';
 
 window.Perf = ReactPerf;
 
-const docs = (state = { dark: false }, action) => {
+const docs = (state = { dark: true }, action) => {
   if (action.type === 'TOGGLE_THEME_SHADE') {
     return {
       ...state,
