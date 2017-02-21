@@ -161,35 +161,6 @@ export default function AppRouter() {
         >
           {apiDocRoutes}
         </Route>
-        <Route
-          title="Discover More"
-          path="/discover-more"
-          nav
-          component={AppContent}
-        >
-          <IndexRedirect to="community" />
-          <Route
-            title="Community"
-            path="/discover-more/community"
-            content={docsContext('./discover-more/community.md')}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Showcase"
-            path="/discover-more/showcase"
-            content={docsContext('./discover-more/showcase.md')}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Related Projects"
-            path="/discover-more/related-projects"
-            content={docsContext('./discover-more/related-projects.md')}
-            component={MarkdownDocs}
-            nav
-          />
-        </Route>
       </Route>
     </Router>
   );
