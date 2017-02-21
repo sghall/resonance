@@ -146,20 +146,6 @@ export default function AppRouter() {
           />
         </Route>
         <Route
-          title="Layout"
-          path="/layout"
-          nav
-          component={AppContent}
-        >
-          <Route
-            title="Responsive UI"
-            path="/layout/responsive-ui"
-            content={docsContext('./site/src/pages/layout/responsive-ui/responsive-ui.md')}
-            component={MarkdownDocs}
-            nav
-          />
-        </Route>
-        <Route
           title="Component Demos"
           path="/component-demos"
           nav
