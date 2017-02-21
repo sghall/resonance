@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import MuiThemeProvider, { MUI_SHEET_ORDER } from 'material-ui/styles/MuiThemeProvider';
 import createPalette from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
-import { grey, pink } from 'material-ui/styles/colors';
+import { brown, pink } from 'material-ui/styles/colors';
 import { lightTheme, darkTheme, setPrismTheme } from 'docs/site/src/utils/prism';
 import AppRouter from '../routes';
 
@@ -13,7 +13,7 @@ function App(props) {
   const { dark } = props;
 
   const palette = createPalette({
-    primary: grey,
+    primary: brown,
     accent: pink,
     type: dark ? 'dark' : 'light',
   });
