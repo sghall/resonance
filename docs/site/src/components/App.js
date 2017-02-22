@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import MuiThemeProvider, { MUI_SHEET_ORDER } from 'material-ui/styles/MuiThemeProvider';
 import createPalette from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
-import { brown, pink } from 'material-ui/styles/colors';
 import { lightTheme, darkTheme, setPrismTheme } from 'docs/site/src/utils/prism';
 import AppRouter from '../routes';
 
@@ -31,20 +30,20 @@ function App(props) {
       contrastDefaultColor: 'light',
     },
     accent: {
-      50: '#e5f4f3',
-      100: '#bee4e1',
-      200: '#93d3cd',
-      300: '#67c1b8',
-      400: '#47b3a9',
-      500: '#26a69a',
-      600: '#229e92',
-      700: '#1c9588',
-      800: '#178b7e',
-      900: '#0d7b6c',
-      A100: '#adfff3',
-      A200: '#7affec',
-      A400: '#47ffe4',
-      A700: '#2dffe0',
+      50: '#efece5',
+      100: '#d6cfbe',
+      200: '#bbaf93',
+      300: '#9f8f67',
+      400: '#8b7747',
+      500: '#765f26',
+      600: '#6e5722',
+      700: '#634d1c',
+      800: '#594317',
+      900: '#46320d',
+      A100: '#ffcd7f',
+      A200: '#ffb94c',
+      A400: '#ffa619',
+      A700: '#fe9c00',
       constrastDefaultColor: 'light',
     },
     type: dark ? 'dark' : 'light',
