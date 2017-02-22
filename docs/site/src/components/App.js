@@ -49,4 +49,4 @@ App.propTypes = {
   dark: PropTypes.bool.isRequired,
 };
 
-export default connect((state) => ({ dark: state.dark }))(App);
+export default connect((state) => ({ dark: state.theme.dark }))(App);
