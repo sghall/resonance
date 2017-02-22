@@ -1,11 +1,11 @@
 // @flow weak
 
 import { AppContainer } from 'react-hot-loader';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactPerf from 'react-addons-perf';
 import { render } from 'react-dom';
+import createStore from 'docs/site/src/store/createStore';
 import App from 'docs/site/src/components/App';
 
 // Warns about potential accessibility issues with your React elements.
@@ -17,17 +17,7 @@ import App from 'docs/site/src/components/App';
 
 window.Perf = ReactPerf;
 
-const docs = (state = { dark: true }, action) => {
-  if (action.type === 'TOGGLE_THEME_SHADE') {
-    return {
-      ...state,
-      dark: !state.dark,
-    };
-  }
-  return state;
-};
-
-export const store = createStore(docs);
+export const store = createStore();
 
 const rootEl = document.querySelector('#app');
 
