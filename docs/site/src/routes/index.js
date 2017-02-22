@@ -18,18 +18,14 @@ import MarkdownDocs from '../components/MarkdownDocs';
 import Home from '../pages/Home';
 import courseRoutes from './Course';
 
-/**
- * This lets us eager load the files ahead of time
- * and require them dynamically with webpack's context feature
- */
 
-function formatName(path) {
+function formatPath(path) {
   return [path, path.replace(/.*\//, '').replace('.md', '')];
 }
 
 const demosContext = require.context('../demos', true, /\.md$/);
 const demoRoutes = demosContext.keys()
-  .map(formatName)
+  .map(formatPath)
   .map(([path, name]) => {
     return {
       nav: true,
@@ -48,7 +44,7 @@ const docsContext = require.context(
 
 const apiDocRoutes = docsContext.keys()
   .filter((n) => /^\.\/api\//.test(n))
-  .map(formatName)
+  .map(formatPath)
   .map(([path, name]) => {
     return {
       nav: true,
@@ -60,60 +56,64 @@ const apiDocRoutes = docsContext.keys()
   });
 
 const rootRoute = {
-  childRoutes: [{
-    path: '/',
-    component: AppFrame,
-    indexRoute: {
-      title: null,
-      component: Home,
-      dockDrawer: true,
-    },
-    childRoutes: [
-      {
-        nav: true,
-        path: '/getting-started',
-        title: 'Getting Started',
-        component: AppContent,
-        childRoutes: [
-          {
-            nav: true,
-            path: '/getting-started/installation',
-            title: 'Installation',
-            component: MarkdownDocs,
-            content: docsContext('./getting-started/installation.md'),
-          },
-          {
-            nav: true,
-            path: '/getting-started/usage',
-            title: 'Usage',
-            component: MarkdownDocs,
-            content: docsContext('./getting-started/usage.md'),
-          },
-          {
-            nav: true,
-            path: '/getting-started/server-rendering',
-            title: 'Server Rendering',
-            component: MarkdownDocs,
-            content: docsContext('./getting-started/server-rendering.md'),
-          },
-        ],
-      }, 
-      {
-        nav: true,
-        path: '/component-demos',
-        title: 'Component Demos',
-        component: AppContent,
-        childRoutes: demoRoutes,
-      }, 
-      {
-        nav: true,
-        path: '/component-api',
-        title: 'Component API',
-        component: AppContent,
-        childRoutes: apiDocRoutes,
+  path: '/',
+  title: 'Material Charts',
+  component: AppFrame,
+  indexRoute: {
+    title: null,
+    component: Home,
+    dockDrawer: true,
+  },
+  childRoutes: [
+    {
+      nav: true,
+      path: '/getting-started',
+      title: 'Getting Started',
+      component: AppContent,
+      indexRoute: {
+        onEnter(nextState, replace) {
+          replace('/getting-started/installation') 
+        },
       },
-    ],
-  }],
+      childRoutes: [
+        {
+          nav: true,
+          path: '/getting-started/installation',
+          title: 'Installation',
+          component: MarkdownDocs,
+          content: docsContext('./getting-started/installation.md'),
+        },
+        {
+          nav: true,
+          path: '/getting-started/usage',
+          title: 'Usage',
+          component: MarkdownDocs,
+          content: docsContext('./getting-started/usage.md'),
+        },
+        {
+          nav: true,
+          path: '/getting-started/server-rendering',
+          title: 'Server Rendering',
+          component: MarkdownDocs,
+          content: docsContext('./getting-started/server-rendering.md'),
+        },
+      ],
+    }, 
+    {
+      nav: true,
+      path: '/component-demos',
+      title: 'Component Demos',
+      component: AppContent,
+      childRoutes: demoRoutes,
+    }, 
+    {
+      nav: true,
+      path: '/component-api',
+      title: 'Component API',
+      component: AppContent,
+      childRoutes: apiDocRoutes,
+    },
+  ],
 };
 
 export default function AppRouter() {
