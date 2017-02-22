@@ -40,17 +40,79 @@ const demoRoutes = demosContext.keys()
     };
   });
 
+const docsContext = require.context(
+  './../../../../docs',
+  true,
+  /^((?![\\/]site\/src\/demos|node_modules[\\/]).)*\.md$/,
+);
+
+const apiDocRoutes = docsContext.keys()
+  .filter((n) => /^\.\/api\//.test(n))
+  .map(formatName)
+  .map(([path, name]) => {
+    return {
+      nav: true,
+      path: `/component-api/${kebabCase(name)}`,
+      title: name,
+      component: MarkdownDocs,
+      content: docsContext(path),
+    };
+  });
+
 const rootRoute = {
   childRoutes: [{
     path: '/',
     component: AppFrame,
-    childRoutes: [{
-      nav: true,
-      path: '/component-demos',
-      title: 'Component Demos',
-      component: AppContent,
-      childRoutes: demoRoutes,
-    }],
+    indexRoute: {
+      title: null,
+      component: Home,
+      dockDrawer: true,
+    },
+    childRoutes: [
+      {
+        nav: true,
+        path: '/getting-started',
+        title: 'Getting Started',
+        component: AppContent,
+        childRoutes: [
+          {
+            nav: true,
+            path: '/getting-started/installation',
+            title: 'Installation',
+            component: MarkdownDocs,
+            content: docsContext('./getting-started/installation.md'),
+          },
+          {
+            nav: true,
+            path: '/getting-started/usage',
+            title: 'Usage',
+            component: MarkdownDocs,
+            content: docsContext('./getting-started/usage.md'),
+          },
+          {
+            nav: true,
+            path: '/getting-started/server-rendering',
+            title: 'Server Rendering',
+            component: MarkdownDocs,
+            content: docsContext('./getting-started/server-rendering.md'),
+          },
+        ],
+      }, 
+      {
+        nav: true,
+        path: '/component-demos',
+        title: 'Component Demos',
+        component: AppContent,
+        childRoutes: demoRoutes,
+      }, 
+      {
+        nav: true,
+        path: '/component-api',
+        title: 'Component API',
+        component: AppContent,
+        childRoutes: apiDocRoutes,
+      },
+    ],
   }],
 };
 
