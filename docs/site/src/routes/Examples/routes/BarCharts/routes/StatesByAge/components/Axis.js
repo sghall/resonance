@@ -52,7 +52,7 @@ export class Axis extends Component {
       }
     }
 
-    const keys = mounted.keys();
+    const keys = Object.keys(mounted);
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
