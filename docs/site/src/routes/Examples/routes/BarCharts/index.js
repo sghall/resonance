@@ -1,15 +1,18 @@
 // @flow weak
-// import Examples from './components/Examples';
+import BarCharts from './components/BarCharts';
 
 export default (store) => ({
   nav: true,
-  path: '/examples/home/bar-charts',
-  title: 'Bar',
-  getComponent(nextState, cb) {
-    require.ensure([], (require) => {
-      const BarCharts = require('./components/BarCharts').default;
-      cb(null, BarCharts);
-    }, 'bar-charts');
+  path: '/examples/bar-charts',
+  title: 'Bar Charts',
+  component: BarCharts,
+  indexRoute: {
+    onEnter(nextState, replace) {
+      replace('/examples/bar-charts/states-by-age');
+    },
   },
+  childRoutes: [
+    require('./routes/StatesByAge').default(store), // eslint-disable-line global-require
+  ],
 });
 

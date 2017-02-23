@@ -140,8 +140,13 @@ const routes = {
       path: '/examples',
       title: 'Examples',
       component: AppContent,
+      indexRoute: {
+        onEnter(nextState, replace) {
+          replace('/examples/bar-charts');
+        },
+      },
       childRoutes: [
-        require('./Examples').default(store), // eslint-disable-line global-require
+        require('./Examples/routes/BarCharts').default(store), // eslint-disable-line global-require
       ],
     },
   ],

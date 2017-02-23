@@ -43,6 +43,7 @@ function renderNavItems(props, navRoot) {
 }
 
 function reduceChildRoutes(props, items, childRoute, index) {
+  console.log(childRoute.title)
   if (childRoute.nav) {
     if (childRoute.childRoutes && childRoute.childRoutes.length) {
       const openImmediately = props.routes.indexOf(childRoute) !== -1 || false;
