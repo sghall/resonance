@@ -147,7 +147,7 @@ const routes = {
         },
       },
       childRoutes: [
-        require('./Examples/routes/BarCharts').default(store, injectReducer),
+        require('./Examples/BarCharts').default(store, injectReducer),
       ],
     },
   ],

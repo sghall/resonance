@@ -1,7 +1,15 @@
 // @flow weak
 /* eslint global-require: "false" */
 
-import BarCharts from './components/BarCharts';
+import { PropTypes } from 'react';
+
+function BarCharts({ children }) {
+  return children;
+}
+
+BarCharts.propTypes = {
+  children: PropTypes.node,
+};
 
 export default (store, injectReducer) => ({
   nav: true,
