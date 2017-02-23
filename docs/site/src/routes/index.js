@@ -1,4 +1,5 @@
 // @flow weak
+/* eslint global-require: "false" */
 
 import React from 'react';
 import {
@@ -12,7 +13,7 @@ import AppFrame from '../components/AppFrame';
 import AppContent from '../components/AppContent';
 import MarkdownDocs from '../components/MarkdownDocs';
 import Home from '../pages/Home';
-import store from '../store';
+import store, { injectReducer } from '../store';
 
 function formatPath(path) {
   return [path, path.replace(/.*\//, '').replace('.md', '')];
@@ -146,7 +147,7 @@ const routes = {
         },
       },
       childRoutes: [
-        require('./Examples/routes/BarCharts').default(store), // eslint-disable-line global-require
+        require('./Examples/routes/BarCharts').default(store, injectReducer),
       ],
     },
   ],

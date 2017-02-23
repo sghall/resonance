@@ -123,7 +123,7 @@ function removeNode(state, udid) {
   return Object.assign({}, state.removed, { [udid]: true });
 }
 
-export function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   let data; // eslint-disable-line no-shadow
 
   switch (action.type) {

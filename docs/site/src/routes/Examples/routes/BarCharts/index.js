@@ -1,7 +1,9 @@
 // @flow weak
+/* eslint global-require: "false" */
+
 import BarCharts from './components/BarCharts';
 
-export default (store) => ({
+export default (store, injectReducer) => ({
   nav: true,
   path: '/examples/bar-charts',
   title: 'Bar Charts',
@@ -12,7 +14,7 @@ export default (store) => ({
     },
   },
   childRoutes: [
-    require('./routes/StatesByAge').default(store), // eslint-disable-line global-require
+    require('./routes/StatesByAge').default(store, injectReducer),
   ],
 });
 
