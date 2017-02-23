@@ -3,27 +3,27 @@
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { rawData } from './data';
 
-export const APP_UPDATE_ORDER = 'APP_UPDATE_ORDER';
-export const APP_UPDATE_COUNT = 'APP_UPDATE_COUNT';
-export const APP_REMOVE_NODE = 'APP_REMOVE_NODE';
+export const STATES_BY_AGE_UPDATE_ORDER = 'STATES_BY_AGE_UPDATE_ORDER';
+export const STATES_BY_AGE_UPDATE_COUNT = 'STATES_BY_AGE_UPDATE_COUNT';
+export const STATES_BY_AGE_REMOVE_NODE = 'STATES_BY_AGE_REMOVE_NODE';
 
 export function updateSortOrder(sortKey) {
   return {
-    type: APP_UPDATE_ORDER,
+    type: STATES_BY_AGE_UPDATE_ORDER,
     sortKey,
   };
 }
 
 export function updateTopCount(topN) {
   return {
-    type: APP_UPDATE_COUNT,
+    type: STATES_BY_AGE_UPDATE_COUNT,
     topN,
   };
 }
 
 export function removedNode(udid) {
   return {
-    type: APP_REMOVE_NODE,
+    type: STATES_BY_AGE_REMOVE_NODE,
     udid,
   };
 }
@@ -127,13 +127,13 @@ export default function reducer(state = initialState, action) {
   let data;
 
   switch (action.type) {
-    case APP_UPDATE_ORDER:
+    case STATES_BY_AGE_UPDATE_ORDER:
       data = state.data.sort(sortByKey(action.sortKey)).slice(0, state.showTop);
       return Object.assign({}, state, update(state, action.sortKey, data));
-    case APP_UPDATE_COUNT:
+    case STATES_BY_AGE_UPDATE_COUNT:
       data = state.data.sort(sortByKey(state.sortKey)).slice(0, action.topN);
       return Object.assign({}, state, update(state, state.sortKey, data), { showTop: action.topN });
-    case APP_REMOVE_NODE:
+    case STATES_BY_AGE_REMOVE_NODE:
       return Object.assign({}, state, {
         removed: removeNode(state, action.udid),
       });

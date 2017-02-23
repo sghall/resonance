@@ -6,8 +6,11 @@ export default (store, injectReducer) => ({
   title: 'States By Age',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
-      injectReducer(store, { key: 'states-by-age', reducer: require('./module').default });
-      cb(null, require('./components/StatesByAge').default);
+      const Example = require('./example').default;
+      const reducer = require('./modules').default;
+
+      injectReducer(store, { key: 'states-by-age', reducer });
+      cb(null, Example);
     }, 'states-by-age');
   },
 });
