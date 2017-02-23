@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactPerf from 'react-addons-perf';
 import { render } from 'react-dom';
-import createStore from 'docs/site/src/store/createStore';
+import store from 'docs/site/src/store';
 import App from 'docs/site/src/components/App';
 
 // Warns about potential accessibility issues with your React elements.
@@ -16,8 +16,6 @@ import App from 'docs/site/src/components/App';
 // }
 
 window.Perf = ReactPerf;
-
-export const store = createStore();
 
 const rootEl = document.querySelector('#app');
 

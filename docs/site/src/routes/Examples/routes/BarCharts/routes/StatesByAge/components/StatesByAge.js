@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/table';
 import { Card, CardHeader } from 'material-ui/Card';
 import { format } from 'd3-format';
-import { updateSortOrder, updateTopCount, removedNode } from './actions';
-import { Chart } from './components/Chart';
-import { Axis } from './components/Axis';
-import { Bar } from './components/Bar';
+import { updateSortOrder, removedNode } from '../module';
+import { Chart } from './Chart';
+import { Axis } from './Axis';
+import { Bar } from './Bar';
 
 const percentFormat = format('.1%');
 

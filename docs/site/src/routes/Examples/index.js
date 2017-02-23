@@ -1,19 +1,27 @@
 // @flow weak
+// import Examples from './components/Examples';
 
-export default {
-  path: 'course/:courseId',
+export default (store) => ({
+  nav: true,
+  path: '/examples/home',
+  title: 'Examples Home',
+  getComponent(nextState, cb) {
+    require.ensure([], (require) => {
+      const Examples = require('./components/Examples').default;
+      cb(null, Examples);
+    }, 'examples');
+  },
+  indexRoute: {
+    onEnter(nextState, replace) {
+      replace('/examples/home/bar-charts');
+    },
+  },
   getChildRoutes(partialNextState, cb) {
     require.ensure([], (require) => {
       cb(null, [
-        require('./routes/Announcements'),
-        require('./routes/Assignments'),
-        require('./routes/Grades'),
+        require('./routes/BarCharts').default(store),
       ]);
     });
   },
-  getComponent(nextState, cb) {
-    require.ensure([], (require) => {
-      cb(null, require('./components/Course'));
-    });
-  },
-};
+});
+

@@ -1,14 +1,10 @@
 // @flow weak
-/* eslint global-require: "true" */
 
 import React from 'react';
 import {
   applyRouterMiddleware,
   hashHistory,
   Router,
-  Route,
-  IndexRoute,
-  IndexRedirect,
 } from 'react-router';
 import { useScroll } from 'react-router-scroll';
 import { kebabCase, titleize } from 'docs/site/src/utils/helpers';
@@ -16,8 +12,7 @@ import AppFrame from '../components/AppFrame';
 import AppContent from '../components/AppContent';
 import MarkdownDocs from '../components/MarkdownDocs';
 import Home from '../pages/Home';
-import courseRoutes from './Course';
-
+import store from '../store';
 
 function formatPath(path) {
   return [path, path.replace(/.*\//, '').replace('.md', '')];
@@ -72,7 +67,7 @@ const routes = {
       component: AppContent,
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/getting-started/installation') 
+          replace('/getting-started/installation');
         },
       },
       childRoutes: [
@@ -106,7 +101,7 @@ const routes = {
       component: AppContent,
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/customization/themes') 
+          replace('/customization/themes');
         },
       },
       childRoutes: [
@@ -132,13 +127,22 @@ const routes = {
       title: 'Component Demos',
       component: AppContent,
       childRoutes: demoRoutes,
-    }, 
+    },
     {
       nav: true,
       path: '/component-api',
       title: 'Component API',
       component: AppContent,
       childRoutes: apiDocRoutes,
+    },
+    {
+      nav: true,
+      path: '/examples',
+      title: 'Examples',
+      component: AppContent,
+      childRoutes: [
+        require('./Examples').default(store), // eslint-disable-line global-require
+      ],
     },
   ],
 };

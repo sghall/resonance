@@ -1,8 +1,32 @@
 // @flow weak
 
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { APP_REMOVE_NODE, APP_UPDATE_ORDER, APP_UPDATE_COUNT } from '../actions';
-import { rawData } from '../data';
+import { rawData } from './data';
+
+export const APP_UPDATE_ORDER = 'APP_UPDATE_ORDER';
+export const APP_UPDATE_COUNT = 'APP_UPDATE_COUNT';
+export const APP_REMOVE_NODE = 'APP_REMOVE_NODE';
+
+export function updateSortOrder(sortKey) {
+  return {
+    type: APP_UPDATE_ORDER,
+    sortKey,
+  };
+}
+
+export function updateTopCount(topN) {
+  return {
+    type: APP_UPDATE_COUNT,
+    topN,
+  };
+}
+
+export function removedNode(udid) {
+  return {
+    type: APP_REMOVE_NODE,
+    udid,
+  };
+}
 
 const initialState = {
   data: rawData,
