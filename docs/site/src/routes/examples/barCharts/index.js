@@ -22,7 +22,7 @@ export default (store, injectReducer) => ({
     },
   },
   childRoutes: [
-    require('./routes/StatesByAge').default(store, injectReducer),
+    require('./statesByAge').default(store, injectReducer),
   ],
 });
 

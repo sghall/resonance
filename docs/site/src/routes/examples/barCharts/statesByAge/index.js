@@ -11,4 +11,3 @@ export default (store, injectReducer) => ({
     }, 'states-by-age');
   },
 });
-

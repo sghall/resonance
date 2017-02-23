@@ -15,7 +15,7 @@ export function kebabCase(string) {
 }
 
 export function titleize(string) {
-  if (string.length <= 3) { // e.g SVG
+  if (string.length <= 3) {
     return string.toUpperCase();
   }
 

@@ -124,7 +124,7 @@ function removeNode(state, udid) {
 }
 
 export default function reducer(state = initialState, action) {
-  let data; // eslint-disable-line no-shadow
+  let data;
 
   switch (action.type) {
     case APP_UPDATE_ORDER:
