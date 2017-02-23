@@ -148,8 +148,6 @@ class AppFrame extends Component {
       appBarClassName += ` ${classes.appBarShift}`;
     }
 
-    console.log('props!!!', this.props);
-
     return (
       <div className={classes.appFrame}>
         <AppBar className={appBarClassName}>
