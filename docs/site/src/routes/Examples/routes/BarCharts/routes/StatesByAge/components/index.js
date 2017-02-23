@@ -4,12 +4,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/table';
 import { Card, CardHeader } from 'material-ui/Card';
-import Slider from 'material-ui/Slider';
 import { format } from 'd3-format';
-import { updateSortOrder, updateTopCount, removedNode } from '../actions';
-import { Chart } from '../components/Chart';
-import { Axis } from '../components/Axis';
-import { Bar } from '../components/Bar';
+import { updateSortOrder, updateTopCount, removedNode } from './actions';
+import { Chart } from './components/Chart';
+import { Axis } from './components/Axis';
+import { Bar } from './components/Bar';
 
 const percentFormat = format('.1%');
 
@@ -117,26 +116,15 @@ export class App extends Component {
         <div className="row" style={{ marginLeft: 0, marginRight: 0 }}>
           <div className="col-md-6 col-sm-6">
             <span>Show Top {showTopN} States:</span>
-            <Slider
-              style={{ margin: '5px 0px' }}
-              defaultValue={0.25}
-              onChange={this.setShowTopN}
-              onDragStop={() => dispatch(updateTopCount(showTopN))}
-            />
           </div>
           <div className="col-md-6 col-sm-6">
             <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
-            <Slider
-              style={{ margin: '5px 0px' }}
-              defaultValue={0.1}
-              onChange={this.setDuration}
-            />
           </div>
         </div>
         <div className="row" style={{ margin: '20px 0px' }}>
           <div className="col-md-12 col-sm-12">
             <h4 style={{ marginTop: -45, marginBottom: -10 }}>Top States by Age Bracket, 2008</h4>
-            <p>The bar chart shows the top states for the selected age bracket sorted by population percentage. Adapted from Mike Bostock's <a href='https://bost.ocks.org/mike/constancy/'>classic example</a> on object constancy.</p>
+            <p>The bar chart shows the top states for the selected age bracket sorted by population percentage. Adapted from the Mike Bostock <a href="https://bost.ocks.org/mike/constancy/">example</a> on object constancy.</p>
           </div>
         </div>
         <div className="row">
