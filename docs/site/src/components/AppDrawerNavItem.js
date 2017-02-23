@@ -26,6 +26,11 @@ export const styleSheet = createStyleSheet('AppDrawerNavItem', (theme) => {
       paddingTop: 0,
       paddingBottom: 0,
     },
+    navSubItem: {
+      ...theme.typography.body2,
+      display: 'block',
+      padding: '0px 0px 0px 14px',
+    },
     navLink: {
       fontWeight: theme.typography.fontWeightRegular,
       display: 'flex',
@@ -46,6 +51,7 @@ export const styleSheet = createStyleSheet('AppDrawerNavItem', (theme) => {
 export default class AppDrawerNavItem extends Component {
   static propTypes = {
     children: PropTypes.node,
+    depth: PropTypes.number,
     onClick: PropTypes.func,
     openImmediately: PropTypes.bool,
     title: PropTypes.string.isRequired,
@@ -75,7 +81,7 @@ export default class AppDrawerNavItem extends Component {
   };
 
   render() {
-    const { children, title, to } = this.props;
+    const { children, title, depth, to } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     if (to) {
@@ -99,7 +105,7 @@ export default class AppDrawerNavItem extends Component {
     }
 
     return (
-      <ListItem className={classes.navItem} gutters={false}>
+      <ListItem className={depth === 1 ? classes.navItem : classes.navSubItem} gutters={false}>
         <Button className={classes.button} onClick={this.handleClick}>
           {title}
         </Button>
