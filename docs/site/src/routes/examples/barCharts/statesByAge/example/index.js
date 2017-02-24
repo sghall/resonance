@@ -2,11 +2,13 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
-import { Card, CardHeader } from 'material-ui/Card';
+import { Table, TableRow, TableCell, TableBody } from 'material-ui/Table';
+import Checkbox from 'material-ui/Checkbox';
+import Layout from 'material-ui/Layout';
+import Chart from 'material-charts/Chart';
+import Paper from 'material-ui/Paper';
 import { format } from 'd3-format';
 import { updateSortOrder, removedNode } from '../modules';
-import { Chart } from './components/Chart';
 import { Axis } from './components/Axis';
 import { Bar } from './components/Bar';
 
@@ -80,17 +82,26 @@ export class App extends Component {
       );
     });
 
-    // const tableRows = ages.map((age) => {
-    //   return (
-    //     <TableRow
-    //       key={age}
-    //       selected={sortKey === age}
-    //       style={{ cursor: 'pointer' }}
-    //     >
-    //       <TableRowColumn>{age}</TableRowColumn>
-    //     </TableRow>
-    //   );
-    // });
+    const tableRows = ages.map((age) => {
+      const isSelected = age === sortKey;
+
+      return (
+        <TableRow
+          hover
+          onClick={() => dispatch(updateSortOrder(age))}
+          role="checkbox"
+          aria-checked={isSelected}
+          tabIndex="-1"
+          key={age}
+          selected={isSelected}
+        >
+          <TableCell checkbox>
+            <Checkbox checked={isSelected} />
+          </TableCell>
+          <TableCell padding={false}>{age}</TableCell>
+        </TableRow>
+      );
+    });
 
     let axis = null;
 
@@ -107,15 +118,51 @@ export class App extends Component {
 
     return (
       <div className="row" style={{ marginLeft: 0, marginRight: 0 }}>
+        <Layout container gutter={24}>
+          <Layout item xs={12}>
+            <Paper>
+              xs=12
+            </Paper>
+          </Layout>
+          <Layout item xs={12} sm={3}>
+            <Table>
+              <TableBody>
+                {tableRows}
+              </TableBody>
+            </Table>
+          </Layout>
+          <Layout item xs={12} sm={9}>
+            <Chart view={view} trbl={trbl}>
+              {barNodes}{axis}
+            </Chart>
+          </Layout>
+          <Layout item xs={6} sm={3}>
+            <Paper>
+              xs=6 sm=3
+            </Paper>
+          </Layout>
+          <Layout item xs={6} sm={3}>
+            <Paper>
+              xs=6 sm=3
+            </Paper>
+          </Layout>
+          <Layout item xs={6} sm={3}>
+            <Paper>
+              xs=6 sm=3
+            </Paper>
+          </Layout>
+          <Layout item xs={6} sm={3}>
+            <Paper>
+              xs=6 sm=3
+            </Paper>
+          </Layout>
+        </Layout>
         <div className="col-md-6 col-sm-6">
           <span>Show Top {showTopN} States:</span>
         </div>
         <div className="col-md-6 col-sm-6">
           <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
         </div>
-        <Chart view={view} trbl={trbl}>
-          {barNodes}{axis}
-        </Chart>
       </div>
     );
   }

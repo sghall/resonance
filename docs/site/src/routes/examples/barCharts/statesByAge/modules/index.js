@@ -30,7 +30,7 @@ export function removedNode(udid) {
 
 const initialState = {
   data: rawData,
-  view: [500, 325],          // ViewBox: Width, Height
+  view: [500, 400],          // ViewBox: Width, Height
   trbl: [15, 10, 10, 30],    // Margins: Top, Right, Bottom, Left
   yScale: () => {},          // Y-scale default
   xScale: () => {},          // X-scale default
