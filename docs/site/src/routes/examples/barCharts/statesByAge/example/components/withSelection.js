@@ -15,18 +15,12 @@ export function withSelection(WrappedComponent, getStringKey) {
       this.state = {
         nodes: {},
       };
-
-      this.unlistNode = this.unlistNode.bind(this);
     }
 
     componentWillReceiveProps(next) {
       if (this.props.data !== next.data) {
         this.updateNodes(this.props);
       }
-    }
-
-    unlistNode(udid) {
-      this.exited[udid] = true;
     }
 
     updateNodes({ data, typeKey, udidKey }) {
@@ -68,7 +62,6 @@ export function withSelection(WrappedComponent, getStringKey) {
     render() {
       return (
         <WrappedComponent
-          onExit={this.handleExit}
           nodes={this.state.nodes} {...this.props}
         />
       );
