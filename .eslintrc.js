@@ -52,7 +52,6 @@ module.exports = {
     'react/no-direct-mutation-state': 'error', // airbnb is disabling this rule
     'react/no-find-dom-node': 'warn', // wishlist, one day
     'react/no-unused-prop-types': 'off', // Is still buggy
-    'react/sort-prop-types': 'error', // airbnb do nothing here.
     'react/sort-comp': [2, {
       order: [
         'static-methods',
