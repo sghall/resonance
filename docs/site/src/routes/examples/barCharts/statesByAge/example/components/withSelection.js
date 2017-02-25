@@ -16,8 +16,6 @@ export function withSelection(WrappedComponent, getStringKey) {
         nodes: {},
       };
 
-      this.registry = {};
-
       this.unlistNode = this.unlistNode.bind(this);
     }
 
@@ -39,8 +37,12 @@ export function withSelection(WrappedComponent, getStringKey) {
 
         nodes[udid] = { ...data[i], [udidKey]: udid };
 
-        if (this.state.nodes[udid] && !this.removed[udid]) {
-          nodes[udid][typeKey] = UPDATE;
+        if (this.state.nodes[udid]) {
+          if (this.state.nodes[udid] === REMOVE) {
+            nodes[udid][typeKey] = REVIVE;
+          } else {
+            nodes[udid][typeKey] = UPDATE;
+          }
         } else {
           nodes[udid][typeKey] = APPEAR;
         }
