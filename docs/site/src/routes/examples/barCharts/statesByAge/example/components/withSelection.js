@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import { AxisTick } from './AxisTick';
 
 export const APPEAR = 'APPEAR';
 export const UPDATE = 'UPDATE';
