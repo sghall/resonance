@@ -77,7 +77,7 @@ export default function withSelection(SelectionItem) {
       for (let i = 0, len = this.state.nodes.length; i < len; i++) {
         const node = this.state.nodes[i];
 
-        if (!udids[node.udid]) {
+        if (!udids[node.udid] && node.type !== REMOVE) {
           nodes.push(composeNode(node, REMOVE, node.udid));
           udids[node.udid] = REMOVE;
         }
