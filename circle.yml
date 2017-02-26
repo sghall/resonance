@@ -30,4 +30,3 @@ test:
     - ./scripts/run-travis-tests.sh
   post:
     - bash <(curl -s https://codecov.io/bash)
-
