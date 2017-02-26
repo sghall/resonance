@@ -17,10 +17,10 @@ export default class Tick extends Component {
   componentWillReceiveProps(next) {
     const { props, refs } = this;
 
-    if (props.tick !== next.tick) {
+    if (props.node !== next.node) {
       this.transition.stop();
 
-      switch (next.tick.type) {
+      switch (next.node.type) {
         case APPEAR:
           this.onAppear(next, refs);
           break;
@@ -43,7 +43,7 @@ export default class Tick extends Component {
     this.transition.stop();
   }
 
-  onAppear({ xScale0, xScale1, tick: { data }, duration }, { tick }) {
+  onAppear({ xScale0, xScale1, node: { data }, duration }, { tick }) {
     const beg = `translate(${xScale0(data)},0)`;
     const end = `translate(${xScale1(data)},0)`;
 
@@ -61,7 +61,7 @@ export default class Tick extends Component {
     });
   }
 
-  onUpdate({ xScale0, xScale1, tick: { data }, duration }, { tick }) {
+  onUpdate({ xScale0, xScale1, node: { data }, duration }, { tick }) {
     const beg = `translate(${xScale0(data)},0)`;
     const end = `translate(${xScale1(data)},0)`;
 
@@ -80,7 +80,7 @@ export default class Tick extends Component {
     });
   }
 
-  onRemove({ xScale0, xScale1, tick: { udid, data }, removeTick, duration }, { tick }) {
+  onRemove({ xScale0, xScale1, node: { udid, data }, removeTick, duration }, { tick }) {
     const beg = `translate(${xScale0(data)},0)`;
     const end = `translate(${xScale1(data)},0)`;
 
