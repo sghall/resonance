@@ -29,7 +29,7 @@ const composeNode = (data, type, udid) => {
   return { ...data, type, udid };
 };
 
-export function withSelection(SelectionItem) {
+export default function withSelection(SelectionItem) {
   class Selection extends Component {
     constructor(props) {
       super(props);
@@ -40,9 +40,15 @@ export function withSelection(SelectionItem) {
       };
     }
 
+    componentDidMount() {
+      if (this.props.data) {
+        this.updateNodes(this.props.data);
+      }
+    }
+
     componentWillReceiveProps(next) {
       if (this.props.data !== next.data) {
-        this.updateNodes(this.props);
+        this.updateNodes(next.data);
       }
     }
 
@@ -68,11 +74,12 @@ export function withSelection(SelectionItem) {
       }
 
 
-      for (let i = 0, len = this.state.nodes; i < len; i++) {
+      for (let i = 0, len = this.state.nodes.length; i < len; i++) {
         const node = this.state.nodes[i];
 
-        if (udids[node.udid]) {
+        if (!udids[node.udid]) {
           nodes.push(composeNode(node, REMOVE, node.udid));
+          udids[node.udid] = REMOVE;
         }
       }
 
@@ -83,7 +90,7 @@ export function withSelection(SelectionItem) {
       return (
         <g>
           {this.state.nodes.map((node) => {
-            return <SelectionItem node={node} {...this.props} />;
+            return <SelectionItem key={node.udid} node={node} {...this.props} />;
           })}
         </g>
       );

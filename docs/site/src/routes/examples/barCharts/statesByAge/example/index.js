@@ -9,7 +9,7 @@ import Chart from 'material-charts/Chart';
 import Paper from 'material-ui/Paper';
 import { format } from 'd3-format';
 import { updateSortOrder, removedNode } from '../modules';
-import { Axis } from './components/Axis';
+import Axis from './components/TickGroup';
 import { Bar } from './components/Bar';
 
 const percentFormat = format('.1%');
