@@ -2,8 +2,11 @@
 
 import React, { Component, PropTypes } from 'react';
 import { timer } from 'd3-timer';
+import { format } from 'd3-format';
 import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from './withSelection';
+
+const percentFormat = format('.1%');
 
 export default class Tick extends Component {
 
@@ -97,7 +100,7 @@ export default class Tick extends Component {
   }
 
   render() {
-    const { yHeight, node: { text } } = this.props;
+    const { yHeight, node: { data } } = this.props;
 
     return (
       <g ref="tick" opacity={1e-6}>
@@ -113,7 +116,7 @@ export default class Tick extends Component {
           textAnchor="middle"
           fill="white"
           x={0} y={-5}
-        >{text}</text>
+        >{percentFormat(data)}</text>
       </g>
     );
   }

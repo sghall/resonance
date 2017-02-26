@@ -7,16 +7,18 @@ export const UPDATE = 'UPDATE';
 export const REMOVE = 'REMOVE';
 export const REVIVE = 'REVIVE';
 
+const keyToString = (d) => `key-${d}`;
+
 const keyAccessor = (d, i) => {
   if (typeof d === 'number' || typeof d === 'string') {
-    return d;
+    return keyToString(d);
+  } else if (d.id) {
+    return keyToString(d.id);
+  } else if (d.udid) {
+    return keyToString(d.udid);
   }
 
-  if (d.udid) {
-    return d.udid;
-  }
-
-  return i;
+  return keyToString(i);
 };
 
 const composeNode = (data, type, udid) => {
