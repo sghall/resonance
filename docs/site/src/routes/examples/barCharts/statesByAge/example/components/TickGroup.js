@@ -1,50 +1,62 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import { AxisTick } from './AxisTick';
+import Text from 'material-charts/Text';
+import Tick from './Tick';
+import withSelection from './withSelection';
 
-export class TickGroup extends Component {
+const ManagedTicks = withSelection(Tick);
+
+export default class TickGroup extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      ticks: props.xScale.ticks(),
-      xScale0: props.xScale,
-      xScale1: props.xScale,
+      ticks: [],
+      xScale0: null,
+      xScale1: null,
     };
   }
 
-  componentWillReceiveProps({ xScale }) {
-    if (this.props.xScale !== xScale) {
-      this.setState({
-        ticks: xScale.ticks(),
-        xScale0: this.props.xScale,
-        xScale1: xScale,
-      });
+  componentDidMount() {
+    const { props } = this;
+    this.update(props, props);
+  }
+
+  componentWillReceiveProps(next) {
+    const { props } = this;
+    if (props.xScale !== next.xScale) {
+      this.update(next, props);
     }
+  }
+
+  update({ xScale }, props) {
+    this.setState({
+      ticks: xScale.ticks(),
+      xScale0: props.xScale,
+      xScale1: xScale,
+    });
   }
 
   render() {
     const { state: { ticks, xScale0, xScale1 }, props: { duration, yScale } } = this;
-
-    const ticks = Object.keys(mounted).map((key) => {
-      const tick = mounted[key];
-      return (
-        <AxisTick
-          key={key} tick={tick}
-          xScale0={xScale0}
-          xScale1={xScale1}
-          yHeight={yScale.range()[1]}
-          duration={duration}
-          removeTick={this.removeTick}
-        />
-      );
-    });
+    console.log('render TickGroup!!!', ticks);
 
     return (
-      <g>{ticks}</g>
+      <ManagedTicks
+        data={ticks}
+        xScale0={xScale0}
+        xScale1={xScale1}
+        yHeight={yScale.range()[1]}
+        duration={duration}
+      />
     );
+
+
+    // return (
+    //   <Text x={100} y={100}>It is working</Text>
+    // );
   }
 }
 
