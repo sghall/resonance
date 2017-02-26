@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import Text from 'material-charts/Text';
 import Tick from './Tick';
 import withSelection from './withSelection';
 
@@ -41,7 +40,6 @@ export default class TickGroup extends Component {
 
   render() {
     const { state: { ticks, xScale0, xScale1 }, props: { duration, yScale } } = this;
-    console.log('render TickGroup!!!', ticks);
 
     return (
       <ManagedTicks
@@ -52,11 +50,6 @@ export default class TickGroup extends Component {
         duration={duration}
       />
     );
-
-
-    // return (
-    //   <Text x={100} y={100}>It is working</Text>
-    // );
   }
 }
 
