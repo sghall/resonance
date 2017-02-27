@@ -80,7 +80,7 @@ export default class Tick extends Component {
     });
   }
 
-  onRemove({ xScale1, node: { data }, duration }) {
+  onRemove({ xScale1, node: { data }, duration, removeNode }) {
     const beg = this.tick.getAttribute('transform');
     const end = `translate(${xScale1(data)},0)`;
 
@@ -95,13 +95,13 @@ export default class Tick extends Component {
 
       if (t === 1) {
         this.transition.stop();
+        removeNode();
       }
     });
   }
 
   render() {
-    const { yHeight, node: { data, udid } } = this.props;
-    console.log('render item!!!: ', udid);
+    const { yHeight, node: { data } } = this.props;
 
     return (
       <g ref={(d) => { this.tick = d; }}>
@@ -133,4 +133,5 @@ Tick.propTypes = {
   xScale1: PropTypes.func.isRequired,
   yHeight: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
+  removeNode: PropTypes.func.isRequired,
 };

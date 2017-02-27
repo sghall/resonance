@@ -34,7 +34,7 @@ export class App extends Component {
 
     this.state = {
       duration: 1000,
-      showTopN: 10,
+      showTopN: 20,
     };
 
     this.removeItem = this.removeItem.bind(this);

@@ -91,7 +91,10 @@ export default function withSelection(SelectionItem) {
 
     removeNode(udid) {
       const { udids, nodes } = this.state;
-      console.log(udids, nodes, udid);
+      const { index } = udids[udid];
+
+      delete udids[udid];     // mutating state for performance :/
+      nodes.splice(index, 1); // mutating state for performance :/
     }
 
     render() {
