@@ -46,6 +46,7 @@
     "react-router-scroll": "^0.4.1",
     "react-swipeable-views": "^0.10.7",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "reselect": "^2.5.4"
   }
 }
