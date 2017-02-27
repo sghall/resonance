@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
+import Immutable from 'immutable';
 
 export const APPEAR = 'APPEAR';
 export const UPDATE = 'UPDATE';
@@ -35,8 +36,7 @@ export default function withSelection(SelectionItem) {
       super(props);
 
       this.state = {
-        nodes: [],
-        udids: {},
+        nodes: new Immutable.OrderedMap(),
       };
     }
 
@@ -53,54 +53,45 @@ export default function withSelection(SelectionItem) {
     }
 
     updateNodes(data) {
-      const nodes = [];
-      const udids = {};
+      let nodes = new Immutable.OrderedMap();
 
       let index = 0;
 
       for (let len = data.length; index < len; index++) {
         const udid = keyAccessor(data[index], index, data);
+        const node = this.state.nodes.get(udid);
 
         let type = APPEAR;
 
-        if (this.state.udids[udid]) {
-          if (this.state.udids[udid].type === REMOVE) {
+        if (node) {
+          if (node.type === REMOVE) {
             type = REVIVE;
           } else {
             type = UPDATE;
           }
         }
 
-        nodes.push(composeNode(data[index], type, udid));
-        udids[udid] = { type, index };
+        nodes = nodes.set(udid, composeNode(data[index], type, udid));
       }
 
-
-      for (let i = 0, len = this.state.nodes.length; i < len; i++) {
-        const node = this.state.nodes[i];
-        const type = REMOVE;
-
-        if (!udids[node.udid] && node.type !== REMOVE) {
-          nodes.push(composeNode(node, REMOVE, node.udid));
-          udids[node.udid] = { type, index: index++ };
+      this.state.nodes.toSeq().forEach((node) => {
+        if (!nodes.has(node.udid) && node.type !== REMOVE) {
+          nodes = nodes.set(node.udid, composeNode(node, REMOVE, node.udid));
         }
-      }
+      });
 
-      this.setState({ nodes, udids });
+      this.setState({ nodes });
     }
 
     removeNode(udid) {
-      const { udids, nodes } = this.state;
-      const { index } = udids[udid];
-
-      delete udids[udid];     // mutating state for performance :/
-      nodes.splice(index, 1); // mutating state for performance :/
+      const { nodes } = this.state;
+      this.setState({ nodes: nodes.delete(udid) });
     }
 
     render() {
       return (
         <g>
-          {this.state.nodes.map((node) => {
+          {this.state.nodes.toArray().map((node) => {
             return (
               <SelectionItem
                 key={node.udid}
