@@ -6,7 +6,7 @@ const dllManifest = require('./build/dll.manifest.json');
 
 module.exports = {
   cache: true,
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   context: path.resolve(__dirname),
   entry: {
     main: [
