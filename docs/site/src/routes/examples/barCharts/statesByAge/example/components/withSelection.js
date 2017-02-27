@@ -53,31 +53,29 @@ export default function withSelection(SelectionItem) {
     }
 
     updateNodes(data) {
-      let nodes = new Immutable.OrderedMap();
+      const nodes = new Immutable.OrderedMap().withMutations((n) => {
+        for (let i = 0, len = data.length; i < len; i++) {
+          const udid = keyAccessor(data[i], i, data);
+          const node = this.state.nodes.get(udid);
 
-      let index = 0;
+          let type = APPEAR;
 
-      for (let len = data.length; index < len; index++) {
-        const udid = keyAccessor(data[index], index, data);
-        const node = this.state.nodes.get(udid);
-
-        let type = APPEAR;
-
-        if (node) {
-          if (node.type === REMOVE) {
-            type = REVIVE;
-          } else {
-            type = UPDATE;
+          if (node) {
+            if (node.type === REMOVE) {
+              type = REVIVE;
+            } else {
+              type = UPDATE;
+            }
           }
+
+          n.set(udid, composeNode(data[i], type, udid));
         }
 
-        nodes = nodes.set(udid, composeNode(data[index], type, udid));
-      }
-
-      this.state.nodes.toSeq().forEach((node) => {
-        if (!nodes.has(node.udid) && node.type !== REMOVE) {
-          nodes = nodes.set(node.udid, composeNode(node, REMOVE, node.udid));
-        }
+        this.state.nodes.toSeq().forEach((node) => {
+          if (!n.has(node.udid) && node.type !== REMOVE) {
+            n.set(node.udid, composeNode(node, REMOVE, node.udid));
+          }
+        });
       });
 
       this.setState({ nodes });

@@ -56,6 +56,5 @@ export default class TickGroup extends Component {
 TickGroup.propTypes = {
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
-  format: PropTypes.func.isRequired,
   duration: PropTypes.number.isRequired,
 };

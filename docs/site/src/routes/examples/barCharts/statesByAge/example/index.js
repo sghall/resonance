@@ -7,12 +7,9 @@ import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Chart from 'material-charts/Chart';
 import Paper from 'material-ui/Paper';
-import { format } from 'd3-format';
 import { updateSortOrder, removedNode } from '../modules';
 import Axis from './components/TickGroup';
 import { Bar } from './components/Bar';
-
-const percentFormat = format('.1%');
 
 const ages = [
   'Under 5 Years',
@@ -110,7 +107,6 @@ export class App extends Component {
         <Axis
           xScale={xScale}
           yScale={yScale}
-          format={percentFormat}
           duration={duration}
         />
       );

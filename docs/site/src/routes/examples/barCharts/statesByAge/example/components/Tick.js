@@ -39,6 +39,10 @@ export default class Tick extends Component {
     }
   }
 
+  shouldComponentUpdate(next) {
+    return this.props.node !== next.node;
+  }
+
   componentWillUnmount() {
     this.transition.stop();
   }
@@ -52,6 +56,7 @@ export default class Tick extends Component {
 
     this.transition = timer((elapsed) => {
       const t = elapsed < duration ? (elapsed / duration) : 1;
+
       this.tick.setAttribute('transform', interp0(t));
       this.tick.setAttribute('opacity', interp1(t));
 
