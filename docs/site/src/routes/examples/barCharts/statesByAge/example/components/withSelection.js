@@ -35,9 +35,7 @@ export default function withSelection(SelectionItem) {
     constructor(props) {
       super(props);
 
-      this.state = {
-        nodes: new Immutable.OrderedMap(),
-      };
+      this.state = { nodes: new Immutable.OrderedMap() };
     }
 
     componentDidMount() {
