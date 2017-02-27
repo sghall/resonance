@@ -62,7 +62,7 @@ export default class Tick extends Component {
   }
 
   onUpdate({ xScale0, xScale1, node: { data }, duration }, { tick }) {
-    const beg = `translate(${xScale0(data)},0)`;
+    const beg = tick.getAttribute('transform');
     const end = `translate(${xScale1(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
@@ -81,7 +81,7 @@ export default class Tick extends Component {
   }
 
   onRemove({ xScale0, xScale1, node: { udid, data }, removeTick, duration }, { tick }) {
-    const beg = `translate(${xScale0(data)},0)`;
+    const beg = tick.getAttribute('transform');
     const end = `translate(${xScale1(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
@@ -103,7 +103,7 @@ export default class Tick extends Component {
     const { yHeight, node: { data } } = this.props;
 
     return (
-      <g ref="tick" opacity={1e-6}>
+      <g ref="tick">
         <line
           style={{ pointerEvents: 'none' }}
           x1={0} y1={0}
