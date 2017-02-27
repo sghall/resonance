@@ -22,7 +22,7 @@ module.exports = {
   rules: {
     'arrow-body-style': 'off', // Not our taste?
     'arrow-parens': ['error', 'always'], // airbnb use as-needed
-    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
+    'no-plusplus': 'off',
     'consistent-this': ['error', 'self'],
     'max-len': ['error', 100, 2, {
       ignoreUrls: true,
