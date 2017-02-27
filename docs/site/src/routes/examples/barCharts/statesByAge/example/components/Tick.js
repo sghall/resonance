@@ -11,27 +11,27 @@ const percentFormat = format('.1%');
 export default class Tick extends Component {
 
   componentDidMount() {
-    this.onAppear(this.props, this.refs);
+    this.onAppear(this.props);
   }
 
   componentWillReceiveProps(next) {
-    const { props, refs } = this;
+    const { props } = this;
 
     if (props.node !== next.node) {
       this.transition.stop();
 
       switch (next.node.type) {
         case APPEAR:
-          this.onAppear(next, refs);
+          this.onAppear(next);
           break;
         case UPDATE:
-          this.onUpdate(next, refs);
+          this.onUpdate(next);
           break;
         case REMOVE:
-          this.onRemove(next, refs);
+          this.onRemove(next);
           break;
         case REVIVE:
-          this.onUpdate(next, refs);
+          this.onUpdate(next);
           break;
         default:
           break;
@@ -43,7 +43,7 @@ export default class Tick extends Component {
     this.transition.stop();
   }
 
-  onAppear({ xScale0, xScale1, node: { data }, duration }, { tick }) {
+  onAppear({ xScale0, xScale1, node: { data }, duration }) {
     const beg = `translate(${xScale0(data)},0)`;
     const end = `translate(${xScale1(data)},0)`;
 
@@ -52,8 +52,8 @@ export default class Tick extends Component {
 
     this.transition = timer((elapsed) => {
       const t = elapsed < duration ? (elapsed / duration) : 1;
-      tick.setAttribute('transform', interp0(t));
-      tick.setAttribute('opacity', interp1(t));
+      this.tick.setAttribute('transform', interp0(t));
+      this.tick.setAttribute('opacity', interp1(t));
 
       if (t === 1) {
         this.transition.stop();
@@ -61,18 +61,18 @@ export default class Tick extends Component {
     });
   }
 
-  onUpdate({ xScale0, xScale1, node: { data }, duration }, { tick }) {
-    const beg = tick.getAttribute('transform');
+  onUpdate({ xScale1, node: { data }, duration }) {
+    const beg = this.tick.getAttribute('transform');
     const end = `translate(${xScale1(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(tick.getAttribute('opacity'), 1);
+    const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1);
 
     this.transition = timer((elapsed) => {
       const t = elapsed < duration ? (elapsed / duration) : 1;
 
-      tick.setAttribute('transform', interp0(t));
-      tick.setAttribute('opacity', interp1(t));
+      this.tick.setAttribute('transform', interp0(t));
+      this.tick.setAttribute('opacity', interp1(t));
 
       if (t === 1) {
         this.transition.stop();
@@ -80,18 +80,18 @@ export default class Tick extends Component {
     });
   }
 
-  onRemove({ xScale0, xScale1, node: { udid, data }, removeTick, duration }, { tick }) {
-    const beg = tick.getAttribute('transform');
+  onRemove({ xScale1, node: { data }, duration }) {
+    const beg = this.tick.getAttribute('transform');
     const end = `translate(${xScale1(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(tick.getAttribute('opacity'), 1e-6);
+    const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1e-6);
 
     this.transition = timer((elapsed) => {
       const t = elapsed < duration ? (elapsed / duration) : 1;
 
-      tick.setAttribute('transform', interp0(t));
-      tick.setAttribute('opacity', interp1(t));
+      this.tick.setAttribute('transform', interp0(t));
+      this.tick.setAttribute('opacity', interp1(t));
 
       if (t === 1) {
         this.transition.stop();
@@ -100,10 +100,11 @@ export default class Tick extends Component {
   }
 
   render() {
-    const { yHeight, node: { data } } = this.props;
+    const { yHeight, node: { data, udid } } = this.props;
+    console.log('render item!!!: ', udid);
 
     return (
-      <g ref="tick">
+      <g ref={(d) => { this.tick = d; }}>
         <line
           style={{ pointerEvents: 'none' }}
           x1={0} y1={0}

@@ -117,53 +117,30 @@ export class App extends Component {
     }
 
     return (
-      <div className="row" style={{ marginLeft: 0, marginRight: 0 }}>
-        <Layout container gutter={24}>
-          <Layout item xs={12}>
-            <Paper>
-              xs=12
-            </Paper>
-          </Layout>
-          <Layout item xs={12} sm={3}>
-            <Table>
-              <TableBody>
-                {tableRows}
-              </TableBody>
-            </Table>
-          </Layout>
-          <Layout item xs={12} sm={9}>
-            <Chart view={view} trbl={trbl}>
-              {barNodes}{axis}
-            </Chart>
-          </Layout>
-          <Layout item xs={6} sm={3}>
-            <Paper>
-              xs=6 sm=3
-            </Paper>
-          </Layout>
-          <Layout item xs={6} sm={3}>
-            <Paper>
-              xs=6 sm=3
-            </Paper>
-          </Layout>
-          <Layout item xs={6} sm={3}>
-            <Paper>
-              xs=6 sm=3
-            </Paper>
-          </Layout>
-          <Layout item xs={6} sm={3}>
-            <Paper>
-              xs=6 sm=3
-            </Paper>
-          </Layout>
+      <Layout container gutter={24}>
+        <Layout item xs={12} sm={6}>
+          <Paper>
+            <span>Show Top {showTopN} States:</span>
+          </Paper>
         </Layout>
-        <div className="col-md-6 col-sm-6">
-          <span>Show Top {showTopN} States:</span>
-        </div>
-        <div className="col-md-6 col-sm-6">
-          <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
-        </div>
-      </div>
+        <Layout item xs={12} sm={6}>
+          <Paper>
+            <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
+          </Paper>
+        </Layout>
+        <Layout item xs={12} sm={3}>
+          <Table>
+            <TableBody>
+              {tableRows}
+            </TableBody>
+          </Table>
+        </Layout>
+        <Layout item xs={12} sm={9}>
+          <Chart view={view} trbl={trbl}>
+            {barNodes}{axis}
+          </Chart>
+        </Layout>
+      </Layout>
     );
   }
 }
