@@ -2,30 +2,15 @@
 
 import { createSelector } from 'reselect';
 import { scaleLinear, scaleBand } from 'd3-scale';
+import { getSortByKey } from 'docs/site/src/utils/helpers';
 
 const view = [500, 400];        // ViewBox: Width, Height
-const trbl = [15, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
+const trbl = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
 
 const dims = [
   view[0] - trbl[1] - trbl[3],  // Usable dimensions width
   view[1] - trbl[0] - trbl[2],  // Usable dimensions height
 ];
-
-function getSortByKey(key, ascending) {
-  return function sort(a, b) {
-    let result = 0;
-
-    if (a[key] > b[key]) {
-      result = ascending ? 1 : -1;
-    }
-
-    if (a[key] < b[key]) {
-      result = ascending ? -1 : 1;
-    }
-
-    return result;
-  };
-}
 
 const getRawData = (state) => state['states-by-age'].rawData;
 const getSortKey = (state) => state['states-by-age'].sortKey;

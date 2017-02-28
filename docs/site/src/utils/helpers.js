@@ -27,3 +27,19 @@ export function titleize(string) {
     })
     .join(' ');
 }
+
+export function getSortByKey(key, ascending) {
+  return function sort(a, b) {
+    let result = 0;
+
+    if (a[key] > b[key]) {
+      result = ascending ? 1 : -1;
+    }
+
+    if (a[key] < b[key]) {
+      result = ascending ? -1 : 1;
+    }
+
+    return result;
+  };
+}

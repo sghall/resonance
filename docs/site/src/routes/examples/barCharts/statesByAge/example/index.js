@@ -124,16 +124,20 @@ export class App extends Component {
           </Paper>
         </Layout>
         <Layout item xs={12} sm={3}>
-          <Table>
-            <TableBody>
-              {tableRows}
-            </TableBody>
-          </Table>
+          <Paper>
+            <Table>
+              <TableBody>
+                {tableRows}
+              </TableBody>
+            </Table>
+          </Paper>
         </Layout>
         <Layout item xs={12} sm={9}>
-          <Chart view={view} trbl={trbl}>
-            {barNodes}{axis}
-          </Chart>
+          <Paper>
+            <Chart view={view} trbl={trbl}>
+              {barNodes}{axis}
+            </Chart>
+          </Paper>
         </Layout>
       </Layout>
     );

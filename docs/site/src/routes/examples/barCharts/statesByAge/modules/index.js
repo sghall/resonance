@@ -21,7 +21,7 @@ export function updateTopCount(topN) {
 
 const initialState = {
   view: [500, 400],          // ViewBox: Width, Height
-  trbl: [15, 20, 10, 30],    // Margins: Top, Right, Bottom, Left
+  trbl: [30, 20, 10, 30],    // Margins: Top, Right, Bottom, Left
   rawData,
   showTop: 20,               // Number of bars to show
   sortKey: '18 to 24 Years', // The age group currently selected
