@@ -39,7 +39,7 @@
     "flow": "flow"
   },
   "peerDependencies": {
-    "material-ui": "v1.0.0-alpha.3",
+    "material-ui": "v1.0.0-alpha.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
@@ -103,7 +103,7 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.2",
-    "material-ui": "v1.0.0-alpha.3",
+    "material-ui": "v1.0.0-alpha.6",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "phantomjs-prebuilt": "^2.1.14",
