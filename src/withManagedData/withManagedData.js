@@ -10,7 +10,7 @@ export const REVIVE = 'REVIVE';
 
 const keyToString = (d) => `key-${d}`;
 
-const defaultKeyAccessor = (d, i) => {
+export const defaultKeyAccessor = (d, i) => {
   if (typeof d === 'number' || typeof d === 'string') {
     return keyToString(d);
   } else if (d.id) {
@@ -22,7 +22,7 @@ const defaultKeyAccessor = (d, i) => {
   return keyToString(i);
 };
 
-const defaultComposeNode = (data, type, udid) => {
+export const defaultComposeNode = (data, type, udid) => {
   if (typeof data === 'number' || typeof data === 'string') {
     return { data, type, udid };
   }
