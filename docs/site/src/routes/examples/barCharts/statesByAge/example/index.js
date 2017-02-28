@@ -123,7 +123,7 @@ export class App extends Component {
             <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
           </Paper>
         </Layout>
-        <Layout item xs={12} sm={3}>
+        <Layout item xs={12} sm={4} md={3}>
           <Paper>
             <Table>
               <TableBody>
@@ -132,7 +132,7 @@ export class App extends Component {
             </Table>
           </Paper>
         </Layout>
-        <Layout item xs={12} sm={9}>
+        <Layout item xs={12} sm={8} md={9}>
           <Paper>
             <Chart view={view} trbl={trbl}>
               {barNodes}{axis}
