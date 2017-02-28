@@ -43,6 +43,10 @@ export default class Bar extends Component {
     }
   }
 
+  shouldComponentUpdate(next) {
+    return this.props.node !== next.node;
+  }
+
   componentWillUnmount() {
     this.transition.stop();
   }
@@ -66,9 +70,9 @@ export default class Bar extends Component {
   }
 
   onUpdate({ yScale, node: { xVal, yVal }, duration }, next) {
-    const transformBeg = `translate(0,${yVal})`;
-    const transformEnd = `translate(0,${next.node.yVal})`;
-    const interp0 = interpolateTransformSvg(transformBeg, transformEnd);
+    const beg = this.node.getAttribute('transform');
+    const end = `translate(0,${next.node.yVal})`;
+    const interp0 = interpolateTransformSvg(beg, end);
 
     const begVals = { w: xVal, h: yScale.bandwidth(), x: xVal - 3 };
     const endVals = { w: next.node.xVal, h: next.yScale.bandwidth(), x: next.node.xVal - 3 };
@@ -91,8 +95,9 @@ export default class Bar extends Component {
     });
   }
 
-  onRemove({ node: { yVal, udid }, removeNode, duration }) {
-    const interp0 = interpolateTransformSvg(`translate(0,${yVal})`, 'translate(0,500)');
+  onRemove({ removeNode, duration }) {
+    const beg = this.node.getAttribute('transform');
+    const interp0 = interpolateTransformSvg(beg, 'translate(0,500)');
     const interp1 = interpolateNumber(1, 1e-6);
 
     this.transition = timer((elapsed) => {
@@ -103,7 +108,7 @@ export default class Bar extends Component {
 
       if (t === 1) {
         this.transition.stop();
-        removeNode(udid);
+        removeNode();
       }
     });
   }
@@ -125,7 +130,7 @@ export default class Bar extends Component {
           dy="0.35em"
           x={-20}
           y={yScale.bandwidth() / 2}
-        >{udid}</text>
+        >{udid.slice(4)}</text>
         <text
           ref={(d) => { this.text = d; }}
           fontSize="8px"

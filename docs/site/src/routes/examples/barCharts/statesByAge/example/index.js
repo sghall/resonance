@@ -9,9 +9,11 @@ import Chart from 'material-charts/Chart';
 import Paper from 'material-ui/Paper';
 import { updateSortOrder, removedNode } from '../modules';
 import makeGetSelectedData from '../modules/selectors';
-
+import withSelection from './components/withSelection';
 import Axis from './components/TickGroup';
-import { Bar } from './components/Bar';
+import BarNode from './components/BarNode';
+
+const ManagedBars = withSelection(BarNode);
 
 const ages = [
   'Under 5 Years',
@@ -64,24 +66,17 @@ export class App extends Component {
   }
 
   render() {
-    const { view, trbl, mounted, dispatch, sortKey, xScale, yScale } = this.props;
+    const { data, x, y, view, trbl, dispatch, sortKey } = this.props;
     const { duration, showTopN } = this.state;
 
-    console.log('thedata', this.props.data);
-
-    const barNodes = Object.keys(mounted).map((key) => {
-      const node = mounted[key];
-      return (
-        <Bar
-          key={key}
-          node={node}
-          xScale={xScale}
-          yScale={yScale}
-          duration={duration}
-          removeNode={this.removeItem}
-        />
-      );
-    });
+    const barNodes = (
+      <ManagedBars
+        data={data}
+        xScale={x}
+        yScale={y}
+        duration={duration}
+      />
+    );
 
     const tableRows = ages.map((age) => {
       const isSelected = age === sortKey;
@@ -106,11 +101,11 @@ export class App extends Component {
 
     let axis = null;
 
-    if (xScale.ticks && yScale.range) {
+    if (x.ticks && y.range) {
       axis = (
         <Axis
-          xScale={xScale}
-          yScale={yScale}
+          xScale={x}
+          yScale={y}
           duration={duration}
         />
       );
@@ -148,29 +143,22 @@ export class App extends Component {
 App.propTypes = {
   view: PropTypes.array.isRequired,
   trbl: PropTypes.array.isRequired,
-  xScale: PropTypes.func.isRequired,
-  yScale: PropTypes.func.isRequired,
   sortKey: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
   x: PropTypes.func.isRequired,
   y: PropTypes.func.isRequired,
-  mounted: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const makeMapStateToProps = () => {
   const getSelectedData = makeGetSelectedData();
   const mapStateToProps = (state) => {
-    const { view, trbl, xScale, yScale, sortKey, mounted } = state['states-by-age'];
+    const { view, trbl, sortKey } = state['states-by-age'];
     const { data, y, x } = getSelectedData(state);
-    return { data, x, y, view, trbl, xScale, yScale, sortKey, mounted };
+    return { data, x, y, view, trbl, sortKey };
   };
   return mapStateToProps;
 };
 
-
-// function mapStateToProps(state) {
-//   ;
-// }
 
 export default connect(makeMapStateToProps())(App);
