@@ -47,7 +47,6 @@ module.exports = {
     'react/require-default-props': 'off', // airbnb use error
     'react/forbid-prop-types': 'off', // airbnb use error
     'react/jsx-filename-extension': ['error', {extensions: ['.js']}], // airbnb is using .jsx
-    'react/jsx-max-props-per-line': ['error', {maximum: 3}], // airbnb is disabling this rule
     'react/no-danger': 'error', // airbnb is using warn
     'react/no-direct-mutation-state': 'error', // airbnb is disabling this rule
     'react/no-find-dom-node': 'warn', // wishlist, one day
