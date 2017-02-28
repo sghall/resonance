@@ -8,11 +8,46 @@ import {
   interpolateTransformSvg,
 } from 'd3-interpolate';
 import { format } from 'd3-format';
+import { createStyleSheet } from 'jss-theme-reactor';
+import customPropTypes from 'material-ui/utils/customPropTypes';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from './withSelection';
 
 const percentFormat = format('.2%');
 
+export const styleSheet = createStyleSheet('Bar', (theme) => {
+  return {
+    bar: {
+      fill: theme.palette.accent[500],
+      opacity: 0.7,
+      '&:hover': {
+        opacity: 0.5,
+      },
+    },
+    text: {
+      fontSize: 9,
+      fill: theme.palette.text.secondary,
+    },
+  };
+});
+
 export default class Bar extends Component {
+  static propTypes = {
+    node: PropTypes.shape({
+      udid: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      xVal: PropTypes.number.isRequired,
+      yVal: PropTypes.number.isRequired,
+    }).isRequired,
+    xScale: PropTypes.func.isRequired,
+    yScale: PropTypes.func.isRequired,
+    duration: PropTypes.number.isRequired,
+    removeNode: PropTypes.func.isRequired,
+  };
+
+  static contextTypes = {
+    theme: customPropTypes.muiRequired,
+    styleManager: customPropTypes.muiRequired,
+  };
 
   componentDidMount() {
     this.onAppear(this.props);
@@ -115,44 +150,28 @@ export default class Bar extends Component {
 
   render() {
     const { xScale, yScale, node: { udid, xVal } } = this.props;
+    const classes = this.context.styleManager.render(styleSheet);
 
     return (
       <g ref={(d) => { this.node = d; }}>
         <rect
           ref={(d) => { this.rect = d; }}
-          className="bar"
-          opacity={0.5}
-          fill="#0097a7"
+          className={classes.bar}
         />
         <text
-          fontSize="8px"
-          fill="white"
           dy="0.35em"
           x={-20}
+          className={classes.text}
           y={yScale.bandwidth() / 2}
         >{udid.slice(4)}</text>
         <text
           ref={(d) => { this.text = d; }}
-          fontSize="8px"
           textAnchor="end"
-          fill="white"
           dy="0.35em"
+          className={classes.text}
           y={yScale.bandwidth() / 2}
         >{percentFormat(xScale.invert(xVal))}</text>
       </g>
     );
   }
 }
-
-Bar.propTypes = {
-  node: PropTypes.shape({
-    udid: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    xVal: PropTypes.number.isRequired,
-    yVal: PropTypes.number.isRequired,
-  }).isRequired,
-  xScale: PropTypes.func.isRequired,
-  yScale: PropTypes.func.isRequired,
-  duration: PropTypes.number.isRequired,
-  removeNode: PropTypes.func.isRequired,
-};

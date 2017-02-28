@@ -11,9 +11,9 @@ import { updateSortOrder, removedNode } from '../modules';
 import makeGetSelectedData from '../modules/selectors';
 import withSelection from './components/withSelection';
 import Axis from './components/TickGroup';
-import BarNode from './components/BarNode';
+import Bar from './components/Bar';
 
-const ManagedBars = withSelection(BarNode);
+const ManagedBars = withSelection(Bar);
 
 const ages = [
   'Under 5 Years',
