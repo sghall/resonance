@@ -18,7 +18,7 @@ export const styleSheet = createStyleSheet('Bar', (theme) => {
   return {
     bar: {
       fill: theme.palette.accent[500],
-      opacity: 0.7,
+      opacity: 0.8,
       '&:hover': {
         opacity: 0.5,
       },
