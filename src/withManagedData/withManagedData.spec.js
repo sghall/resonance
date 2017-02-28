@@ -8,47 +8,61 @@ import {
   REMOVE,
   REVIVE,
   defaultComposeNode,
+  defaultKeyAccessor,
 } from './withManagedData';
 
 describe('withManagedData', () => {
+  /**
+   *  Create a string data key from given data
+   */
+  describe('defaultKeyAccessor', () => {
+    it('given a number, returns a string key` ', () => {
+      assert.strictEqual(defaultKeyAccessor(5), 'key-5');
+    });
+
+    it('given a string, returns a string key` ', () => {
+      assert.strictEqual(defaultKeyAccessor('Wu-Tang'), 'key-Wu-Tang');
+    });
+
+    it('given an object with id prop returns key-{id}` ', () => {
+      assert.strictEqual(defaultKeyAccessor({ id: 123, x: 10, y: 12 }), 'key-123');
+    });
+
+    it('given an object with udid prop returns key-{udid}` ', () => {
+      assert.strictEqual(defaultKeyAccessor({ udid: 456, x: 10, y: 12 }), 'key-456');
+    });
+  });
   /**
    *  compose data node from provided data (data, type, udid)
    */
   describe('defaultComposeNode', () => {
     it('given an number, returns an object with number in data key` ', () => {
       assert.deepEqual(
-        defaultComposeNode(5, APPEAR, 'KEY-123'),
-        { data: 5, type: APPEAR, udid: 'KEY-123' },
+        defaultComposeNode(5, APPEAR, 'key-123'),
+        { data: 5, type: APPEAR, udid: 'key-123' },
       );
     });
 
     it('given an string, returns an object with string in data key` ', () => {
       assert.deepEqual(
-        defaultComposeNode('Wu-Tang', UPDATE, 'KEY-123'),
-        { data: 'Wu-Tang', type: UPDATE, udid: 'KEY-123' },
+        defaultComposeNode('Wu-Tang', UPDATE, 'key-123'),
+        { data: 'Wu-Tang', type: UPDATE, udid: 'key-123' },
       );
     });
 
     it('given an object, returns a spread object with type and udid keys` ', () => {
       assert.deepEqual(
-        defaultComposeNode({ x: 10, y: 12 }, REMOVE, 'KEY-123'),
-        { x: 10, y: 12, type: REMOVE, udid: 'KEY-123' },
+        defaultComposeNode({ x: 10, y: 12 }, REMOVE, 'key-123'),
+        { x: 10, y: 12, type: REMOVE, udid: 'key-123' },
       );
     });
 
     it('given an object, it will overwrite an existing type key` ', () => {
       assert.deepEqual(
-        defaultComposeNode({ x: 10, y: 12, type: 4 }, REVIVE, 'KEY-123'),
-        { x: 10, y: 12, type: REVIVE, udid: 'KEY-123' },
+        defaultComposeNode({ x: 10, y: 12, type: 4 }, REVIVE, 'key-123'),
+        { x: 10, y: 12, type: REVIVE, udid: 'key-123' },
       );
     });
-
-    // it('converts a decomposed hsla color object to a string` ', () => {
-    //   assert.strictEqual(
-    //     convertColorToString({ type: 'hsla', values: [100, 50, 25, 0.5] }),
-    //     'hsla(100, 50%, 25%, 0.5)',
-    //   );
-    // });
   });
 });
 
