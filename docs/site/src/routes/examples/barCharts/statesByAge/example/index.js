@@ -7,26 +7,13 @@ import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Chart from 'material-charts/Chart';
 import Paper from 'material-ui/Paper';
-import { updateSortOrder, removedNode } from '../modules';
-import makeGetSelectedData from '../modules/selectors';
+import { removedNode, updateSortOrder, makeGetSelectedData } from '../modules';
+import { VIEW, TRBL, AGES } from '../modules/constants';
 import withSelection from './components/withSelection';
 import Axis from './components/TickGroup';
 import Bar from './components/Bar';
 
 const ManagedBars = withSelection(Bar);
-
-const ages = [
-  'Under 5 Years',
-  '5 to 13 Years',
-  '14 to 17 Years',
-  '18 to 24 Years',
-  '16 Years and Over',
-  '18 Years and Over',
-  '15 to 44 Years',
-  '45 to 64 Years',
-  '65 Years and Over',
-  '85 Years and Over',
-];
 
 export class App extends Component {
 
@@ -66,19 +53,19 @@ export class App extends Component {
   }
 
   render() {
-    const { data, x, y, view, trbl, dispatch, sortKey } = this.props;
+    const { sortKey, data, xScale, yScale, dispatch } = this.props;
     const { duration, showTopN } = this.state;
 
     const barNodes = (
       <ManagedBars
         data={data}
-        xScale={x}
-        yScale={y}
+        xScale={xScale}
+        yScale={yScale}
         duration={duration}
       />
     );
 
-    const tableRows = ages.map((age) => {
+    const tableRows = AGES.map((age) => {
       const isSelected = age === sortKey;
 
       return (
@@ -101,11 +88,11 @@ export class App extends Component {
 
     let axis = null;
 
-    if (x.ticks && y.range) {
+    if (xScale.ticks && yScale.range) {
       axis = (
         <Axis
-          xScale={x}
-          yScale={y}
+          xScale={xScale}
+          yScale={yScale}
           duration={duration}
         />
       );
@@ -134,7 +121,7 @@ export class App extends Component {
         </Layout>
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
-            <Chart view={view} trbl={trbl}>
+            <Chart view={VIEW} trbl={TRBL}>
               {barNodes}{axis}
             </Chart>
           </Paper>
@@ -145,21 +132,17 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  view: PropTypes.array.isRequired,
-  trbl: PropTypes.array.isRequired,
-  sortKey: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
-  x: PropTypes.func.isRequired,
-  y: PropTypes.func.isRequired,
+  xScale: PropTypes.func.isRequired,
+  yScale: PropTypes.func.isRequired,
+  sortKey: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const makeMapStateToProps = () => {
   const getSelectedData = makeGetSelectedData();
   const mapStateToProps = (state) => {
-    const { view, trbl, sortKey } = state['states-by-age'];
-    const { data, y, x } = getSelectedData(state);
-    return { data, x, y, view, trbl, sortKey };
+    return getSelectedData(state);
   };
   return mapStateToProps;
 };

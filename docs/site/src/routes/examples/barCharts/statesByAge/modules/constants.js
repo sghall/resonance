@@ -1,6 +1,23 @@
 // @flow weak
+export const EXAMPLE_STORE_KEY = 'states-by-age';
 
-export const rawData = [{
+export const VIEW = [500, 400];        // ViewBox: Width, Height
+export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
+
+export const AGES = [
+  'Under 5 Years',
+  '5 to 13 Years',
+  '14 to 17 Years',
+  '18 to 24 Years',
+  '16 Years and Over',
+  '18 Years and Over',
+  '15 to 44 Years',
+  '45 to 64 Years',
+  '65 Years and Over',
+  '85 Years and Over',
+];
+
+export const DATA = [{
   State: 'AL',
   Total: 4661900,
   'Under 5 Years': 0.06660460327334349,
