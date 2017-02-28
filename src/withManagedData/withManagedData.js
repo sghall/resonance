@@ -31,7 +31,18 @@ export const defaultComposeNode = (data, type, udid) => {
 };
 
 export default function withManagedData(ManagedItem) {
-  class Selection extends Component {
+  class DataManager extends Component {
+    static propTypes = {
+      data: PropTypes.array,
+      keyAccessor: PropTypes.func,
+      composeNode: PropTypes.func,
+    };
+
+    static defaultProps = {
+      keyAccessor: defaultKeyAccessor,
+      composeNode: defaultComposeNode,
+    };
+
     constructor(props) {
       super(props);
 
@@ -102,16 +113,5 @@ export default function withManagedData(ManagedItem) {
     }
   }
 
-  Selection.propTypes = {
-    data: PropTypes.array,
-    keyAccessor: PropTypes.func,
-    composeNode: PropTypes.func,
-  };
-
-  Selection.defaultProps = {
-    keyAccessor: defaultKeyAccessor,
-    composeNode: defaultComposeNode,
-  };
-
-  return Selection;
+  return DataManager;
 }
