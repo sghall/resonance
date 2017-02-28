@@ -147,7 +147,7 @@ const routes = {
         },
       },
       childRoutes: [
-        require('./examples/barCharts').default(store, injectReducer),
+        require('./examples/statesByAge').default(store, injectReducer),
       ],
     },
   ],

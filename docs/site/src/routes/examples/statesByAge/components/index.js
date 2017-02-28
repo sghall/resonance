@@ -10,8 +10,8 @@ import Paper from 'material-ui/Paper';
 import withManagedData from 'material-charts/withManagedData';
 import { updateSortOrder, makeGetSelectedData } from '../modules';
 import { VIEW, TRBL, AGES } from '../modules/constants';
-import Axis from './components/TickGroup';
-import Bar from './components/Bar';
+import Axis from './TickGroup';
+import Bar from './Bar';
 
 const ManagedBars = withManagedData(Bar);
 
