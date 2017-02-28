@@ -6,7 +6,12 @@ import { format } from 'd3-format';
 import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from './withSelection';
+import {
+  APPEAR,
+  UPDATE,
+  REMOVE,
+  REVIVE,
+} from 'material-charts/withManagedData';
 
 const percentFormat = format('.1%');
 

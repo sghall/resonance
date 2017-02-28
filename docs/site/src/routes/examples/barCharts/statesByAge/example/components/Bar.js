@@ -10,7 +10,7 @@ import {
 import { format } from 'd3-format';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from './withSelection';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'material-charts/withManagedData';
 
 const percentFormat = format('.2%');
 
@@ -73,7 +73,7 @@ export default class Bar extends Component {
           this.onUpdate(props, next);
           break;
         default:
-          throw new Error('Invalid Node Type!');
+          throw new Error(`Invalid Node Type: ${next.node.type}`);
       }
     }
   }

@@ -7,13 +7,13 @@ import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Chart from 'material-charts/Chart';
 import Paper from 'material-ui/Paper';
-import { removedNode, updateSortOrder, makeGetSelectedData } from '../modules';
+import withManagedData from 'material-charts/withManagedData';
+import { updateSortOrder, makeGetSelectedData } from '../modules';
 import { VIEW, TRBL, AGES } from '../modules/constants';
-import withSelection from './components/withSelection';
 import Axis from './components/TickGroup';
 import Bar from './components/Bar';
 
-const ManagedBars = withSelection(Bar);
+const ManagedBars = withManagedData(Bar);
 
 export class App extends Component {
 
@@ -25,19 +25,8 @@ export class App extends Component {
       showTopN: 20,
     };
 
-    this.removeItem = this.removeItem.bind(this);
     this.setDuration = this.setDuration.bind(this);
     this.setShowTopN = this.setShowTopN.bind(this);
-  }
-
-  componentDidMount() {
-    const { dispatch, sortKey } = this.props;
-    dispatch(updateSortOrder(sortKey));
-  }
-
-  removeItem(key) {
-    const { dispatch } = this.props;
-    dispatch(removedNode(key));
   }
 
   setDuration(e, value) {

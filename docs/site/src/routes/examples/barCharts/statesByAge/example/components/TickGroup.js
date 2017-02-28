@@ -1,10 +1,10 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
+import withManagedData from 'material-charts/withManagedData';
 import Tick from './Tick';
-import withSelection from './withSelection';
 
-const ManagedTicks = withSelection(Tick);
+const ManagedTicks = withManagedData(Tick);
 
 export default class TickGroup extends Component {
 
