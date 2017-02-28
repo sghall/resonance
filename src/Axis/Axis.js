@@ -1,79 +1,68 @@
 // @flow weak
 
-import React, { PropTypes } from 'react';
-import classNames from 'classnames';
-import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from '../utils/customPropTypes';
+import React, { Component, PropTypes } from 'react';
 
-export const styleSheet = createStyleSheet('Axis', (theme) => {
-  const { palette } = theme;
-  const shadows = {};
+const noop = () => {};
 
-  theme.shadows.forEach((shadow, index) => {
-    shadows[`dp${index}`] = {
-      boxShadow: shadow,
+export default class Axis extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      yTicks: [],
+      prevYScale: noop,
+      currYScale: noop,
+      xTicks: [],
+      prevXScale: noop,
+      currXScale: noop,
     };
-  });
+  }
 
-  return {
-    axis: {
-      backgroundColor: palette.background.paper,
-    },
-    rounded: {
-      borderRadius: '2px',
-    },
-    ...shadows,
-  };
-});
+  componentDidMount() {
+    const { props } = this;
+    this.update(props, props);
+  }
 
-/**
- * A piece of material axis.
- *
- * ```js
- * import Axis from 'material-charts/Axis';
- *
- * const Component = () => <Axis zDepth={8}>Hello World</Axis>;
- * ```
- */
-export default function Axis(props, context) {
-  const {
-    className: classNameProp,
-    rounded,
-    zDepth,
-    ...other
-  } = props;
-  const classes = context.styleManager.render(styleSheet);
+  componentWillReceiveProps(next) {
+    const { props } = this;
 
-  const classNameZDepth = `dp${zDepth >= 0 ? zDepth : 0}`;
-  const className = classNames(classes.axis, classes[classNameZDepth], {
-    [classes.rounded]: rounded,
-  }, classNameProp);
+    if (
+      props.xScale !== next.xScale ||
+      props.yScale !== next.yScale
+    ) {
+      this.update(props, next);
+    }
+  }
 
-  return (
-    <div className={className} {...other} />
-  );
+  update(prev, next) {
+    const xTicks = next.xScale.ticks ? next.xScale.ticks() : [];
+    const yTicks = next.yScale.ticks ? next.yScale.ticks() : [];
+
+    this.setState({
+      yTicks,
+      prevYScale: prev.yScale,
+      currYScale: next.yScale,
+      xTicks,
+      prevXScale: prev.xScale,
+      currXScale: next.xScale,
+    });
+  }
+
+  render() {
+    const { state, props } = this;
+
+    return (
+      <g>
+        {React.cloneElement(props.children, { ...props, ...state })}
+      </g>
+    );
+  }
 }
 
 Axis.propTypes = {
-  /**
-   * The CSS class name of the root element.
-   */
-  className: PropTypes.string,
-  /**
-   * Set to false to disable rounded corners.
-   */
-  rounded: PropTypes.bool,
-  /**
-   * Shadow depth, corresponds to `dp` in the spec.
-   */
-  zDepth: PropTypes.number,
+  xScale: PropTypes.func.isRequired,
+  yScale: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-Axis.defaultProps = {
-  rounded: true,
-  zDepth: 2,
-};
-
-Axis.contextTypes = {
-  styleManager: customPropTypes.muiRequired,
-};
