@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { Table, TableRow, TableCell, TableBody } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
-import Paper from 'material-ui/Paper';
 import Chart from 'material-charts/Chart';
-import Axis from 'material-charts/Axis';
+import Paper from 'material-ui/Paper';
+import withManagedData from 'material-charts/withManagedData';
 import { updateSortOrder, makeGetSelectedData } from '../modules';
 import { VIEW, TRBL, AGES } from '../modules/constants';
-import ManagedBars from './ManagedBars';
-import ManagedTicks from './ManagedTicks';
+import Axis from './TickGroup';
+import Bar from './Bar';
+
+const ManagedBars = withManagedData(Bar);
 
 export class App extends Component {
 
@@ -43,6 +45,48 @@ export class App extends Component {
     const { sortKey, data, xScale, yScale, dispatch } = this.props;
     const { duration, showTopN } = this.state;
 
+    const barNodes = (
+      <ManagedBars
+        data={data}
+        xScale={xScale}
+        yScale={yScale}
+        duration={duration}
+      />
+    );
+
+    const tableRows = AGES.map((age) => {
+      const isSelected = age === sortKey;
+
+      return (
+        <TableRow
+          hover
+          onClick={() => dispatch(updateSortOrder(age))}
+          role="checkbox"
+          aria-checked={isSelected}
+          tabIndex="-1"
+          key={age}
+          selected={isSelected}
+        >
+          <TableCell checkbox>
+            <Checkbox checked={isSelected} />
+          </TableCell>
+          <TableCell padding={false}>{age}</TableCell>
+        </TableRow>
+      );
+    });
+
+    let axis = null;
+
+    if (xScale.ticks && yScale.range) {
+      axis = (
+        <Axis
+          xScale={xScale}
+          yScale={yScale}
+          duration={duration}
+        />
+      );
+    }
+
     return (
       <Layout container gutter={24}>
         <Layout item xs={12} sm={6}>
@@ -59,25 +103,7 @@ export class App extends Component {
           <Paper>
             <Table>
               <TableBody>
-                {AGES.map((age) => {
-                  const isSelected = age === sortKey;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={() => dispatch(updateSortOrder(age))}
-                      role="checkbox"
-                      aria-checked={isSelected}
-                      tabIndex="-1"
-                      key={age}
-                      selected={isSelected}
-                    >
-                      <TableCell checkbox>
-                        <Checkbox checked={isSelected} />
-                      </TableCell>
-                      <TableCell padding={false}>{age}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {tableRows}
               </TableBody>
             </Table>
           </Paper>
@@ -85,15 +111,7 @@ export class App extends Component {
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
             <Chart view={VIEW} trbl={TRBL}>
-              <ManagedBars
-                data={data}
-                xScale={xScale}
-                yScale={yScale}
-                duration={duration}
-              />
-              <Axis xScale={xScale} yScale={yScale} duration={duration}>
-                <ManagedTicks />
-              </Axis>
+              {barNodes}{axis}
             </Chart>
           </Paper>
         </Layout>

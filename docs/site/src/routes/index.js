@@ -148,6 +148,7 @@ const routes = {
       },
       childRoutes: [
         require('./examples/statesByAge').default(store, injectReducer),
+        require('./examples/stackedArea').default(store, injectReducer),
       ],
     },
   ],
