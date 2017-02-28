@@ -23,7 +23,7 @@ const makeGetSelectedData = () => {
       const sort = getSortByKey(sortKey);
       const data = rawData.sort(sort).slice(0, showTop);
 
-      const xExtent = [Infinity, -Infinity];
+      const xExtent = [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER];
       const yDomain = {};
 
       for (let i = 0; i < data.length; i++) {
