@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
 import marked from 'marked';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import prism from 'docs/site/src/utils/prism';
+import prism from 'docs/src/utils/prism';
 
 marked.setOptions({
   gfm: true,

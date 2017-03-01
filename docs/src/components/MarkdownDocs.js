@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import MarkdownElement from 'docs/site/src/components/MarkdownElement';
+import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Demo from './Demo';
 
 const styleSheet = createStyleSheet('MarkdownDocs', () => {

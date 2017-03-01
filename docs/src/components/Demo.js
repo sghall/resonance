@@ -7,10 +7,10 @@ import customPropTypes from 'material-ui/utils/customPropTypes';
 import IconButton from 'material-ui/IconButton';
 import Collapse from 'material-ui/transitions/Collapse';
 import CodeIcon from 'material-ui/svg-icons/code';
-import MarkdownElement from 'docs/site/src/components/MarkdownElement';
+import MarkdownElement from 'docs/src/components/MarkdownElement';
 
-const requireDemos = require.context('docs/site/src', true, /\.js$/);
-const requireDemoSource = require.context('!raw-loader!docs/site/src', true, /\.js$/);
+const requireDemos = require.context('docs/src', true, /\.js$/);
+const requireDemoSource = require.context('!raw-loader!docs/src', true, /\.js$/);
 
 const styleSheet = createStyleSheet('Demo', (theme) => {
   const { palette, mixins } = theme;

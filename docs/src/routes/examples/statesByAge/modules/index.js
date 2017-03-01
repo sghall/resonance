@@ -1,7 +1,7 @@
 // @flow weak
 import { createSelector } from 'reselect';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { getSortByKey } from 'docs/site/src/utils/helpers';
+import { getSortByKey } from 'docs/src/utils/helpers';
 import { DATA, VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
 
 const dims = [

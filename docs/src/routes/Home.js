@@ -6,7 +6,7 @@ import Link from 'react-router/lib/Link';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Text from 'material-ui/Text';
 import Button from 'material-ui/Button';
-import muiLogo from 'docs/site/assets/images/material-ui-logo.svg';
+import muiLogo from 'docs/assets/images/material-ui-logo.svg';
 
 export const styleSheet = createStyleSheet('Home', (theme) => {
   const { palette, breakpoints } = theme;

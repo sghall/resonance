@@ -3,7 +3,7 @@
 import moment from 'moment';
 import * as shape from 'd3-shape';
 import { shuffle } from 'd3-array';
-import { genRandomSeries } from 'docs/site/src/utils/helpers';
+import { genRandomSeries } from 'docs/src/utils/helpers';
 import { FRUITS } from './constants';
 
 export function getInitialValues(days) {

@@ -8,7 +8,7 @@ import {
   Router,
 } from 'react-router';
 import { useScroll } from 'react-router-scroll';
-import { kebabCase, titleize } from 'docs/site/src/utils/helpers';
+import { kebabCase, titleize } from 'docs/src/utils/helpers';
 import AppFrame from '../components/AppFrame';
 import AppContent from '../components/AppContent';
 import MarkdownDocs from '../components/MarkdownDocs';
@@ -33,7 +33,7 @@ const demoRoutes = demosContext.keys()
   });
 
 const docsContext = require.context(
-  './../../../../docs/site/src/routes',
+  './../../../docs/src/routes',
   true,
   /^((?![\\/]site\/src\/demos|node_modules[\\/]).)*\.md$/,
 );

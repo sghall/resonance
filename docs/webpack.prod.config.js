@@ -46,8 +46,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      docs: path.resolve(__dirname, '../../docs'),
-      'material-charts': path.resolve(__dirname, '../../src'),
+      docs: path.resolve(__dirname, '../docs'),
+      'material-charts': path.resolve(__dirname, '../src'),
     },
   },
   plugins: [

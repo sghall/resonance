@@ -3,13 +3,21 @@
 const path = require('path');
 const webpack = require('webpack');
 const packageJson = require('./package.json');
-const packageJsonSrc = require('../../package.json');
+const packageJsonSrc = require('../package.json');
 
 const excludedDeps = [
   'lodash', 'recompose', 'object-assign',
 ];
 
-const deps = []
+const deps = [
+  'react-hot-loader/index',
+  'react-hot-loader/patch',
+  'eventsource-polyfill',
+  'webpack-dev-server/client',
+  'react-addons-perf',
+  'webpack/hot/log-apply-result',
+  'webpack-dev-server/client/index',
+]
   .concat(Object.keys(packageJson.dependencies))
   .concat(Object.keys(packageJsonSrc.dependencies))
   .concat(Object.keys(packageJsonSrc.peerDependencies))
@@ -17,7 +25,9 @@ const deps = []
     return excludedDeps.indexOf(dep) === -1;
   });
 
+
 module.exports = {
+  devtool: 'inline-source-map',
   entry: {
     lib: deps,
   },
@@ -30,20 +40,6 @@ module.exports = {
     new webpack.DllPlugin({
       name: 'dll',
       path: 'build/dll.manifest.json',
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-      output: {
-        comments: false,
-      },
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
     }),
   ],
 };
