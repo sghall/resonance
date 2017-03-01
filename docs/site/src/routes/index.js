@@ -81,6 +81,13 @@ const routes = {
         },
         {
           nav: true,
+          path: '/getting-started/examples',
+          title: 'Examples',
+          component: MarkdownDocs,
+          content: docsContext('./getting-started/examples.md'),
+        },
+        {
+          nav: true,
           path: '/getting-started/usage',
           title: 'Usage',
           component: MarkdownDocs,
