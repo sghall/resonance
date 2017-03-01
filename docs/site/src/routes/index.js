@@ -12,7 +12,7 @@ import { kebabCase, titleize } from 'docs/site/src/utils/helpers';
 import AppFrame from '../components/AppFrame';
 import AppContent from '../components/AppContent';
 import MarkdownDocs from '../components/MarkdownDocs';
-import Home from '../pages/Home';
+import Home from './Home';
 import store, { injectReducer } from '../store';
 
 function formatPath(path) {
@@ -77,28 +77,28 @@ const routes = {
           path: '/getting-started/installation',
           title: 'Installation',
           component: MarkdownDocs,
-          content: docsContext('./getting-started/installation.md'),
+          content: docsContext('./site/src/routes/getting-started/installation.md'),
         },
         {
           nav: true,
           path: '/getting-started/examples',
           title: 'Examples',
           component: MarkdownDocs,
-          content: docsContext('./getting-started/examples.md'),
+          content: docsContext('./site/src/routes/getting-started/examples.md'),
         },
         {
           nav: true,
           path: '/getting-started/usage',
           title: 'Usage',
           component: MarkdownDocs,
-          content: docsContext('./getting-started/usage.md'),
+          content: docsContext('./site/src/routes/getting-started/usage.md'),
         },
         {
           nav: true,
           path: '/getting-started/server-rendering',
           title: 'Server Rendering',
           component: MarkdownDocs,
-          content: docsContext('./getting-started/server-rendering.md'),
+          content: docsContext('./site/src/routes/getting-started/server-rendering.md'),
         },
       ],
     },
@@ -123,7 +123,7 @@ const routes = {
       component: AppContent,
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/examples/bar-charts');
+          replace('/examples/states-by-age');
         },
       },
       childRoutes: [
