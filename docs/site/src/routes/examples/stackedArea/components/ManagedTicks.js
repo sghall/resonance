@@ -6,7 +6,7 @@ import { format } from 'd3-format';
 import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import {
+import withManagedData, {
   APPEAR,
   UPDATE,
   REMOVE,
@@ -30,17 +30,17 @@ export const styleSheet = createStyleSheet('Tick', (theme) => {
   };
 });
 
-export default class Tick extends Component {
+class Tick extends Component {
   static propTypes = {
     node: PropTypes.shape({
       udid: React.PropTypes.string.isRequired,
       type: React.PropTypes.string.isRequired,
       data: React.PropTypes.number.isRequired,
     }).isRequired,
-    xScale0: PropTypes.func.isRequired,
-    xScale1: PropTypes.func.isRequired,
-    yHeight: PropTypes.number.isRequired,
     duration: PropTypes.number.isRequired,
+    prevXScale: PropTypes.func.isRequired,
+    currXScale: PropTypes.func.isRequired,
+    currYScale: PropTypes.func.isRequired,
     removeNode: PropTypes.func.isRequired,
   };
 
@@ -86,9 +86,9 @@ export default class Tick extends Component {
     this.transition.stop();
   }
 
-  onAppear({ xScale0, xScale1, node: { data }, duration }) {
-    const beg = `translate(${xScale0(data)},0)`;
-    const end = `translate(${xScale1(data)},0)`;
+  onAppear({ prevXScale, currXScale, node: { data }, duration }) {
+    const beg = `translate(${prevXScale(data)},0)`;
+    const end = `translate(${currXScale(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
     const interp1 = interpolateNumber(1e-6, 1);
@@ -105,9 +105,9 @@ export default class Tick extends Component {
     });
   }
 
-  onUpdate({ xScale1, node: { data }, duration }) {
+  onUpdate({ currXScale, node: { data }, duration }) {
     const beg = this.tick.getAttribute('transform');
-    const end = `translate(${xScale1(data)},0)`;
+    const end = `translate(${currXScale(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
     const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1);
@@ -124,9 +124,9 @@ export default class Tick extends Component {
     });
   }
 
-  onRemove({ xScale1, node: { data }, duration, removeNode }) {
+  onRemove({ currXScale, node: { data }, duration, removeNode }) {
     const beg = this.tick.getAttribute('transform');
-    const end = `translate(${xScale1(data)},0)`;
+    const end = `translate(${currXScale(data)},0)`;
 
     const interp0 = interpolateTransformSvg(beg, end);
     const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1e-6);
@@ -145,14 +145,14 @@ export default class Tick extends Component {
   }
 
   render() {
-    const { yHeight, node: { data } } = this.props;
+    const { currYScale, node: { data } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
       <g ref={(d) => { this.tick = d; }}>
         <line
           x1={0} y1={0}
-          x2={0} y2={yHeight}
+          x2={0} y2={currYScale.range()[1]}
           className={classes.line}
         />
         <text
@@ -164,3 +164,19 @@ export default class Tick extends Component {
     );
   }
 }
+
+const Ticks = withManagedData(Tick);
+
+const ManagedTicks = (props) => {
+  return <Ticks data={props.xTicks} {...props} />;
+};
+
+ManagedTicks.propTypes = {
+  xTicks: PropTypes.array.isRequired,
+};
+
+ManagedTicks.defaultProps = {
+  xTicks: [],
+};
+
+export default ManagedTicks;

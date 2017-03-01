@@ -10,11 +10,16 @@ import {
 import { format } from 'd3-format';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'material-charts/withManagedData';
+import withManagedData, {
+  APPEAR,
+  UPDATE,
+  REMOVE,
+  REVIVE,
+} from 'material-charts/withManagedData';
 
 const percentFormat = format('.2%');
 
-export const styleSheet = createStyleSheet('Bar', (theme) => {
+const styleSheet = createStyleSheet('Bar', (theme) => {
   return {
     bar: {
       fill: theme.palette.accent[500],
@@ -30,7 +35,7 @@ export const styleSheet = createStyleSheet('Bar', (theme) => {
   };
 });
 
-export default class Bar extends Component {
+class Bar extends Component {
   static propTypes = {
     node: PropTypes.shape({
       udid: PropTypes.string.isRequired,
@@ -175,3 +180,5 @@ export default class Bar extends Component {
     );
   }
 }
+
+export default withManagedData(Bar);
