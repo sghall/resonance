@@ -44,7 +44,7 @@ export function getSortByKey(key, ascending) {
   };
 }
 
-function genRandomSeries(m) {
+export function genRandomSeries(m) {
   function bump(a) {
     const x = 1 / (0.1 + Math.random());
     const y = (2 * Math.random()) - 0.5;
