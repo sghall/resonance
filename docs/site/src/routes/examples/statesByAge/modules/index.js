@@ -77,11 +77,10 @@ export const makeGetSelectedData = () => {
   );
 };
 
-const initialState = {
-  rawData: DATA,
-  showTop: 20,               // Number of bars to show
-  sortKey: '18 to 24 Years', // The age group currently selected
-};
+// ********************************************************************
+//  REDUCER
+// ********************************************************************
+const initialState = { rawData: DATA, showTop: 20, sortKey: '18 to 24 Years' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
