@@ -19,7 +19,7 @@ function formatPath(path) {
   return [path, path.replace(/.*\//, '').replace('.md', '')];
 }
 
-const demosContext = require.context('../demos', true, /\.md$/);
+const demosContext = require.context('./demos', true, /\.md$/);
 const demoRoutes = demosContext.keys()
   .map(formatPath)
   .map(([path, name]) => {
