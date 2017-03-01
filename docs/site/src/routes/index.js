@@ -33,7 +33,7 @@ const demoRoutes = demosContext.keys()
   });
 
 const docsContext = require.context(
-  './../../../../docs',
+  './../../../../docs/site/src/routes',
   true,
   /^((?![\\/]site\/src\/demos|node_modules[\\/]).)*\.md$/,
 );
@@ -77,28 +77,28 @@ const routes = {
           path: '/getting-started/installation',
           title: 'Installation',
           component: MarkdownDocs,
-          content: docsContext('./site/src/routes/getting-started/installation.md'),
+          content: docsContext('./getting-started/installation.md'),
         },
         {
           nav: true,
           path: '/getting-started/examples',
           title: 'Examples',
           component: MarkdownDocs,
-          content: docsContext('./site/src/routes/getting-started/examples.md'),
+          content: docsContext('./getting-started/examples.md'),
         },
         {
           nav: true,
           path: '/getting-started/usage',
           title: 'Usage',
           component: MarkdownDocs,
-          content: docsContext('./site/src/routes/getting-started/usage.md'),
+          content: docsContext('./getting-started/usage.md'),
         },
         {
           nav: true,
           path: '/getting-started/server-rendering',
           title: 'Server Rendering',
           component: MarkdownDocs,
-          content: docsContext('./site/src/routes/getting-started/server-rendering.md'),
+          content: docsContext('./getting-started/server-rendering.md'),
         },
       ],
     },
