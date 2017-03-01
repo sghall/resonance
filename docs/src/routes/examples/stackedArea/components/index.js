@@ -8,8 +8,8 @@ import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'resonance/Chart';
 import Axis from 'resonance/Axis';
-import { toggleFilter, makeGetSelectedData } from '../modules';
-import { VIEW, TRBL } from '../modules/constants';
+import { toggleFilter, makeGetSelectedData } from '../module';
+import { VIEW, TRBL } from '../module/constants';
 import ManagedPaths from './ManagedPaths';
 import ManagedTicks from './ManagedTicks';
 

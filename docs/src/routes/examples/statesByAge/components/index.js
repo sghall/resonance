@@ -8,8 +8,8 @@ import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'resonance/Chart';
 import Axis from 'resonance/Axis';
-import { updateSortOrder, makeGetSelectedData } from '../modules';
-import { VIEW, TRBL, AGES } from '../modules/constants';
+import { updateSortOrder, makeGetSelectedData } from '../module';
+import { VIEW, TRBL, AGES } from '../module/constants';
 import ManagedBars from './ManagedBars';
 import ManagedTicks from './ManagedTicks';
 
