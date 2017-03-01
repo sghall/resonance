@@ -1,8 +1,8 @@
 {
-  "name": "material-charts-docs",
+  "name": "resonance-docs",
   "private": true,
   "version": "0.1.0",
-  "description": "Documentation site for material-charts",
+  "description": "Documentation site for Resonance",
   "repository": {
     "type": "git",
     "url": "https://github.com/callemall/material-charts.git"
