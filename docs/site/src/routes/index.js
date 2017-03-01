@@ -104,33 +104,6 @@ const routes = {
     },
     {
       nav: true,
-      path: '/customization',
-      title: 'Customization',
-      component: AppContent,
-      indexRoute: {
-        onEnter(nextState, replace) {
-          replace('/customization/themes');
-        },
-      },
-      childRoutes: [
-        {
-          nav: true,
-          path: '/customization/themes',
-          title: 'Themes',
-          component: MarkdownDocs,
-          content: docsContext('./customization/themes.md'),
-        },
-        {
-          nav: true,
-          path: '/customization/composition',
-          title: 'Composition',
-          component: MarkdownDocs,
-          content: docsContext('./customization/composition.md'),
-        },
-      ],
-    },
-    {
-      nav: true,
       path: '/component-demos',
       title: 'Component Demos',
       component: AppContent,
