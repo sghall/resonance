@@ -10,6 +10,7 @@ import Chart from 'material-charts/Chart';
 import Axis from 'material-charts/Axis';
 import { toggleFilter, makeGetSelectedData } from '../modules';
 import { VIEW, TRBL } from '../modules/constants';
+import ManagedPaths from './ManagedPaths';
 
 export class App extends Component {
 
@@ -58,7 +59,6 @@ export class App extends Component {
               <TableBody>
                 {filter.map((d, i) => {
                   const isSelected = d.show;
-
                   return (
                     <TableRow
                       hover
@@ -82,7 +82,15 @@ export class App extends Component {
         </Layout>
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
-            Chart
+            <Chart view={VIEW} trbl={TRBL}>
+              <ManagedPaths
+                data={paths}
+                xScale={xScale}
+                yScale={yScale}
+                duration={duration}
+                keyAccessor={(d) => d.name}
+              />
+            </Chart>
           </Paper>
         </Layout>
       </Layout>

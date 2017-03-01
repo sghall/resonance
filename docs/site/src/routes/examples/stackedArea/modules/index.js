@@ -1,11 +1,19 @@
 // @flow weak
+/* eslint no-shadow: "false" */
+
 import { createSelector } from 'reselect';
 import * as shape from 'd3-shape';
-import { scaleLinear, scaleUtc } from 'd3-scale';
+import { scaleLinear, scaleOrdinal, scaleUtc } from 'd3-scale';
 import { utcParse } from 'd3-time-format';
 import { extent, merge } from 'd3-array';
-import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
+import { VIEW, TRBL, COLORS, EXAMPLE_STORE_KEY } from './constants';
 import { getInitialValues, getPath } from './helpers';
+
+const { data, filter } = getInitialValues(150);
+
+const colors = scaleOrdinal()
+  .range(COLORS)
+  .domain(filter.map((d) => d.name));
 
 const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
@@ -54,7 +62,7 @@ export const makeGetSelectedData = () => {
       }
 
       const layout = shape.stack()
-        .keys(shown)
+        .keys(shown.map((d) => d.name))
         .value((d, key) => d[key])
         .offset(layoutOffset)(data);
 
@@ -71,6 +79,7 @@ export const makeGetSelectedData = () => {
       for (let k = 0; k < shown.length; k++) {
         paths.push({
           name: shown[k].name,
+          fill: colors(shown[k].name),
           path: getPath(xScale, yScale, layout[k], dates),
         });
       }
@@ -83,7 +92,6 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const { data, filter } = getInitialValues(150);
 const initialState = { data, filter, offset: 'stacked' };
 
 function toggle(state, action) {
