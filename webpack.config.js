@@ -3,7 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const libraryName = 'material-charts';
+const libraryName = 'resonance';
 const baseConfig = {
   entry: {
     [libraryName]: path.join(__dirname, 'src/index.js'),

@@ -1,9 +1,9 @@
 {
-  "name": "material-charts",
+  "name": "resonance",
   "version": "0.1.0",
   "description": "React charts that conform to Google material design principles",
   "main": "index.js",
-  "repository": "git+https://github.com/sghall/material-charts.git",
+  "repository": "git+https://github.com/sghall/resonance.git",
   "keywords": [
     "react",
     "charts",
@@ -14,9 +14,9 @@
   "author": "Steven Hall",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sghall/material-charts/issues"
+    "url": "https://github.com/sghall/resonance/issues"
   },
-  "homepage": "https://github.com/sghall/material-charts#readme",
+  "homepage": "https://github.com/sghall/resonance#readme",
   "scripts": {
     "build": "npm run build:es2015 && npm run build:es2015modules && npm run build:copy-files && npm run build:umd:dev && npm run build:umd:min",
     "build:es2015": "cross-env NODE_ENV=production babel ./src --ignore *.spec.js --out-dir ./build",

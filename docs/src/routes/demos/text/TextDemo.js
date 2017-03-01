@@ -1,8 +1,8 @@
 // @flow weak
 import React from 'react';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import Chart from 'material-charts/Chart';
-import Text from 'material-charts/Text';
+import Chart from 'resonance/Chart';
+import Text from 'resonance/Text';
 
 export default function TextDemo() {
   return (

@@ -8,7 +8,7 @@ import withManagedData, {
   UPDATE,
   REMOVE,
   REVIVE,
-} from 'material-charts/withManagedData';
+} from 'resonance/withManagedData';
 
 class Path extends Component {
   static propTypes = {

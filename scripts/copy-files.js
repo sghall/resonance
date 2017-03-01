@@ -49,7 +49,7 @@ function createPackageFile() {
     } = packageData;
 
     const minimalPackage = {
-      name: 'material-charts',
+      name: 'resonance',
       author,
       version,
       description,

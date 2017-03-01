@@ -47,7 +47,7 @@ module.exports = {
   resolve: {
     alias: {
       docs: path.resolve(__dirname, '../docs'),
-      'material-charts': path.resolve(__dirname, '../src'),
+      'resonance': path.resolve(__dirname, '../src'),
     },
   },
   plugins: [

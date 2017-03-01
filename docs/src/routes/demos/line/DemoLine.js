@@ -3,7 +3,7 @@
 import React from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import Line from 'material-charts/Line';
+import Line from 'resonance/Line';
 import Text from 'material-ui/Text';
 
 const styleSheet = createStyleSheet('PaperSheet', (theme) => ({

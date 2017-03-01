@@ -1,6 +1,6 @@
 // @flow weak
 import React from 'react';
-import Chart from 'material-charts/Chart';
+import Chart from 'resonance/Chart';
 
 export default function DemoAxis() {
   return (

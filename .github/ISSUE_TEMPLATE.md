@@ -4,7 +4,7 @@
 
 ### Versions
 
-- Material-Charts: 
+- resonance: 
 - React: 
 - Browser: 
 

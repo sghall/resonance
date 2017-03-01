@@ -30,7 +30,7 @@ export const styleSheet = createStyleSheet('Line', (theme) => {
  * A piece of material Line.
  *
  * ```js
- * import Line from 'material-charts/Line';
+ * import Line from 'resonance/Line';
  *
  * const Component = () => <Line zDepth={8}>Hello World</Line>;
  * ```

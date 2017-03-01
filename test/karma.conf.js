@@ -4,7 +4,7 @@ const path = require('path');
 const browserStack = {
   username: process.env.BROWSERSTACK_USERNAME,
   accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
-  build: `material-charts-${(new Date()).toISOString()}`,
+  build: `resonance-${(new Date()).toISOString()}`,
 };
 
 // Karma configuration
@@ -71,7 +71,7 @@ module.exports = function setKarmaConfig(config) {
       },
       resolve: {
         alias: {
-          'material-charts': path.resolve(__dirname, '../src'),
+          'resonance': path.resolve(__dirname, '../src'),
           sinon: 'sinon/pkg/sinon.js',
         },
         extensions: ['.js'],

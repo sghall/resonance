@@ -4,7 +4,7 @@ Chart
 A piece of material Chart.
 
 ```js
-import Chart from 'material-charts/Chart';
+import Chart from 'resonance/Chart';
 
 const Component = () => <Chart zDepth={8}>Hello World</Chart>;
 ```

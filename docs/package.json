@@ -5,7 +5,7 @@
   "description": "Documentation site for Resonance",
   "repository": {
     "type": "git",
-    "url": "https://github.com/callemall/material-charts.git"
+    "url": "https://github.com/callemall/resonance.git"
   },
   "scripts": {
     "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",

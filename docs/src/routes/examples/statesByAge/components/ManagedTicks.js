@@ -11,7 +11,7 @@ import withManagedData, {
   UPDATE,
   REMOVE,
   REVIVE,
-} from 'material-charts/withManagedData';
+} from 'resonance/withManagedData';
 
 const percentFormat = format('.1%');
 
