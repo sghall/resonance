@@ -4,9 +4,8 @@ import * as shape from 'd3-shape';
 import { scaleLinear, scaleUtc } from 'd3-scale';
 import { utcParse } from 'd3-time-format';
 import { extent, merge } from 'd3-array';
-import { getPath } from 'docs/site/src/utils/helpers';
 import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
-import { getInitialValues } from './helpers';
+import { getInitialValues, getPath } from './helpers';
 
 const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
@@ -22,7 +21,7 @@ export const STACKED_AREA_CHANGE_OFFSET = 'STACKED_AREA_CHANGE_OFFSET';
 // ********************************************************************
 //  ACTION CREATORS
 // ********************************************************************
-export const toggleName = (index) => ({
+export const toggleFilter = (index) => ({
   type: STACKED_AREA_TOGGLE_FILTER,
   index,
 });
@@ -87,7 +86,7 @@ export const makeGetSelectedData = () => {
 const { data, filter } = getInitialValues(150);
 const initialState = { data, filter, offset: 'stacked' };
 
-function toggleFilter(state, action) {
+function toggle(state, action) {
   const item = state.filter[action.index];
 
   return [
@@ -100,7 +99,7 @@ function toggleFilter(state, action) {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case STACKED_AREA_TOGGLE_FILTER:
-      return Object.assign({}, state, { filter: toggleFilter(state, action) });
+      return Object.assign({}, state, { filter: toggle(state, action) });
     case STACKED_AREA_CHANGE_OFFSET:
       return Object.assign({}, state, { offset: action.name });
     default:

@@ -8,10 +8,8 @@ import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'material-charts/Chart';
 import Axis from 'material-charts/Axis';
-import { updateSortOrder, makeGetSelectedData } from '../modules';
-import { VIEW, TRBL, AGES } from '../modules/constants';
-import ManagedBars from './ManagedBars';
-import ManagedTicks from './ManagedTicks';
+import { toggleFilter, makeGetSelectedData } from '../modules';
+import { VIEW, TRBL } from '../modules/constants';
 
 export class App extends Component {
 
@@ -20,7 +18,6 @@ export class App extends Component {
 
     this.state = {
       duration: 1000,
-      showTopN: 20,
     };
 
     this.setDuration = this.setDuration.bind(this);
@@ -40,41 +37,42 @@ export class App extends Component {
   }
 
   render() {
-    const { sortKey, data, xScale, yScale, dispatch } = this.props;
-    const { duration, showTopN } = this.state;
+    const { filter, offset, paths, xScale, yScale, dispatch } = this.props;
+    const { duration } = this.state;
 
     return (
       <Layout container gutter={24}>
         <Layout item xs={12} sm={6}>
           <Paper>
-            <span>Show Top {showTopN} States:</span>
+            Offset
           </Paper>
         </Layout>
         <Layout item xs={12} sm={6}>
           <Paper>
-            <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
+            Duration
           </Paper>
         </Layout>
         <Layout item xs={12} sm={4} md={3}>
           <Paper>
             <Table>
               <TableBody>
-                {AGES.map((age) => {
-                  const isSelected = age === sortKey;
+                {filter.map((d, i) => {
+                  const isSelected = d.show;
+
                   return (
                     <TableRow
                       hover
-                      onClick={() => dispatch(updateSortOrder(age))}
+                      onClick={() => dispatch(toggleFilter(i))}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex="-1"
-                      key={age}
+                      key={d.name}
                       selected={isSelected}
                     >
                       <TableCell checkbox>
                         <Checkbox checked={isSelected} />
                       </TableCell>
-                      <TableCell padding={false}>{age}</TableCell>
+                      <TableCell padding={false}>{d.name}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -84,17 +82,7 @@ export class App extends Component {
         </Layout>
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
-            <Chart view={VIEW} trbl={TRBL}>
-              <ManagedBars
-                data={data}
-                xScale={xScale}
-                yScale={yScale}
-                duration={duration}
-              />
-              <Axis xScale={xScale} yScale={yScale} duration={duration}>
-                <ManagedTicks />
-              </Axis>
-            </Chart>
+            Chart
           </Paper>
         </Layout>
       </Layout>
@@ -103,10 +91,11 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  data: PropTypes.array.isRequired,
+  paths: PropTypes.array.isRequired,
+  filter: PropTypes.array.isRequired,
+  offset: PropTypes.string.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
-  sortKey: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
