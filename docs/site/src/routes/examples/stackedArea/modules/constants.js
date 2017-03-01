@@ -2,7 +2,7 @@
 export const EXAMPLE_STORE_KEY = 'stacked-area';
 
 export const VIEW = [500, 400];        // ViewBox: Width, Height
-export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
+export const TRBL = [30, 20, 10, 40];  // Margins: Top, Right, Bottom, Left
 
 export const COLORS = [
   '#272e5d',

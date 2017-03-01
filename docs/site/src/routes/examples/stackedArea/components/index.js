@@ -11,6 +11,7 @@ import Axis from 'material-charts/Axis';
 import { toggleFilter, makeGetSelectedData } from '../modules';
 import { VIEW, TRBL } from '../modules/constants';
 import ManagedPaths from './ManagedPaths';
+import ManagedTicks from './ManagedTicks';
 
 export class App extends Component {
 
@@ -90,6 +91,9 @@ export class App extends Component {
                 duration={duration}
                 keyAccessor={(d) => d.name}
               />
+              <Axis xScale={xScale} yScale={yScale} duration={duration}>
+                <ManagedTicks />
+              </Axis>
             </Chart>
           </Paper>
         </Layout>
