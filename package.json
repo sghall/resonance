@@ -1,15 +1,19 @@
 {
   "name": "resonance",
   "version": "0.1.0",
-  "description": "React charts that conform to Google material design principles",
+  "description": "React data visualization tools",
   "main": "index.js",
   "repository": "git+https://github.com/sghall/resonance.git",
   "keywords": [
+    "d3",
+    "svg",
     "react",
     "charts",
-    "material",
-    "design",
-    "d3"
+    "graphs",
+    "animation",
+    "transitions",
+    "interpolation",
+    "data visualization"
   ],
   "author": "Steven Hall",
   "license": "MIT",
