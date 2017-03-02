@@ -46,7 +46,7 @@ export default class NodeManager extends PureComponent {
   }
 
   componentWillUnmount() {
-    requestAnimationFrame.cancel(this.reqID);
+    cancelAnimationFrame(this.reqID);
     this.reqID = UNMOUNTED;
   }
 
