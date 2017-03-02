@@ -15,7 +15,7 @@ const colors = scaleOrdinal()
   .range(COLORS)
   .domain(filter.map((d) => d.name));
 
-const dims = [
+export const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
   VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
 ];
@@ -51,6 +51,17 @@ export const makeGetSelectedData = () => {
     [getData, getFilter, getOffset],
     (data, filter, offset) => {
       const shown = filter.filter((d) => d.show === true);
+
+      if (data.length === 0 || shown.length === 0) {
+        return {
+          filter,
+          offset,
+          paths: [],
+          xScale: () => 0,
+          yScale: () => 0, 
+        }
+      }
+
       const dates = data.map((d) => utcParse('%Y-%m-%dT%H:%M:%S.%LZ')(d.date));
 
       let layoutOffset = shape.stackOffsetNone;

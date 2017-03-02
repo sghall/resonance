@@ -8,7 +8,7 @@ import dataUpdate from '../core/dataUpdate';
 
 const UNMOUNTED = 'UNMOUNTED';
 
-export default class NodeManager extends PureComponent {
+export default class TickManager extends PureComponent {
   static propTypes = {
     scale: PropTypes.func.isRequired,
     keyAccessor: PropTypes.func,

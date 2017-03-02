@@ -9,16 +9,17 @@ import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'resonance/Chart';
-import Axis from 'resonance/Axis';
+import NodeManager from 'resonance/NodeManager';
+import TickManager from 'resonance/TickManager';
 import { truncate } from 'docs/src/utils/helpers';
 import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
-import ManagedPaths from './ManagedPaths';
-import ManagedTicks from './ManagedTicks';
+import Path from './Path';
+import Tick from './Tick';
 
 const dateFormat = utcFormat('%-d/%-m/%Y');
 
-export class App extends Component {
+export class Example extends Component {
 
   constructor(props) {
     super(props);
@@ -47,10 +48,12 @@ export class App extends Component {
     const { filter, offset, paths, xScale, yScale, dispatch } = this.props;
     const { duration } = this.state;
 
+    const xAxisTicks = xScale.ticks ? xScale.ticks() : [];
+
     return (
       <Layout container gutter={24}>
         <Layout item xs={12} sm={12} md={12}>
-          <Paper round style={{ padding: 10, textAlign: 'center' }}>
+          <Paper style={{ padding: 10, textAlign: 'center' }}>
             <RadioGroup
               name="offsets"
               selectedValue={offset}
@@ -102,17 +105,21 @@ export class App extends Component {
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
             <Chart view={VIEW} trbl={TRBL}>
-              <ManagedPaths
+              <NodeManager
                 data={paths}
                 xScale={xScale}
                 yScale={yScale}
                 duration={duration}
                 keyAccessor={(d) => d.name}
+                nodeComponent={Path}
               />
-              <Axis xScale={xScale} yScale={yScale} duration={duration}>
-                <ManagedTicks />
-              </Axis>
-              {xScale.ticks().map((d) => {
+              <TickManager
+                scale={yScale}
+                xScale={xScale}
+                duration={duration}
+                tickComponent={Tick}
+              />
+              {xAxisTicks.map((d) => {
                 const date = dateFormat(d);
                 return (
                   <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
@@ -140,7 +147,7 @@ export class App extends Component {
   }
 }
 
-App.propTypes = {
+Example.propTypes = {
   paths: PropTypes.array.isRequired,
   filter: PropTypes.array.isRequired,
   offset: PropTypes.string.isRequired,
@@ -158,4 +165,4 @@ const makeMapStateToProps = () => {
 };
 
 
-export default connect(makeMapStateToProps())(App);
+export default connect(makeMapStateToProps())(Example);

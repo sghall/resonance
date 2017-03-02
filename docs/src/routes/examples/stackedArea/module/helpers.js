@@ -8,9 +8,8 @@ import { FRUITS } from './constants';
 
 export function getInitialValues(days) {
   const data = shuffle(FRUITS).slice(0, 10);
-  const time = moment().hour(0).minute(0);
+  const time = moment().subtract(days, 'days').hour(0).minute(0);
 
-  const dates = {};
   const names = {};
 
   for (let i = 0; i < data.length; i++) {
@@ -21,8 +20,7 @@ export function getInitialValues(days) {
   const items = [];
 
   for (let i = 0; i < days; i++) {
-    const date = time.clone().subtract(i, 'days').toISOString();
-    dates[date] = true;
+    const date = time.clone().add(i, 'days').toISOString();
 
     const item = { date };
     item.total = 0;

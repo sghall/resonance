@@ -3,14 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import { timer } from 'd3-timer';
 import { interpolateNumber, interpolateString } from 'd3-interpolate';
-import withManagedData, {
-  APPEAR,
-  UPDATE,
-  REMOVE,
-  REVIVE,
-} from 'resonance/withManagedData';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
 
-class Path extends Component {
+export default class Path extends Component {
   static propTypes = {
     node: PropTypes.shape({
       udid: PropTypes.string.isRequired,
@@ -46,7 +41,7 @@ class Path extends Component {
           this.onAppear(next);
           break;
         default:
-          throw new Error(`Invalid Node Type: ${next.node.type}`);
+          break;
       }
     }
   }
@@ -109,5 +104,3 @@ class Path extends Component {
     );
   }
 }
-
-export default withManagedData(Path);

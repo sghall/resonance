@@ -6,17 +6,13 @@ import { format } from 'd3-format';
 import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import withManagedData, {
-  APPEAR,
-  UPDATE,
-  REMOVE,
-  REVIVE,
-} from 'resonance/withManagedData';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
+import { dims } from '../module';
 
 const numberFormat = format(',');
 // const percentFormat = format('.1p');
 
-export const styleSheet = createStyleSheet('Y-Tick', (theme) => {
+export const styleSheet = createStyleSheet('Tick', (theme) => {
   return {
     line: {
       strokeWidth: 1,
@@ -31,18 +27,17 @@ export const styleSheet = createStyleSheet('Y-Tick', (theme) => {
   };
 });
 
-class Tick extends Component {
+export default class Tick extends Component {
   static propTypes = {
-    node: PropTypes.shape({
+    tick: PropTypes.shape({
       udid: React.PropTypes.string.isRequired,
       type: React.PropTypes.string.isRequired,
       data: React.PropTypes.number.isRequired,
     }).isRequired,
     duration: PropTypes.number.isRequired,
-    prevYScale: PropTypes.func.isRequired,
-    currYScale: PropTypes.func.isRequired,
-    currXScale: PropTypes.func.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    prevScale: PropTypes.func.isRequired,
+    currScale: PropTypes.func.isRequired,
+    removeTick: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -57,10 +52,10 @@ class Tick extends Component {
   componentWillReceiveProps(next) {
     const { props } = this;
 
-    if (props.node !== next.node) {
+    if (props.tick !== next.tick) {
       this.transition.stop();
 
-      switch (next.node.type) {
+      switch (next.tick.type) {
         case APPEAR:
           this.onAppear(next);
           break;
@@ -80,16 +75,16 @@ class Tick extends Component {
   }
 
   shouldComponentUpdate(next) {
-    return this.props.node !== next.node;
+    return this.props.tick !== next.tick;
   }
 
   componentWillUnmount() {
     this.transition.stop();
   }
 
-  onAppear({ prevYScale, currYScale, node: { data }, duration }) {
-    const beg = `translate(0,${prevYScale(data)})`;
-    const end = `translate(0,${currYScale(data)})`;
+  onAppear({ prevScale, currScale, tick: { data }, duration }) {
+    const beg = `translate(0,${prevScale(data)})`;
+    const end = `translate(0,${currScale(data)})`;
 
     const interp0 = interpolateTransformSvg(beg, end);
     const interp1 = interpolateNumber(1e-6, 1);
@@ -106,9 +101,9 @@ class Tick extends Component {
     });
   }
 
-  onUpdate({ currYScale, node: { data }, duration }) {
+  onUpdate({ currScale, tick: { data }, duration }) {
     const beg = this.tick.getAttribute('transform');
-    const end = `translate(0,${currYScale(data)})`;
+    const end = `translate(0,${currScale(data)})`;
 
     const interp0 = interpolateTransformSvg(beg, end);
     const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1);
@@ -125,9 +120,9 @@ class Tick extends Component {
     });
   }
 
-  onRemove({ currYScale, node: { udid, data }, removeNode, duration }) {
+  onRemove({ currScale, tick: { udid, data }, removeTick, duration }) {
     const beg = this.tick.getAttribute('transform');
-    const end = `translate(0,${currYScale(data)})`;
+    const end = `translate(0,${currScale(data)})`;
 
     const interp0 = interpolateTransformSvg(beg, end);
     const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1e-6);
@@ -140,20 +135,20 @@ class Tick extends Component {
 
       if (t === 1) {
         this.transition.stop();
-        removeNode(udid);
+        removeTick(udid);
       }
     });
   }
 
   render() {
-    const { currXScale, node: { data } } = this.props;
+    const { tick: { data } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
       <g ref={(d) => { this.tick = d; }}>
         <line
           x1={0} y1={0}
-          x2={currXScale.range()[1]} y2={0}
+          x2={dims[0]} y2={0}
           className={classes.line}
         />
         <text
@@ -167,19 +162,3 @@ class Tick extends Component {
     );
   }
 }
-
-const Ticks = withManagedData(Tick);
-
-const ManagedTicks = (props) => {
-  return <Ticks data={props.yTicks} {...props} />;
-};
-
-ManagedTicks.propTypes = {
-  yTicks: PropTypes.array.isRequired,
-};
-
-ManagedTicks.defaultProps = {
-  yTicks: [],
-};
-
-export default ManagedTicks;

@@ -43,8 +43,8 @@ export const makeGetSelectedData = () => {
         return {
           sortKey,
           data: rawData,
-          xScale: () => {},
-          yScale: () => {},
+          xScale: () => 0,
+          yScale: () => 0,
         };
       }
 
