@@ -7,13 +7,15 @@ import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'resonance/Chart';
+import NodeManager from 'resonance/NodeManager';
+
 import Axis from 'resonance/Axis';
 import { updateSortOrder, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
-import ManagedBars from './ManagedBars';
 import ManagedTicks from './ManagedTicks';
+import Bar from './Bar';
 
-export class App extends Component {
+export class Example extends Component {
 
   constructor(props) {
     super(props);
@@ -85,11 +87,12 @@ export class App extends Component {
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
             <Chart view={VIEW} trbl={TRBL}>
-              <ManagedBars
+              <NodeManager
                 data={data}
                 xScale={xScale}
                 yScale={yScale}
                 duration={duration}
+                nodeComponent={Bar}
               />
               <Axis xScale={xScale} yScale={yScale} duration={duration}>
                 <ManagedTicks />
@@ -102,7 +105,7 @@ export class App extends Component {
   }
 }
 
-App.propTypes = {
+Example.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
@@ -119,4 +122,4 @@ const makeMapStateToProps = () => {
 };
 
 
-export default connect(makeMapStateToProps())(App);
+export default connect(makeMapStateToProps())(Example);
