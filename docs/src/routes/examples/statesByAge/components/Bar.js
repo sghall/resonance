@@ -10,12 +10,7 @@ import {
 import { format } from 'd3-format';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import {
-  APPEAR,
-  UPDATE,
-  REMOVE,
-  REVIVE,
-} from 'resonance';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
 
 const percentFormat = format('.2%');
 

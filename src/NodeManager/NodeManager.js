@@ -10,14 +10,13 @@ const UNMOUNTED = 'UNMOUNTED';
 
 export default class NodeManager extends PureComponent {
   static propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.array.isRequired,
     keyAccessor: PropTypes.func,
     composeNode: PropTypes.func,
     nodeComponent: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    data: [],
     keyAccessor: defaultKeyAccessor,
     composeNode: defaultComposeNode,
   };
@@ -35,9 +34,7 @@ export default class NodeManager extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.data) {
-      this.updateNodes(this.props);
-    }
+    this.updateNodes(this.props);
   }
 
   componentWillReceiveProps(next) {
