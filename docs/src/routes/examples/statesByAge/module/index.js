@@ -4,7 +4,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { getSortByKey } from 'docs/src/utils/helpers';
 import { DATA, VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
 
-const dims = [
+export const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
   VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
 ];

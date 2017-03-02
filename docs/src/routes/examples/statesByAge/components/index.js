@@ -8,12 +8,11 @@ import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'resonance/Chart';
 import NodeManager from 'resonance/NodeManager';
-
-import Axis from 'resonance/Axis';
+import TickManager from 'resonance/TickManager';
 import { updateSortOrder, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
-import ManagedTicks from './ManagedTicks';
 import Bar from './Bar';
+import Tick from './Tick';
 
 export class Example extends Component {
 
@@ -94,9 +93,11 @@ export class Example extends Component {
                 duration={duration}
                 nodeComponent={Bar}
               />
-              <Axis xScale={xScale} yScale={yScale} duration={duration}>
-                <ManagedTicks />
-              </Axis>
+              <TickManager
+                scale={xScale}
+                duration={duration}
+                tickComponent={Tick}
+              />
             </Chart>
           </Paper>
         </Layout>

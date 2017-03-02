@@ -78,10 +78,6 @@ export default class Bar extends PureComponent {
     }
   }
 
-  shouldComponentUpdate(next) {
-    return this.props.node !== next.node;
-  }
-
   componentWillUnmount() {
     this.transition.stop();
   }
