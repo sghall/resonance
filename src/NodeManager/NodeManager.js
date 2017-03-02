@@ -2,22 +2,22 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import Immutable from 'immutable';
-import debounce from 'lodash/debounce';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
 
-let time = performance.now();
+const UNMOUNTED = 'UNMOUNTED';
 
 export default class NodeManager extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
     keyAccessor: PropTypes.func,
     composeNode: PropTypes.func,
-    nodeComponent: PropTypes.func,
+    nodeComponent: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    data: [],
     keyAccessor: defaultKeyAccessor,
     composeNode: defaultComposeNode,
   };
@@ -25,8 +25,13 @@ export default class NodeManager extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { nodes: new Immutable.OrderedMap() };
-    this.removeNode = debounce(this.removeNode.bind(this));
+    this.state = {
+      nodes: new Immutable.OrderedMap(),
+    };
+
+    this.removeNode = this.removeNode.bind(this);
+    this.removalQueue = [];
+    this.processQueue = this.processQueue.bind(this);
   }
 
   componentDidMount() {
@@ -41,23 +46,46 @@ export default class NodeManager extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    requestAnimationFrame.cancel(this.reqID);
+    this.reqID = UNMOUNTED;
+  }
+
   updateNodes(props) {
     this.setState({ nodes: dataUpdate(props, this.state.nodes) });
   }
 
   removeNode(udid) {
-    console.log(udid);
-    const { nodes } = this.state;
-    this.setState({ nodes: nodes.delete(udid) });
+    this.removalQueue.push(udid);
+
+    if (this.removalQueue.length === 1) {
+      this.reqID = requestAnimationFrame(this.processQueue);
+    }
+  }
+
+  processQueue() {
+    if (this.removalQueue.length > 0) {
+      const nodes = this.state.nodes.withMutations((n) => {
+        while (this.removalQueue.length > 0) {
+          n.delete(this.removalQueue.shift());
+        }
+      });
+
+      if (this.reqID === UNMOUNTED) {
+        return;
+      }
+
+      this.setState({ nodes });
+      this.reqID = requestAnimationFrame(this.processQueue);
+    }
   }
 
   render() {
     const { props: { nodeComponent: Node, ...rest }, state: { nodes } } = this;
-    console.log('render!!!!');
 
     return (
       <g>
-        {nodes.map((node) => {
+        {nodes.toArray().map((node) => {
           return (
             <Node
               key={node.udid}
