@@ -10,10 +10,10 @@ const UNMOUNTED = 'UNMOUNTED';
 
 export default class NodeManager extends PureComponent {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    scale: PropTypes.func.isRequired,
     keyAccessor: PropTypes.func,
     composeNode: PropTypes.func,
-    nodeComponent: PropTypes.func.isRequired,
+    tickComponent: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -25,21 +25,23 @@ export default class NodeManager extends PureComponent {
     super(props);
 
     this.state = {
-      nodes: new Immutable.OrderedMap(),
+      ticks: new Immutable.OrderedMap(),
+      prevScale: () => {},
+      currScale: () => {},
     };
 
-    this.removeNode = this.removeNode.bind(this);
+    this.removeTick = this.removeTick.bind(this);
     this.removalQueue = [];
     this.processQueue = this.processQueue.bind(this);
   }
 
   componentDidMount() {
-    this.updateNodes(this.props);
+    this.updateTicks(this.props, this.props);
   }
 
   componentWillReceiveProps(next) {
-    if (this.props.data !== next.data) {
-      this.updateNodes(next);
+    if (this.props.scale !== next.scale) {
+      this.updateTicks(this.props, next);
     }
   }
 
@@ -48,11 +50,17 @@ export default class NodeManager extends PureComponent {
     this.reqID = UNMOUNTED;
   }
 
-  updateNodes(props) {
-    this.setState({ nodes: dataUpdate(props, this.state.nodes) });
+  updateTicks(prev, next) {
+    const ticks = next.scale.ticks ? next.scale.ticks() : [];
+
+    this.setState({
+      ticks: dataUpdate({ data: ticks, ...next }, this.state.ticks),
+      prevScale: prev.scale,
+      currScale: next.scale,
+    });
   }
 
-  removeNode(udid) {
+  removeTick(udid) {
     this.removalQueue.push(udid);
 
     if (this.removalQueue.length === 1) {
@@ -62,7 +70,7 @@ export default class NodeManager extends PureComponent {
 
   processQueue() {
     if (this.removalQueue.length > 0) {
-      const nodes = this.state.nodes.withMutations((n) => {
+      const ticks = this.state.ticks.withMutations((n) => {
         while (this.removalQueue.length > 0) {
           n.delete(this.removalQueue.shift());
         }
@@ -72,22 +80,24 @@ export default class NodeManager extends PureComponent {
         return;
       }
 
-      this.setState({ nodes });
+      this.setState({ ticks });
       this.reqID = requestAnimationFrame(this.processQueue);
     }
   }
 
   render() {
-    const { props: { nodeComponent: Node, ...rest }, state: { nodes } } = this;
+    const { props: { tickComponent: Tick, ...rest }, state: { ticks } } = this;
 
     return (
       <g>
-        {nodes.valueSeq().map((node) => {
+        {ticks.valueSeq().map((tick) => {
           return (
-            <Node
-              key={node.udid}
-              node={node}
-              removeNode={this.removeNode}
+            <Tick
+              key={tick.udid}
+              tick={tick}
+              removeTick={this.removeTick}
+              prevScale={this.state.prevScale}
+              currScale={this.state.currScale}
               {...rest}
             />
           );

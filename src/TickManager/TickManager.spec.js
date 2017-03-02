@@ -9,9 +9,9 @@ import {
   REVIVE,
   defaultComposeNode,
   defaultKeyAccessor,
-} from './withManagedData';
+} from './NodeManager';
 
-describe('withManagedData', () => {
+describe('NodeManager', () => {
   /**
    *  Create a string data key from given data
    */
@@ -36,14 +36,14 @@ describe('withManagedData', () => {
    *  compose data node from provided data (data, type, udid)
    */
   describe('defaultComposeNode', () => {
-    it('given an number, returns an object with number in data key` ', () => {
+    it('given a number, returns an object with number in data key` ', () => {
       assert.deepEqual(
         defaultComposeNode(5, APPEAR, 'key-123'),
         { data: 5, type: APPEAR, udid: 'key-123' },
       );
     });
 
-    it('given an string, returns an object with string in data key` ', () => {
+    it('given a string, returns an object with string in data key` ', () => {
       assert.deepEqual(
         defaultComposeNode('Wu-Tang', UPDATE, 'key-123'),
         { data: 'Wu-Tang', type: UPDATE, udid: 'key-123' },

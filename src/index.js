@@ -6,6 +6,7 @@ export Axis from './Axis';
 export Chart from './Chart';
 export withManagedData from './withManagedData';
 export NodeManager from './NodeManager';
+export TickManager from './TickManager';
 
 export {
   APPEAR,
