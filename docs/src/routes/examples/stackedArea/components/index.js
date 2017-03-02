@@ -3,15 +3,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Table, TableRow, TableCell, TableBody } from 'material-ui/Table';
+import { LabelRadio, RadioGroup } from 'material-ui/Radio';
+import { utcFormat } from 'd3-time-format';
 import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Chart from 'resonance/Chart';
 import Axis from 'resonance/Axis';
-import { toggleFilter, makeGetSelectedData } from '../module';
+import { truncate } from 'docs/src/utils/helpers';
+import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
 import ManagedPaths from './ManagedPaths';
 import ManagedTicks from './ManagedTicks';
+
+const dateFormat = utcFormat('%-d/%-m/%Y');
 
 export class App extends Component {
 
@@ -44,14 +49,27 @@ export class App extends Component {
 
     return (
       <Layout container gutter={24}>
-        <Layout item xs={12} sm={6}>
-          <Paper>
-            Offset
-          </Paper>
-        </Layout>
-        <Layout item xs={12} sm={6}>
-          <Paper>
-            Duration
+        <Layout item xs={12} sm={12} md={12}>
+          <Paper round style={{ padding: 10, textAlign: 'center' }}>
+            <RadioGroup
+              name="offsets"
+              selectedValue={offset}
+              onChange={(e, d) => dispatch(changeOffset(d))}
+              row
+            >
+              <LabelRadio
+                value="stacked"
+                label="Stacked"
+              />
+              <LabelRadio
+                value="stream"
+                label="Stream"
+              />
+              <LabelRadio
+                value="expand"
+                label="Expand"
+              />
+            </RadioGroup>
           </Paper>
         </Layout>
         <Layout item xs={12} sm={4} md={3}>
@@ -73,7 +91,7 @@ export class App extends Component {
                       <TableCell checkbox>
                         <Checkbox checked={isSelected} />
                       </TableCell>
-                      <TableCell padding={false}>{d.name}</TableCell>
+                      <TableCell padding={false}>{truncate(d.name, 20)}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -94,6 +112,26 @@ export class App extends Component {
               <Axis xScale={xScale} yScale={yScale} duration={duration}>
                 <ManagedTicks />
               </Axis>
+              {xScale.ticks().map((d) => {
+                const date = dateFormat(d);
+                return (
+                  <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
+                    <line
+                      style={{ pointerEvents: 'none' }}
+                      x1={0} y1={0}
+                      x2={0} y2={yScale.range()[0]}
+                      opacity={0.2}
+                      stroke="#fff"
+                    />
+                    <text
+                      fontSize="9px"
+                      textAnchor="middle"
+                      fill="white"
+                      x={0} y={-10}
+                    >{date}</text>
+                  </g>
+                );
+              })}
             </Chart>
           </Paper>
         </Layout>

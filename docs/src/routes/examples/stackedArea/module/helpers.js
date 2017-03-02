@@ -8,7 +8,7 @@ import { FRUITS } from './constants';
 
 export function getInitialValues(days) {
   const data = shuffle(FRUITS).slice(0, 10);
-  const time = moment();
+  const time = moment().hour(0).minute(0);
 
   const dates = {};
   const names = {};

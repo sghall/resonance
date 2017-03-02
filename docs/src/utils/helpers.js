@@ -28,6 +28,16 @@ export function titleize(string) {
     .join(' ');
 }
 
+export const truncate = (string, maxLength = 30) => {
+  if (string.length <= maxLength) {
+    return string;
+  }
+
+  const diff = (string.length + 3) - maxLength;
+
+  return `${string.slice(0, -diff)}...`;
+};
+
 export function getSortByKey(key, ascending) {
   return function sort(a, b) {
     let result = 0;
