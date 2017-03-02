@@ -39,6 +39,15 @@ export const makeGetSelectedData = () => {
   return createSelector(
     [getRawData, getSortKey, getShowTop],
     (rawData, sortKey, showTop) => {
+      if (rawData.length === 0) {
+        return {
+          sortKey,
+          data: rawData,
+          xScale: () => {},
+          yScale: () => {},
+        };
+      }
+
       const sort = getSortByKey(sortKey);
       const data = rawData.sort(sort).slice(0, showTop);
 
