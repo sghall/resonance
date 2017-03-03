@@ -27,8 +27,6 @@ module.exports = {
     'max-len': ['error', 100, 2, {
       ignoreUrls: true,
     }], // airbnb is allowing some edge cases
-    'no-console': 'error', // airbnb is using warn
-    'no-param-reassign': 'off', // Not our taste?
     'no-prototype-builtins': 'off', // airbnb use error
     'no-use-before-define': ['error', { 'functions': false }], // airbnb have functions: true, annoying
     'object-curly-spacing': 'off', // use babel plugin rule
@@ -40,10 +38,6 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
-    'react/jsx-handler-names': ['error', { // airbnb is disabling this rule
-      eventHandlerPrefix: 'handle',
-      eventHandlerPropPrefix: 'on',
-    }],
     'react/require-default-props': 'off', // airbnb use error
     'react/forbid-prop-types': 'off', // airbnb use error
     'react/jsx-filename-extension': ['error', {extensions: ['.js']}], // airbnb is using .jsx
