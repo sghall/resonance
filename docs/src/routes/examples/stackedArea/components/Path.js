@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { timer } from 'd3-timer';
 import { interpolateNumber, interpolateString } from 'd3-interpolate';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 
 export default class Path extends Component {
   static propTypes = {
@@ -53,6 +53,9 @@ export default class Path extends Component {
   componentWillUnmount() {
     this.transition.stop();
   }
+
+  transition = null; // Last transition run (or running)
+  node = null;       // Root node ref set in render method
 
   onAppear({ node: { path }, duration }) {
     this.node.setAttribute('opacity', 1e-6);

@@ -54,7 +54,7 @@ export function getSortByKey(key, ascending) {
   };
 }
 
-export function genRandomSeries(m) {
+export function genRandomSeries(m:number) {
   function bump(a) {
     const x = 1 / (0.1 + Math.random());
     const y = (2 * Math.random()) - 0.5;
@@ -62,7 +62,7 @@ export function genRandomSeries(m) {
 
     for (let i = 0; i < m; i++) {
       const w = ((i / m) - y) * z;
-      a[i] += x * Math.exp(-w * w);
+      a[i] += x * Math.exp(-w * w); // eslint-disable-line no-param-reassign
     }
   }
 

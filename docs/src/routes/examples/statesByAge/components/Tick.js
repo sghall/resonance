@@ -6,7 +6,7 @@ import { format } from 'd3-format';
 import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 import { dims } from '../module';
 
 const percentFormat = format('.1%');
@@ -76,6 +76,9 @@ export default class Tick extends PureComponent {
   componentWillUnmount() {
     this.transition.stop();
   }
+
+  transition = null; // Last transition run (or running)
+  tick = null;       // Root node ref set in render method
 
   onAppear({ prevScale, currScale, tick: { data }, duration }) {
     const beg = `translate(${prevScale(data)},0)`;

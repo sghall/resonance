@@ -6,7 +6,7 @@ import { shuffle } from 'd3-array';
 import { genRandomSeries } from 'docs/src/utils/helpers';
 import { FRUITS } from './constants';
 
-export function getInitialValues(days) {
+export function getInitialValues(days:number) {
   const data = shuffle(FRUITS).slice(0, 10);
   const time = moment().subtract(days, 'days').hour(0).minute(0);
 
@@ -22,8 +22,7 @@ export function getInitialValues(days) {
   for (let i = 0; i < days; i++) {
     const date = time.clone().add(i, 'days').toISOString();
 
-    const item = { date };
-    item.total = 0;
+    const item = { date, total: 0 };
 
     for (let j = 0; j < data.length; j++) {
       const label = data[j].name;

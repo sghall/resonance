@@ -1,4 +1,5 @@
-// @flow weak
+// Wait https://github.com/facebook/flow/issues/380 to be fixed
+/* eslint-disable flowtype/require-valid-file-annotation */
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';

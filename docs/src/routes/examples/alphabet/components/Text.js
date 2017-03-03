@@ -2,8 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import { timer } from 'd3-timer';
-import { interpolateObject, interpolateNumber } from 'd3-interpolate';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
+import { interpolateObject } from 'd3-interpolate';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 import { dims } from '../module';
 
 const colors = { APPEAR: '#CDDC39', UPDATE: '#FAFAFA', REMOVE: '#F44336', REVIVE: 'blue' };
@@ -61,6 +61,9 @@ export default class Text extends Component {
   componentWillUnmount() {
     this.transition.stop();
   }
+
+  transition = null; // Last transition run (or running)
+  node = null;       // Root node ref set in render method
 
   onAppear({ node: { xVal } }) {
     this.node.setAttribute('x', xVal);

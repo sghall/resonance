@@ -19,13 +19,13 @@ export class Example extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      duration: 1000,
-      showTopN: 20,
-    };
+    (this:any).setDuration = this.setDuration.bind(this);
+    (this:any).setShowTopN = this.setShowTopN.bind(this);
+  }
 
-    this.setDuration = this.setDuration.bind(this);
-    this.setShowTopN = this.setShowTopN.bind(this);
+  state = {
+    duration: 1000,
+    showTopN: 20,
   }
 
   setDuration(e, value) {

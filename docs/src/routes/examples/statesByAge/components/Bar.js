@@ -10,7 +10,7 @@ import {
 import { format } from 'd3-format';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
+import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 
 const percentFormat = format('.2%');
 
@@ -81,6 +81,11 @@ export default class Bar extends PureComponent {
   componentWillUnmount() {
     this.transition.stop();
   }
+
+  transition = null; // Last transition run (or running)
+  node = null; // Root node ref set in render method
+  rect = null; // Rect node ref set in render method
+  text = null; // Text node ref set in render method
 
   onAppear({ yScale, node: { xVal, yVal }, duration }) {
     this.rect.setAttribute('width', xVal);
