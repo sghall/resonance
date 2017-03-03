@@ -12,8 +12,8 @@ export const dims = [
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-export const STATES_BY_AGE_UPDATE_ORDER = 'STATES_BY_AGE_UPDATE_ORDER';
-export const STATES_BY_AGE_UPDATE_COUNT = 'STATES_BY_AGE_UPDATE_COUNT';
+const STATES_BY_AGE_UPDATE_ORDER = 'STATES_BY_AGE_UPDATE_ORDER';
+const STATES_BY_AGE_UPDATE_COUNT = 'STATES_BY_AGE_UPDATE_COUNT';
 
 // ********************************************************************
 //  ACTION CREATORS
