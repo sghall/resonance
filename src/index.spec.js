@@ -7,6 +7,6 @@
  */
 
 import { assert } from 'chai';
-import * as MaterialCharts from './index';
+import * as Resonance from './index';
 
-describe('Material Charts', () => it('should have exports', () => assert.ok(MaterialCharts)));
+describe('Resonance', () => it('should have exports', () => assert.ok(Resonance)));
