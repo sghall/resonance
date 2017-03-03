@@ -8,7 +8,7 @@ import { utcFormat } from 'd3-time-format';
 import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
-import Chart from 'resonance/Chart';
+import Surface from 'resonance/Surface';
 import NodeManager from 'resonance/NodeManager';
 import TickManager from 'resonance/TickManager';
 import { truncate } from 'docs/src/utils/helpers';
@@ -104,7 +104,7 @@ export class Example extends Component {
         </Layout>
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
-            <Chart view={VIEW} trbl={TRBL}>
+            <Surface view={VIEW} trbl={TRBL}>
               <NodeManager
                 data={paths}
                 xScale={xScale}
@@ -140,7 +140,7 @@ export class Example extends Component {
                   </g>
                 );
               })}
-            </Chart>
+            </Surface>
           </Paper>
         </Layout>
       </Layout>

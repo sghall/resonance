@@ -6,7 +6,7 @@ import { Table, TableRow, TableCell, TableBody } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
-import Chart from 'resonance/Chart';
+import Surface from 'resonance/Surface';
 import NodeManager from 'resonance/NodeManager';
 import TickManager from 'resonance/TickManager';
 import { updateSortOrder, makeGetSelectedData } from '../module';
@@ -85,7 +85,7 @@ export class Example extends Component {
         </Layout>
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
-            <Chart view={VIEW} trbl={TRBL}>
+            <Surface view={VIEW} trbl={TRBL}>
               <NodeManager
                 data={data}
                 xScale={xScale}
@@ -98,7 +98,7 @@ export class Example extends Component {
                 duration={duration}
                 tickComponent={Tick}
               />
-            </Chart>
+            </Surface>
           </Paper>
         </Layout>
       </Layout>

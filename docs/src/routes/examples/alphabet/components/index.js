@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
-import Chart from 'resonance/Chart';
+import Surface from 'resonance/Surface';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';
 import NodeManager from 'resonance/NodeManager';
@@ -35,14 +35,14 @@ export class Example extends Component {
         </Layout>
         <Layout item xs={12}>
           <Paper>
-            <Chart view={VIEW} trbl={TRBL}>
+            <Surface view={VIEW} trbl={TRBL}>
               <line stroke="white" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
               <NodeManager
                 data={this.props.data}
                 keyAccessor={(d) => d.letter}
                 nodeComponent={Text}
               />
-            </Chart>
+            </Surface>
           </Paper>
         </Layout>
       </Layout>
