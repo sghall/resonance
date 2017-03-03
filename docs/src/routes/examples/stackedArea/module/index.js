@@ -23,8 +23,8 @@ export const dims = [
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-export const STACKED_AREA_TOGGLE_FILTER = 'STACKED_AREA_TOGGLE_FILTER';
-export const STACKED_AREA_CHANGE_OFFSET = 'STACKED_AREA_CHANGE_OFFSET';
+const STACKED_AREA_TOGGLE_FILTER = 'STACKED_AREA_TOGGLE_FILTER';
+const STACKED_AREA_CHANGE_OFFSET = 'STACKED_AREA_CHANGE_OFFSET';
 
 // ********************************************************************
 //  ACTION CREATORS
