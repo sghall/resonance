@@ -9,18 +9,6 @@ import dataUpdate from '../core/dataUpdate';
 const UNMOUNTED = 'UNMOUNTED';
 
 export default class TickManager extends PureComponent {
-  static propTypes = {
-    scale: PropTypes.func.isRequired,
-    keyAccessor: PropTypes.func,
-    composeNode: PropTypes.func,
-    tickComponent: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    keyAccessor: defaultKeyAccessor,
-    composeNode: defaultComposeNode,
-  };
-
   constructor(props) {
     super(props);
 
@@ -86,10 +74,10 @@ export default class TickManager extends PureComponent {
   }
 
   render() {
-    const { props: { tickComponent: Tick, ...rest }, state: { ticks } } = this;
+    const { props: { className, tickComponent: Tick, ...rest }, state: { ticks } } = this;
 
     return (
-      <g>
+      <g className={className}>
         {ticks.valueSeq().map((tick) => {
           return (
             <Tick
@@ -106,3 +94,31 @@ export default class TickManager extends PureComponent {
     );
   }
 }
+
+TickManager.propTypes = {
+  /**
+   * The CSS class name of the root element.
+   */
+  scale: PropTypes.func.isRequired,
+  /**
+   * The CSS class name of the root element.
+   */
+  className: PropTypes.string,
+  /**
+   * The CSS class name of the root element.
+   */
+  keyAccessor: PropTypes.func,
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   */
+  composeNode: PropTypes.func,
+  /**
+   * Set to false to disable rounded corners.
+   */
+  tickComponent: PropTypes.func.isRequired,
+};
+
+TickManager.defaultProps = {
+  keyAccessor: defaultKeyAccessor,
+  composeNode: defaultComposeNode,
+};

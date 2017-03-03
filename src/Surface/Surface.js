@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
-import customPropTypes from '../utils/customPropTypes';
 
 /**
  * A piece of material Surface.
@@ -52,6 +51,3 @@ Surface.defaultProps = {
   trbl: [10, 10, 10, 10],
 };
 
-Surface.contextTypes = {
-  styleManager: customPropTypes.muiRequired,
-};

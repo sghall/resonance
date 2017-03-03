@@ -9,18 +9,6 @@ import dataUpdate from '../core/dataUpdate';
 const UNMOUNTED = 'UNMOUNTED';
 
 export default class NodeManager extends PureComponent {
-  static propTypes = {
-    data: PropTypes.array.isRequired,
-    keyAccessor: PropTypes.func,
-    composeNode: PropTypes.func,
-    nodeComponent: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    keyAccessor: defaultKeyAccessor,
-    composeNode: defaultComposeNode,
-  };
-
   constructor(props) {
     super(props);
 
@@ -78,10 +66,10 @@ export default class NodeManager extends PureComponent {
   }
 
   render() {
-    const { props: { nodeComponent: Node, ...rest }, state: { nodes } } = this;
+    const { props: { className, nodeComponent: Node, ...rest }, state: { nodes } } = this;
 
     return (
-      <g>
+      <g className={className}>
         {nodes.valueSeq().map((node) => {
           return (
             <Node
@@ -96,3 +84,31 @@ export default class NodeManager extends PureComponent {
     );
   }
 }
+
+NodeManager.propTypes = {
+  /**
+   * The CSS class name of the root element.
+   */
+  data: PropTypes.array.isRequired,
+  /**
+   * The CSS class name of the root element.
+   */
+  className: PropTypes.string,
+  /**
+   * The CSS class name of the root element.
+   */
+  keyAccessor: PropTypes.func,
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   */
+  composeNode: PropTypes.func,
+  /**
+   * Set to false to disable rounded corners.
+   */
+  nodeComponent: PropTypes.func.isRequired,
+};
+
+NodeManager.defaultProps = {
+  keyAccessor: defaultKeyAccessor,
+  composeNode: defaultComposeNode,
+};

@@ -71,7 +71,7 @@ module.exports = function setKarmaConfig(config) {
       },
       resolve: {
         alias: {
-          'resonance': path.resolve(__dirname, '../src'),
+          resonance: path.resolve(__dirname, '../src'),
           sinon: 'sinon/pkg/sinon.js',
         },
         extensions: ['.js'],
