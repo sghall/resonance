@@ -57,8 +57,6 @@ export default class Path extends Component {
   onAppear({ node: { path }, duration }) {
     this.node.setAttribute('opacity', 1e-6);
     this.node.setAttribute('d', path);
-    // this.node.style.cursor = 'pointer';
-    // this.node.style['pointer-events'] = 'all';
 
     const interp = interpolateNumber(1e-6, 0.8);
 
@@ -87,8 +85,6 @@ export default class Path extends Component {
 
   onRemove({ node: { udid }, removeNode }) {
     this.node.setAttribute('opacity', 1e-6);
-    // this.node.style['pointer-events'] = 'none';
-
     this.transition.stop();
     removeNode(udid);
   }

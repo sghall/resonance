@@ -10,7 +10,7 @@ import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance';
 import { dims } from '../module';
 
 const numberFormat = format(',');
-// const percentFormat = format('.1p');
+const percentFormat = format('.1p');
 
 export const styleSheet = createStyleSheet('Tick', (theme) => {
   return {
@@ -34,6 +34,7 @@ export default class Tick extends Component {
       type: React.PropTypes.string.isRequired,
       data: React.PropTypes.number.isRequired,
     }).isRequired,
+    offset: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
@@ -141,7 +142,7 @@ export default class Tick extends Component {
   }
 
   render() {
-    const { tick: { data } } = this.props;
+    const { offset, tick: { data } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
@@ -157,7 +158,7 @@ export default class Tick extends Component {
           dy=".35em"
           x={-5} y={0}
           className={classes.text}
-        >{numberFormat(data)}</text>
+        >{offset === 'expand' ? percentFormat(data) : numberFormat(data)}</text>
       </g>
     );
   }

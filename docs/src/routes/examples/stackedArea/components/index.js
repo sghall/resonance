@@ -116,6 +116,7 @@ export class Example extends Component {
               <TickManager
                 scale={yScale}
                 xScale={xScale}
+                offset={offset}
                 duration={duration}
                 tickComponent={Tick}
               />
