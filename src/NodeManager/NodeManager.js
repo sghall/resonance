@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
@@ -9,16 +9,43 @@ import dataUpdate from '../core/dataUpdate';
 const UNMOUNTED = 'UNMOUNTED';
 
 export default class NodeManager extends PureComponent {
+  static propTypes = {
+    /**
+     * The CSS class name of the root element.
+     */
+    data: PropTypes.array.isRequired,
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+    /**
+     * The CSS class name of the root element.
+     */
+    keyAccessor: PropTypes.func,
+    /**
+     * Shadow depth, corresponds to `dp` in the spec.
+     */
+    composeNode: PropTypes.func,
+    /**
+     * Set to false to disable rounded corners.
+     */
+    nodeComponent: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    keyAccessor: defaultKeyAccessor,
+    composeNode: defaultComposeNode,
+  };
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      nodes: new Immutable.OrderedMap(),
-    };
+    (this:any).removeNode = this.removeNode.bind(this);
+    (this:any).processQueue = this.processQueue.bind(this);
+  }
 
-    this.removeNode = this.removeNode.bind(this);
-    this.removalQueue = [];
-    this.processQueue = this.processQueue.bind(this);
+  state = {
+    nodes: new Immutable.OrderedMap(),
   }
 
   componentDidMount() {
@@ -35,6 +62,9 @@ export default class NodeManager extends PureComponent {
     cancelAnimationFrame(this.reqID);
     this.reqID = UNMOUNTED;
   }
+
+  removalQueue = [];
+  reqID = null;
 
   updateNodes(props) {
     this.setState({ nodes: dataUpdate(props, this.state.nodes) });
@@ -84,31 +114,3 @@ export default class NodeManager extends PureComponent {
     );
   }
 }
-
-NodeManager.propTypes = {
-  /**
-   * The CSS class name of the root element.
-   */
-  data: PropTypes.array.isRequired,
-  /**
-   * The CSS class name of the root element.
-   */
-  className: PropTypes.string,
-  /**
-   * The CSS class name of the root element.
-   */
-  keyAccessor: PropTypes.func,
-  /**
-   * Shadow depth, corresponds to `dp` in the spec.
-   */
-  composeNode: PropTypes.func,
-  /**
-   * Set to false to disable rounded corners.
-   */
-  nodeComponent: PropTypes.func.isRequired,
-};
-
-NodeManager.defaultProps = {
-  keyAccessor: defaultKeyAccessor,
-  composeNode: defaultComposeNode,
-};

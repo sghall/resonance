@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
@@ -9,18 +9,45 @@ import dataUpdate from '../core/dataUpdate';
 const UNMOUNTED = 'UNMOUNTED';
 
 export default class TickManager extends PureComponent {
+  static propTypes = {
+    /**
+     * The CSS class name of the root element.
+     */
+    scale: PropTypes.func.isRequired,
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+    /**
+     * The CSS class name of the root element.
+     */
+    keyAccessor: PropTypes.func,
+    /**
+     * Shadow depth, corresponds to `dp` in the spec.
+     */
+    composeNode: PropTypes.func,
+    /**
+     * Set to false to disable rounded corners.
+     */
+    tickComponent: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    keyAccessor: defaultKeyAccessor,
+    composeNode: defaultComposeNode,
+  };
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      ticks: new Immutable.OrderedMap(),
-      prevScale: () => {},
-      currScale: () => {},
-    };
+    (this:any).removeTick = this.removeTick.bind(this);
+    (this:any).processQueue = this.processQueue.bind(this);
+  }
 
-    this.removeTick = this.removeTick.bind(this);
-    this.removalQueue = [];
-    this.processQueue = this.processQueue.bind(this);
+  state = {
+    ticks: new Immutable.OrderedMap(),
+    prevScale: () => {},
+    currScale: () => {},
   }
 
   componentDidMount() {
@@ -37,6 +64,9 @@ export default class TickManager extends PureComponent {
     cancelAnimationFrame(this.reqID);
     this.reqID = UNMOUNTED;
   }
+
+  removalQueue = [];
+  reqID = null;
 
   updateTicks(prev, next) {
     const ticks = next.scale.ticks ? next.scale.ticks() : [];
@@ -94,31 +124,3 @@ export default class TickManager extends PureComponent {
     );
   }
 }
-
-TickManager.propTypes = {
-  /**
-   * The CSS class name of the root element.
-   */
-  scale: PropTypes.func.isRequired,
-  /**
-   * The CSS class name of the root element.
-   */
-  className: PropTypes.string,
-  /**
-   * The CSS class name of the root element.
-   */
-  keyAccessor: PropTypes.func,
-  /**
-   * Shadow depth, corresponds to `dp` in the spec.
-   */
-  composeNode: PropTypes.func,
-  /**
-   * Set to false to disable rounded corners.
-   */
-  tickComponent: PropTypes.func.isRequired,
-};
-
-TickManager.defaultProps = {
-  keyAccessor: defaultKeyAccessor,
-  composeNode: defaultComposeNode,
-};

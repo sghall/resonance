@@ -1,6 +1,6 @@
 // @flow weak
 
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import {
   APPEAR,
   UPDATE,
