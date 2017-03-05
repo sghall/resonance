@@ -58,14 +58,14 @@ export default class NodeManager extends PureComponent {
   removed = new Map();
 
   updateNodes(props) {
-    const { removed, state } = this;
-    this.setState(nodeUpdate(props, state, removed));
+    this.setState((prevState) => {
+      return nodeUpdate(props, prevState, this.removed);
+    });
   }
 
   removeNode(udid) {
     this.removed.set(udid, true);
   }
-
 
   render() {
     const { props: { className, nodeComponent: Node, ...rest }, state: { nodes } } = this;
