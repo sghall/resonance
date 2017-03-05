@@ -2,8 +2,6 @@
 build
 coverage
 /lib
-/test/regressions/screenshots/output
-/test/selenium-output
 .eslintcache
 .nyc_output
 tmp
