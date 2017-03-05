@@ -1,5 +1,4 @@
 module.exports = {
-  // So parent files don't get applied
   root: true,
   env: {
     es6: true,
@@ -20,7 +19,7 @@ module.exports = {
     'material-ui',
   ],
   rules: {
-    'arrow-body-style': 'off', // Not our taste?
+    'arrow-body-style': 'off',
     'arrow-parens': ['error', 'always'], // airbnb use as-needed
     'no-plusplus': 'off',
     'consistent-this': ['error', 'self'],
@@ -43,15 +42,12 @@ module.exports = {
     'react/jsx-filename-extension': ['error', {extensions: ['.js']}], // airbnb is using .jsx
     'react/no-danger': 'error', // airbnb is using warn
     'react/no-direct-mutation-state': 'error', // airbnb is disabling this rule
-    'react/no-find-dom-node': 'warn', // wishlist, one day
-    'react/no-unused-prop-types': 'off', // Is still buggy
+    'react/no-find-dom-node': 'error',
+    'react/no-unused-prop-types': 'off', // buggy
     'react/sort-comp': [2, {
       order: [
         'static-methods',
         'lifecycle',
-        // 'properties', // not real -- NEEDS A PR!!!
-        // '/^handle.+$/', // wishlist -- needs above first
-        // '/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/', // wishlist -- needs above first
         'everything-else',
         '/^render.+$/',
         'render'
