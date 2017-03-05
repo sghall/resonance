@@ -62,13 +62,29 @@ describe('<TickGroup />', () => {
     const nextScale = () => {};
     nextScale.ticks = () => [1, 2, 3, 4, 5];
 
-    sinon.spy(TickGroup.prototype, 'updateTicks');
+    const spy = sinon.spy(TickGroup.prototype, 'updateTicks');
 
     wrapper.setProps({ scale: nextScale });
 
-    const calledOnce = TickGroup.prototype.updateTicks.calledOnce;
+    const callCount = TickGroup.prototype.updateTicks.callCount;
+    spy.restore();
 
-    assert.strictEqual(calledOnce, true, 'should have been called once');
+    assert.strictEqual(callCount, 1, 'should have been called once');
+  });
+
+  it('should not call updateTicks when passed same scale prop', () => {
+    const wrapper = mount(
+      <TickGroup scale={scale} tickComponent={Tick} />,
+    );
+
+    const spy = sinon.spy(TickGroup.prototype, 'updateTicks');
+
+    wrapper.setProps({ scale });
+
+    const callCount = TickGroup.prototype.updateTicks.callCount;
+    spy.restore();
+
+    assert.strictEqual(callCount, 0, 'should not have been called');
   });
 
   it('should add user classes', () => {

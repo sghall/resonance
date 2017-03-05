@@ -58,13 +58,29 @@ describe('<NodeGroup />', () => {
       <NodeGroup data={data} nodeComponent={Node} />,
     );
 
-    sinon.spy(NodeGroup.prototype, 'updateNodes');
+    const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
 
     wrapper.setProps({ data: [1, 2] });
 
-    const calledOnce = NodeGroup.prototype.updateNodes.calledOnce;
+    const callCount = NodeGroup.prototype.updateNodes.callCount;
+    spy.restore();
 
-    assert.strictEqual(calledOnce, true, 'should have been called once');
+    assert.strictEqual(callCount, 1, 'should have been called once');
+  });
+
+  it('should not call updateNodes when passed same data prop', () => {
+    const wrapper = mount(
+      <NodeGroup data={data} nodeComponent={Node} />,
+    );
+
+    const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
+
+    wrapper.setProps({ data });
+
+    const callCount = NodeGroup.prototype.updateNodes.callCount;
+    spy.restore();
+
+    assert.strictEqual(callCount, 0, 'should not have been called');
   });
 
   it('should add user classes', () => {
