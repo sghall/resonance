@@ -65,14 +65,10 @@ module.exports = function setKarmaConfig(config) {
             },
           },
         ],
-        noParse: [
-          /node_modules\/sinon\//,
-        ],
       },
       resolve: {
         alias: {
           resonance: path.resolve(__dirname, '../src'),
-          sinon: 'sinon/pkg/sinon.js',
         },
         extensions: ['.js'],
         modules: [

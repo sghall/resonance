@@ -3,7 +3,6 @@
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import React from 'react';
-import ReactPerf from 'react-addons-perf';
 import { render } from 'react-dom';
 import store from 'docs/src/store';
 import App from 'docs/src/components/App';
@@ -14,8 +13,6 @@ import App from 'docs/src/components/App';
 // if (process.env.NODE_ENV !== 'production') {
 //   a11y(React, { includeSrcNode: true, ReactDOM });
 // }
-
-window.Perf = ReactPerf;
 
 const rootEl = document.querySelector('#app');
 

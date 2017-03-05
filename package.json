@@ -42,15 +42,12 @@
     "flow": "flow"
   },
   "peerDependencies": {
-    "material-ui": "v1.0.0-alpha.6",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "^15.4.2"
   },
   "dependencies": {
     "immutable": "^3.8.1"
   },
   "devDependencies": {
-    "app-module-path": "^2.2.0",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
@@ -85,7 +82,6 @@
     "eventsource-polyfill": "^0.9.6",
     "flow-bin": "^0.40.0",
     "fs-extra": "^2.0.0",
-    "glob": "^7.1.1",
     "jsdom": "^9.11.0",
     "json-loader": "^0.5.4",
     "karma": "^1.5.0",
@@ -95,25 +91,17 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.2",
-    "material-ui": "v1.0.0-alpha.6",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "phantomjs-prebuilt": "^2.1.14",
-    "random-words": "0.0.1",
     "raw-loader": "^0.5.1",
     "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-a11y": "^0.3.3",
-    "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-docgen": "^2.13.0",
-    "react-dom": "^15.4.2",
     "recast": "^0.11.22",
-    "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.6.1",
-    "sinon": "^1.17.7",
-    "url-loader": "^0.5.7",
-    "vrtest": "0.1.1-beta.3",
-    "webfontloader": "^1.6.27",
     "webpack": "^2.2.1"
   },
   "nyc": {
