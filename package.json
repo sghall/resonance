@@ -44,9 +44,7 @@
   "peerDependencies": {
     "react": "^15.4.2"
   },
-  "dependencies": {
-    "immutable": "^3.8.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",

@@ -3,7 +3,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
-import nodeUpdate from '../core/nodeUpdate';
+import dataUpdate from '../core/dataUpdate';
 
 export default class TickManager extends PureComponent {
   static propTypes = {
@@ -63,7 +63,7 @@ export default class TickManager extends PureComponent {
     const ticks = next.scale.ticks ? next.scale.ticks() : [];
 
     this.setState((prevState) => {
-      const update = nodeUpdate({ data: ticks, ...next }, prevState, this.removed);
+      const update = dataUpdate({ data: ticks, ...next }, prevState, this.removed);
       return { ...update, prevScale: prev.scale, currScale: next.scale };
     });
   }
@@ -73,18 +73,18 @@ export default class TickManager extends PureComponent {
   }
 
   render() {
-    const { props: { className, tickComponent: Tick, ...rest }, state: { nodes } } = this;
+    const { props: { className, tickComponent: Tick, ...rest }, state } = this;
 
     return (
       <g className={className}>
-        {nodes.map((tick) => {
+        {state.nodes.map((tick) => {
           return (
             <Tick
               key={tick.udid}
               tick={tick}
               removeTick={this.removeTick}
-              prevScale={this.state.prevScale}
-              currScale={this.state.currScale}
+              prevScale={state.prevScale}
+              currScale={state.currScale}
               {...rest}
             />
           );

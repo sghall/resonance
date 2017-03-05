@@ -3,7 +3,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
-import nodeUpdate from '../core/nodeUpdate';
+import dataUpdate from '../core/dataUpdate';
 
 export default class NodeManager extends PureComponent {
   static propTypes = {
@@ -59,7 +59,7 @@ export default class NodeManager extends PureComponent {
 
   updateNodes(props) {
     this.setState((prevState) => {
-      return nodeUpdate(props, prevState, this.removed);
+      return dataUpdate(props, prevState, this.removed);
     });
   }
 
@@ -68,11 +68,11 @@ export default class NodeManager extends PureComponent {
   }
 
   render() {
-    const { props: { className, nodeComponent: Node, ...rest }, state: { nodes } } = this;
+    const { props: { className, nodeComponent: Node, ...rest }, state } = this;
 
     return (
       <g className={className}>
-        {nodes.map((node) => {
+        {state.nodes.map((node) => {
           return (
             <Node
               key={node.udid}

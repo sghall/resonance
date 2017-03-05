@@ -1,6 +1,5 @@
 // @flow weak
 
-import * as Immutable from 'immutable';
 import {
   APPEAR,
   UPDATE,
@@ -8,33 +7,41 @@ import {
   REVIVE,
 } from './types';
 
-const emptyMap = new Immutable.OrderedMap();
 
-const dataUpdate = ({ data, keyAccessor, composeNode }, nodes = emptyMap) => {
-  return new Immutable.OrderedMap().withMutations((n) => {
-    for (let i = 0, len = data.length; i < len; i++) {
-      const udid = keyAccessor(data[i], i, data);
-      const node = nodes.get(udid);
+const nodeUpdate = (props, state, removed) => {
+  const { data, keyAccessor, composeNode } = props;
+  const nodes = [];
+  const udids = {};
 
-      let type = APPEAR;
+  for (let i = 0, len0 = data.length; i < len0; i++) {
+    const udid = keyAccessor(data[i], i, data);
 
-      if (node) {
-        if (node.type === REMOVE) {
-          type = REVIVE;
-        } else {
-          type = UPDATE;
-        }
+    let type = APPEAR;
+
+    if (state.udids[udid] && !removed.has(udid)) {
+      if (state.udids[udid] === REMOVE) {
+        type = REVIVE;
+      } else {
+        type = UPDATE;
       }
-
-      n.set(udid, composeNode(data[i], type, udid));
     }
 
-    nodes.toSeq().forEach((node) => {
-      if (!n.has(node.udid) && node.type !== REMOVE) {
-        n.set(node.udid, composeNode(node, REMOVE, node.udid));
-      }
-    });
-  });
+    nodes.push(composeNode(data[i], type, udid));
+    udids[udid] = type;
+  }
+
+  for (let j = 0, len1 = state.nodes.length; j < len1; j++) {
+    const node = state.nodes[j];
+
+    if (!udids[node.udid] && !removed.has(node.udid)) {
+      nodes.push({ ...node, type: REMOVE });
+      udids[node.udid] = REMOVE;
+    }
+  }
+
+  removed.clear(); // setState is asynch...clear now;
+
+  return { nodes, udids };
 };
 
-export default dataUpdate;
+export default nodeUpdate;
