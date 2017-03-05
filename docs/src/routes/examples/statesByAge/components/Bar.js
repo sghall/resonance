@@ -14,7 +14,7 @@ import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 
 const percentFormat = format('.2%');
 
-const styleSheet = createStyleSheet('SVG-Bar', (theme) => {
+const styleSheet = createStyleSheet('Bar', (theme) => {
   return {
     bar: {
       fill: theme.palette.accent[500],
@@ -53,27 +53,27 @@ export default class Bar extends PureComponent {
     this.onAppear(this.props);
   }
 
-  componentWillReceiveProps(next) {
+  componentDidUpdate(prev) {
     const { props } = this;
 
-    if (props.node !== next.node) {
+    if (prev.node !== props.node) {
       this.transition.stop();
 
-      switch (next.node.type) {
+      switch (props.node.type) {
         case APPEAR:
-          this.onAppear(next);
+          this.onAppear(props);
           break;
         case UPDATE:
-          this.onUpdate(props, next);
+          this.onUpdate(prev, props);
           break;
         case REMOVE:
           this.onRemove(props);
           break;
         case REVIVE:
-          this.onUpdate(props, next);
+          this.onUpdate(prev, props);
           break;
         default:
-          throw new Error(`Invalid Node Type: ${next.node.type}`);
+          break;
       }
     }
   }

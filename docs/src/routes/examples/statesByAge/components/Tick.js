@@ -44,28 +44,34 @@ export default class Tick extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    (this:any).getTickRef = this.getTickRef.bind(this);
+  }
+
   componentDidMount() {
     this.onAppear(this.props);
   }
 
-  componentWillReceiveProps(next) {
+  componentDidUpdate(prev) {
     const { props } = this;
 
-    if (props.tick !== next.tick) {
+    if (prev.tick !== props.tick) {
       this.transition.stop();
 
-      switch (next.tick.type) {
+      switch (props.tick.type) {
         case APPEAR:
-          this.onAppear(next);
+          this.onAppear(props);
           break;
         case UPDATE:
-          this.onUpdate(next);
+          this.onUpdate(props);
           break;
         case REMOVE:
-          this.onRemove(next);
+          this.onRemove(props);
           break;
         case REVIVE:
-          this.onUpdate(next);
+          this.onUpdate(props);
           break;
         default:
           break;
@@ -138,12 +144,16 @@ export default class Tick extends PureComponent {
     });
   }
 
+  getTickRef(node) {
+    this.tick = node;
+  }
+
   render() {
     const { tick: { data } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
-      <g ref={(d) => { this.tick = d; }}>
+      <g ref={this.getTickRef}>
         <line
           x1={0} y1={0}
           x2={0} y2={dims[1]}
