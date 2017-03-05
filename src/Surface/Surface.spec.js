@@ -3,16 +3,10 @@
 
 import React from 'react';
 import { assert } from 'chai';
-import { createShallowWithContext } from 'test/utils';
+import { shallow } from 'enzyme';
 import Surface from './Surface';
 
 describe('<Surface />', () => {
-  let shallow;
-
-  before(() => {
-    shallow = createShallowWithContext();
-  });
-
   it('should render an svg element', () => {
     const wrapper = shallow(
       <Surface />,

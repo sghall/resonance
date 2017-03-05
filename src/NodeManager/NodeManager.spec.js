@@ -3,16 +3,10 @@
 
 import React from 'react';
 import { assert } from 'chai';
-import { createShallowWithContext } from 'test/utils';
+import { shallow } from 'enzyme';
 import NodeManager from './NodeManager';
 
 describe('<NodeManager />', () => {
-  let shallow;
-
-  before(() => {
-    shallow = createShallowWithContext();
-  });
-
   it('should render an g element', () => {
     const wrapper = shallow(
       <NodeManager data={[]} nodeComponent={() => {}} />,

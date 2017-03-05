@@ -3,18 +3,12 @@
 
 import React from 'react';
 import { assert } from 'chai';
-import { createShallowWithContext } from 'test/utils';
+import { shallow } from 'enzyme';
 import TickManager from './TickManager';
 
 const noop = () => {};
 
 describe('<TickManager />', () => {
-  let shallow;
-
-  before(() => {
-    shallow = createShallowWithContext();
-  });
-
   it('should render an g element', () => {
     const wrapper = shallow(
       <TickManager scale={noop} tickComponent={noop} />,

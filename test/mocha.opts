@@ -1,5 +1,4 @@
 --require babel-register
 --reporter dot
 --recursive
-test/utils/setup.js
 src/{,**/}*.spec.js
