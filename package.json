@@ -30,7 +30,7 @@
     "build:umd:min": "cross-env NODE_ENV=production webpack",
     "build:docs": "babel-node ./scripts/build-api-docs.js",
     "clean": "npm run clean:build",
-    "clean:docs": "rimraf docs/api/*",
+    "clean:docs": "rimraf docs/src/routes/api/*",
     "clean:build": "rimraf build",
     "docs:start": "(cd docs/site; npm start)",
     "lint": "eslint . --cache && echo \"eslint: no lint errors\"",
@@ -39,7 +39,6 @@
     "test:watch": "cross-env NODE_ENV=test mocha -w",
     "test:coverage": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha && nyc report -r lcovonly",
     "test:karma": "cross-env NODE_ENV=test karma start test/karma.conf.js --single-run",
-    "test:regressions": "webpack --config test/regressions/webpack.config.js && vrtest run --config test/vrtest.config.js",
     "flow": "flow"
   },
   "peerDependencies": {
