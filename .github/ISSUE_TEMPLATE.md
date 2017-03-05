@@ -4,7 +4,7 @@
 
 ### Versions
 
-- resonance: 
+- Resonance: 
 - React: 
 - Browser: 
 
