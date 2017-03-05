@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';
-import NodeManager from 'resonance/NodeManager';
+import NodeGroup from 'resonance/NodeGroup';
 import { VIEW, TRBL, ALPHABET } from '../module/constants';
 import Text from './Text';
 import { dataUpdate, makeGetSelectedData, dims } from '../module';
@@ -37,7 +37,7 @@ export class Example extends Component {
           <Paper>
             <Surface view={VIEW} trbl={TRBL}>
               <line stroke="white" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
-              <NodeManager
+              <NodeGroup
                 data={this.props.data}
                 keyAccessor={(d) => d.letter}
                 nodeComponent={Text}

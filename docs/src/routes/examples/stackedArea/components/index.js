@@ -9,8 +9,8 @@ import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
-import NodeManager from 'resonance/NodeManager';
-import TickManager from 'resonance/TickManager';
+import NodeGroup from 'resonance/NodeGroup';
+import TickGroup from 'resonance/TickGroup';
 import { truncate } from 'docs/src/utils/helpers';
 import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
@@ -104,7 +104,7 @@ export class Example extends Component {
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
             <Surface view={VIEW} trbl={TRBL}>
-              <NodeManager
+              <NodeGroup
                 data={paths}
                 xScale={xScale}
                 yScale={yScale}
@@ -112,7 +112,7 @@ export class Example extends Component {
                 keyAccessor={(d) => d.name}
                 nodeComponent={Path}
               />
-              <TickManager
+              <TickGroup
                 scale={yScale}
                 xScale={xScale}
                 offset={offset}

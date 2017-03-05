@@ -10,5 +10,5 @@ Initial release
 ##### Components Added
 
 - [Surface]
-- [NodeManager] 
-- [TickManager]
+- [NodeGroup] 
+- [TickGroup]

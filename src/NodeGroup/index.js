@@ -1,3 +1,3 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
-export default from './TickManager';
+export default from './NodeGroup';

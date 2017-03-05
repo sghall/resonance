@@ -5,7 +5,7 @@ import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
 
-export default class TickManager extends PureComponent {
+export default class TickGroup extends PureComponent {
   static propTypes = {
     /**
      * The CSS class name of the root element.
