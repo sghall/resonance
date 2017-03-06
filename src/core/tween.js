@@ -6,6 +6,20 @@ import {
   interpolateTransformSvg,
 } from 'd3-interpolate';
 
+
+function attrTween(name, value) {
+  function tween(...args) {
+    const node = this;   // eslint-disable-line consistent-this
+    const func = value.apply(node, args);
+    return func && function attrTick(t) {
+      node.setAttribute(name, func(t));
+    };
+  }
+
+  return tween;
+}
+
+
 function attrConstant(name, interpol, value1) {
   return function nullOrInterpol() {
     const value0 = this.getAttribute(name);
@@ -14,7 +28,7 @@ function attrConstant(name, interpol, value1) {
       return null;
     }
 
-    return interpol(value0, value1);
+    return attrTween.call(this, name, interpol(value0, value1));
   };
 }
 
@@ -27,5 +41,5 @@ export default function (name, value) {
     interpol = interpolateString;
   }
 
-  return this.attrTween(name, attrConstant(name, interpol, value));
+  return attrConstant.call(this, name, interpol, value);
 }

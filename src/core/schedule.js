@@ -4,7 +4,6 @@ import { dispatch } from 'd3-dispatch';
 import { timer, timeout } from 'd3-timer';
 
 const emptyOn = dispatch('start', 'end', 'interrupt');
-const emptyTween = [];
 
 export const CREATED = 0;
 export const SCHEDULED = 1;
@@ -14,11 +13,11 @@ export const RUNNING = 4;
 export const ENDING = 5;
 export const ENDED = 6;
 
-export default function (node, name, id, timing) {
+export default function (node, name, id, timing, tweens) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
-    throw new Error('No TRANSITION_SCHEDULES object found');
+    node.TRANSITION_SCHEDULES = {}; // eslint-disable-line no-param-reassign
   } else if (id in schedules) {
     return;
   }
@@ -28,7 +27,7 @@ export default function (node, name, id, timing) {
   create(node, id, {
     name,
     on: emptyOn,
-    tween: emptyTween,
+    tweens,
     time,
     delay,
     duration,
@@ -44,7 +43,8 @@ function create(node, id, config) {
   // Initialize the transition timer when the transition is created.
   // Note the actual delay is not known until the first callback!
   const transition = { ...config };
-  const tween = new Array(transition.tween.length);
+  const n = transition.tweens.length;
+  const tweens = new Array(n);
 
   schedules[id] = transition;
   transition.timer = timer(schedule, 0, transition.time);
@@ -117,15 +117,15 @@ function create(node, id, config) {
     // Initialize the tween, deleting null tween.
     let j = -1;
 
-    for (let i = 0; i < transition.tween.length; ++i) {
+    for (let i = 0; i < n; ++i) {
       const res = transition.tween[i].value.call(node);
 
       if (res) {
-        tween[j++] = res;
+        tweens[j++] = res;
       }
     }
 
-    tween.length = j + 1;
+    tweens.length = j + 1;
   }
 
   function tick(elapsed) {
@@ -139,10 +139,9 @@ function create(node, id, config) {
     }
 
     let i = -1;
-    const n = tween.length;
 
     while (++i < n) {
-      tween[i].call(null, t);
+      tweens[i].call(null, t);
     }
 
     // Dispatch the end event.
