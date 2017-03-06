@@ -1543,10 +1543,6 @@ d3-color@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.0.2.tgz#83cb4b3a9474e40795f009d97e97a15649830bbc"
 
-d3-dispatch@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/d3-dispatch/-/d3-dispatch-1.0.2.tgz#5b511e79a46a1f89492841c0a8f656687d5daa0a"
-
 d3-ease@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.2.tgz#b486f8f3ca308ca7be38197d65622b6e30983377"

@@ -17,7 +17,7 @@ function newId() {
   return ++id;
 }
 
-function transition(transitions, opts) {
+function transition(transitions, opts, events) {
   const timing = { ...defaultTiming, ...opts, time: now() };
 
   Object.keys(transitions).forEach((ref) => {
@@ -38,7 +38,7 @@ function transition(transitions, opts) {
       }
     });
 
-    schedule(this, ref, `${ref}`, newId(), timing, tweens);
+    schedule(this, ref, `${ref}`, newId(), timing, tweens, events);
   });
 }
 

@@ -1,9 +1,6 @@
 // @flow weak
 
-import { dispatch } from 'd3-dispatch';
 import { timer, timeout } from 'd3-timer';
-
-const emptyOn = dispatch('start', 'end', 'interrupt');
 
 export const CREATED = 0;
 export const SCHEDULED = 1;
@@ -13,7 +10,7 @@ export const RUNNING = 4;
 export const ENDING = 5;
 export const ENDED = 6;
 
-export default function (node, ref, name, id, timing, tweens) {
+export default function (node, ref, name, id, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
@@ -27,7 +24,7 @@ export default function (node, ref, name, id, timing, tweens) {
   create(node, id, {
     ref,
     name,
-    on: emptyOn,
+    events,
     tweens,
     time,
     delay,
@@ -84,7 +81,9 @@ function create(node, id, config) {
       if (s.state === RUNNING) {
         s.state = ENDED;
         s.timer.stop();
-        s.on.call('interrupt', node, transition.ref);
+        if (s.events.interrupt && typeof s.events.interrupt === 'function') {
+          s.events.interrupt();
+        }
         delete schedules[sid];
       } else if (sid < id) {
         s.state = ENDED;
@@ -106,7 +105,9 @@ function create(node, id, config) {
     });
 
     transition.state = STARTING;
-    transition.on.call('start', node);
+    if (transition.events.start && typeof transition.events.start === 'function') {
+      transition.events.start();
+    }
 
     if (transition.state !== STARTING) { // interrupted
       return; // eslint-disable-line consistent-return
@@ -147,7 +148,9 @@ function create(node, id, config) {
 
     // Dispatch the end event.
     if (transition.state === ENDING) {
-      transition.on.call('end', node);
+      if (transition.events.end && typeof transition.events.end === 'function') {
+        transition.events.end();
+      }
       stop();
     }
   }

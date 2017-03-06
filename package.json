@@ -45,7 +45,6 @@
     "react": "^15.4.2"
   },
   "dependencies": {
-    "d3-dispatch": "^1.0.2",
     "d3-ease": "^1.0.2",
     "d3-interpolate": "^1.1.3",
     "d3-timer": "^1.0.4"
