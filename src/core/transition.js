@@ -7,7 +7,7 @@ import schedule from './schedule';
 const defaultTiming = {
   time: null,
   delay: 0,
-  duration: 1000,
+  duration: 250,
   ease: easeCubicInOut,
 };
 
@@ -27,10 +27,14 @@ function transition(transitions, opts) {
       const value = transitions[ref][attr];
 
       if (Array.isArray(value)) {
-        this[ref].setAttribute(attr, value[0]);
-        tweens.push(tween.call(this[ref], attr, value[1]));
+        if (value.length === 1) {
+          tweens.push(tween.call(this[ref], attr, value[0]));
+        } else {
+          this[ref].setAttribute(attr, value[0]);
+          tweens.push(tween.call(this[ref], attr, value[1]));
+        }
       } else {
-        tweens.push(tween.call(this[ref], attr, value));
+        this[ref].setAttribute(attr, value);
       }
     });
 

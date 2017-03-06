@@ -14,7 +14,6 @@ function attrTween(name, value) {
   return tween.bind(this);
 }
 
-
 function attrConstant(name, interpol, value1) {
   return function nullOrTween() {
     const value0 = this.getAttribute(name);
