@@ -1,13 +1,13 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import * as d3 from 'd3';
+import { format } from 'd3-format';
 import { transition } from 'resonance';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 
-const percentFormat = d3.format('.2%');
+const percentFormat = format('.2%');
 
 const styleSheet = createStyleSheet('Bar', (theme) => {
   return {
@@ -98,13 +98,16 @@ export default class Bar extends PureComponent {
   }
 
   onRemove({ duration, node: { udid }, removeNode }) {
-    d3.select(this.node)
-      .transition().duration(duration)
-      .attr('opacity', 1e-6)
-      .attr('transform', 'translate(0,500)')
-      .on('end', () => {
+    transition.call(this, {
+      node: {
+        opacity: [1e-6],
+        transform: ['translate(0,500)'],
+      },
+    }, { duration }, {
+      end: () => {
         removeNode(udid);
-      });
+      },
+    });
   }
 
   render() {
