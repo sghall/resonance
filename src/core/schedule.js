@@ -13,7 +13,7 @@ export const RUNNING = 4;
 export const ENDING = 5;
 export const ENDED = 6;
 
-export default function (node, name, id, timing, tweens) {
+export default function (node, ref, name, id, timing, tweens) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
@@ -25,6 +25,7 @@ export default function (node, name, id, timing, tweens) {
   const { time, delay, duration, ease } = timing;
 
   create(node, id, {
+    ref,
     name,
     on: emptyOn,
     tweens,
@@ -104,7 +105,6 @@ function create(node, id, config) {
       }
     });
 
-    // Dispatch the start event. Note this must be done before the tween are initialized.
     transition.state = STARTING;
     transition.on.call('start', node);
 
@@ -118,10 +118,11 @@ function create(node, id, config) {
     let j = -1;
 
     for (let i = 0; i < n; ++i) {
-      const res = transition.tween[i].value.call(node);
+      const ref = node[transition.ref];
+      const res = transition.tweens[i].call(ref);
 
       if (res) {
-        tweens[j++] = res;
+        tweens[++j] = res;
       }
     }
 
@@ -140,7 +141,7 @@ function create(node, id, config) {
 
     let i = -1;
 
-    while (++i < n) {
+    while (++i < tweens.length) {
       tweens[i].call(null, t);
     }
 
