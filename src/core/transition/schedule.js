@@ -1,4 +1,5 @@
 // @flow weak
+// adapted from https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
 
 import { timer, timeout } from 'd3-timer';
 
@@ -145,7 +146,6 @@ function create(node, id:number, config) {
       tweens[i].call(null, t);
     }
 
-    // Dispatch the end event.
     if (transition.state === ENDING) {
       if (transition.events.end && typeof transition.events.end === 'function') {
         transition.events.end(node, transition.ref);
