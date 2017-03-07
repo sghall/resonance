@@ -1,13 +1,11 @@
 // @flow weak
-/* eslint global-require: "false" */
+/* eslint global-require: 0 */
 
 import React from 'react';
 import {
-  applyRouterMiddleware,
   hashHistory,
   Router,
 } from 'react-router';
-import { useScroll } from 'react-router-scroll';
 import { kebabCase, titleize } from 'docs/src/utils/helpers';
 import AppFrame from '../components/AppFrame';
 import AppContent from '../components/AppContent';
@@ -140,7 +138,6 @@ export default function AppRouter() {
   return (
     <Router
       history={hashHistory}
-      render={applyRouterMiddleware(useScroll())}
       routes={routes}
     />
   );
