@@ -43,6 +43,12 @@ export default class Tick extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    (this:any).transition = transition.bind(this);
+  }
+
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -70,10 +76,10 @@ export default class Tick extends PureComponent {
     }
   }
 
-  tick = null;       // Root node ref set in render method
+  tick = null; // Root node ref set in render method
 
   onAppear({ prevScale, currScale, tick: { data }, duration }) {
-    transition.call(this, {
+    this.transition({
       tick: {
         opacity: [1e-6, 1],
         transform: [
@@ -85,7 +91,7 @@ export default class Tick extends PureComponent {
   }
 
   onUpdate({ currScale, tick: { data }, duration }) {
-    transition.call(this, {
+    this.transition({
       tick: {
         opacity: [1],
         transform: [`translate(${currScale(data)},0)`],
@@ -94,7 +100,7 @@ export default class Tick extends PureComponent {
   }
 
   onRemove({ currScale, tick: { data, udid }, duration, removeTick }) {
-    transition.call(this, {
+    this.transition({
       tick: {
         opacity: [1e-6],
         transform: [`translate(${currScale(data)},0)`],

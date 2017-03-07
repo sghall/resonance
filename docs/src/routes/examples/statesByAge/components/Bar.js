@@ -44,6 +44,12 @@ export default class Bar extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    (this:any).transition = transition.bind(this);
+  }
+
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -76,7 +82,7 @@ export default class Bar extends PureComponent {
   text = null; // Text node ref set in render method
 
   onAppear({ yScale, duration, node: { xVal, yVal } }) {
-    transition.call(this, {
+    this.transition({
       node: {
         opacity: [1e-6, 1],
         transform: ['translate(0,500)', `translate(0,${yVal})`],
@@ -87,7 +93,7 @@ export default class Bar extends PureComponent {
   }
 
   onUpdate({ yScale, duration, node: { xVal, yVal } }) {
-    transition.call(this, {
+    this.transition({
       node: {
         opacity: [1],
         transform: [`translate(0,${yVal})`],
@@ -98,7 +104,7 @@ export default class Bar extends PureComponent {
   }
 
   onRemove({ duration, node: { udid }, removeNode }) {
-    transition.call(this, {
+    this.transition({
       node: {
         opacity: [1e-6],
         transform: ['translate(0,500)'],
