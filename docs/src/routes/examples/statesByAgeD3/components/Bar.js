@@ -126,9 +126,10 @@ export default class Bar extends PureComponent {
         <text
           dy="0.35em"
           x={-20}
+          textAnchor="middle"
           className={classes.text}
           y={yScale.bandwidth() / 2}
-        >{udid.slice(4)}</text>
+        >{udid}</text>
         <text
           ref={(d) => { this.text = d; }}
           textAnchor="end"
