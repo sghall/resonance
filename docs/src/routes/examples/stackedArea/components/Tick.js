@@ -45,6 +45,12 @@ export default class Tick extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    (this:any).transition = transition.bind(this);
+  }
+
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -52,8 +58,8 @@ export default class Tick extends PureComponent {
   componentDidUpdate(prev) {
     const { props } = this;
 
-    if (prev.node !== props.node) {
-      switch (props.node.type) {
+    if (prev.tick !== props.tick) {
+      switch (props.tick.type) {
         case APPEAR:
           this.onAppear(props);
           break;
@@ -72,16 +78,11 @@ export default class Tick extends PureComponent {
     }
   }
 
-  componentWillUnmount() {
-    this.transition.stop();
-  }
-
   transition = null; // Last transition run (or running)
   tick = null;       // Root node ref set in render method
 
-
   onAppear({ prevScale, currScale, tick: { data }, duration }) {
-    transition.call(this, {
+    this.transition({
       tick: {
         opacity: [1e-6, 1],
         transform: [
@@ -93,7 +94,7 @@ export default class Tick extends PureComponent {
   }
 
   onUpdate({ currScale, tick: { data }, duration }) {
-    transition.call(this, {
+    this.transition({
       tick: {
         opacity: [1],
         transform: [`translate(0,${currScale(data)})`],
@@ -102,7 +103,7 @@ export default class Tick extends PureComponent {
   }
 
   onRemove({ currScale, tick: { udid, data }, removeTick, duration }) {
-    transition.call(this, {
+    this.transition({
       tick: {
         opacity: [1e-6],
         transform: [`translate(0,${currScale(data)})`],
