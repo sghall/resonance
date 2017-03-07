@@ -1,9 +1,8 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import { timer } from 'd3-timer';
 import { format } from 'd3-format';
-import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
+import transition from 'resonance/core/transition';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
@@ -44,12 +43,6 @@ export default class Tick extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    (this:any).getTickRef = this.getTickRef.bind(this);
-  }
-
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -58,8 +51,6 @@ export default class Tick extends PureComponent {
     const { props } = this;
 
     if (prev.tick !== props.tick) {
-      this.transition.stop();
-
       switch (props.tick.type) {
         case APPEAR:
           this.onAppear(props);
@@ -79,73 +70,38 @@ export default class Tick extends PureComponent {
     }
   }
 
-  componentWillUnmount() {
-    this.transition.stop();
-  }
-
-  transition = null; // Last transition run (or running)
   tick = null;       // Root node ref set in render method
 
   onAppear({ prevScale, currScale, tick: { data }, duration }) {
-    const beg = `translate(${prevScale(data)},0)`;
-    const end = `translate(${currScale(data)},0)`;
-
-    const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(1e-6, 1);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      this.tick.setAttribute('transform', interp0(t));
-      this.tick.setAttribute('opacity', interp1(t));
-
-      if (t === 1) {
-        this.transition.stop();
-      }
-    });
+    transition.call(this, {
+      tick: {
+        opacity: [1e-6, 1],
+        transform: [
+          `translate(${prevScale(data)},0)`,
+          `translate(${currScale(data)},0)`,
+        ],
+      },
+    }, { duration });
   }
 
   onUpdate({ currScale, tick: { data }, duration }) {
-    const beg = this.tick.getAttribute('transform');
-    const end = `translate(${currScale(data)},0)`;
-
-    const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      this.tick.setAttribute('transform', interp0(t));
-      this.tick.setAttribute('opacity', interp1(t));
-
-      if (t === 1) {
-        this.transition.stop();
-      }
-    });
+    transition.call(this, {
+      tick: {
+        opacity: [1],
+        transform: [`translate(${currScale(data)},0)`],
+      },
+    }, { duration });
   }
 
   onRemove({ currScale, tick: { data, udid }, duration, removeTick }) {
-    const beg = this.tick.getAttribute('transform');
-    const end = `translate(${currScale(data)},0)`;
-
-    const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1e-6);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      this.tick.setAttribute('transform', interp0(t));
-      this.tick.setAttribute('opacity', interp1(t));
-
-      if (t === 1) {
-        this.transition.stop();
-        removeTick(udid);
-      }
+    transition.call(this, {
+      tick: {
+        opacity: [1e-6],
+        transform: [`translate(${currScale(data)},0)`],
+      },
+    }, { duration }, {
+      end: () => removeTick(udid),
     });
-  }
-
-  getTickRef(node) {
-    this.tick = node;
   }
 
   render() {
@@ -153,7 +109,7 @@ export default class Tick extends PureComponent {
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
-      <g ref={this.getTickRef}>
+      <g ref={(d) => { this.tick = d; }}>
         <line
           x1={0} y1={0}
           x2={0} y2={dims[1]}
