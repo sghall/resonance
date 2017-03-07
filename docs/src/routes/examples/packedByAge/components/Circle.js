@@ -1,17 +1,15 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import { format } from 'd3-format';
 import transition from 'resonance/core/transition';
+import NodeGroup from 'resonance/NodeGroup';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
 
-const percentFormat = format('.2%');
-
-const styleSheet = createStyleSheet('Bar', (theme) => {
+const styleSheet = createStyleSheet('Circle', (theme) => {
   return {
-    bar: {
+    circle: {
       fill: theme.palette.accent[500],
       opacity: 0.8,
       '&:hover': {
@@ -19,22 +17,24 @@ const styleSheet = createStyleSheet('Bar', (theme) => {
       },
     },
     text: {
-      fontSize: 9,
+      fontSize: 12,
+      textAnchor: 'middle',
       fill: theme.palette.text.secondary,
     },
   };
 });
 
-export default class Bar extends PureComponent {
+export default class Circle extends PureComponent {
   static propTypes = {
     node: PropTypes.shape({
       udid: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      xVal: PropTypes.number.isRequired,
-      yVal: PropTypes.number.isRequired,
+      data: PropTypes.object.isRequired,
+      r: PropTypes.number.isRequired,
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+      children: PropTypes.array, // Leaf nodes have no children
     }).isRequired,
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
   };
@@ -77,38 +77,36 @@ export default class Bar extends PureComponent {
     }
   }
 
-  node = null; // Root node ref set in render method
-  rect = null; // Rect node ref set in render method
-  text = null; // Text node ref set in render method
+  node = null;   // Root node ref set in render method
+  circle = null; // Circle node ref set in render method
 
-  onAppear({ yScale, duration, node: { xVal, yVal } }) {
+  onAppear({ duration, node: { r, x, y, depth } }) {
     this.transition({
       node: {
-        opacity: [1e-6, 1],
-        transform: ['translate(0,500)', `translate(0,${yVal})`],
+        opacity: [1e-6, 0.8],
+        transform: `translate(${x},${y})`,
       },
-      rect: { width: xVal, height: yScale.bandwidth() },
-      text: { x: xVal - 3 },
+      circle: { fill: depth === 1 ? 'tomato' : 'blue', r: [1e-6, r] },
     }, { duration });
   }
 
-  onUpdate({ yScale, duration, node: { xVal, yVal } }) {
+  onUpdate({ duration, node: { r, x, y } }) {
     this.transition({
       node: {
-        opacity: [1],
-        transform: [`translate(0,${yVal})`],
+        opacity: [0.8],
+        transform: [`translate(${x},${y})`],
       },
-      rect: { width: [xVal], height: [yScale.bandwidth()] },
-      text: { x: [xVal - 3] },
+      circle: { r: [r] },
     }, { duration });
   }
 
-  onRemove({ duration, node: { udid }, removeNode }) {
+  onRemove({ duration, node: { udid, x, y }, removeNode }) {
     this.transition({
       node: {
         opacity: [1e-6],
-        transform: ['translate(0,500)'],
+        transform: [`translate(${x},${y})`],
       },
+      circle: { fill: 'grey', r: [1e-6] },
     }, { duration }, {
       end: () => {
         removeNode(udid);
@@ -117,29 +115,16 @@ export default class Bar extends PureComponent {
   }
 
   render() {
-    const { xScale, yScale, node: { udid, xVal } } = this.props;
+    const { node: { udid } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
-      <g ref={(d) => { this.node = d; }}>
-        <rect
-          ref={(d) => { this.rect = d; }}
-          className={classes.bar}
-        />
-        <text
-          dy="0.35em"
-          x={-15}
-          textAnchor="middle"
-          className={classes.text}
-          y={yScale.bandwidth() / 2}
-        >{udid}</text>
-        <text
-          ref={(d) => { this.text = d; }}
-          textAnchor="end"
-          dy="0.35em"
-          className={classes.text}
-          y={yScale.bandwidth() / 2}
-        >{percentFormat(xScale.invert(xVal))}</text>
+      <g>
+        <g ref={(d) => { this.node = d; }}>
+          <title>{udid}</title>
+          <circle ref={(d) => { this.circle = d; }} />
+          <text className={classes.text} dy="0.3em">{''}</text>
+        </g>
       </g>
     );
   }

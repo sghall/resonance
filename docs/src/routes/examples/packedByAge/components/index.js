@@ -8,11 +8,9 @@ import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
-import TickGroup from 'resonance/TickGroup';
 import { updateSortOrder, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
-import Bar from './Bar';
-import Tick from './Tick';
+import Circle from './Circle';
 
 export class Example extends Component {
 
@@ -43,7 +41,6 @@ export class Example extends Component {
   render() {
     const { sortKey, data, dispatch } = this.props;
     const { duration, showTopN } = this.state;
-    console.log('sortKey: ', sortKey, 'data: ', data);
 
     return (
       <Layout container gutter={24}>
@@ -87,7 +84,12 @@ export class Example extends Component {
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
             <Surface view={VIEW} trbl={TRBL}>
-
+              <NodeGroup
+                data={data}
+                duration={duration}
+                keyAccessor={(d) => d.data.name}
+                nodeComponent={Circle}
+              />
             </Surface>
           </Paper>
         </Layout>
