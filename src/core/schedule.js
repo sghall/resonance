@@ -10,7 +10,7 @@ export const RUNNING = 4;
 export const ENDING = 5;
 export const ENDED = 6;
 
-export default function (node, ref:string, name:string, id:number, timing, tweens, events = {}) {
+export default function (node, ref:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
@@ -23,7 +23,6 @@ export default function (node, ref:string, name:string, id:number, timing, tween
 
   create(node, id, {
     ref,
-    name,
     events,
     tweens,
     time,
@@ -64,7 +63,7 @@ function create(node, id:number, config) {
     for (const sid in schedules) { // eslint-disable-line
       const s = schedules[sid];
 
-      if (s.name !== transition.name) {
+      if (s.ref !== transition.ref) {
         continue; // eslint-disable-line no-continue
       }
 

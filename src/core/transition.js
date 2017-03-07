@@ -38,7 +38,7 @@ function transition(transitions, opts, events) {
       }
     });
 
-    schedule(this, ref, `${ref}`, newId(), timing, tweens, events);
+    schedule(this, ref, newId(), timing, tweens, events);
   });
 }
 
