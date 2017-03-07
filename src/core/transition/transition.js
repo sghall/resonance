@@ -1,8 +1,11 @@
 // @flow weak
-import { easeCubicInOut } from 'd3-ease';
 import { now } from 'd3-timer';
 import tween from './tween';
 import schedule from './schedule';
+
+function easeCubicInOut(t) {
+  return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2; // eslint-disable-line
+}
 
 const defaultTiming = {
   time: null,
@@ -17,7 +20,7 @@ function newId() {
   return ++id;
 }
 
-function transition(transitions, opts, events) {
+export default function transition(transitions, opts, events) {
   const timing = { ...defaultTiming, ...opts, time: now() };
 
   Object.keys(transitions).forEach((ref) => {
@@ -41,5 +44,3 @@ function transition(transitions, opts, events) {
     schedule(this, ref, newId(), timing, tweens, events);
   });
 }
-
-export default transition;
