@@ -18,6 +18,12 @@ export default class Text extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    (this:any).transition = transition.bind(this);
+  }
+
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -57,7 +63,7 @@ export default class Text extends PureComponent {
   node = null;       // Root node ref set in render method
 
   onAppear({ node: { xVal } }) {
-    transition.call(this, {
+    this.transition({
       node: {
         x: xVal,
         y: [0, dims[1] / 2],
@@ -67,7 +73,7 @@ export default class Text extends PureComponent {
   }
 
   onUpdate({ node: { xVal } }) {
-    transition.call(this, {
+    this.transition({
       node: {
         x: [xVal],
         y: [dims[1] / 2],
@@ -77,7 +83,7 @@ export default class Text extends PureComponent {
   }
 
   onRemove({ node: { udid, xVal }, removeNode }) {
-    transition.call(this, {
+    this.transition({
       node: {
         x: [xVal],
         y: [dims[1]],
