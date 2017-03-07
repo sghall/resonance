@@ -10,7 +10,7 @@ export const RUNNING = 4;
 export const ENDING = 5;
 export const ENDED = 6;
 
-export default function (node, ref, name, id, timing, tweens, events = {}) {
+export default function (node, ref:string, name:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
@@ -35,7 +35,7 @@ export default function (node, ref, name, id, timing, tweens, events = {}) {
   });
 }
 
-function create(node, id, config) {
+function create(node, id:number, config) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   // Initialize the transition timer when the transition is created.
@@ -85,7 +85,7 @@ function create(node, id, config) {
           s.events.interrupt();
         }
         delete schedules[sid];
-      } else if (sid < id) {
+      } else if (+sid < id) {
         s.state = ENDED;
         s.timer.stop();
         delete schedules[sid];
