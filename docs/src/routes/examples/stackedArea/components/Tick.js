@@ -1,9 +1,8 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
-import { timer } from 'd3-timer';
+import React, { PureComponent, PropTypes } from 'react';
 import { format } from 'd3-format';
-import { interpolateNumber, interpolateTransformSvg } from 'd3-interpolate';
+import transition from 'resonance/core/transition';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
@@ -27,7 +26,7 @@ export const styleSheet = createStyleSheet('Tick', (theme) => {
   };
 });
 
-export default class Tick extends Component {
+export default class Tick extends PureComponent {
   static propTypes = {
     tick: PropTypes.shape({
       udid: React.PropTypes.string.isRequired,
@@ -50,33 +49,27 @@ export default class Tick extends Component {
     this.onAppear(this.props);
   }
 
-  componentWillReceiveProps(next) {
+  componentDidUpdate(prev) {
     const { props } = this;
 
-    if (props.tick !== next.tick) {
-      this.transition.stop();
-
-      switch (next.tick.type) {
+    if (prev.node !== props.node) {
+      switch (props.node.type) {
         case APPEAR:
-          this.onAppear(next);
+          this.onAppear(props);
           break;
         case UPDATE:
-          this.onUpdate(next);
+          this.onUpdate(props);
           break;
         case REMOVE:
-          this.onRemove(next);
+          this.onRemove(props);
           break;
         case REVIVE:
-          this.onUpdate(next);
+          this.onUpdate(props);
           break;
         default:
           break;
       }
     }
-  }
-
-  shouldComponentUpdate(next) {
-    return this.props.tick !== next.tick;
   }
 
   componentWillUnmount() {
@@ -86,61 +79,36 @@ export default class Tick extends Component {
   transition = null; // Last transition run (or running)
   tick = null;       // Root node ref set in render method
 
+
   onAppear({ prevScale, currScale, tick: { data }, duration }) {
-    const beg = `translate(0,${prevScale(data)})`;
-    const end = `translate(0,${currScale(data)})`;
-
-    const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(1e-6, 1);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      this.tick.setAttribute('transform', interp0(t));
-      this.tick.setAttribute('opacity', interp1(t));
-
-      if (t === 1) {
-        this.transition.stop();
-      }
-    });
+    transition.call(this, {
+      tick: {
+        opacity: [1e-6, 1],
+        transform: [
+          `translate(0,${prevScale(data)})`,
+          `translate(0,${currScale(data)})`,
+        ],
+      },
+    }, { duration });
   }
 
   onUpdate({ currScale, tick: { data }, duration }) {
-    const beg = this.tick.getAttribute('transform');
-    const end = `translate(0,${currScale(data)})`;
-
-    const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      this.tick.setAttribute('transform', interp0(t));
-      this.tick.setAttribute('opacity', interp1(t));
-
-      if (t === 1) {
-        this.transition.stop();
-      }
-    });
+    transition.call(this, {
+      tick: {
+        opacity: [1],
+        transform: [`translate(0,${currScale(data)})`],
+      },
+    }, { duration });
   }
 
   onRemove({ currScale, tick: { udid, data }, removeTick, duration }) {
-    const beg = this.tick.getAttribute('transform');
-    const end = `translate(0,${currScale(data)})`;
-
-    const interp0 = interpolateTransformSvg(beg, end);
-    const interp1 = interpolateNumber(this.tick.getAttribute('opacity'), 1e-6);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      this.tick.setAttribute('transform', interp0(t));
-      this.tick.setAttribute('opacity', interp1(t));
-
-      if (t === 1) {
-        this.transition.stop();
-        removeTick(udid);
-      }
+    transition.call(this, {
+      tick: {
+        opacity: [1e-6],
+        transform: [`translate(0,${currScale(data)})`],
+      },
+    }, { duration }, {
+      end: () => removeTick(udid),
     });
   }
 
