@@ -1594,6 +1594,10 @@ d3-format@1, d3-format@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.0.2.tgz#138618320b4bbeb43b5c0ff30519079fbbd7375e"
 
+d3-hierarchy@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-1.1.3.tgz#509ec4476683ee038b2300868d5af91c836bcfdb"
+
 d3-interpolate@1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.1.3.tgz#e119c91b6be4941e581675ca3e1279bb92bd2c9b"
