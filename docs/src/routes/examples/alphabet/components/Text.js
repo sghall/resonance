@@ -1,17 +1,14 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
-import { timer } from 'd3-timer';
-import { interpolateObject } from 'd3-interpolate';
+import React, { PureComponent, PropTypes } from 'react';
+import transition from 'resonance/core/transition';
 import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
+import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
 
-const colors = { APPEAR: '#CDDC39', UPDATE: '#FAFAFA', REMOVE: '#F44336', REVIVE: 'blue' };
-const baseDuration = 500;
+const colors = { APPEAR: '#FF9200', UPDATE: '#A65F00', REMOVE: '#FFC373', REVIVE: '#66A3D2' };
 
-let duration = baseDuration;
-
-export default class Text extends Component {
+export default class Text extends PureComponent {
   static propTypes = {
     node: PropTypes.shape({
       udid: PropTypes.string.isRequired,
@@ -25,32 +22,30 @@ export default class Text extends Component {
     this.onAppear(this.props);
   }
 
-  componentWillReceiveProps(next) {
+  componentDidUpdate(prev) {
     const { props } = this;
 
     const c = Math.random();
 
-    if (c > 0.75) {
-      duration = baseDuration * 1.50;
+    if (c > 0.80) {
+      this.duration = BASE_DURATION;
     } else {
-      duration = baseDuration * 0.75;
+      this.duration = BASE_DURATION * 0.55;
     }
 
-    if (props.node !== next.node) {
-      this.transition.stop();
-
-      switch (next.node.type) {
+    if (prev.node !== props.node) {
+      switch (props.node.type) {
         case APPEAR:
-          this.onAppear(next);
+          this.onAppear(props);
           break;
         case UPDATE:
-          this.onUpdate(props, next);
+          this.onUpdate(props);
           break;
         case REMOVE:
-          this.onRemove(next);
+          this.onRemove(props);
           break;
         case REVIVE:
-          this.onUpdate(props, next);
+          this.onUpdate(props);
           break;
         default:
           break;
@@ -58,76 +53,38 @@ export default class Text extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.transition.stop();
-  }
-
-  transition = null; // Last transition run (or running)
+  duration = BASE_DURATION;
   node = null;       // Root node ref set in render method
 
   onAppear({ node: { xVal } }) {
-    this.node.setAttribute('x', xVal);
-    const beg = { opacity: 1e-6, y: 0 };
-    const end = { opacity: 1, y: dims[1] / 2 };
-    const interp = interpolateObject(beg, end);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-      const { opacity, y } = interp(t);
-
-      this.node.setAttribute('y', y);
-      // this.node.setAttribute('opacity', opacity);
-
-      if (t === 1) {
-        this.transition.stop();
-      }
-    });
+    transition.call(this, {
+      node: {
+        x: xVal,
+        y: [0, dims[1] / 2],
+        opacity: [1e-6, 1],
+      },
+    }, { duration: this.duration });
   }
 
-  onUpdate({ node: { xVal, udid }, removeNode }, next) {
-    const x1 = this.node.getAttribute('x');
-    const y1 = this.node.getAttribute('y');
-    const o1 = this.node.getAttribute('opacity');
-
-    const beg = { opacity: o1, x: x1, y: y1 };
-    const end = { opacity: 1, x: next.node.xVal, y: dims[1] / 2 };
-    const interp = interpolateObject(beg, end);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      const { x, y, opacity } = interp(t);
-      this.node.setAttribute('x', x);
-      this.node.setAttribute('y', y);
-      // this.node.setAttribute('opacity', opacity);
-
-      if (t === 1) {
-        this.transition.stop();
-      }
-    });
+  onUpdate({ node: { xVal } }) {
+    transition.call(this, {
+      node: {
+        x: [xVal],
+        y: [dims[1] / 2],
+        opacity: [1],
+      },
+    }, { duration: this.duration });
   }
 
   onRemove({ node: { udid, xVal }, removeNode }) {
-    const x1 = this.node.getAttribute('x');
-    const y1 = this.node.getAttribute('y');
-    const o1 = this.node.getAttribute('opacity');
-
-    const beg = { opacity: o1, y: y1, x: x1 };
-    const end = { opacity: 1, y: dims[1], x: xVal };
-    const interp = interpolateObject(beg, end);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-      const { x, y, opacity } = interp(t);
-
-      this.node.setAttribute('x', x);
-      this.node.setAttribute('y', y);
-      // this.node.setAttribute('opacity', opacity);
-
-      if (t === 1) {
-        this.transition.stop();
-        removeNode(udid);
-      }
+    transition.call(this, {
+      node: {
+        x: [xVal],
+        y: [dims[1]],
+        opacity: [1e-6],
+      },
+    }, { duration: this.duration }, {
+      end: () => removeNode(udid),
     });
   }
 

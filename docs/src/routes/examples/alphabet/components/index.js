@@ -8,7 +8,7 @@ import Surface from 'resonance/Surface';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';
 import NodeGroup from 'resonance/NodeGroup';
-import { VIEW, TRBL, ALPHABET } from '../module/constants';
+import { VIEW, TRBL, ALPHABET, BASE_DURATION } from '../module/constants';
 import Text from './Text';
 import { dataUpdate, makeGetSelectedData, dims } from '../module';
 
@@ -21,7 +21,7 @@ export class Example extends Component {
       dispatch(dataUpdate(shuffle(ALPHABET)
         .slice(0, Math.floor(Math.random() * 20))
         .sort()));
-    }, 600);
+    }, BASE_DURATION);
   }
 
   render() {
