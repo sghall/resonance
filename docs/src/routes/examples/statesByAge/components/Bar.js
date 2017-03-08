@@ -2,7 +2,7 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import { format } from 'd3-format';
-import transition from 'resonance/core/transition';
+import transition, { stop } from 'resonance/core/transition';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
@@ -72,6 +72,10 @@ export default class Bar extends PureComponent {
           break;
       }
     }
+  }
+
+  componentWillUnmount() {
+    stop.call(this);
   }
 
   node = null; // Root node ref set in render method

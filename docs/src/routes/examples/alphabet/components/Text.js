@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import transition from 'resonance/core/transition';
+import transition, { stop } from 'resonance/core/transition';
 import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
@@ -55,6 +55,11 @@ export default class Text extends PureComponent {
       }
     }
   }
+
+  componentWillUnmount() {
+    stop.call(this);
+  }
+
 
   duration = BASE_DURATION;
   node = null;       // Root node ref set in render method

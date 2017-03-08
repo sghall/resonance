@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import transition from 'resonance/core/transition';
+import transition, { stop } from 'resonance/core/transition';
 import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 
 export default class Path extends Component {
@@ -44,6 +44,10 @@ export default class Path extends Component {
           break;
       }
     }
+  }
+
+  componentWillUnmount() {
+    stop.call(this);
   }
 
   transition = null; // Last transition run (or running)
