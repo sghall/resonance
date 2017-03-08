@@ -15,15 +15,24 @@ export default function Surface(props) {
   const { className, view, trbl, children, ...other } = props;
 
   return (
-    <svg
-      className={className}
-      viewBox={`0 0 ${view[0]} ${view[1]}`}
-      {...other}
+    <div
+      style={{
+        width: '100%',
+        height: '0px',
+        paddingTop: `${Math.round(view[1] / (view[0] * 100))}%`,
+        position: 'relative',
+      }}
     >
-      <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
-        {children}
-      </g>
-    </svg>
+      <svg
+        className={className}
+        viewBox={`0 0 ${view[0]} ${view[1]}`}
+        {...other}
+      >
+        <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
+          {children}
+        </g>
+      </svg>
+    </div>
   );
 }
 
