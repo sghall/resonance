@@ -1,5 +1,5 @@
 // @flow weak
-// see https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
+// Apapted from https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
 
 import { timer, timeout } from 'd3-timer';
 import { CREATED, SCHEDULED, STARTING, STARTED, RUNNING, ENDING, ENDED } from './phases';
