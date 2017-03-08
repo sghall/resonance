@@ -96,7 +96,6 @@ export class Example extends Component {
               <TickGroup
                 scale={xScale}
                 duration={duration}
-                tickCount={4}
                 tickComponent={Tick}
               />
             </Surface>

@@ -5,7 +5,7 @@ import { format } from 'd3-format';
 import transition from 'resonance/core/transition';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
+import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 import { dims } from '../module';
 
 const percentFormat = format('.1%');
@@ -66,9 +66,6 @@ export default class Tick extends PureComponent {
           break;
         case REMOVE:
           this.onRemove(props);
-          break;
-        case REVIVE:
-          this.onUpdate(props);
           break;
         default:
           break;

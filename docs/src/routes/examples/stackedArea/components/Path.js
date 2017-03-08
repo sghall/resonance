@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import transition from 'resonance/core/transition';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
+import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 
 export default class Path extends Component {
   static propTypes = {
@@ -39,9 +39,6 @@ export default class Path extends Component {
           break;
         case REMOVE:
           this.onRemove(props);
-          break;
-        case REVIVE:
-          this.onUpdate(props);
           break;
         default:
           break;

@@ -2,11 +2,11 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import transition from 'resonance/core/transition';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
+import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
 
-const colors = { APPEAR: '#FF9200', UPDATE: '#A65F00', REMOVE: '#FFC373', REVIVE: '#66A3D2' };
+const colors = { APPEAR: '#FF9200', UPDATE: '#A65F00', REMOVE: '#FFC373' };
 
 export default class Text extends PureComponent {
   static propTypes = {
@@ -49,9 +49,6 @@ export default class Text extends PureComponent {
           break;
         case REMOVE:
           this.onRemove(props);
-          break;
-        case REVIVE:
-          this.onUpdate(props);
           break;
         default:
           break;

@@ -5,7 +5,7 @@ import transition, { stop } from 'resonance/core/transition';
 import { scaleOrdinal } from 'd3-scale';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from 'resonance/core/types';
+import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 import { COLORS, AGES } from '../module/constants';
 
 const colors = scaleOrdinal()
@@ -82,9 +82,6 @@ export default class Circle extends PureComponent {
           break;
         case REMOVE:
           this.onRemove(props);
-          break;
-        case REVIVE:
-          this.onUpdate(props);
           break;
         default:
           break;
