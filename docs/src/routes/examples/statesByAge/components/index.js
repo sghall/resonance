@@ -25,7 +25,7 @@ export class Example extends Component {
 
   state = {
     duration: 1000,
-    showTopN: 20,
+    showTopN: this.props.showTop,
   }
 
   setDuration(e, value) {
@@ -96,6 +96,7 @@ export class Example extends Component {
               <TickGroup
                 scale={xScale}
                 duration={duration}
+                tickCount={4}
                 tickComponent={Tick}
               />
             </Surface>
@@ -110,6 +111,7 @@ Example.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
+  showTop: PropTypes.number.isRequired,
   sortKey: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };

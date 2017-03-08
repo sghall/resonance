@@ -73,6 +73,7 @@ export const makeGetSelectedData = () => {
         .domain(Object.keys(yDomain));
 
       return {
+        showTop,
         sortKey,
         data: data.map((d) => ({
           udid: d.State,
@@ -89,7 +90,7 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { rawData: DATA, showTop: 20, sortKey: '18 to 24 Years' };
+const initialState = { rawData: DATA, showTop: 20, sortKey: 'Under 5 Years' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

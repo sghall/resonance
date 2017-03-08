@@ -11,7 +11,20 @@ import { COLORS, AGES } from '../module/constants';
 const colors = scaleOrdinal()
   .range(COLORS).domain(AGES);
 
+const getFill = (depth, name, sortKey) => {
+  const age = name.slice(5);
+
+  if (age === sortKey) {
+    return 'black';
+  }
+
+  return depth === 2 ? colors(age) : 'rgba(255,255,255,0.5)';
+};
+
 const styleSheet = createStyleSheet('Circle', (theme) => ({
+  [REMOVE]: {
+    pointerEvents: 'none',
+  },
   circle: {
     '&:hover': {
       opacity: 0.7,
@@ -36,7 +49,7 @@ export default class Circle extends PureComponent {
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
     }).isRequired,
-    activeAgeGroup: PropTypes.string,
+    sortKey: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
   };
@@ -86,27 +99,23 @@ export default class Circle extends PureComponent {
   node = null;   // Root node ref set in render method
   circle = null; // Circle node ref set in render method
 
-  onAppear({ duration, node: { r, x, y, depth, data: { name } } }) {
-    const fill = depth === 2 ? colors(name.slice(5)) : 'rgba(255,255,255,0.5)';
-
+  onAppear({ duration, node: { r, x, y, depth, data: { name } }, sortKey }) {
     this.transition({
       node: {
         opacity: [1e-6, 0.8],
         transform: [`translate(${0},${0})`, `translate(${x},${y})`],
       },
-      circle: { fill, r },
+      circle: { fill: getFill(depth, name, sortKey), r },
     }, { duration, delay: depth === 0 ? 0 : duration * 2 });
   }
 
-  onUpdate({ duration, node: { r, x, y, depth, data: { name } } }) {
-    const fill = depth === 2 ? colors(name.slice(5)) : 'rgba(255,255,255,0.5)';
-
+  onUpdate({ duration, node: { r, x, y, depth, data: { name } }, sortKey }) {
     this.transition({
       node: {
         opacity: [0.8],
         transform: [`translate(${x},${y})`],
       },
-      circle: { fill, r: [r] },
+      circle: { fill: getFill(depth, name, sortKey), r: [r] },
     }, { duration, delay: duration });
   }
 
@@ -124,23 +133,23 @@ export default class Circle extends PureComponent {
   }
 
   render() {
-    const { activeAgeGroup, node: { udid, depth, r } } = this.props;
+    const { node: { type, udid, depth, r } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
-    const stroke = activeAgeGroup === udid.slice(5) ? '#B84D4D' : 'white';
 
     return (
-      <g>
-        <g ref={(d) => { this.node = d; }}>
-          <title>{udid}</title>
-          <circle
-            ref={(d) => { this.circle = d; }}
-            stroke={stroke}
-            className={depth === 2 ? classes.circle : ''}
-          />
-          <text className={classes.text} dy="0.3em">
-            {(depth === 2 && r > 10) ? udid.slice(0, 2) : ''}
-          </text>
-        </g>
+      <g
+        ref={(d) => { this.node = d; }}
+        className={classes[type]}
+      >
+        <title>{udid}</title>
+        <circle
+          ref={(d) => { this.circle = d; }}
+          stroke="white"
+          className={depth === 2 ? classes.circle : ''}
+        />
+        <text className={classes.text} dy="0.3em">
+          {(depth === 2 && r > 10) ? udid.slice(0, 2) : ''}
+        </text>
       </g>
     );
   }

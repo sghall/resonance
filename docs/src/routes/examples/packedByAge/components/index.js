@@ -2,30 +2,35 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Table, TableRow, TableCell, TableBody } from 'material-ui/Table';
-import Checkbox from 'material-ui/Checkbox';
 import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import { updateSortOrder, makeGetSelectedData } from '../module';
-import { VIEW, TRBL, AGES } from '../module/constants';
+import { VIEW, TRBL } from '../module/constants';
 import Circle from './Circle';
+import Legend from './Legend';
+
+const getID = (d) => d.data.name;
 
 export class Example extends Component {
 
   constructor(props) {
     super(props);
 
+    (this:any).setSortKey = this.setSortKey.bind(this);
     (this:any).setDuration = this.setDuration.bind(this);
     (this:any).setShowTopN = this.setShowTopN.bind(this);
-    (this:any).setActiveAgeGroup = this.setActiveAgeGroup.bind(this);
   }
 
   state = {
     duration: 750,
-    showTopN: 10,
-    activeAgeGroup: '5 to 13 Years',
+    showTopN: this.props.showTop,
+  }
+
+  setSortKey(sortKey) {
+    const { dispatch } = this.props;
+    dispatch(updateSortOrder(sortKey));
   }
 
   setDuration(e, value) {
@@ -40,13 +45,9 @@ export class Example extends Component {
     });
   }
 
-  setActiveAgeGroup(group) {
-    this.setState({ activeAgeGroup: group });
-  }
-
   render() {
-    const { sortKey, data, dispatch } = this.props;
-    const { duration, showTopN, activeAgeGroup } = this.state;
+    const { sortKey, data } = this.props;
+    const { duration, showTopN } = this.state;
 
     return (
       <Layout container gutter={24}>
@@ -61,33 +62,10 @@ export class Example extends Component {
           </Paper>
         </Layout>
         <Layout item xs={12} sm={4} md={3}>
-          <Paper>
-            <Table>
-              <TableBody>
-                {AGES.map((age) => {
-                  const isSelected = age === sortKey;
-                  return (
-                    <TableRow
-                      hover
-                      style={age === activeAgeGroup ? { backgroundColor: '#B84D4D' } : {}}
-                      onClick={() => dispatch(updateSortOrder(age))}
-                      onMouseOver={() => this.setActiveAgeGroup(age)}
-                      role="checkbox"
-                      aria-checked={isSelected}
-                      tabIndex="-1"
-                      key={age}
-                      selected={isSelected}
-                    >
-                      <TableCell checkbox>
-                        <Checkbox checked={isSelected} />
-                      </TableCell>
-                      <TableCell padding={false}>{age}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Paper>
+          <Legend
+            sortKey={sortKey}
+            setSortKey={this.setSortKey}
+          />
         </Layout>
         <Layout item xs={12} sm={8} md={9}>
           <Paper>
@@ -95,8 +73,8 @@ export class Example extends Component {
               <NodeGroup
                 data={data}
                 duration={duration}
-                keyAccessor={(d) => d.data.name}
-                activeAgeGroup={activeAgeGroup}
+                keyAccessor={getID}
+                sortKey={sortKey}
                 nodeComponent={Circle}
               />
             </Surface>
@@ -109,6 +87,7 @@ export class Example extends Component {
 
 Example.propTypes = {
   data: PropTypes.array.isRequired,
+  showTop: PropTypes.number.isRequired,
   sortKey: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
