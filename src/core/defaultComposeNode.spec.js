@@ -3,7 +3,7 @@
 
 import { assert } from 'chai';
 import defaultComposeNode from './defaultComposeNode';
-import { APPEAR, UPDATE, REMOVE, REVIVE } from './types';
+import { APPEAR, UPDATE, REMOVE } from './types';
 
 describe('Node Composers', () => {
   /**
@@ -33,15 +33,15 @@ describe('Node Composers', () => {
 
     it('given an object, it will overwrite an existing type key` ', () => {
       assert.deepEqual(
-        defaultComposeNode({ x: 10, y: 12, type: 4 }, REVIVE, 'key-123'),
-        { x: 10, y: 12, type: REVIVE, udid: 'key-123' },
+        defaultComposeNode({ x: 10, y: 12, type: 4 }, UPDATE, 'key-123'),
+        { x: 10, y: 12, type: UPDATE, udid: 'key-123' },
       );
     });
 
     it('given an object, it will overwrite an existing udid key` ', () => {
       assert.deepEqual(
-        defaultComposeNode({ x: 10, y: 12, udid: 4 }, REVIVE, '4'),
-        { x: 10, y: 12, type: REVIVE, udid: '4' },
+        defaultComposeNode({ x: 10, y: 12, udid: 4 }, UPDATE, '4'),
+        { x: 10, y: 12, type: UPDATE, udid: '4' },
       );
     });
   });

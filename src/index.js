@@ -10,5 +10,4 @@ export {
   APPEAR,
   UPDATE,
   REMOVE,
-  REVIVE,
 } from './core/types';

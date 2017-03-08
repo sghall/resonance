@@ -4,7 +4,6 @@ import {
   APPEAR,
   UPDATE,
   REMOVE,
-  REVIVE,
 } from './types';
 
 
@@ -19,11 +18,7 @@ const nodeUpdate = (props, state, removed) => {
     let type = APPEAR;
 
     if (state.udids[udid] && !removed.has(udid)) {
-      if (state.udids[udid] === REMOVE) {
-        type = REVIVE;
-      } else {
-        type = UPDATE;
-      }
+      type = UPDATE;
     }
 
     nodes.push(composeNode(data[i], type, udid));
