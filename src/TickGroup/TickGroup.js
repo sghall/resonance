@@ -26,10 +26,15 @@ export default class TickGroup extends PureComponent {
     /**
      * Set to false to disable rounded corners.
      */
+    tickCount: PropTypes.number,
+    /**
+     * Set to false to disable rounded corners.
+     */
     tickComponent: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    tickCount: 10,
     keyAccessor: defaultKeyAccessor,
     composeNode: defaultComposeNode,
   };
@@ -60,11 +65,12 @@ export default class TickGroup extends PureComponent {
   removed = new Map();
 
   updateTicks(prev, next) {
-    const ticks = next.scale.ticks ? next.scale.ticks() : [];
+    const { tickCount, scale } = next;
+    const ticks = scale.ticks ? scale.ticks(tickCount) : [];
 
     this.setState((prevState) => {
       const update = dataUpdate({ data: ticks, ...next }, prevState, this.removed);
-      return { ...update, prevScale: prev.scale, currScale: next.scale };
+      return { ...update, prevScale: prev.scale, currScale: scale };
     });
   }
 
