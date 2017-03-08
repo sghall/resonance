@@ -46,7 +46,7 @@ export class Example extends Component {
 
   render() {
     const { sortKey, data, dispatch } = this.props;
-    const { duration, showTopN } = this.state;
+    const { duration, showTopN, activeAgeGroup } = this.state;
 
     return (
       <Layout container gutter={24}>
@@ -69,6 +69,7 @@ export class Example extends Component {
                   return (
                     <TableRow
                       hover
+                      style={age === activeAgeGroup ? { backgroundColor: '#B84D4D' } : {}}
                       onClick={() => dispatch(updateSortOrder(age))}
                       onMouseOver={() => this.setActiveAgeGroup(age)}
                       role="checkbox"
@@ -95,7 +96,7 @@ export class Example extends Component {
                 data={data}
                 duration={duration}
                 keyAccessor={(d) => d.data.name}
-                activeAgeGroup={this.state.activeAgeGroup}
+                activeAgeGroup={activeAgeGroup}
                 nodeComponent={Circle}
               />
             </Surface>

@@ -11,23 +11,14 @@ import { COLORS, AGES } from '../module/constants';
 const colors = scaleOrdinal()
   .range(COLORS).domain(AGES);
 
-const styleSheet = createStyleSheet('Circle', (theme) => {
-  return {
-    circle: {
-      fill: theme.palette.accent[500],
-      opacity: 0.8,
-      '&:hover': {
-        opacity: 0.5,
-      },
-    },
-    text: {
-      fontSize: 12,
-      textAnchor: 'middle',
-      opacity: 1,
-      fill: theme.palette.text.secondary,
-    },
-  };
-});
+const styleSheet = createStyleSheet('Circle', (theme) => ({
+  text: {
+    fontSize: 12,
+    textAnchor: 'middle',
+    opacity: 1,
+    fill: theme.palette.text.secondary,
+  },
+}));
 
 export default class Circle extends PureComponent {
   static propTypes = {
@@ -38,7 +29,6 @@ export default class Circle extends PureComponent {
       r: PropTypes.number.isRequired,
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
-      children: PropTypes.array, // Leaf nodes have no children
     }).isRequired,
     activeAgeGroup: PropTypes.string,
     duration: PropTypes.number.isRequired,
@@ -130,7 +120,7 @@ export default class Circle extends PureComponent {
   render() {
     const { activeAgeGroup, node: { udid, depth, r } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
-    const stroke = activeAgeGroup === udid.slice(5) ? 'tomato' : 'white';
+    const stroke = activeAgeGroup === udid.slice(5) ? '#B84D4D' : 'white';
 
     return (
       <g>

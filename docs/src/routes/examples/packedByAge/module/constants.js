@@ -6,7 +6,6 @@ export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
 
 export const COLORS = [
   '#272e5d',
-  '#999eb8',
   '#1930ff',
   '#333c70',
   '#74cfff',
