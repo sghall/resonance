@@ -53,6 +53,7 @@ export const makeGetSelectedData = () => {
       const data = rawData.sort(sort).slice(0, showTop);
 
       const pack = packLayout()
+        .padding(2)
         .size([Math.min(...dims), Math.min(...dims)]);
 
       const nodes = { name: 'root', children: [] };
@@ -66,7 +67,7 @@ export const makeGetSelectedData = () => {
 
         for (let j = 0; j < AGES.length; j++) {
           const group = AGES[j];
-          const child = { name: group, size: d[group] * d.Total };
+          const child = { name: `${d.State} - ${group}`, size: d[group] * d.Total };
           state.children.push(child);
         }
       }
@@ -77,7 +78,7 @@ export const makeGetSelectedData = () => {
         hierarchy(nodes)
           .sum((d) => d.size)
           .sort((a, b) => b.value - a.value),
-        ).children,
+        ).descendants(),
       };
     },
   );

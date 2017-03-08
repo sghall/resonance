@@ -19,11 +19,13 @@ export class Example extends Component {
 
     (this:any).setDuration = this.setDuration.bind(this);
     (this:any).setShowTopN = this.setShowTopN.bind(this);
+    (this:any).setActiveAgeGroup = this.setActiveAgeGroup.bind(this);
   }
 
   state = {
-    duration: 1000,
+    duration: 750,
     showTopN: 20,
+    activeAgeGroup: '5 to 13 Years',
   }
 
   setDuration(e, value) {
@@ -36,6 +38,10 @@ export class Example extends Component {
     this.setState({
       showTopN: Math.floor(value * 20) + 5,
     });
+  }
+
+  setActiveAgeGroup(group) {
+    this.setState({ activeAgeGroup: group });
   }
 
   render() {
@@ -64,6 +70,7 @@ export class Example extends Component {
                     <TableRow
                       hover
                       onClick={() => dispatch(updateSortOrder(age))}
+                      onMouseOver={() => this.setActiveAgeGroup(age)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex="-1"
@@ -88,6 +95,7 @@ export class Example extends Component {
                 data={data}
                 duration={duration}
                 keyAccessor={(d) => d.data.name}
+                activeAgeGroup={this.state.activeAgeGroup}
                 nodeComponent={Circle}
               />
             </Surface>
