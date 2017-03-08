@@ -1,15 +1,8 @@
 // @flow weak
-// adapted from https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
+// see https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
 
 import { timer, timeout } from 'd3-timer';
-
-export const CREATED = 0;
-export const SCHEDULED = 1;
-export const STARTING = 2;
-export const STARTED = 3;
-export const RUNNING = 4;
-export const ENDING = 5;
-export const ENDED = 6;
+import { CREATED, SCHEDULED, STARTING, STARTED, RUNNING, ENDING, ENDED } from './phases';
 
 export default function (node, ref:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
@@ -20,19 +13,8 @@ export default function (node, ref:string, id:number, timing, tweens, events = {
     return;
   }
 
-  const { time, delay, duration, ease } = timing;
-
-  create(node, id, {
-    ref,
-    events,
-    tweens,
-    time,
-    delay,
-    duration,
-    ease,
-    timer: null,
-    state: CREATED,
-  });
+  const config = { ref, events, tweens, ...timing, timer: null, state: CREATED };
+  create(node, id, config);
 }
 
 function create(node, id:number, config) {
