@@ -18,7 +18,7 @@ const getFill = (depth, name, sortKey) => {
     return 'black';
   }
 
-  return depth === 2 ? colors(age) : 'rgba(255,255,255,0.5)';
+  return depth === 2 ? colors(age) : 'rgba(255,255,255,0.7)';
 };
 
 const styleSheet = createStyleSheet('Circle', (theme) => ({
@@ -141,7 +141,7 @@ export default class Circle extends PureComponent {
         <title>{udid}</title>
         <circle
           ref={(d) => { this.circle = d; }}
-          stroke="white"
+          stroke="rgba(0,0,0,0.2)"
           className={depth === 2 ? classes.circle : ''}
         />
         <text className={classes.text} dy="0.3em">
