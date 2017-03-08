@@ -12,9 +12,15 @@ const colors = scaleOrdinal()
   .range(COLORS).domain(AGES);
 
 const styleSheet = createStyleSheet('Circle', (theme) => ({
+  circle: {
+    '&:hover': {
+      opacity: 0.7,
+    },
+  },
   text: {
     fontSize: 12,
     textAnchor: 'middle',
+    pointerEvents: 'none',
     opacity: 1,
     fill: theme.palette.text.secondary,
   },
@@ -126,7 +132,11 @@ export default class Circle extends PureComponent {
       <g>
         <g ref={(d) => { this.node = d; }}>
           <title>{udid}</title>
-          <circle stroke={stroke} ref={(d) => { this.circle = d; }} />
+          <circle
+            ref={(d) => { this.circle = d; }}
+            stroke={stroke}
+            className={depth === 2 ? classes.circle : ''}
+          />
           <text className={classes.text} dy="0.3em">
             {(depth === 2 && r > 10) ? udid.slice(0, 2) : ''}
           </text>

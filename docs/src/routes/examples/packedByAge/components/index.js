@@ -24,7 +24,7 @@ export class Example extends Component {
 
   state = {
     duration: 750,
-    showTopN: 20,
+    showTopN: 10,
     activeAgeGroup: '5 to 13 Years',
   }
 
