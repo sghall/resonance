@@ -11,20 +11,18 @@ import { dims } from '../module';
 const numberFormat = format(',');
 const percentFormat = format('.1p');
 
-export const styleSheet = createStyleSheet('Tick', (theme) => {
-  return {
-    line: {
-      strokeWidth: 1,
-      pointerEvents: 'none',
-      opacity: 0.2,
-      stroke: theme.palette.text.primary,
-    },
-    text: {
-      fontSize: 9,
-      fill: theme.palette.text.secondary,
-    },
-  };
-});
+export const styleSheet = createStyleSheet('Tick', (theme) => ({
+  line: {
+    strokeWidth: 1,
+    pointerEvents: 'none',
+    opacity: 0.2,
+    stroke: theme.palette.text.primary,
+  },
+  text: {
+    fontSize: 9,
+    fill: theme.palette.text.secondary,
+  },
+}));
 
 export default class Tick extends PureComponent {
   static propTypes = {
