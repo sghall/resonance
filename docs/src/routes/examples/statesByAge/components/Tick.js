@@ -28,10 +28,10 @@ export const styleSheet = createStyleSheet('Tick', (theme) => {
 export default class Tick extends PureComponent {
   static propTypes = {
     tick: PropTypes.shape({
-      udid: React.PropTypes.string.isRequired,
-      type: React.PropTypes.string.isRequired,
-      data: React.PropTypes.number.isRequired,
+      val: React.PropTypes.number.isRequired,
     }).isRequired,
+    udid: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
@@ -56,8 +56,11 @@ export default class Tick extends PureComponent {
   componentDidUpdate(prev) {
     const { props } = this;
 
-    if (prev.tick !== props.tick) {
-      switch (props.tick.type) {
+    if (
+      prev.tick !== props.tick ||
+      prev.type !== props.type
+    ) {
+      switch (props.type) {
         case APPEAR:
           this.onAppear(props);
           break;
@@ -79,32 +82,32 @@ export default class Tick extends PureComponent {
 
   tick = null; // Root node ref set in render method
 
-  onAppear({ prevScale, currScale, tick: { data }, duration }) {
+  onAppear({ prevScale, currScale, tick: { val }, duration }) {
     this.transition({
       tick: {
         opacity: [1e-6, 1],
         transform: [
-          `translate(${prevScale(data)},0)`,
-          `translate(${currScale(data)},0)`,
+          `translate(${prevScale(val)},0)`,
+          `translate(${currScale(val)},0)`,
         ],
       },
     }, { duration });
   }
 
-  onUpdate({ currScale, tick: { data }, duration }) {
+  onUpdate({ currScale, tick: { val }, duration }) {
     this.transition({
       tick: {
         opacity: [1],
-        transform: [`translate(${currScale(data)},0)`],
+        transform: [`translate(${currScale(val)},0)`],
       },
     }, { duration });
   }
 
-  onRemove({ currScale, tick: { data, udid }, duration, removeTick }) {
+  onRemove({ currScale, udid, tick: { val }, duration, removeTick }) {
     this.transition({
       tick: {
         opacity: [1e-6],
-        transform: [`translate(${currScale(data)},0)`],
+        transform: [`translate(${currScale(val)},0)`],
       },
     }, { duration }, {
       end: () => removeTick(udid),
@@ -112,7 +115,7 @@ export default class Tick extends PureComponent {
   }
 
   render() {
-    const { tick: { data } } = this.props;
+    const { tick: { val } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
@@ -126,7 +129,7 @@ export default class Tick extends PureComponent {
           x={0} y={-5}
           textAnchor="middle"
           className={classes.text}
-        >{percentFormat(data)}</text>
+        >{percentFormat(val)}</text>
       </g>
     );
   }

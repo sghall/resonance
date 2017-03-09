@@ -14,6 +14,8 @@ import { VIEW, TRBL, AGES } from '../module/constants';
 import Bar from './Bar';
 import Tick from './Tick';
 
+const barKeyAccessor = (d) => d.name;
+
 export class Example extends Component {
 
   constructor(props) {
@@ -92,6 +94,7 @@ export class Example extends Component {
                 yScale={yScale}
                 duration={duration}
                 nodeComponent={Bar}
+                keyAccessor={barKeyAccessor}
               />
               <TickGroup
                 scale={xScale}

@@ -28,11 +28,12 @@ const styleSheet = createStyleSheet('Bar', (theme) => {
 export default class Bar extends PureComponent {
   static propTypes = {
     node: PropTypes.shape({
-      udid: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
       xVal: PropTypes.number.isRequired,
       yVal: PropTypes.number.isRequired,
     }).isRequired,
+    udid: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
@@ -44,12 +45,6 @@ export default class Bar extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    (this:any).transition = transition.bind(this);
-  }
-
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -57,8 +52,11 @@ export default class Bar extends PureComponent {
   componentDidUpdate(prev) {
     const { props } = this;
 
-    if (prev.node !== props.node) {
-      switch (props.node.type) {
+    if (
+      prev.node !== props.node ||
+      prev.type !== props.type
+    ) {
+      switch (props.type) {
         case APPEAR:
           this.onAppear(props);
           break;
@@ -83,7 +81,7 @@ export default class Bar extends PureComponent {
   text = null; // Text node ref set in render method
 
   onAppear({ yScale, duration, node: { xVal, yVal } }) {
-    this.transition({
+    transition.call(this, {
       node: {
         opacity: [1e-6, 1],
         transform: ['translate(0,500)', `translate(0,${yVal})`],
@@ -94,7 +92,7 @@ export default class Bar extends PureComponent {
   }
 
   onUpdate({ yScale, duration, node: { xVal, yVal } }) {
-    this.transition({
+    transition.call(this, {
       node: {
         opacity: [1],
         transform: [`translate(0,${yVal})`],
@@ -104,8 +102,8 @@ export default class Bar extends PureComponent {
     }, { duration });
   }
 
-  onRemove({ duration, node: { udid }, removeNode }) {
-    this.transition({
+  onRemove({ duration, udid, removeNode }) {
+    transition.call(this, {
       node: {
         opacity: [1e-6],
         transform: ['translate(0,500)'],
@@ -118,7 +116,7 @@ export default class Bar extends PureComponent {
   }
 
   render() {
-    const { xScale, yScale, node: { udid, xVal } } = this.props;
+    const { xScale, yScale, node: { name, xVal } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
@@ -133,7 +131,7 @@ export default class Bar extends PureComponent {
           textAnchor="middle"
           className={classes.text}
           y={yScale.bandwidth() / 2}
-        >{udid}</text>
+        >{name}</text>
         <text
           ref={(d) => { this.text = d; }}
           textAnchor="end"
