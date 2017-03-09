@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import transition, { stop } from 'resonance/core/transition';
+import transition, { stop } from 'resonance/transition';
 import { scaleOrdinal } from 'd3-scale';
 import { createStyleSheet } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';

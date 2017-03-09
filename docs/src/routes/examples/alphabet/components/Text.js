@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import transition, { stop } from 'resonance/core/transition';
+import transition, { stop } from 'resonance/transition';
 import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';

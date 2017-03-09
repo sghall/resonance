@@ -53,7 +53,7 @@ module.exports = {
   resolve: {
     alias: {
       docs: path.resolve(__dirname, '../docs'),
-      'resonance': path.resolve(__dirname, '../src'),
+      resonance: path.resolve(__dirname, '../src'),
     },
   },
   plugins: [
