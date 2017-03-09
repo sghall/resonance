@@ -11,7 +11,7 @@ import { VIEW, TRBL } from '../module/constants';
 import Circle from './Circle';
 import Legend from './Legend';
 
-const getID = (d) => d.data.name;
+const circleKeyAccessor = (d) => d.name;
 
 export class Example extends Component {
 
@@ -73,7 +73,7 @@ export class Example extends Component {
               <NodeGroup
                 data={data}
                 duration={duration}
-                keyAccessor={getID}
+                keyAccessor={circleKeyAccessor}
                 sortKey={sortKey}
                 nodeComponent={Circle}
               />

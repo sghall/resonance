@@ -79,7 +79,9 @@ export const makeGetSelectedData = () => {
         hierarchy(nodes)
           .sum((d) => d.size)
           .sort((a, b) => b.value - a.value),
-        ).descendants(),
+        ).descendants().map(({ data: { name }, x, y, r, depth }) => ({
+          x, y, r, depth, name,
+        })),
       };
     },
   );

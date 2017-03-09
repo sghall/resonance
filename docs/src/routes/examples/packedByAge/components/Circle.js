@@ -42,13 +42,14 @@ const styleSheet = createStyleSheet('Circle', (theme) => ({
 export default class Circle extends PureComponent {
   static propTypes = {
     node: PropTypes.shape({
-      udid: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      data: PropTypes.object.isRequired,
+      name: PropTypes.string.isRequired,
       r: PropTypes.number.isRequired,
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
+      depth: PropTypes.number.isRequired,
     }).isRequired,
+    udid: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     sortKey: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
@@ -59,12 +60,6 @@ export default class Circle extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    (this:any).transition = transition.bind(this);
-  }
-
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -72,8 +67,11 @@ export default class Circle extends PureComponent {
   componentDidUpdate(prev) {
     const { props } = this;
 
-    if (prev.node !== props.node) {
-      switch (props.node.type) {
+    if (
+      prev.node !== props.node ||
+      prev.type !== props.type
+    ) {
+      switch (props.type) {
         case APPEAR:
           this.onAppear(props);
           break;
@@ -96,18 +94,21 @@ export default class Circle extends PureComponent {
   node = null;   // Root node ref set in render method
   circle = null; // Circle node ref set in render method
 
-  onAppear({ duration, node: { r, x, y, depth, data: { name } }, sortKey }) {
-    this.transition({
+  onAppear({ duration, node: { name, x, y, r, depth }, sortKey }) {
+    const d0 = depth === 0 ? 0 : duration;
+    const d1 = depth === 0 ? 0 : duration * 2;
+
+    transition.call(this, {
       node: {
         opacity: [1e-6, 0.8],
-        transform: [`translate(${0},${0})`, `translate(${x},${y})`],
+        transform: ['translate(0,0)', `translate(${x},${y})`],
       },
       circle: { fill: getFill(depth, name, sortKey), r },
-    }, { duration, delay: depth === 0 ? 0 : duration * 2 });
+    }, { duration: d0, delay: d1 });
   }
 
-  onUpdate({ duration, node: { r, x, y, depth, data: { name } }, sortKey }) {
-    this.transition({
+  onUpdate({ duration, node: { name, x, y, r, depth }, sortKey }) {
+    transition.call(this, {
       node: {
         opacity: [0.8],
         transform: [`translate(${x},${y})`],
@@ -116,8 +117,8 @@ export default class Circle extends PureComponent {
     }, { duration, delay: duration });
   }
 
-  onRemove({ duration, node: { udid }, removeNode }) {
-    this.transition({
+  onRemove({ duration, udid, removeNode }) {
+    transition.call(this, {
       node: {
         opacity: [1e-6],
       },
@@ -130,7 +131,7 @@ export default class Circle extends PureComponent {
   }
 
   render() {
-    const { node: { type, udid, depth, r } } = this.props;
+    const { type, node: { name, depth, r } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
@@ -138,14 +139,14 @@ export default class Circle extends PureComponent {
         ref={(d) => { this.node = d; }}
         className={classes[type]}
       >
-        <title>{udid}</title>
+        <title>{name}</title>
         <circle
           ref={(d) => { this.circle = d; }}
           stroke="rgba(0,0,0,0.2)"
           className={depth === 2 ? classes.circle : ''}
         />
         <text className={classes.text} dy="0.3em">
-          {(depth === 2 && r > 10) ? udid.slice(0, 2) : ''}
+          {(depth === 2 && r > 10) ? name.slice(0, 2) : ''}
         </text>
       </g>
     );
