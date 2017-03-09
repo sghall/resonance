@@ -5,7 +5,7 @@
   "description": "Documentation site for Resonance",
   "repository": {
     "type": "git",
-    "url": "https://github.com/callemall/resonance.git"
+    "url": "https://github.com/sghall/resonance.git"
   },
   "scripts": {
     "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",
