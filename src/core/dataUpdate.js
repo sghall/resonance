@@ -13,7 +13,7 @@ const nodeUpdate = (props, state, removed) => {
   const udids = {};
 
   for (let i = 0, len0 = data.length; i < len0; i++) {
-    const udid = keyAccessor(data[i], i, data);
+    const udid = keyAccessor(data[i]);
 
     let type = APPEAR;
 
@@ -27,10 +27,11 @@ const nodeUpdate = (props, state, removed) => {
 
   for (let j = 0, len1 = state.nodes.length; j < len1; j++) {
     const node = state.nodes[j];
+    const udid = keyAccessor(node);
 
-    if (!udids[node.udid] && !removed.has(node.udid)) {
-      nodes.push({ ...node, type: REMOVE });
-      udids[node.udid] = REMOVE;
+    if (!udids[udid] && !removed.has(udid)) {
+      nodes.push(composeNode(node, REMOVE, udid));
+      udids[udid] = REMOVE;
     }
   }
 
