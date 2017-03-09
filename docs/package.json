@@ -47,6 +47,7 @@
     "material-ui": "v1.0.0-alpha.6",
     "moment": "^2.17.1",
     "prismjs": "^1.6.0",
+    "react-addons-perf": "^15.4.2",
     "react-redux": "^5.0.3",
     "react-router": "^3.0.2",
     "react-swipeable-views": "^0.10.7",
