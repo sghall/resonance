@@ -7,20 +7,14 @@ import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
 export default class Path extends Component {
   static propTypes = {
     node: PropTypes.shape({
-      udid: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
       path: PropTypes.string.isRequired,
       fill: PropTypes.string.isRequired,
     }).isRequired,
+    udid: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-
-    (this:any).transition = transition.bind(this);
-  }
 
   componentDidMount() {
     this.onAppear(this.props);
@@ -29,8 +23,11 @@ export default class Path extends Component {
   componentDidUpdate(prev) {
     const { props } = this;
 
-    if (prev.node !== props.node) {
-      switch (props.node.type) {
+    if (
+      prev.node !== props.node ||
+      prev.type !== props.type
+    ) {
+      switch (props.type) {
         case APPEAR:
           this.onAppear(props);
           break;
@@ -54,7 +51,7 @@ export default class Path extends Component {
   node = null;       // Root node ref set in render method
 
   onAppear({ node: { path }, duration }) {
-    this.transition({
+    transition.call(this, {
       node: {
         opacity: [1e-6, 0.8],
         d: [path],
@@ -63,7 +60,7 @@ export default class Path extends Component {
   }
 
   onUpdate({ node: { path }, duration }) {
-    this.transition({
+    transition.call(this, {
       node: {
         opacity: [0.8],
         d: [path],
@@ -71,8 +68,8 @@ export default class Path extends Component {
     }, { duration });
   }
 
-  onRemove({ node: { udid }, duration, removeNode }) {
-    this.transition({
+  onRemove({ udid, duration, removeNode }) {
+    transition.call(this, {
       node: {
         opacity: [1e-6],
       },

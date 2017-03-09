@@ -27,10 +27,11 @@ export const styleSheet = createStyleSheet('Tick', (theme) => ({
 export default class Tick extends PureComponent {
   static propTypes = {
     tick: PropTypes.shape({
-      udid: React.PropTypes.string.isRequired,
-      type: React.PropTypes.string.isRequired,
-      data: React.PropTypes.number.isRequired,
+
+      val: React.PropTypes.number.isRequired,
     }).isRequired,
+    udid: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string.isRequired,
     offset: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
@@ -43,12 +44,6 @@ export default class Tick extends PureComponent {
     styleManager: customPropTypes.muiRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    (this:any).transition = transition.bind(this);
-  }
-
   componentDidMount() {
     this.onAppear(this.props);
   }
@@ -56,8 +51,11 @@ export default class Tick extends PureComponent {
   componentDidUpdate(prev) {
     const { props } = this;
 
-    if (prev.tick !== props.tick) {
-      switch (props.tick.type) {
+    if (
+      prev.tick !== props.tick ||
+      prev.type !== props.type
+    ) {
+      switch (props.type) {
         case APPEAR:
           this.onAppear(props);
           break;
@@ -77,35 +75,34 @@ export default class Tick extends PureComponent {
     stop.call(this);
   }
 
-  transition = null; // Last transition run (or running)
   tick = null;       // Root node ref set in render method
 
-  onAppear({ prevScale, currScale, tick: { data }, duration }) {
-    this.transition({
+  onAppear({ prevScale, currScale, tick: { val }, duration }) {
+    transition.call(this, {
       tick: {
         opacity: [1e-6, 1],
         transform: [
-          `translate(0,${prevScale(data)})`,
-          `translate(0,${currScale(data)})`,
+          `translate(0,${prevScale(val)})`,
+          `translate(0,${currScale(val)})`,
         ],
       },
     }, { duration });
   }
 
-  onUpdate({ currScale, tick: { data }, duration }) {
-    this.transition({
+  onUpdate({ currScale, tick: { val }, duration }) {
+    transition.call(this, {
       tick: {
         opacity: [1],
-        transform: [`translate(0,${currScale(data)})`],
+        transform: [`translate(0,${currScale(val)})`],
       },
     }, { duration });
   }
 
-  onRemove({ currScale, tick: { udid, data }, removeTick, duration }) {
-    this.transition({
+  onRemove({ currScale, udid, tick: { val }, removeTick, duration }) {
+    transition.call(this, {
       tick: {
         opacity: [1e-6],
-        transform: [`translate(0,${currScale(data)})`],
+        transform: [`translate(0,${currScale(val)})`],
       },
     }, { duration }, {
       end: () => removeTick(udid),
@@ -113,7 +110,7 @@ export default class Tick extends PureComponent {
   }
 
   render() {
-    const { offset, tick: { data } } = this.props;
+    const { offset, tick: { val } } = this.props;
     const classes = this.context.styleManager.render(styleSheet);
 
     return (
@@ -129,7 +126,7 @@ export default class Tick extends PureComponent {
           dy=".35em"
           x={-5} y={0}
           className={classes.text}
-        >{offset === 'expand' ? percentFormat(data) : numberFormat(data)}</text>
+        >{offset === 'expand' ? percentFormat(val) : numberFormat(val)}</text>
       </g>
     );
   }
