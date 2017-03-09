@@ -5,29 +5,31 @@ import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
 
+const propTypes = {
+  /**
+   * The CSS class name of the root element.
+   */
+  data: PropTypes.array.isRequired,
+  /**
+   * The CSS class name of the root element.
+   */
+  className: PropTypes.string,
+  /**
+   * The CSS class name of the root element.
+   */
+  keyAccessor: PropTypes.func,
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   */
+  composeNode: PropTypes.func,
+  /**
+   * Set to false to disable rounded corners.
+   */
+  nodeComponent: PropTypes.func.isRequired,
+};
+
 export default class NodeGroup extends PureComponent {
-  static propTypes = {
-    /**
-     * The CSS class name of the root element.
-     */
-    data: PropTypes.array.isRequired,
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-    /**
-     * The CSS class name of the root element.
-     */
-    keyAccessor: PropTypes.func,
-    /**
-     * Shadow depth, corresponds to `dp` in the spec.
-     */
-    composeNode: PropTypes.func,
-    /**
-     * Set to false to disable rounded corners.
-     */
-    nodeComponent: PropTypes.func.isRequired,
-  };
+  static propTypes = propTypes;
 
   static defaultProps = {
     keyAccessor: defaultKeyAccessor,
@@ -68,17 +70,28 @@ export default class NodeGroup extends PureComponent {
   }
 
   render() {
-    const { props: { className, nodeComponent: Node, ...rest }, state } = this;
+    const { props: { keyAccessor, className, nodeComponent: Node }, state } = this;
+
+    const props = Object.assign({}, this.props);
+
+    Object.keys(propTypes).forEach((prop) => {
+      delete props[prop];
+    });
 
     return (
       <g className={className}>
         {state.nodes.map((node) => {
+          const udid = keyAccessor(node);
+          const type = state.udids[udid];
+
           return (
             <Node
-              key={node.udid}
+              key={udid}
+              udid={udid}
+              type={type}
               node={node}
               removeNode={this.removeNode}
-              {...rest}
+              {...props}
             />
           );
         })}

@@ -5,33 +5,35 @@ import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
 
+const propTypes = {
+  /**
+   * The CSS class name of the root element.
+   */
+  scale: PropTypes.func.isRequired,
+  /**
+   * The CSS class name of the root element.
+   */
+  className: PropTypes.string,
+  /**
+   * The CSS class name of the root element.
+   */
+  keyAccessor: PropTypes.func,
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   */
+  composeNode: PropTypes.func,
+  /**
+   * Set to false to disable rounded corners.
+   */
+  tickCount: PropTypes.number,
+  /**
+   * Set to false to disable rounded corners.
+   */
+  tickComponent: PropTypes.func.isRequired,
+};
+
 export default class TickGroup extends PureComponent {
-  static propTypes = {
-    /**
-     * The CSS class name of the root element.
-     */
-    scale: PropTypes.func.isRequired,
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-    /**
-     * The CSS class name of the root element.
-     */
-    keyAccessor: PropTypes.func,
-    /**
-     * Shadow depth, corresponds to `dp` in the spec.
-     */
-    composeNode: PropTypes.func,
-    /**
-     * Set to false to disable rounded corners.
-     */
-    tickCount: PropTypes.number,
-    /**
-     * Set to false to disable rounded corners.
-     */
-    tickComponent: PropTypes.func.isRequired,
-  };
+  static propTypes = propTypes;
 
   static defaultProps = {
     tickCount: 10,
@@ -69,7 +71,8 @@ export default class TickGroup extends PureComponent {
     const ticks = scale.ticks ? scale.ticks(tickCount) : [];
 
     this.setState((prevState) => {
-      const update = dataUpdate({ data: ticks, ...next }, prevState, this.removed);
+      const mapped = ticks.map((t) => ({ val: t }));
+      const update = dataUpdate({ data: mapped, ...next }, prevState, this.removed);
       return { ...update, prevScale: prev.scale, currScale: scale };
     });
   }
@@ -79,19 +82,30 @@ export default class TickGroup extends PureComponent {
   }
 
   render() {
-    const { props: { className, tickComponent: Tick, ...rest }, state } = this;
+    const { props: { keyAccessor, className, tickComponent: Tick }, state } = this;
+
+    const props = Object.assign({}, this.props);
+
+    Object.keys(propTypes).forEach((prop) => {
+      delete props[prop];
+    });
 
     return (
       <g className={className}>
         {state.nodes.map((tick) => {
+          const udid = keyAccessor(tick);
+          const type = state.udids[udid];
+
           return (
             <Tick
-              key={tick.udid}
+              key={udid}
+              udid={udid}
+              type={type}
               tick={tick}
               removeTick={this.removeTick}
               prevScale={state.prevScale}
               currScale={state.currScale}
-              {...rest}
+              {...props}
             />
           );
         })}
