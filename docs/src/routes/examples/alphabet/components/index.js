@@ -19,9 +19,9 @@ export class Example extends Component {
 
     interval(() => {
       dispatch(dataUpdate(shuffle(ALPHABET)
-        .slice(0, Math.floor(Math.random() * 20))
+        .slice(0, Math.floor(Math.random() * 26))
         .sort()));
-    }, BASE_DURATION);
+    }, BASE_DURATION * 1.1);
   }
 
   render() {

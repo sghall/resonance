@@ -34,7 +34,7 @@ export const makeGetSelectedData = () => {
     [getletters],
     (letters) => {
       const data = letters.map((letter, index) => {
-        return { letter, xVal: index * space };
+        return { letter, xValue: index * space };
       });
 
       return { data };
