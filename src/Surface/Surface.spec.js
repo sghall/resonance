@@ -7,11 +7,11 @@ import { shallow } from 'enzyme';
 import Surface from './Surface';
 
 describe('<Surface />', () => {
-  it('should render an svg element', () => {
+  it('should render an div element', () => {
     const wrapper = shallow(
       <Surface />,
     );
-    assert.strictEqual(wrapper.is('svg'), true, 'should be an svg');
+    assert.strictEqual(wrapper.is('div'), true, 'should be an div');
   });
 
   it('should spread props', () => {

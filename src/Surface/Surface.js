@@ -16,18 +16,16 @@ export default function Surface(props) {
 
   return (
     <div
+      className={className}
       style={{
         width: '100%',
         height: '0px',
         paddingTop: `${Math.round(view[1] / (view[0] * 100))}%`,
         position: 'relative',
       }}
+      {...other}
     >
-      <svg
-        className={className}
-        viewBox={`0 0 ${view[0]} ${view[1]}`}
-        {...other}
-      >
+      <svg viewBox={`0 0 ${view[0]} ${view[1]}`}>
         <g transform={`translate(${trbl[3]} ,${trbl[0]})`}>
           {children}
         </g>
