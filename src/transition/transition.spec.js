@@ -117,7 +117,7 @@ describe('transition', () => {
     }, (DURATION * 1.1) + DELAY);
   });
 
-  it('should set attributes not in an array', () => {
+  it('should set attributes not in an array immediately', () => {
     removeContainerChildren();
     render(<Test />, container);
     const path = window.document.getElementById('my-path');

@@ -1,20 +1,14 @@
 // @flow weak
 
 import {
+  interpolateRgb,
   interpolateNumber,
   interpolateString,
   interpolateTransformSvg,
 } from 'd3-interpolate';
+import { color } from 'd3-color';
 
-function attrTween(name, value) {
-  function tween(t) {
-    this.setAttribute(name, value(t));
-  }
-
-  return tween.bind(this);
-}
-
-function attrConstant(name, interpol, value1) {
+function getTween(name, interpol, value1) {
   return function nullOrTween() {
     const value0 = this.getAttribute(name);
 
@@ -22,18 +16,28 @@ function attrConstant(name, interpol, value1) {
       return null;
     }
 
-    return attrTween.call(this, name, interpol(value0, value1));
+    const i = interpol(value0, value1);
+
+    const tween = (t) => {
+      this.setAttribute(name, i(t));
+    };
+
+    return tween;
   };
 }
 
-export default function (name, value) {
-  let interpol = interpolateNumber;
-
-  if (name === 'transform') {
-    interpol = interpolateTransformSvg;
-  } else if (typeof value === 'string') {
-    interpol = interpolateString;
+export function getInterpolator(attr, value) {
+  if (attr === 'transform') {
+    return interpolateTransformSvg;
+  } else if (typeof value === 'number') {
+    return interpolateNumber;
+  } else if (value instanceof color || color(value) !== null) {
+    return interpolateRgb;
   }
 
-  return attrConstant.call(this, name, interpol, value);
+  return interpolateString;
+}
+
+export default function (name, value) {
+  return getTween.call(this, name, getInterpolator(name, value), value);
 }
