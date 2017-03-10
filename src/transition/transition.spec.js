@@ -2,6 +2,7 @@
 /* eslint-env mocha */
 
 import React, { Component } from 'react';
+import { jsdom } from 'jsdom';
 import { assert } from 'chai';
 import { render } from 'react-dom';
 import transition from './transition';
@@ -55,24 +56,14 @@ class Test extends Component {
 
 
 describe('transition', () => {
-  let container;
-
-  function removeContainerChildren() {
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
-  }
-
-  before(() => {
-    const body = window.document.body;
-    container = window.document.createElement('div');
-    body.appendChild(container);
-  });
-
   it('should change attributes on refs over time', (done) => {
-    removeContainerChildren();
+    const root = jsdom('');
+    const body = root.body;
+    const container = root.createElement('div');
+    body.appendChild(container);
+
     render(<Test />, container);
-    const line = window.document.getElementById('my-line');
+    const line = root.getElementById('my-line');
 
     setTimeout(() => {
       assert.strictEqual(+line.getAttribute('x1'), 200, 'should be equal');
@@ -82,10 +73,14 @@ describe('transition', () => {
   });
 
   it('should transition multiple refs', (done) => {
-    removeContainerChildren();
+    const root = jsdom('');
+    const body = root.body;
+    const container = root.createElement('div');
+    body.appendChild(container);
+
     render(<Test />, container);
-    const rect = window.document.getElementById('my-rect');
-    const line = window.document.getElementById('my-line');
+    const rect = root.getElementById('my-rect');
+    const line = root.getElementById('my-line');
 
     setTimeout(() => {
       assert.strictEqual(+rect.getAttribute('x'), 1000, 'should be equal');
@@ -99,17 +94,25 @@ describe('transition', () => {
   });
 
   it('should set the initial value immediately at index 0 of array ', () => {
-    removeContainerChildren();
+    const root = jsdom('');
+    const body = root.body;
+    const container = root.createElement('div');
+    body.appendChild(container);
+
     render(<Test />, container);
-    const path = window.document.getElementById('my-path');
+    const path = root.getElementById('my-path');
 
     assert.strictEqual(+path.getAttribute('opacity'), 1e-6, 'should be equal');
   });
 
   it('should accept a delay in milliseconds', (done) => {
-    removeContainerChildren();
+    const root = jsdom('');
+    const body = root.body;
+    const container = root.createElement('div');
+    body.appendChild(container);
+
     render(<Test />, container);
-    const path = window.document.getElementById('my-path');
+    const path = root.getElementById('my-path');
 
     setTimeout(() => {
       assert.strictEqual(+path.getAttribute('opacity'), 0.8, 'should be equal');
@@ -117,10 +120,18 @@ describe('transition', () => {
     }, (DURATION * 1.1) + DELAY);
   });
 
-  it('should set attributes not in an array immediately', () => {
-    removeContainerChildren();
+  it('should set attributes not in an array immediately', (done) => {
+    const root = jsdom('');
+    const body = root.body;
+    const container = root.createElement('div');
+    body.appendChild(container);
+
     render(<Test />, container);
-    const path = window.document.getElementById('my-path');
-    assert.strictEqual(path.getAttribute('fill'), 'tomato', 'should be equal');
+    const path = root.getElementById('my-path');
+
+    setTimeout(() => {
+      assert.strictEqual(path.getAttribute('fill'), 'tomato', 'should be equal');
+      done();
+    }, 0);
   });
 });
