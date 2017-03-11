@@ -44,7 +44,7 @@ export default class TickGroup extends PureComponent {
   constructor(props) {
     super(props);
 
-    (this:any).removeTick = this.removeTick.bind(this);
+    (this:any).removeUDID = this.removeUDID.bind(this);
   }
 
   state = {
@@ -71,13 +71,13 @@ export default class TickGroup extends PureComponent {
     const ticks = scale.ticks ? scale.ticks(tickCount) : [];
 
     this.setState((prevState) => {
-      const mapped = ticks.map((t) => ({ val: t }));
+      const mapped = ticks.map((tick) => ({ val: tick }));
       const update = dataUpdate({ data: mapped, ...next }, prevState, this.removed);
       return { ...update, prevScale: prev.scale, currScale: scale };
     });
   }
 
-  removeTick(udid) {
+  removeUDID(udid) {
     this.removed.set(udid, true);
   }
 
@@ -92,8 +92,8 @@ export default class TickGroup extends PureComponent {
 
     return (
       <g className={className}>
-        {state.nodes.map((tick) => {
-          const udid = keyAccessor(tick);
+        {state.nodes.map((node) => {
+          const udid = keyAccessor(node);
           const type = state.udids[udid];
 
           return (
@@ -101,10 +101,10 @@ export default class TickGroup extends PureComponent {
               key={udid}
               udid={udid}
               type={type}
-              tick={tick}
-              removeTick={this.removeTick}
+              node={node}
               prevScale={state.prevScale}
               currScale={state.currScale}
+              removeUDID={this.removeUDID}
               {...props}
             />
           );
