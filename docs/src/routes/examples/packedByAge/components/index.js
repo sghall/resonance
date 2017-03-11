@@ -24,7 +24,7 @@ export class Example extends Component {
   }
 
   state = {
-    duration: 750,
+    duration: 500,
     showTopN: this.props.showTop,
   }
 
