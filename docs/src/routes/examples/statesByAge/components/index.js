@@ -26,7 +26,7 @@ export class Example extends Component {
   }
 
   state = {
-    duration: 1000,
+    duration: 1500,
     showTopN: this.props.showTop,
   }
 
@@ -99,6 +99,7 @@ export class Example extends Component {
               <TickGroup
                 scale={xScale}
                 duration={duration}
+                tickCount={8}
                 tickComponent={Tick}
               />
             </Surface>

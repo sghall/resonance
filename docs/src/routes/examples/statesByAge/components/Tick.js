@@ -2,88 +2,29 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import { format } from 'd3-format';
-import transition, { stop } from 'resonance/transition';
-import { createStyleSheet } from 'jss-theme-reactor';
-import customPropTypes from 'material-ui/utils/customPropTypes';
-import { APPEAR, UPDATE, REMOVE } from 'resonance/core/types';
+import withTransition from 'resonance/transition/withTransition';
+import { easeExp } from 'd3-ease';
 import { dims } from '../module';
 
 const percentFormat = format('.1%');
 
-export const styleSheet = createStyleSheet('Tick', (theme) => {
-  return {
-    line: {
-      strokeWidth: 1,
-      pointerEvents: 'none',
-      opacity: 0.2,
-      stroke: theme.palette.text.primary,
-    },
-    text: {
-      fontSize: 9,
-      fill: theme.palette.text.secondary,
-    },
-  };
-});
-
-export default class Tick extends PureComponent {
+class Tick extends PureComponent {
   static propTypes = {
-    tick: PropTypes.shape({
+    node: PropTypes.shape({
       val: React.PropTypes.number.isRequired,
     }).isRequired,
-    udid: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
-    removeTick: PropTypes.func.isRequired,
+    removeNode: PropTypes.func.isRequired,
   };
-
-  static contextTypes = {
-    theme: customPropTypes.muiRequired,
-    styleManager: customPropTypes.muiRequired,
-  };
-
-  constructor(props) {
-    super(props);
-
-    (this:any).transition = transition.bind(this);
-  }
-
-  componentDidMount() {
-    this.onAppear(this.props);
-  }
-
-  componentDidUpdate(prev) {
-    const { props } = this;
-
-    if (
-      prev.tick !== props.tick ||
-      prev.type !== props.type
-    ) {
-      switch (props.type) {
-        case APPEAR:
-          this.onAppear(props);
-          break;
-        case UPDATE:
-          this.onUpdate(props);
-          break;
-        case REMOVE:
-          this.onRemove(props);
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    stop.call(this);
-  }
 
   tick = null; // Root node ref set in render method
 
-  onAppear({ prevScale, currScale, tick: { val }, duration }) {
-    this.transition({
+  onAppear() {
+    const { prevScale, currScale, node: { val }, duration } = this.props;
+
+    return {
       tick: {
         opacity: [1e-6, 1],
         transform: [
@@ -91,46 +32,56 @@ export default class Tick extends PureComponent {
           `translate(${currScale(val)},0)`,
         ],
       },
-    }, { duration });
+      timing: { duration, ease: easeExp },
+    };
   }
 
-  onUpdate({ currScale, tick: { val }, duration }) {
-    this.transition({
+  onUpdate() {
+    const { currScale, node: { val }, duration } = this.props;
+
+    return {
       tick: {
         opacity: [1],
         transform: [`translate(${currScale(val)},0)`],
       },
-    }, { duration });
+      timing: { duration, ease: easeExp },
+    };
   }
 
-  onRemove({ currScale, udid, tick: { val }, duration, removeTick }) {
-    this.transition({
+  onRemove() {
+    const { currScale, node: { val }, duration, removeNode } = this.props;
+
+    return {
       tick: {
         opacity: [1e-6],
         transform: [`translate(${currScale(val)},0)`],
       },
-    }, { duration }, {
-      end: () => removeTick(udid),
-    });
+      timing: { duration, ease: easeExp },
+      events: { end: removeNode },
+    };
   }
 
   render() {
-    const { tick: { val } } = this.props;
-    const classes = this.context.styleManager.render(styleSheet);
+    const { node: { val } } = this.props;
 
     return (
       <g ref={(d) => { this.tick = d; }}>
         <line
           x1={0} y1={0}
           x2={0} y2={dims[1]}
-          className={classes.line}
+          stroke="white"
+          opacity={0.2}
         />
         <text
           x={0} y={-5}
           textAnchor="middle"
-          className={classes.text}
+          fill="white"
+          fontSize="12px"
         >{percentFormat(val)}</text>
       </g>
     );
   }
 }
+
+export default withTransition(Tick);
+

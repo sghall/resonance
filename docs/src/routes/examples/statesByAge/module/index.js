@@ -90,7 +90,7 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { rawData: DATA, showTop: 10, sortKey: 'Under 5 Years' };
+const initialState = { rawData: DATA, showTop: 20, sortKey: 'Under 5 Years' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
