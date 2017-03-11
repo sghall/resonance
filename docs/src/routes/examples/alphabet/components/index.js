@@ -28,6 +28,8 @@ export class Example extends Component {
     this.loop.stop();
   }
 
+  loop = null // interval set on mount
+
   render() {
     return (
       <Layout container gutter={24}>

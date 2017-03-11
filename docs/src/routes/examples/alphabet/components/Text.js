@@ -2,6 +2,7 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import withTransitions from 'resonance/withTransitions';
+import { easePoly } from 'd3-ease';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
 
@@ -26,10 +27,10 @@ class Text extends PureComponent {
       node: {
         x: xValue,
         y: [0, dims[1] / 2],
-        fill: [colors[type]],
+        fill: ['red', colors[type]],
         opacity: [1e-6, 1],
       },
-      timing: { duration: BASE_DURATION },
+      timing: { duration: BASE_DURATION, ease: easePoly },
     };
   }
 
@@ -40,10 +41,10 @@ class Text extends PureComponent {
       node: {
         x: [xValue],
         y: [dims[1] / 2],
-        fill: colors[type],
+        fill: [colors[type]],
         opacity: [1],
       },
-      timing: { duration: BASE_DURATION },
+      timing: { duration: BASE_DURATION, ease: easePoly },
     };
   }
 
@@ -57,7 +58,7 @@ class Text extends PureComponent {
         fill: [colors[type]],
         opacity: [1e-6],
       },
-      timing: { duration: BASE_DURATION },
+      timing: { duration: BASE_DURATION, ease: easePoly },
       events: { end: removeNode },
     };
   }
