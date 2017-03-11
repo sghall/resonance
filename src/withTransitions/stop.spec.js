@@ -29,6 +29,8 @@ class Path extends Component {
     }, DELAY * 0.75);
   }
 
+  path = null // ref set in render
+
   render() {
     return (
       <g>
@@ -59,6 +61,8 @@ class Line extends Component {
       stop.call(this);
     }, DELAY + (DURATION / 2));
   }
+
+  line = null // ref set in render
 
   render() {
     return (

@@ -33,6 +33,10 @@ class Test extends Component {
     });
   }
 
+  line = null // ref set in render
+  rect = null // ref set in render
+  path = null // ref set in render
+
   render() {
     return (
       <g>
