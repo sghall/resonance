@@ -88,7 +88,7 @@ function create(node, id:number, config) {
 
     transition.state = STARTING;
     if (transition.events.start && typeof transition.events.start === 'function') {
-      transition.events.start(node, transition.ref);
+      transition.events.start();
     }
 
     if (transition.state !== STARTING) { // interrupted
@@ -130,7 +130,7 @@ function create(node, id:number, config) {
 
     if (transition.state === ENDING) {
       if (transition.events.end && typeof transition.events.end === 'function') {
-        transition.events.end(node, transition.ref);
+        transition.events.end();
       }
       stop();
     }

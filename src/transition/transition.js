@@ -9,7 +9,7 @@ function easeCubicInOut(t) {
   return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2; // eslint-disable-line
 }
 
-const defaults = {
+const preset = {
   time: null,
   delay: 0,
   duration: 250,
@@ -22,7 +22,15 @@ function newId() {
   return ++id;
 }
 
-export default function transition(transitions, opts, events) {
+export default function transition(config) {
+  const transitions = { ...config };
+
+  const events = transitions.events || {};
+  delete transitions.events;
+
+  const timing = transitions.timing || {};
+  delete transitions.timing;
+
   Object.keys(transitions).forEach((ref) => {
     const tweens = [];
 
@@ -41,7 +49,7 @@ export default function transition(transitions, opts, events) {
       }
     });
 
-    const timing = { ...defaults, ...opts, time: now() };
-    schedule(this, ref, newId(), timing, tweens, events);
+    const timingConfig = { ...preset, ...timing, time: now() };
+    schedule(this, ref, newId(), timingConfig, tweens, events);
   });
 }
