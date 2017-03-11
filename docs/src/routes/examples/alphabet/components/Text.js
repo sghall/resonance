@@ -10,7 +10,7 @@ const colors = { APPEAR: '#FF9200', UPDATE: '#A65F00', REMOVE: '#FFC373' };
 
 class Text extends PureComponent {
   static propTypes = {
-    node: PropTypes.shape({
+    data: PropTypes.shape({
       xValue: PropTypes.number.isRequired,
       letter: PropTypes.string.isRequired,
     }).isRequired,
@@ -18,13 +18,13 @@ class Text extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  node = null; // Root node ref set in render method
+  text = null; // Root text ref set in render method
 
   onAppear() {
-    const { type, node: { xValue } } = this.props;
+    const { type, data: { xValue } } = this.props;
 
     return {
-      node: {
+      text: {
         x: xValue,
         y: [0, dims[1] / 2],
         fill: ['red', colors[type]],
@@ -35,10 +35,10 @@ class Text extends PureComponent {
   }
 
   onUpdate() {
-    const { type, node: { xValue } } = this.props;
+    const { type, data: { xValue } } = this.props;
 
     return {
-      node: {
+      text: {
         x: [xValue],
         y: [dims[1] / 2],
         fill: [colors[type]],
@@ -49,10 +49,10 @@ class Text extends PureComponent {
   }
 
   onRemove() {
-    const { type, node: { xValue }, removeNode } = this.props;
+    const { type, data: { xValue }, removeNode } = this.props;
 
     return {
-      node: {
+      text: {
         x: [xValue],
         y: [dims[1]],
         fill: [colors[type]],
@@ -64,11 +64,11 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { node: { letter } } = this.props;
+    const { data: { letter } } = this.props;
 
     return (
       <text
-        ref={(d) => { this.node = d; }}
+        ref={(d) => { this.text = d; }}
         dy="-.35em"
         style={{ font: 'bold 30px monospace' }}
       >{letter}</text>

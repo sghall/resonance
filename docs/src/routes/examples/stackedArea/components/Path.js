@@ -5,7 +5,7 @@ import withTransitions from 'resonance/withTransitions';
 
 class Path extends Component {
   static propTypes = {
-    node: PropTypes.shape({
+    data: PropTypes.shape({
       path: PropTypes.string.isRequired,
       fill: PropTypes.string.isRequired,
     }).isRequired,
@@ -16,7 +16,7 @@ class Path extends Component {
   node = null; // Root node ref set in render method
 
   onAppear() {
-    const { node: { path }, duration } = this.props;
+    const { data: { path }, duration } = this.props;
 
     return {
       node: {
@@ -28,7 +28,7 @@ class Path extends Component {
   }
 
   onUpdate() {
-    const { node: { path }, duration } = this.props;
+    const { data: { path }, duration } = this.props;
 
     return {
       node: {
@@ -50,7 +50,7 @@ class Path extends Component {
   }
 
   render() {
-    const { node: { fill } } = this.props;
+    const { data: { fill } } = this.props;
 
     return (
       <path

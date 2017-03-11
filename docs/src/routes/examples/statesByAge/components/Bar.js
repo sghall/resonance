@@ -9,7 +9,7 @@ const percentFormat = format('.2%');
 
 class Bar extends PureComponent {
   static propTypes = {
-    node: PropTypes.shape({
+    data: PropTypes.shape({
       name: PropTypes.string.isRequired,
       xVal: PropTypes.number.isRequired,
       yVal: PropTypes.number.isRequired,
@@ -25,7 +25,7 @@ class Bar extends PureComponent {
   text = null; // Text node ref set in render method
 
   onAppear() {
-    const { yScale, duration, node: { xVal, yVal } } = this.props;
+    const { yScale, duration, data: { xVal, yVal } } = this.props;
 
     return {
       node: {
@@ -39,7 +39,7 @@ class Bar extends PureComponent {
   }
 
   onUpdate() {
-    const { yScale, duration, node: { xVal, yVal } } = this.props;
+    const { yScale, duration, data: { xVal, yVal } } = this.props;
 
     return {
       node: {
@@ -66,7 +66,7 @@ class Bar extends PureComponent {
   }
 
   render() {
-    const { xScale, yScale, node: { name, xVal } } = this.props;
+    const { xScale, yScale, data: { name, xVal } } = this.props;
 
     return (
       <g ref={(d) => { this.node = d; }}>

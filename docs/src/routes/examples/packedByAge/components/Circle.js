@@ -20,7 +20,7 @@ const getFill = (depth, name, sortKey) => {
 
 class Circle extends PureComponent {
   static propTypes = {
-    node: PropTypes.shape({
+    data: PropTypes.shape({
       name: PropTypes.string.isRequired,
       r: PropTypes.number.isRequired,
       x: PropTypes.number.isRequired,
@@ -37,7 +37,7 @@ class Circle extends PureComponent {
   circle = null; // Circle node ref set in render method
 
   onAppear() {
-    const { duration, node: { name, x, y, r, depth }, sortKey } = this.props;
+    const { duration, data: { name, x, y, r, depth }, sortKey } = this.props;
     const d0 = depth === 0 ? 0 : duration;
     const d1 = depth === 0 ? 0 : duration * 2;
 
@@ -52,7 +52,7 @@ class Circle extends PureComponent {
   }
 
   onUpdate() {
-    const { duration, node: { name, x, y, r, depth }, sortKey } = this.props;
+    const { duration, data: { name, x, y, r, depth }, sortKey } = this.props;
 
     return {
       node: {
@@ -78,7 +78,7 @@ class Circle extends PureComponent {
   }
 
   render() {
-    const { type, node: { name, depth, r } } = this.props;
+    const { type, data: { name, depth, r } } = this.props;
 
     return (
       <g

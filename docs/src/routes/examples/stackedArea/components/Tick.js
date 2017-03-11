@@ -10,7 +10,7 @@ const percentFormat = format('.1p');
 
 class Tick extends PureComponent {
   static propTypes = {
-    node: PropTypes.shape({
+    data: PropTypes.shape({
       val: React.PropTypes.number.isRequired,
     }).isRequired,
     offset: PropTypes.string.isRequired,
@@ -23,7 +23,7 @@ class Tick extends PureComponent {
   tick = null; // Root node ref set in render method
 
   onAppear(prev) {
-    const { prevScale, currScale, node: { val }, offset, duration } = this.props;
+    const { prevScale, currScale, data: { val }, offset, duration } = this.props;
     const timing = { duration };
 
     if (prev.offset !== offset) {
@@ -49,7 +49,7 @@ class Tick extends PureComponent {
   }
 
   onUpdate() {
-    const { currScale, node: { val }, duration } = this.props;
+    const { currScale, data: { val }, duration } = this.props;
 
     return {
       tick: {
@@ -61,7 +61,7 @@ class Tick extends PureComponent {
   }
 
   onRemove(prev) {
-    const { currScale, node: { val }, offset, duration, removeNode } = this.props;
+    const { currScale, data: { val }, offset, duration, removeNode } = this.props;
     const timing = { duration };
     const events = { end: removeNode };
 
@@ -79,7 +79,7 @@ class Tick extends PureComponent {
     return {
       tick: {
         opacity: [1e-6],
-        transform: `translate(0,${currScale(val)})`,
+        transform: [`translate(0,${currScale(val)})`],
       },
       timing,
       events,
@@ -87,7 +87,7 @@ class Tick extends PureComponent {
   }
 
   render() {
-    const { offset, node: { val } } = this.props;
+    const { offset, data: { val } } = this.props;
 
     return (
       <g ref={(d) => { this.tick = d; }}>
