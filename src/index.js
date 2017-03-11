@@ -4,7 +4,7 @@ export Surface from './Surface';
 export NodeGroup from './NodeGroup';
 export TickGroup from './TickGroup';
 
-export transition from './transition';
+export withTransitions from './withTransitions';
 
 export {
   APPEAR,
