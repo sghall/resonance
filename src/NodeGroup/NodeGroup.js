@@ -39,7 +39,7 @@ export default class NodeGroup extends PureComponent {
   constructor(props) {
     super(props);
 
-    (this:any).removeNode = this.removeNode.bind(this);
+    (this:any).removeUDID = this.removeUDID.bind(this);
   }
 
   state = {
@@ -65,7 +65,7 @@ export default class NodeGroup extends PureComponent {
     });
   }
 
-  removeNode(udid) {
+  removeUDID(udid) {
     this.removed.set(udid, true);
   }
 
@@ -90,7 +90,7 @@ export default class NodeGroup extends PureComponent {
               udid={udid}
               type={type}
               node={node}
-              removeNode={this.removeNode}
+              removeUDID={this.removeUDID}
               {...props}
             />
           );
