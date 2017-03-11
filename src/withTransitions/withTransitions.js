@@ -2,16 +2,13 @@
 import React, { PureComponent, PropTypes } from 'react';
 import transition from './transition';
 import stop from './stop';
+import { getDisplayName } from './helpers';
 import { APPEAR, UPDATE, REMOVE } from '../core/types';
-
-function getDisplayName(Component) {
-  return Component.displayName || Component.name || 'Component';
-}
 
 const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
-  // node: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
   removeUDID: PropTypes.func.isRequired,
 };
 
@@ -19,7 +16,7 @@ function withTransitions(Component) {
   class Transition extends PureComponent {
     static propTypes = propTypes;
 
-    static displayName = `Transition(${getDisplayName(Component)})`
+    static displayName = `withTransition(${getDisplayName(Component)})`
 
     constructor(props) {
       super(props);
@@ -39,7 +36,9 @@ function withTransitions(Component) {
         prev.node !== props.node ||
         prev.type !== props.type
       ) {
-        const prevProps = Object.assign({}, prev);
+        const prevProps = Object.assign({}, prev, {
+          data: prev.node,
+        });
 
         Object.keys(propTypes).forEach((p) => {
           delete prevProps[p];
@@ -94,6 +93,7 @@ function withTransitions(Component) {
         <Component
           ref={this.getNodeRef}
           type={this.props.type}
+          data={this.props.node}
           removeNode={this.removeNode}
           {...props}
         />
