@@ -56,7 +56,6 @@ class Test extends Component {
   }
 }
 
-
 describe('transition', () => {
   it('should change attributes on refs over time', (done) => {
     const root = jsdom('');
