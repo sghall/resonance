@@ -1,13 +1,9 @@
 // @flow weak
 
-import { now } from 'd3-timer';
+import { now as timeNow } from 'd3-timer';
 import tween from './tween';
 import schedule from './schedule';
-
-// from https://github.com/d3/d3-ease/blob/master/src/cubic.js
-function easeCubicInOut(t) {
-  return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2; // eslint-disable-line
-}
+import { newId, easeCubicInOut } from './helpers';
 
 const preset = {
   time: null,
@@ -15,12 +11,6 @@ const preset = {
   duration: 250,
   ease: easeCubicInOut,
 };
-
-let id = 0;
-
-function newId() {
-  return ++id;
-}
 
 export default function transition(config) {
   const transitions = { ...config };
@@ -31,25 +21,31 @@ export default function transition(config) {
   const timing = transitions.timing || {};
   delete transitions.timing;
 
-  Object.keys(transitions).forEach((ref) => {
+  Object.keys(transitions).forEach((refName) => {
     const tweens = [];
 
-    Object.keys(transitions[ref]).forEach((attr) => {
-      const value = transitions[ref][attr];
+    Object.keys(transitions[refName]).forEach((attr) => {
+      const val = transitions[refName][attr];
+      const ref = this[refName];
 
-      if (Array.isArray(value)) {
-        if (value.length === 1) {
-          tweens.push(tween.call(this[ref], attr, value[0]));
+      if (!ref) {
+        const name = this.constructor.name || 'Component';
+        throw new Error(`No ref "${refName}" found on ${name}`);
+      }
+
+      if (Array.isArray(val)) {
+        if (val.length === 1) {
+          tweens.push(tween.call(this[refName], attr, val[0]));
         } else {
-          this[ref].setAttribute(attr, value[0]);
-          tweens.push(tween.call(this[ref], attr, value[1]));
+          this[refName].setAttribute(attr, val[0]);
+          tweens.push(tween.call(this[refName], attr, val[1]));
         }
       } else {
-        this[ref].setAttribute(attr, value);
+        this[refName].setAttribute(attr, val);
       }
     });
 
-    const timingConfig = { ...preset, ...timing, time: now() };
-    schedule(this, ref, newId(), timingConfig, tweens, events);
+    const timingConfig = { ...preset, ...timing, time: timeNow() };
+    schedule(this, refName, newId(), timingConfig, tweens, events);
   });
 }
