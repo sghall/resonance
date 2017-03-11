@@ -27,14 +27,14 @@ describe('<TickGroup />', () => {
     assert.strictEqual(wrapper.find(Tick).length, scale.ticks().length, 'should be equal');
   });
 
-  it('should add udid to removed map when calling removeTick', () => {
+  it('should add udid to removed map when calling removeUDID', () => {
     const wrapper = mount(
       <TickGroup scale={scale} tickComponent={Tick} />,
     );
 
     const instance = wrapper.instance();
 
-    instance.removeTick('key-1');
+    instance.removeUDID('key-1');
     assert.strictEqual(instance.removed.has('key-1'), true, 'key should exist in map');
   });
 

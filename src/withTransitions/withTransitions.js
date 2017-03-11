@@ -4,7 +4,7 @@ import transition from './transition';
 import stop from './stop';
 import { APPEAR, UPDATE, REMOVE } from '../core/types';
 
-function getName(Component) {
+function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component';
 }
 
@@ -18,7 +18,7 @@ function withTransitions(Component) {
   class Transition extends PureComponent {
     static propTypes = propTypes;
 
-    static displayName = `Transition(${getName(Component)})`
+    static displayName = `Transition(${getDisplayName(Component)})`
 
     constructor(props) {
       super(props);
@@ -63,8 +63,6 @@ function withTransitions(Component) {
     invokeMethodIfExists(method) {
       if (this.node && this.node[method]) {
         transition.call(this.node, this.node[method]());
-      } else {
-        throw new Error(`Missed ${method} method`);
       }
     }
 

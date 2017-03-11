@@ -26,14 +26,14 @@ describe('<NodeGroup />', () => {
     assert.strictEqual(wrapper.find(Node).length, data.length, 'should be equal');
   });
 
-  it('should add udid to removed map when calling removeNode', () => {
+  it('should add udid to removed map when calling removeUDID', () => {
     const wrapper = mount(
       <NodeGroup data={data} nodeComponent={Node} />,
     );
 
     const instance = wrapper.instance();
 
-    instance.removeNode('key-1');
+    instance.removeUDID('key-1');
     assert.strictEqual(instance.removed.has('key-1'), true, 'key should exist in map');
   });
 

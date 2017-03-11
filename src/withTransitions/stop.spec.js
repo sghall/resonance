@@ -6,9 +6,10 @@ import React, { Component } from 'react';
 import { jsdom } from 'jsdom';
 import { assert } from 'chai';
 import { render } from 'react-dom';
-import transition, { stop } from '../transition';
+import transition from './transition';
+import stop from './stop';
 
-const DURATION = 200;
+const DURATION = 500;
 const DELAY = 50;
 
 class Path extends Component {
@@ -17,7 +18,11 @@ class Path extends Component {
       path: {
         opacity: [1e-6, 0.8],
       },
-    }, { duration: DURATION, delay: DELAY });
+      timing: {
+        duration: DURATION,
+        delay: DELAY,
+      },
+    });
 
     setTimeout(() => {
       stop.call(this);
@@ -44,7 +49,11 @@ class Line extends Component {
         x1: [200],
         y1: [200],
       },
-    }, { duration: DURATION, delay: DELAY });
+      timing: {
+        duration: DURATION,
+        delay: DELAY,
+      },
+    });
 
     setTimeout(() => {
       stop.call(this);
@@ -68,7 +77,7 @@ describe('stop', () => {
   it('should stop all scheduled transitions ', (done) => {
     const root = jsdom('');
     const body = root.body;
-    const container = root.createElement('div');
+    const container = root.createElement('svg');
     body.appendChild(container);
 
     render(<Path />, container);
@@ -83,7 +92,7 @@ describe('stop', () => {
   it('should stop all transitions in progress ', (done) => {
     const root = jsdom('');
     const body = root.body;
-    const container = root.createElement('div');
+    const container = root.createElement('svg');
     body.appendChild(container);
 
     render(<Line />, container);

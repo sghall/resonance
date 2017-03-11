@@ -21,14 +21,16 @@ class Test extends Component {
         x: [5, 1000],
         y: [5, 2000],
       },
-    }, { duration: DURATION });
+      timing: { duration: DURATION },
+    });
 
     transition.call(this, {
       path: {
         opacity: [1e-6, 0.8],
         fill: 'tomato',
       },
-    }, { duration: DURATION, delay: DELAY });
+      timing: { duration: DURATION, delay: DELAY },
+    });
   }
 
   render() {
