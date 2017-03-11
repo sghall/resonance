@@ -11,6 +11,7 @@ function getDisplayName(Component) {
 const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
+  // node: PropTypes.object.isRequired,
   removeUDID: PropTypes.func.isRequired,
 };
 
@@ -38,15 +39,21 @@ function withTransitions(Component) {
         prev.node !== props.node ||
         prev.type !== props.type
       ) {
+        const prevProps = Object.assign({}, prev);
+
+        Object.keys(propTypes).forEach((p) => {
+          delete prevProps[p];
+        });
+
         switch (props.type) {
           case APPEAR:
-            this.invokeMethodIfExists('onAppear');
+            this.invokeMethodIfExists('onAppear', prevProps);
             break;
           case UPDATE:
-            this.invokeMethodIfExists('onUpdate');
+            this.invokeMethodIfExists('onUpdate', prevProps);
             break;
           case REMOVE:
-            this.invokeMethodIfExists('onRemove');
+            this.invokeMethodIfExists('onRemove', prevProps);
             break;
           default:
             break;
@@ -60,9 +67,10 @@ function withTransitions(Component) {
 
     node = null; // ref for wrapped component
 
-    invokeMethodIfExists(method) {
-      if (this.node && this.node[method]) {
-        transition.call(this.node, this.node[method]());
+    invokeMethodIfExists(method, prevProps) {
+      const { node } = this;
+      if (node && node[method]) {
+        transition.call(node, node[method](prevProps || node.props));
       }
     }
 
