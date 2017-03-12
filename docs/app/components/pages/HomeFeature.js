@@ -1,10 +1,12 @@
-import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import transitions from 'material-ui/styles/transitions';
 import typography from 'material-ui/styles/typography';
-import {grey200} from 'material-ui/styles/colors';
+import { grey200 } from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
 
 class HomeFeature extends Component {
@@ -43,7 +45,6 @@ class HomeFeature extends Component {
         marginBottom: 0,
       },
       image: {
-        // Not sure why this is needed but it fixes a display issue in chrome
         marginBottom: -6,
       },
       heading: {
@@ -76,7 +77,7 @@ class HomeFeature extends Component {
         styles.root,
         styles.rootWhenMedium,
         this.props.firstChild && styles.rootWhenMediumAndFirstChild,
-        this.props.lastChild && styles.rootWhenMediumAndLastChild
+        this.props.lastChild && styles.rootWhenMediumAndLastChild,
       );
     }
 
@@ -105,12 +106,12 @@ class HomeFeature extends Component {
         onMouseLeave={this.handleMouseLeave}
         style={Object.assign(
           styles.root,
-          this.props.lastChild && styles.rootWhenLastChild
+          this.props.lastChild && styles.rootWhenLastChild,
         )}
       >
         <h3 style={styles.heading}>{this.props.heading}</h3>
         <Link to={this.props.route}>
-          <img style={styles.image} src={this.props.img} />
+          <img alt="" style={styles.image} src={this.props.img} />
         </Link>
       </Paper>
     );

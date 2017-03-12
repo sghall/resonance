@@ -1,12 +1,14 @@
-import React, {Component, PropTypes} from 'react';
-import HomeFeature from './HomeFeature';
-import FullWidthSection from '../FullWidthSection';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import withWidth, {LARGE} from 'material-ui/utils/withWidth';
+import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import typography from 'material-ui/styles/typography';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import {cyan500, grey200, darkWhite} from 'material-ui/styles/colors';
+import { cyan500, grey200, darkWhite } from 'material-ui/styles/colors';
+import HomeFeature from './HomeFeature';
+import FullWidthSection from '../FullWidthSection';
 
 class HomePage extends Component {
 
@@ -25,7 +27,7 @@ class HomePage extends Component {
         overflow: 'hidden',
       },
       svgLogo: {
-        marginLeft: window.innerWidth * 0.5 - 130,
+        marginLeft: (window.innerWidth * 0.5) - 130,
         width: 420,
         height: 157,
       },
@@ -81,7 +83,7 @@ class HomePage extends Component {
 
     return (
       <FullWidthSection style={styles.root}>
-        <img style={styles.svgLogo} src="images/material-ui-logo.svg" />
+        <img alt="" style={styles.svgLogo} src="images/material-ui-logo.svg" />
         <div style={styles.tagline}>
           <h1 style={styles.h1}>Material-UI</h1>
           <h2 style={styles.h2}>
@@ -123,7 +125,7 @@ class HomePage extends Component {
     return (
       <FullWidthSection
         style={styles.root}
-        useContent={true}
+        useContent
         contentStyle={styles.content}
         contentType="p"
         className="home-purpose"
@@ -131,7 +133,7 @@ class HomePage extends Component {
         Material-UI came about from our love of&nbsp;
         <a href="http://facebook.github.io/react/">React</a> and&nbsp;
         <a href="https://www.google.com/design/spec/material-design/introduction.html">
-         Google's Material Design
+         Google Material Design
         </a>. We're currently using it on a project at&nbsp;
         <a href="https://www.call-em-all.com/Careers">Call-Em-All</a> and plan on adding to it
         and making it better in the coming months.
@@ -140,15 +142,15 @@ class HomePage extends Component {
   }
 
   homeFeatures() {
-    const styles = {maxWidth: 906};
+    const styles = { maxWidth: 906 };
 
     return (
-      <FullWidthSection useContent={true} contentStyle={styles}>
+      <FullWidthSection useContent contentStyle={styles}>
         <HomeFeature
           heading="Get Started"
           route="/get-started"
           img="images/get-started.svg"
-          firstChild={true}
+          firstChild
         />
         <HomeFeature
           heading="Customization"
@@ -159,7 +161,7 @@ class HomePage extends Component {
           heading="Components"
           route="/components"
           img="images/components.svg"
-          lastChild={true}
+          lastChild
         />
       </FullWidthSection>
     );
@@ -183,14 +185,14 @@ class HomePage extends Component {
     };
 
     return (
-      <FullWidthSection useContent={true} style={styles.root}>
+      <FullWidthSection useContent style={styles.root}>
         <h3 style={styles.h3}>
           Want to help make this <span style={styles.nowrap}>project awesome? </span>
           <span style={styles.nowrap}>Check out our repo.</span>
         </h3>
         <RaisedButton
           label="GitHub"
-          primary={true}
+          primary
           href="https://github.com/callemall/material-ui"
           style={styles.button}
         />
