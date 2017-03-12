@@ -122,15 +122,6 @@ class AppNavDrawer extends Component {
               />,
             ]}
           />
-          <ListItem
-            primaryText="Discover More"
-            primaryTogglesNestedList
-            nestedItems={[
-              <ListItem primaryText="Community" value="/discover-more/community" />,
-              <ListItem primaryText="Contributing" value="/discover-more/contributing" />,
-              <ListItem primaryText="Related projects" value="/discover-more/related-projects" />,
-            ]}
-          />
         </SelectableList>
         <Divider />
         <SelectableList

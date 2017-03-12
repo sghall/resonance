@@ -147,8 +147,7 @@ class Master extends Component {
     const title =
       router.isActive('/get-started') ? 'Get Started' :
       router.isActive('/customization') ? 'Customization' :
-      router.isActive('/components') ? 'Components' :
-      router.isActive('/discover-more') ? 'Discover More' : '';
+      router.isActive('/components') ? 'Components' : '';
 
     let docked = false;
     let showMenuIconButton = true;

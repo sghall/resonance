@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Router, useRouterHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createHashHistory } from 'history';
-import AppRoutes from './AppRoutes';
+import AppRoutes from './routes';
 
 window.React = React;
 window.Perf = require('react-addons-perf');

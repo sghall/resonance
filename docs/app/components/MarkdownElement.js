@@ -33,7 +33,7 @@ class MarkdownElement extends Component {
       smartLists: true,
       smartypants: false,
       highlight: (code, lang) => {
-        return require('highlight.js').highlight(lang, code).value; // eslint-disable-line global-require, max-len
+        return require('highlight.js').highlight(lang, code).value; // eslint-disable-line
       },
     });
   }
