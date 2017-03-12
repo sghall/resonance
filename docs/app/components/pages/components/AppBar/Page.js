@@ -16,6 +16,9 @@ import appBarReadmeText from './README.md';
 import AppBarExampleIcon from './ExampleIcon';
 import Surface from 'resonance/Surface';
 
+const js = require.context('./', false);
+console.log(js.keys());
+
 const AppBarPage = () => (
   <div>
     <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
