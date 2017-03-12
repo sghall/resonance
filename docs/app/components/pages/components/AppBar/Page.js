@@ -14,11 +14,13 @@ import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 import appBarReadmeText from './README.md';
 import AppBarExampleIcon from './ExampleIcon';
+import Surface from 'resonance/Surface';
 
 const AppBarPage = () => (
   <div>
     <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
     <MarkdownElement text={appBarReadmeText} />
+    <Surface style={{ backgroundColor: 'grey' }} />
     <CodeExample
       code={appBarExampleIconCode}
       title="Simple example"

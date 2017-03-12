@@ -122,6 +122,32 @@ class AppNavDrawer extends Component {
               />,
             ]}
           />
+          <ListItem
+            primaryText="Examples"
+            primaryTogglesNestedList
+            nestedItems={[
+              <ListItem
+                primaryText="Alphabet"
+                value="/examples/alphabet"
+                href="#/examples/alphabet"
+              />,
+              <ListItem
+                primaryText="States Bar Chart"
+                value="/examples/states-by-age"
+                href="#/examples/states-by-age"
+              />,
+              <ListItem
+                primaryText="Alphabet"
+                value="/examples/alphabet"
+                href="#/examples/alphabet"
+              />,
+              <ListItem
+                primaryText="Alphabet"
+                value="/examples/alphabet"
+                href="#/examples/alphabet"
+              />,
+            ]}
+          />
         </SelectableList>
         <Divider />
         <SelectableList

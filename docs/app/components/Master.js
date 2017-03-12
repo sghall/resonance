@@ -53,7 +53,6 @@ class Master extends Component {
     const styles = {
       appBar: {
         position: 'fixed',
-        // Needed to overlap the examples
         zIndex: this.state.muiTheme.zIndex.appBar + 1,
         top: 0,
       },
@@ -124,10 +123,6 @@ class Master extends Component {
     });
   };
 
-  handleChangeMuiTheme = (muiTheme) => {
-    this.setState({ muiTheme });
-  };
-
   render() {
     const {
       location,
@@ -142,12 +137,12 @@ class Master extends Component {
       prepareStyles,
     } = this.state.muiTheme;
 
-    const router = this.context.router;
+    // const router = this.context.router;
     const styles = this.getStyles();
-    const title =
-      router.isActive('/get-started') ? 'Get Started' :
-      router.isActive('/customization') ? 'Customization' :
-      router.isActive('/components') ? 'Components' : '';
+    const title = 'Components';
+      // router.isActive('/get-started') ? 'Get Started' :
+      // router.isActive('/customization') ? 'Customization' :
+      // router.isActive('/components') ? 'Components' : '';
 
     let docked = false;
     let showMenuIconButton = true;
@@ -180,16 +175,11 @@ class Master extends Component {
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}
         />
-        {title !== '' ?
-          <div style={prepareStyles(styles.root)}>
-            <div style={prepareStyles(styles.content)}>
-              {React.cloneElement(children, {
-                onChangeMuiTheme: this.handleChangeMuiTheme,
-              })}
-            </div>
-          </div> :
-          children
-        }
+        <div style={prepareStyles(styles.root)}>
+          <div style={prepareStyles(styles.content)}>
+            {children}
+          </div>
+        </div>
         <AppNavDrawer
           style={styles.navDrawer}
           location={location}

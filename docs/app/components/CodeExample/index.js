@@ -1,8 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import {parse} from 'react-docgen';
-import CodeBlock from './CodeBlock';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
+import { parse } from 'react-docgen';
 import ClearFix from 'material-ui/internal/ClearFix';
 import Paper from 'material-ui/Paper';
+import CodeBlock from './CodeBlock';
 
 class CodeExample extends Component {
   static propTypes = {
@@ -59,7 +61,9 @@ class CodeExample extends Component {
         >
           {code}
         </CodeBlock>
-        <ClearFix style={Object.assign(styles.exampleBlock, exampleBlockStyle)}>{children}</ClearFix>
+        <ClearFix style={Object.assign(styles.exampleBlock, exampleBlockStyle)}>
+          {children}
+        </ClearFix>
       </Paper>
     );
   }
