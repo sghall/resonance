@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+// @flow weak
+
+import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 
 /**
@@ -32,7 +34,7 @@ export default class AutoCompleteExampleSimple extends Component {
           dataSource={this.state.dataSource}
           onUpdateInput={this.handleUpdateInput}
           floatingLabelText="Full width"
-          fullWidth={true}
+          fullWidth
         />
       </div>
     );

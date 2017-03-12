@@ -7,7 +7,6 @@ import {
   IndexRoute,
 } from 'react-router';
 
-// Here we define all our material-ui ReactComponents.
 import Master from './components/Master';
 import Home from './components/pages/Home';
 
@@ -30,15 +29,6 @@ import Community from './components/pages/discover-more/Community';
 import Contributing from './components/pages/discover-more/Contributing';
 import RelatedProjects from './components/pages/discover-more/RelatedProjects';
 
-/**
- * Routes: https://github.com/reactjs/react-router/blob/master/docs/API.md#route
- *
- * Routes are used to declare your view hierarchy.
- *
- * Say you go to http://material-ui.com/#/components/paper
- * The react router will search for a route named 'paper' and will recursively render its
- * handler and its parent handler like so: Paper > Components > Master
- */
 const AppRoutes = (
   <Route path="/" component={Master}>
     <IndexRoute component={Home} />

@@ -1,14 +1,18 @@
+// @flow weak
+/* eslint import/no-webpack-loader-syntax: 0 */
+
 import React from 'react';
 import Title from 'react-title-component';
 
+import avatarExampleSimpleCode from '!raw-loader!./ExampleSimple';
+import avatarCode from '!raw-loader!resonance/Surface/Surface';
+
 import CodeExample from '../../../CodeExample';
-import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
+import PropTypeDescription from '../../../PropTypeDescription';
 
 import avatarReadmeText from './README.md';
 import AvatarExampleSimple from './ExampleSimple';
-import avatarExampleSimpleCode from '!raw-loader!./ExampleSimple';
-import avatarCode from '!raw-loader!resonance/Surface/Surface';
 
 const AvatarsPage = () => (
   <div>

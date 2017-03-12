@@ -1,3 +1,5 @@
+// @flow weak
+
 import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
@@ -26,8 +28,8 @@ const dataSource1 = [
 const dataSource2 = ['12345', '23456', '34567'];
 
 const dataSource3 = [
-  {textKey: 'Some Text', valueKey: 'someFirstValue'},
-  {textKey: 'Some Text', valueKey: 'someSecondValue'},
+  { textKey: 'Some Text', valueKey: 'someFirstValue' },
+  { textKey: 'Some Text', valueKey: 'someSecondValue' },
 ];
 const dataSourceConfig = {
   text: 'textKey',
@@ -49,13 +51,13 @@ const AutoCompleteExampleDataSource = () => (
     <AutoComplete
       floatingLabelText="showAllItems"
       filter={AutoComplete.noFilter}
-      openOnFocus={true}
+      openOnFocus
       dataSource={dataSource2}
     /><br />
     <AutoComplete
       floatingLabelText="Same text, different values"
       filter={AutoComplete.noFilter}
-      openOnFocus={true}
+      openOnFocus
       dataSource={dataSource3}
       dataSourceConfig={dataSourceConfig}
     />

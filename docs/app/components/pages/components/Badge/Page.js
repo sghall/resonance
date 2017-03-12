@@ -1,18 +1,20 @@
 // @flow weak
+/* eslint import/no-webpack-loader-syntax: 0 */
 
 import React from 'react';
 import Title from 'react-title-component';
 
+import badgeExampleSimpleCode from '!raw-loader!./ExampleSimple';
+import badgeExampleContentCode from '!raw-loader!./ExampleContent';
+import badgeCode from '!raw-loader!resonance/Surface/Surface';
+
+import BadgeExampleContent from './ExampleContent';
 import CodeExample from '../../../CodeExample';
 import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 
 import badgeReadmeText from './README.md';
 import BadgeExampleSimple from './ExampleSimple';
-import badgeExampleSimpleCode from '!raw-loader!./ExampleSimple';
-import BadgeExampleContent from './ExampleContent';
-import badgeExampleContentCode from '!raw-loader!./ExampleContent';
-import badgeCode from '!raw-loader!resonance/Surface/Surface';
 
 const descriptions = {
   simple: 'Two examples of badges containing text, using primary and secondary colors. ' +

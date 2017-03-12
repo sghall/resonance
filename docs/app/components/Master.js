@@ -1,13 +1,15 @@
-import React, {Component, PropTypes} from 'react';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import spacing from 'material-ui/styles/spacing';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
+import { darkWhite, lightWhite, grey900 } from 'material-ui/styles/colors';
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
-import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
 
 class Master extends Component {
   static propTypes = {
@@ -123,9 +125,7 @@ class Master extends Component {
   };
 
   handleChangeMuiTheme = (muiTheme) => {
-    this.setState({
-      muiTheme: muiTheme,
-    });
+    this.setState({ muiTheme });
   };
 
   render() {
@@ -167,7 +167,7 @@ class Master extends Component {
 
     return (
       <div>
-        <Title render="Material-UI" />
+        <Title render="Resonance" />
         <AppBar
           onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
           title={title}
@@ -175,7 +175,7 @@ class Master extends Component {
           iconElementRight={
             <IconButton
               iconClassName="muidocs-icon-custom-github"
-              href="https://github.com/callemall/material-ui"
+              href="https://github.com/sghall/resonance"
             />
           }
           style={styles.appBar}
@@ -201,29 +201,21 @@ class Master extends Component {
         />
         <FullWidthSection style={styles.footer}>
           <p style={prepareStyles(styles.p)}>
-            {'Hand crafted with love by the engineers at '}
-            <a style={styles.a} href="http://www.call-em-all.com/Careers">
-              Call-Em-All
+            {'A project from '}
+            <a style={styles.a} href="http://www.delimited.io">
+              Delimited Technologies
             </a>
-            {' and our awesome '}
-            <a
-              style={prepareStyles(styles.a)}
-              href="https://github.com/callemall/material-ui/graphs/contributors"
-            >
-              contributors
-            </a>.
           </p>
           <IconButton
             iconStyle={styles.iconButton}
             iconClassName="muidocs-icon-custom-github"
-            href="https://github.com/callemall/material-ui"
+            href="https://github.com/sghall/resonance"
           />
           <p style={prepareStyles(styles.browserstack)}>
-            {'Thank you to '}
-            <a href="https://www.browserstack.com" style={prepareStyles(styles.browserstackLogo)} target="_blank">
-              <img src="http://www.browserstack.com/images/layout/logo.png" height="25" width="auto" />
+            {'Check out the project on Github '}
+            <a href="https://github.com/sghall/resonance" style={prepareStyles(styles.browserstackLogo)}>
+              Resonance
             </a>
-            {' for providing real browser testing infrastructure.'}
           </p>
         </FullWidthSection>
       </div>

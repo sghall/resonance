@@ -1,14 +1,13 @@
-import React, {Component, PropTypes} from 'react';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
-import MarkdownElement from '../../MarkdownElement';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import withWidth, {SMALL} from 'material-ui/utils/withWidth';
+import withWidth, { SMALL } from 'material-ui/utils/withWidth';
 import typography from 'material-ui/styles/typography';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import themesText from './themes.md';
 import ClearFix from 'material-ui/internal/ClearFix';
-
 import {
   Checkbox,
   DatePicker,
@@ -29,6 +28,8 @@ import {
   TextField,
   Toggle,
 } from 'material-ui';
+import themesText from './themes.md';
+import MarkdownElement from '../../MarkdownElement';
 
 const markdownText = `
 ## Themes
@@ -132,13 +133,13 @@ class ThemesPage extends Component {
       <ClearFix>
         <div style={styles.group}>
           <div style={styles.containerCentered}>
-            <FloatingActionButton iconClassName="muidocs-icon-action-grade" disabled={true} />
+            <FloatingActionButton iconClassName="muidocs-icon-action-grade" disabled />
           </div>
           <div style={styles.containerCentered}>
-            <RaisedButton label="Secondary" secondary={true} />
+            <RaisedButton label="Secondary" secondary />
           </div>
           <div style={styles.containerCentered}>
-            <RaisedButton label="Primary" primary={true} />
+            <RaisedButton label="Primary" primary />
           </div>
           <div style={styles.containerCentered}>
             <RaisedButton label="Default" />
@@ -155,7 +156,7 @@ class ThemesPage extends Component {
               name="checkboxName2"
               value="checkboxValue2"
               label="disabled checkbox"
-              disabled={true}
+              disabled
             />
           </div>
           <div style={styles.container}>
@@ -174,7 +175,7 @@ class ThemesPage extends Component {
               <RadioButton
                 value="mxn"
                 label="MXN"
-                disabled={true}
+                disabled
               />
             </RadioButtonGroup>
           </div>
@@ -186,12 +187,12 @@ class ThemesPage extends Component {
             <Toggle
               name="toggleName2"
               label="disabled toggle"
-              defaultToggled={true}
-              disabled={true}
+              defaultToggled
+              disabled
             />
           </div>
         </div>
-        <div style={Object.assign({}, styles.group, {marginTop: 0})}>
+        <div style={Object.assign({}, styles.group, { marginTop: 0 })}>
           <div style={styles.container}>
             <TextField
               style={styles.textfield}
@@ -202,11 +203,11 @@ class ThemesPage extends Component {
             <DatePicker
               hintText="Landscape Dialog"
               mode="landscape"
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
             />
           </div>
           <div style={styles.container}>
-            <DropDownMenu value={3} style={{width: '100%'}}>
+            <DropDownMenu value={3} style={{ width: '100%' }}>
               <MenuItem value={1} primaryText={'Never'} />
               <MenuItem value={2} primaryText={'Every Night'} />
               <MenuItem value={3} primaryText={'Weeknights'} />
@@ -227,19 +228,19 @@ class ThemesPage extends Component {
               actions={[
                 <FlatButton
                   label="Cancel"
-                  keyboardFocused={true}
+                  keyboardFocused
                   onTouchTap={this.handleRequestCloseDialog}
-                  primary={true}
+                  primary
                 />,
                 <FlatButton
                   label="Submit"
                   onTouchTap={this.handleRequestCloseDialog}
-                  primary={true}
+                  primary
                 />,
               ]}
               onRequestClose={this.handleRequestCloseDialog}
             >
-              The actions in this window are created from tan array of element's that&#39;s passed in.
+              The actions in this window are created from an array.
             </Dialog>
           </div>
         </div>
@@ -288,9 +289,7 @@ class ThemesPage extends Component {
 
     newMuiTheme.name = valueTabs;
 
-    this.setState({
-      valueTabs: valueTabs,
-    });
+    this.setState({ valueTabs });
 
     this.props.onChangeMuiTheme(newMuiTheme);
   };

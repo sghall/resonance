@@ -1,7 +1,8 @@
-import React, {Component, PropTypes} from 'react';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 
 class MobileTearSheet extends Component {
-
   static propTypes = {
     children: PropTypes.node,
     height: PropTypes.number.isRequired,
@@ -46,7 +47,7 @@ class MobileTearSheet extends Component {
         <div style={prepareStyles(styles.container)}>
           {this.props.children}
         </div>
-        <img style={prepareStyles(styles.bottomTear)} src="images/bottom-tear.svg" />
+        <img alt="" style={prepareStyles(styles.bottomTear)} src="images/bottom-tear.svg" />
       </div>
     );
   }

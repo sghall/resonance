@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+// @flow weak
+
+import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 
 const colors = [
@@ -23,9 +25,7 @@ export default class AutoCompleteExampleControlled extends Component {
   };
 
   handleUpdateInput = (searchText) => {
-    this.setState({
-      searchText: searchText,
-    });
+    this.setState({ searchText });
   };
 
   handleNewRequest = () => {
@@ -44,7 +44,7 @@ export default class AutoCompleteExampleControlled extends Component {
           onNewRequest={this.handleNewRequest}
           dataSource={colors}
           filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
-          openOnFocus={true}
+          openOnFocus
         />
       </div>
     );

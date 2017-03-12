@@ -1,3 +1,5 @@
+// @flow weak
+
 import React from 'react';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
@@ -7,14 +9,14 @@ const BadgeExampleSimple = () => (
   <div>
     <Badge
       badgeContent={4}
-      primary={true}
+      primary
     >
       <NotificationsIcon />
     </Badge>
     <Badge
       badgeContent={10}
-      secondary={true}
-      badgeStyle={{top: 12, right: 12}}
+      secondary
+      badgeStyle={{ top: 12, right: 12 }}
     >
       <IconButton tooltip="Notifications">
         <NotificationsIcon />

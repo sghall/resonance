@@ -1,20 +1,25 @@
+// @flow weak
+/* eslint import/no-webpack-loader-syntax: 0 */
+
 import React from 'react';
 import Title from 'react-title-component';
 
-import CodeExample from '../../../CodeExample';
-import PropTypeDescription from '../../../PropTypeDescription';
-import MarkdownElement from '../../../MarkdownElement';
-
-import autoCompleteReadmeText from './README.md';
 import autoCompleteCode from '!raw-loader!resonance/Surface/Surface';
-import AutoCompleteExampleSimple from './ExampleSimple';
+
 import autoCompleteExampleSimpleCode from '!raw-loader!./ExampleSimple';
-import AutoCompleteExampleDataSources from './ExampleDataSources';
 import autoCompleteExampleDataSourcesCode from '!raw-loader!./ExampleDataSources';
-import AutoCompleteExampleFilters from './ExampleFilters';
 import autoCompleteExampleFiltersCode from '!raw-loader!./ExampleFilters';
-import AutoCompleteExampleControlled from './ExampleControlled';
 import autoCompleteExampleControlledCode from '!raw-loader!./ExampleControlled';
+
+import AutoCompleteExampleSimple from './ExampleSimple';
+import AutoCompleteExampleDataSources from './ExampleDataSources';
+import AutoCompleteExampleFilters from './ExampleFilters';
+import AutoCompleteExampleControlled from './ExampleControlled';
+
+import CodeExample from '../../../CodeExample';
+import autoCompleteReadmeText from './README.md';
+import MarkdownElement from '../../../MarkdownElement';
+import PropTypeDescription from '../../../PropTypeDescription';
 
 const AutoCompletesPage = () => (
   <div>

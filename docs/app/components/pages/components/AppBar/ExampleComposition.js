@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+// @flow weak
+
+import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -24,8 +26,8 @@ const Logged = (props) => (
     iconButtonElement={
       <IconButton><MoreVertIcon /></IconButton>
     }
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
   >
     <MenuItem primaryText="Refresh" />
     <MenuItem primaryText="Help" />
@@ -45,7 +47,7 @@ class AppBarExampleComposition extends Component {
   };
 
   handleChange = (event, logged) => {
-    this.setState({logged: logged});
+    this.setState({ logged });
   };
 
   render() {
@@ -53,10 +55,10 @@ class AppBarExampleComposition extends Component {
       <div>
         <Toggle
           label="Logged"
-          defaultToggled={true}
+          defaultToggled
           onToggle={this.handleChange}
           labelPosition="right"
-          style={{margin: 20}}
+          style={{ margin: 20 }}
         />
         <AppBar
           title="Title"

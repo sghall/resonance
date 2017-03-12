@@ -1,3 +1,5 @@
+// @flow weak
+
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
@@ -16,9 +18,9 @@ import {
 
 const style = { margin: 5 };
 
-/**
- * Examples of `Avatar` using an image, [Font Icon](/#/components/font-icon), [SVG Icon](/#/components/svg-icon)
- * and "Letter" (string), with and without custom colors at the default size (`40dp`) and an alternate size (`30dp`).
+/*
+ * Examples of `Avatar` using an image, [Font Icon](/#/components/font-icon)
+ * and "Letter" (string), with and without custom colors (`40dp`) and an alternate size (`30dp`).
  */
 const AvatarExampleSimple = () => (
   <List>

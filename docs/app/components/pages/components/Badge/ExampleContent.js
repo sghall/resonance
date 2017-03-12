@@ -1,3 +1,5 @@
+// @flow weak
+
 import React from 'react';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
@@ -13,7 +15,7 @@ const BadgeExampleContent = () => (
     </Badge>
     <Badge
       badgeContent="&copy;"
-      badgeStyle={{fontSize: 20}}
+      badgeStyle={{ fontSize: 20 }}
     >
       Company Name
     </Badge>

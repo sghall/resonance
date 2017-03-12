@@ -1,8 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import {parse} from 'react-docgen';
-import {parse as parseDoctrine} from 'doctrine';
-import MarkdownElement from './MarkdownElement';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import recast from 'recast';
+import { parse } from 'react-docgen';
+import { parse as parseDoctrine } from 'doctrine';
+import MarkdownElement from './MarkdownElement';
 
 require('./prop-type-description.css');
 
@@ -25,7 +27,6 @@ function generatePropType(type) {
   switch (type.name) {
     case 'func':
       return 'function';
-
     case 'custom':
       const deprecatedInfo = getDeprecatedInfo(type);
 
@@ -86,7 +87,7 @@ function generateDescription(required, description, type) {
       parsedReturns = parsed.tags[parsedLength - 1];
     } else {
       parsedArgs = parsed.tags;
-      parsedReturns = {type: {name: 'void'}};
+      parsedReturns = { type: { name: 'void' }};
     }
 
     signature += '<br><br>**Signature:**<br>`function(';

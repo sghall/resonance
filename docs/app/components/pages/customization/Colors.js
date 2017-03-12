@@ -1,8 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
-import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
 import ClearFix from 'material-ui/internal/ClearFix';
-import {getContrastRatio} from 'material-ui/utils/colorManipulator';
+import { getContrastRatio } from 'material-ui/utils/colorManipulator';
 import typography from 'material-ui/styles/typography';
 import * as colors from 'material-ui/styles/colors';
 
@@ -154,15 +156,6 @@ class ColorsPage extends Component {
       <div>
         <Title render={(previousTitle) => `Colors - ${previousTitle}`} />
         <h2 style={styles.headline}>UI Color Palette</h2>
-        <p>
-          We&#39;ve created javascript variables for every color used in
-          the <a href="https://www.google.com/design/spec/style/color.html#color-ui-color-palette">
-          UI Color Palette
-          </a>. They are stored
-          in <a href="https://github.com/callemall/material-ui/blob/master/src/styles/colors.js">
-          styles/colors.js
-          </a>.
-        </p>
         <ClearFix>
           {React.Children.toArray(colorGroups)}
           <div>

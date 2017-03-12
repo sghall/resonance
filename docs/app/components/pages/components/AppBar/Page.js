@@ -1,16 +1,19 @@
+// @flow weak
+/* eslint import/no-webpack-loader-syntax: 0 */
+
 import React from 'react';
 import Title from 'react-title-component';
+import appBarExampleIconCode from '!raw-loader!./ExampleIcon';
+import appBarExampleIconButtonCode from '!raw-loader!./ExampleIconButton';
+import appBarExampleIconComposition from '!raw-loader!./ExampleComposition';
+import appBarCode from '!raw-loader!resonance/Surface/Surface';
+import AppBarExampleComposition from './ExampleComposition';
+import AppBarExampleIconButton from './ExampleIconButton';
 import CodeExample from '../../../CodeExample';
 import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 import appBarReadmeText from './README.md';
 import AppBarExampleIcon from './ExampleIcon';
-import appBarExampleIconCode from '!raw-loader!./ExampleIcon';
-import AppBarExampleIconButton from './ExampleIconButton';
-import appBarExampleIconButtonCode from '!raw-loader!./ExampleIconButton';
-import AppBarExampleComposition from './ExampleComposition';
-import appBarExampleIconComposition from '!raw-loader!./ExampleComposition';
-import appBarCode from '!raw-loader!resonance/Surface/Surface';
 
 const AppBarPage = () => (
   <div>

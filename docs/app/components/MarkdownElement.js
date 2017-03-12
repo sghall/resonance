@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import marked from 'marked';
 
-require('./mui-github-markdown.css');
+require('./github-markdown.css');
 
 const styles = {
   root: {
@@ -12,7 +14,6 @@ const styles = {
 };
 
 class MarkdownElement extends Component {
-
   static propTypes = {
     style: PropTypes.object,
     text: PropTypes.string.isRequired,
@@ -31,27 +32,22 @@ class MarkdownElement extends Component {
       sanitize: false,
       smartLists: true,
       smartypants: false,
-      highlight: function(code, lang) {
-        return require('highlight.js').highlight(lang, code).value;
+      highlight: (code, lang) => {
+        return require('highlight.js').highlight(lang, code).value; // eslint-disable-line global-require, max-len
       },
     });
   }
 
   render() {
-    const {
-      style,
-      text,
-    } = this.props;
+    const { style, text } = this.props;
 
-    /* eslint-disable react/no-danger */
     return (
       <div
         style={Object.assign({}, styles.root, style)}
         className="markdown-body"
-        dangerouslySetInnerHTML={{__html: marked(text)}}
+        dangerouslySetInnerHTML={{ __html: marked(text) }} // eslint-disable-line react/no-danger
       />
     );
-    /* eslint-enable */
   }
 }
 

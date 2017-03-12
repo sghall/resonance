@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import ClearFix from 'material-ui/internal/ClearFix';
 import spacing from 'material-ui/styles/spacing';
-import withWidth, {SMALL, LARGE} from 'material-ui/utils/withWidth';
+import withWidth, { SMALL, LARGE } from 'material-ui/utils/withWidth';
 
 const desktopGutter = spacing.desktopGutter;
 
@@ -21,26 +23,24 @@ class FullWidthSection extends Component {
     contentType: 'div',
   };
 
-  getStyles() {
-    return {
-      root: {
-        padding: desktopGutter,
-        boxSizing: 'border-box',
-      },
-      content: {
-        maxWidth: 1200,
-        margin: '0 auto',
-      },
-      rootWhenSmall: {
-        paddingTop: desktopGutter * 2,
-        paddingBottom: desktopGutter * 2,
-      },
-      rootWhenLarge: {
-        paddingTop: desktopGutter * 3,
-        paddingBottom: desktopGutter * 3,
-      },
-    };
-  }
+  getStyles = () => ({
+    root: {
+      padding: desktopGutter,
+      boxSizing: 'border-box',
+    },
+    content: {
+      maxWidth: 1200,
+      margin: '0 auto',
+    },
+    rootWhenSmall: {
+      paddingTop: desktopGutter * 2,
+      paddingBottom: desktopGutter * 2,
+    },
+    rootWhenLarge: {
+      paddingTop: desktopGutter * 3,
+      paddingBottom: desktopGutter * 3,
+    },
+  });
 
   render() {
     const {
@@ -59,8 +59,8 @@ class FullWidthSection extends Component {
       content =
         React.createElement(
           contentType,
-          {style: Object.assign(styles.content, contentStyle)},
-          this.props.children
+          { style: Object.assign(styles.content, contentStyle) },
+          this.props.children,
         );
     } else {
       content = this.props.children;
