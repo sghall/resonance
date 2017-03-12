@@ -54,7 +54,7 @@ Surface.propTypes = {
 };
 
 Surface.defaultProps = {
-  view: [1000, 250],
+  view: [1000, 350],
   trbl: [10, 10, 10, 10],
 };
 
