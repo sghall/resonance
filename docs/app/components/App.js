@@ -8,8 +8,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createHashHistory } from 'history';
 import routes from '../routes';
 
-require('./bootstrap.grid.css');
-
 injectTapEventPlugin();
 
 function App() {
