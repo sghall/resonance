@@ -69,14 +69,14 @@ class Tick extends PureComponent {
         <line
           x1={0} y1={0}
           x2={0} y2={dims[1]}
-          stroke="white"
+          stroke="grey"
           opacity={0.2}
         />
         <text
           x={0} y={-5}
           textAnchor="middle"
-          fill="white"
-          fontSize="12px"
+          fill="grey"
+          fontSize="10px"
         >{percentFormat(val)}</text>
       </g>
     );

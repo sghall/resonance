@@ -1,53 +1,13 @@
 // @flow weak
 /* eslint global-require: 0 */
 
-import React from 'react';
-import {
-  hashHistory,
-  Router,
-} from 'react-router';
-import { kebabCase, titleize } from 'docs/src/utils/helpers';
-import AppFrame from '../components/AppFrame';
-import AppContent from '../components/AppContent';
-import MarkdownDocs from '../components/MarkdownDocs';
 import Home from './Home';
+import AppFrame from '../components/AppFrame';
+import BadgePage from './documentation/Badge/Page';
+import AppBarPage from './documentation/AppBar/Page';
+import AvatarPage from './documentation/Avatar/Page';
+import AutoCompletePage from './documentation/AutoComplete/Page';
 import store, { injectReducer } from '../store';
-
-function formatPath(path) {
-  return [path, path.replace(/.*\//, '').replace('.md', '')];
-}
-
-const demosContext = require.context('./demos', true, /\.md$/);
-const demoRoutes = demosContext.keys()
-  .map(formatPath)
-  .map(([path, name]) => {
-    return {
-      nav: true,
-      path: `/component-demos/${name}`,
-      title: titleize(name),
-      component: MarkdownDocs,
-      content: demosContext(path),
-    };
-  });
-
-const docsContext = require.context(
-  './../../../docs/src/routes',
-  true,
-  /^((?![\\/]site\/src\/demos|node_modules[\\/]).)*\.md$/,
-);
-
-const apiDocRoutes = docsContext.keys()
-  .filter((n) => /^\.\/api\//.test(n))
-  .map(formatPath)
-  .map(([path, name]) => {
-    return {
-      nav: true,
-      path: `/component-api/${kebabCase(name)}`,
-      title: name,
-      component: MarkdownDocs,
-      content: docsContext(path),
-    };
-  });
 
 const routes = {
   path: '/',
@@ -60,85 +20,46 @@ const routes = {
   },
   childRoutes: [
     {
-      nav: true,
-      path: '/getting-started',
-      title: 'Getting Started',
-      component: AppContent,
+      path: 'documentation',
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/getting-started/installation');
+          replace('/documentation/app-bar');
         },
       },
       childRoutes: [
         {
-          nav: true,
-          path: '/getting-started/installation',
-          title: 'Installation',
-          component: MarkdownDocs,
-          content: docsContext('./getting-started/installation.md'),
+          path: '/documentation/app-bar',
+          component: AppBarPage,
         },
         {
-          nav: true,
-          path: '/getting-started/examples',
-          title: 'Examples',
-          component: MarkdownDocs,
-          content: docsContext('./getting-started/examples.md'),
+          path: '/documentation/auto-complete',
+          component: AutoCompletePage,
         },
         {
-          nav: true,
-          path: '/getting-started/usage',
-          title: 'Usage',
-          component: MarkdownDocs,
-          content: docsContext('./getting-started/usage.md'),
+          path: '/documentation/avatar',
+          component: AvatarPage,
         },
         {
-          nav: true,
-          path: '/getting-started/server-rendering',
-          title: 'Server Rendering',
-          component: MarkdownDocs,
-          content: docsContext('./getting-started/server-rendering.md'),
+          path: '/documentation/badge',
+          component: BadgePage,
         },
       ],
     },
     {
-      nav: true,
-      path: '/component-demos',
-      title: 'Component Demos',
-      component: AppContent,
-      childRoutes: demoRoutes,
-    },
-    {
-      nav: true,
-      path: '/component-api',
-      title: 'Component API',
-      component: AppContent,
-      childRoutes: apiDocRoutes,
-    },
-    {
-      nav: true,
-      path: '/examples',
-      title: 'Examples',
-      component: AppContent,
+      path: 'examples',
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/examples/states-by-age');
+          replace('/examples/alphabet');
         },
       },
       childRoutes: [
         require('./examples/alphabet').default(store, injectReducer),
-        require('./examples/packedByAge').default(store, injectReducer),
+        // require('./examples/packedByAge').default(store, injectReducer),
         require('./examples/statesByAge').default(store, injectReducer),
-        require('./examples/stackedArea').default(store, injectReducer),
+        // require('./examples/stackedArea').default(store, injectReducer),
       ],
     },
   ],
 };
 
-export default function AppRouter() {
-  return (
-    <Router
-      history={hashHistory}
-      routes={routes}
-    />
-  );
-}
+export default routes;

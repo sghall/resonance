@@ -1,7 +1,7 @@
 // @flow weak
 export const EXAMPLE_STORE_KEY = 'states-by-age';
 
-export const VIEW = [500, 400];        // ViewBox: Width, Height
+export const VIEW = [500, 350];        // ViewBox: Width, Height
 export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
 
 export const AGES = [

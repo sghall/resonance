@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import { render } from 'react-dom';
 import ReactPerf from 'react-addons-perf';
-import store from 'docs/src/store';
-import App from 'docs/src/components/App';
+import store from './store';
+import App from './components/App';
 
 // Warns about potential accessibility issues with your React elements.
 //

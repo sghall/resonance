@@ -73,13 +73,13 @@ class Bar extends PureComponent {
         <rect
           ref={(d) => { this.rect = d; }}
           fill="#295667"
-          opacity={0.8}
+          opacity={0.6}
         />
         <text
           dy="0.35em"
           x={-15}
           textAnchor="middle"
-          fill="white"
+          fill="grey"
           fontSize={10}
           y={yScale.bandwidth() / 2}
         >{name}</text>

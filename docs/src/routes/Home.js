@@ -1,78 +1,194 @@
 // @flow weak
 
-import React from 'react';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Link from 'react-router/lib/Link';
-import customPropTypes from 'material-ui/utils/customPropTypes';
-import Text from 'material-ui/Text';
-import Button from 'material-ui/Button';
-import muiLogo from 'docs/assets/images/material-ui-logo.svg';
+import React, { Component, PropTypes } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import spacing from 'material-ui/styles/spacing';
+import typography from 'material-ui/styles/typography';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import { cyan500, grey200, darkWhite } from 'material-ui/styles/colors';
+import FullWidthSection from '../components/FullWidthSection';
 
-export const styleSheet = createStyleSheet('Home', (theme) => {
-  const { palette, breakpoints } = theme;
-
-  return {
-    root: {
-      flex: '1 0 100%',
-    },
-    hero: {
-      minHeight: '100vh', // Makes the hero full height until we get some more content.
-      flex: '0 0 auto',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: palette.primary[500],
-      color: palette.getContrastText(palette.primary[500]),
-    },
-    content: {
-      padding: '60px 30px',
-      textAlign: 'center',
-      [breakpoints.up('sm')]: {
-        padding: '120px 30px',
-      },
-    },
-    button: {
-      marginTop: 20,
-    },
-    logo: {
-      margin: '20px -40%',
-      width: '100%',
-      height: '40vw',
-      maxHeight: 230,
-    },
+class HomePage extends Component {
+  static propTypes = {
+    width: PropTypes.number.isRequired,
   };
-});
 
-function Home(props, context) {
-  const classes = context.styleManager.render(styleSheet);
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.hero}>
-        <div className={classes.content}>
-          <img src={muiLogo} alt="Material UI Logo" className={classes.logo} />
-          <Text type="display2" component="h1" colorInherit>
-            {'Resonance'}
-          </Text>
-          <Text type="subheading" component="h2" colorInherit>
-            {'React Data Visualization Tools'}
-          </Text>
-          <Button
-            component={Link}
-            className={classes.button}
-            raised
-            to="/examples"
-          >
-            {'Get Started'}
-          </Button>
+  homePageHero() {
+    const styles = {
+      root: {
+        backgroundColor: cyan500,
+        overflow: 'hidden',
+      },
+      svgLogo: {
+        marginLeft: (window.innerWidth * 0.5) - 130,
+        width: 420,
+        height: 157,
+      },
+      tagline: {
+        margin: '16px auto 0 auto',
+        textAlign: 'center',
+        maxWidth: 575,
+      },
+      label: {
+        color: lightBaseTheme.palette.primary1Color,
+      },
+      githubStyle: {
+        margin: '16px 32px 0px 8px',
+      },
+      demoStyle: {
+        margin: '16px 32px 0px 32px',
+      },
+      h1: {
+        color: darkWhite,
+        fontWeight: typography.fontWeightLight,
+      },
+      h2: {
+        fontSize: 20,
+        lineHeight: '28px',
+        paddingTop: 19,
+        marginBottom: 13,
+        letterSpacing: 0,
+      },
+      nowrap: {
+        whiteSpace: 'nowrap',
+      },
+      taglineWhenLarge: {
+        marginTop: 32,
+      },
+      h1WhenLarge: {
+        fontSize: 56,
+      },
+      h2WhenLarge: {
+        fontSize: 24,
+        lineHeight: '32px',
+        paddingTop: 16,
+        marginBottom: 12,
+      },
+    };
+
+    styles.h2 = Object.assign({}, styles.h1, styles.h2);
+
+    if (this.props.width === LARGE) {
+      styles.tagline = Object.assign({}, styles.tagline, styles.taglineWhenLarge);
+      styles.h1 = Object.assign({}, styles.h1, styles.h1WhenLarge);
+      styles.h2 = Object.assign({}, styles.h2, styles.h2WhenLarge);
+    }
+
+    return (
+      <FullWidthSection style={styles.root}>
+        <img alt="" style={styles.svgLogo} src="assets/images/material-ui-logo.svg" />
+        <div style={styles.tagline}>
+          <h1 style={styles.h1}>Resonance</h1>
+          <h2 style={styles.h2}>
+            A Set of React Components <span style={styles.nowrap}>
+            that Implement</span> <span style={styles.nowrap}>
+            Google&apos;s Material Design</span>
+          </h2>
+          <RaisedButton
+            className="demo-button"
+            label="Demo"
+            onTouchTap={this.handleTouchTapDemo}
+            style={styles.demoStyle}
+            labelStyle={styles.label}
+          />
         </div>
+      </FullWidthSection>
+    );
+  }
+
+  homePurpose() {
+    const styles = {
+      root: {
+        backgroundColor: grey200,
+      },
+      content: {
+        maxWidth: 700,
+        padding: 0,
+        margin: '0 auto',
+        fontWeight: typography.fontWeightLight,
+        fontSize: 20,
+        lineHeight: '28px',
+        paddingTop: 19,
+        marginBottom: 13,
+        letterSpacing: 0,
+        color: typography.textDarkBlack,
+      },
+    };
+
+    return (
+      <FullWidthSection
+        style={styles.root}
+        useContent
+        contentStyle={styles.content}
+        contentType="p"
+        className="home-purpose"
+      >
+        Material-UI came about from our love of&nbsp;
+        <a href="http://facebook.github.io/react/">React</a> and&nbsp;
+        <a href="https://www.google.com/design/spec/material-design/introduction.html">
+         Google Material Design
+        </a>. We're currently using it on a project at&nbsp;
+        <a href="https://www.call-em-all.com/Careers">Call-Em-All</a> and plan on adding to it
+        and making it better in the coming months.
+      </FullWidthSection>
+    );
+  }
+
+  homeContribute() {
+    const styles = {
+      root: {
+        backgroundColor: grey200,
+        textAlign: 'center',
+      },
+      h3: {
+        margin: 0,
+        padding: 0,
+        fontWeight: typography.fontWeightLight,
+        fontSize: 22,
+      },
+      button: {
+        marginTop: 32,
+      },
+    };
+
+    return (
+      <FullWidthSection useContent style={styles.root}>
+        <h3 style={styles.h3}>
+          Want to help make this <span style={styles.nowrap}>project awesome? </span>
+          <span style={styles.nowrap}>Check out our repo.</span>
+        </h3>
+        <RaisedButton
+          label="GitHub"
+          primary
+          href="https://github.com/sghall/resonance"
+          style={styles.button}
+        />
+      </FullWidthSection>
+    );
+  }
+
+  handleTouchTapDemo = () => {
+    this.context.router.push('/components');
+  };
+
+  render() {
+    const style = {
+      paddingTop: spacing.desktopKeylineIncrement,
+    };
+
+    return (
+      <div style={style}>
+        {this.homePageHero()}
+        {this.homePurpose()}
+        {this.homeContribute()}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-Home.contextTypes = {
-  styleManager: customPropTypes.muiRequired,
-};
-
-export default Home;
+export default withWidth()(HomePage);

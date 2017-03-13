@@ -1,185 +1,215 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import compose from 'recompose/compose';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Text from 'material-ui/Text';
+import Title from 'react-title-component';
 import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
-import withWidth, { isWidthUp } from 'material-ui/utils/withWidth';
-import MenuIcon from 'material-ui/svg-icons/menu';
-import LightbulbOutlineIcon from 'material-ui/svg-icons/lightbulb-outline';
-import customPropTypes from 'material-ui/utils/customPropTypes';
-import AppDrawer from './AppDrawer';
-
-function getTitle(routes) {
-  for (let i = routes.length - 1; i >= 0; i -= 1) {
-    if (routes[i].hasOwnProperty('title')) {
-      return routes[i].title;
-    }
-  }
-
-  return null;
-}
-
-const styleSheet = createStyleSheet('AppFrame', (theme) => {
-  return {
-    '@global': {
-      html: {
-        boxSizing: 'border-box',
-      },
-      '*, *:before, *:after': {
-        boxSizing: 'inherit',
-      },
-      body: {
-        margin: 0,
-        background: theme.palette.background.default,
-        fontFamily: theme.typography.fontFamily,
-        color: theme.palette.text.primary,
-        lineHeight: '1.2',
-        overflowX: 'hidden',
-        WebkitFontSmoothing: 'antialiased', // Antialiasing.
-        MozOsxFontSmoothing: 'grayscale', // Antialiasing.
-      },
-      a: {
-        color: theme.palette.accent.A400,
-        textDecoration: 'none',
-      },
-      'a:hover': {
-        textDecoration: 'underline',
-      },
-      img: {
-        maxWidth: '100%',
-        height: 'auto',
-        width: 'auto',
-      },
-    },
-    appFrame: {
-      display: 'flex',
-      alignItems: 'stretch',
-      minHeight: '100vh',
-      width: '100%',
-    },
-    navIcon: {
-      marginLeft: -12,
-    },
-    grow: {
-      flex: '1 1 100%',
-    },
-    toggleShade: {
-      marginRight: -12,
-    },
-    title: {
-      marginLeft: 24,
-      flex: '0 0 auto',
-    },
-    appBar: {
-      left: 'auto',
-      right: 0,
-      transition: theme.transitions.create('width'),
-    },
-    appBarHome: {
-      backgroundColor: 'transparent',
-      boxShadow: 'none',
-    },
-    [theme.breakpoints.up('lg')]: {
-      drawer: {
-        width: '250px',
-      },
-      appBarShift: {
-        width: 'calc(100% - 250px)',
-      },
-      navIconHide: {
-        display: 'none',
-      },
-    },
-  };
-});
+import spacing from 'material-ui/styles/spacing';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { darkWhite, lightWhite, grey900 } from 'material-ui/styles/colors';
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
+import AppNavDrawer from './AppNavDrawer';
+import FullWidthSection from './FullWidthSection';
 
 class AppFrame extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    routes: PropTypes.array.isRequired,
-    width: PropTypes.string.isRequired,
+    children: PropTypes.node,
+    location: PropTypes.object,
+    width: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
-    styleManager: customPropTypes.muiRequired,
+    router: PropTypes.object.isRequired,
+  };
+
+  static childContextTypes = {
+    muiTheme: PropTypes.object,
   };
 
   state = {
-    drawerOpen: false,
+    navDrawerOpen: false,
   };
 
-  handleDrawerClose = () => {
-    this.setState({ drawerOpen: false });
+  getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme,
+    };
+  }
+
+  componentWillMount() {
+    this.setState({
+      muiTheme: getMuiTheme(),
+    });
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    const newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({
+      muiTheme: newMuiTheme,
+    });
+  }
+
+  getStyles() {
+    const styles = {
+      appBar: {
+        position: 'fixed',
+        zIndex: this.state.muiTheme.zIndex.appBar + 1,
+        top: 0,
+      },
+      root: {
+        paddingTop: spacing.desktopKeylineIncrement,
+        minHeight: 400,
+      },
+      content: {
+        margin: spacing.desktopGutter,
+      },
+      contentWhenMedium: {
+        margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
+      },
+      footer: {
+        backgroundColor: grey900,
+        textAlign: 'center',
+      },
+      a: {
+        color: darkWhite,
+      },
+      p: {
+        margin: '0 auto',
+        padding: 0,
+        color: lightWhite,
+        maxWidth: 356,
+      },
+      browserstack: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        margin: '25px 15px 0',
+        padding: 0,
+        color: lightWhite,
+        lineHeight: '25px',
+        fontSize: 12,
+      },
+      browserstackLogo: {
+        margin: '0 3px',
+      },
+      iconButton: {
+        color: darkWhite,
+      },
+    };
+
+    if (this.props.width === MEDIUM || this.props.width === LARGE) {
+      styles.content = Object.assign(styles.content, styles.contentWhenMedium);
+    }
+
+    return styles;
+  }
+
+  handleTouchTapLeftIconButton = () => {
+    this.setState({
+      navDrawerOpen: !this.state.navDrawerOpen,
+    });
   };
 
-  handleDrawerToggle = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
+  handleChangeRequestNavDrawer = (open) => {
+    this.setState({
+      navDrawerOpen: open,
+    });
   };
 
-  handleToggleShade = () => {
-    this.props.dispatch({ type: 'TOGGLE_THEME_SHADE' });
+  handleChangeList = (event, value) => {
+    this.context.router.push(value);
+    this.setState({
+      navDrawerOpen: false,
+    });
   };
 
   render() {
     const {
+      location,
       children,
-      routes,
-      width,
     } = this.props;
 
-    const classes = this.context.styleManager.render(styleSheet);
-    const title = getTitle(routes);
+    let {
+      navDrawerOpen,
+    } = this.state;
 
-    let drawerDocked = isWidthUp('lg', width);
-    let navIconClassName = classes.navIcon;
-    let appBarClassName = classes.appBar;
+    const {
+      prepareStyles,
+    } = this.state.muiTheme;
 
-    if (title === null) { // home route, don't shift app bar or dock drawer
-      drawerDocked = false;
-      appBarClassName += ` ${classes.appBarHome}`;
-    } else {
-      navIconClassName += ` ${classes.navIconHide}`;
-      appBarClassName += ` ${classes.appBarShift}`;
+    // const router = this.context.router;
+    const styles = this.getStyles();
+    const title = 'Components';
+      // router.isActive('/get-started') ? 'Get Started' :
+      // router.isActive('/customization') ? 'Customization' :
+      // router.isActive('/components') ? 'Components' : '';
+
+    let docked = false;
+    let showMenuIconButton = true;
+
+    if (this.props.width === LARGE && title !== '') {
+      docked = true;
+      navDrawerOpen = true;
+      showMenuIconButton = false;
+
+      styles.navDrawer = {
+        zIndex: styles.appBar.zIndex - 1,
+      };
+      styles.root.paddingLeft = 256;
+      styles.footer.paddingLeft = 256;
     }
 
     return (
-      <div className={classes.appFrame}>
-        <AppBar className={appBarClassName}>
-          <Toolbar>
-            <IconButton contrast onClick={this.handleDrawerToggle} className={navIconClassName}>
-              <MenuIcon />
-            </IconButton>
-            {title !== null && (
-              <Text className={classes.title} type="title" colorInherit>
-                {title}
-              </Text>
-            )}
-            <div className={classes.grow} />
-            <IconButton contrast onClick={this.handleToggleShade} className={classes.toggleShade}>
-              <LightbulbOutlineIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <AppDrawer
-          className={classes.drawer}
-          docked={drawerDocked}
-          routes={routes}
-          onRequestClose={this.handleDrawerClose}
-          open={this.state.drawerOpen}
+      <div>
+        <Title render="Resonance" />
+        <AppBar
+          onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
+          title={title}
+          zDepth={0}
+          iconElementRight={
+            <IconButton
+              iconClassName="muidocs-icon-custom-github"
+              href="https://github.com/sghall/resonance"
+            />
+          }
+          style={styles.appBar}
+          showMenuIconButton={showMenuIconButton}
         />
-        {children}
+        <div style={prepareStyles(styles.root)}>
+          <div style={prepareStyles(styles.content)}>
+            {children}
+          </div>
+        </div>
+        <AppNavDrawer
+          style={styles.navDrawer}
+          location={location}
+          docked={docked}
+          onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
+          onChangeList={this.handleChangeList}
+          open={navDrawerOpen}
+        />
+        <FullWidthSection style={styles.footer}>
+          <p style={prepareStyles(styles.p)}>
+            {'A project from '}
+            <a style={styles.a} href="http://www.delimited.io">
+              Delimited Technologies
+            </a>
+          </p>
+          <IconButton
+            iconStyle={styles.iconButton}
+            iconClassName="muidocs-icon-custom-github"
+            href="https://github.com/sghall/resonance"
+          />
+          <p style={prepareStyles(styles.browserstack)}>
+            {'Check out the project on Github '}
+            <a href="https://github.com/sghall/resonance" style={prepareStyles(styles.browserstackLogo)}>
+              Resonance
+            </a>
+          </p>
+        </FullWidthSection>
       </div>
     );
   }
 }
 
-export default compose(
-  withWidth(),
-  connect(),
-)(AppFrame);
+export default withWidth()(AppFrame);

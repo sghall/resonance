@@ -2,10 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Table, TableRow, TableCell, TableBody } from 'material-ui/Table';
-import Checkbox from 'material-ui/Checkbox';
-import Layout from 'material-ui/Layout';
-import Paper from 'material-ui/Paper';
+import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/table';
+import { Card, CardHeader } from 'material-ui/Card';
+import Slider from 'material-ui/Slider';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import TickGroup from 'resonance/TickGroup';
@@ -47,65 +46,74 @@ export class Example extends Component {
     const { duration, showTopN } = this.state;
 
     return (
-      <Layout container gutter={24}>
-        <Layout item xs={12} sm={6}>
-          <Paper>
-            <span>Show Top {showTopN} States:</span>
-          </Paper>
-        </Layout>
-        <Layout item xs={12} sm={6}>
-          <Paper>
-            <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
-          </Paper>
-        </Layout>
-        <Layout item xs={12} sm={4} md={3}>
-          <Paper>
-            <Table>
-              <TableBody>
-                {AGES.map((age) => {
-                  const isSelected = age === sortKey;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={() => dispatch(updateSortOrder(age))}
-                      role="checkbox"
-                      aria-checked={isSelected}
-                      tabIndex="-1"
-                      key={age}
-                      selected={isSelected}
-                    >
-                      <TableCell checkbox>
-                        <Checkbox checked={isSelected} />
-                      </TableCell>
-                      <TableCell padding={false}>{age}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Paper>
-        </Layout>
-        <Layout item xs={12} sm={8} md={9}>
-          <Paper>
-            <Surface view={VIEW} trbl={TRBL}>
-              <NodeGroup
-                data={data}
-                xScale={xScale}
-                yScale={yScale}
-                duration={duration}
-                nodeComponent={Bar}
-                keyAccessor={barKeyAccessor}
+      <div className="row">
+        <div className="col-md-12 col-sm-12">
+          <div className="row" style={{ marginLeft: 0, marginRight: 0 }}>
+            <div className="col-md-6 col-sm-6">
+              <span>Show Top {showTopN} States:</span>
+              <Slider
+                style={{ margin: '5px 0px' }}
+                defaultValue={0.25}
+                onChange={this.setShowTopN}
               />
-              <TickGroup
-                scale={xScale}
-                duration={duration}
-                tickCount={8}
-                tickComponent={Tick}
+            </div>
+            <div className="col-md-6 col-sm-6">
+              <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
+              <Slider
+                style={{ margin: '5px 0px' }}
+                defaultValue={0.1}
+                onChange={this.setDuration}
               />
-            </Surface>
-          </Paper>
-        </Layout>
-      </Layout>
+            </div>
+          </div>
+          <div className="row" style={{ margin: '20px 0px' }}>
+            <div className="col-md-12 col-sm-12">
+              <h4 style={{ marginTop: -45, marginBottom: -10 }}>Top States by Age Bracket, 2008</h4>
+              <p>The bar chart shows the top states for the selected age bracket sorted by population percentage. Adapted from Mike Bostock <a href="https://bost.ocks.org/mike/constancy/">classic example</a> on object constancy.</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-3 col-sm-3">
+              <Table
+                wrapperStyle={{ width: '100%' }}
+                onCellClick={(d) => dispatch(updateSortOrder(AGES[d]))}
+              >
+                <TableBody deselectOnClickaway={false}>
+                  {AGES.map((age) => {
+                    return (
+                      <TableRow
+                        key={age}
+                        selected={sortKey === age}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <TableRowColumn>{age}</TableRowColumn>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+            <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
+              <Surface view={VIEW} trbl={TRBL}>
+                <NodeGroup
+                  data={data}
+                  xScale={xScale}
+                  yScale={yScale}
+                  duration={duration}
+                  nodeComponent={Bar}
+                  keyAccessor={barKeyAccessor}
+                />
+                <TickGroup
+                  scale={xScale}
+                  duration={duration}
+                  tickCount={8}
+                  tickComponent={Tick}
+                />
+              </Surface>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
