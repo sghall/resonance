@@ -7,11 +7,9 @@ import spacing from 'material-ui/styles/spacing';
 import typography from 'material-ui/styles/typography';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import { cyan500, grey200, darkWhite } from 'material-ui/styles/colors';
-import HomeFeature from './HomeFeature';
 import FullWidthSection from '../components/FullWidthSection';
 
 class HomePage extends Component {
-
   static propTypes = {
     width: PropTypes.number.isRequired,
   };
@@ -141,32 +139,6 @@ class HomePage extends Component {
     );
   }
 
-  homeFeatures() {
-    const styles = { maxWidth: 906 };
-
-    return (
-      <FullWidthSection useContent contentStyle={styles}>
-        <HomeFeature
-          heading="Get Started"
-          route="/get-started"
-          img="images/get-started.svg"
-          firstChild
-        />
-        <HomeFeature
-          heading="Customization"
-          route="/customization"
-          img="images/css-framework.svg"
-        />
-        <HomeFeature
-          heading="Components"
-          route="/components"
-          img="images/components.svg"
-          lastChild
-        />
-      </FullWidthSection>
-    );
-  }
-
   homeContribute() {
     const styles = {
       root: {
@@ -213,7 +185,6 @@ class HomePage extends Component {
       <div style={style}>
         {this.homePageHero()}
         {this.homePurpose()}
-        {this.homeFeatures()}
         {this.homeContribute()}
       </div>
     );

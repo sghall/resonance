@@ -1,14 +1,12 @@
 // @flow weak
 /* eslint global-require: 0 */
 
-import Master from '../components/Master';
 import Home from './Home';
-
-import AppBarPage from './components/AppBar/Page';
-import AutoCompletePage from './components/AutoComplete/Page';
-import AvatarPage from './components/Avatar/Page';
-import BadgePage from './components/Badge/Page';
-
+import Master from '../components/Master';
+import BadgePage from './documentation/Badge/Page';
+import AppBarPage from './documentation/AppBar/Page';
+import AvatarPage from './documentation/Avatar/Page';
+import AutoCompletePage from './documentation/AutoComplete/Page';
 import store, { injectReducer } from '../store';
 
 const routes = {
@@ -22,27 +20,27 @@ const routes = {
   },
   childRoutes: [
     {
-      path: 'components',
+      path: 'documentation',
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/components/app-bar');
+          replace('/documentation/app-bar');
         },
       },
       childRoutes: [
         {
-          path: '/components/app-bar',
+          path: '/documentation/app-bar',
           component: AppBarPage,
         },
         {
-          path: '/components/auto-complete',
+          path: '/documentation/auto-complete',
           component: AutoCompletePage,
         },
         {
-          path: '/components/avatar',
+          path: '/documentation/avatar',
           component: AvatarPage,
         },
         {
-          path: '/components/badge',
+          path: '/documentation/badge',
           component: BadgePage,
         },
       ],

@@ -77,28 +77,28 @@ class AppNavDrawer extends Component {
           onChange={onChangeList}
         >
           <ListItem
-            primaryText="Components"
+            primaryText="Documentation"
             primaryTogglesNestedList
             nestedItems={[
               <ListItem
                 primaryText="App Bar"
-                value="/components/app-bar"
-                href="#/components/app-bar"
+                value="/documentation/app-bar"
+                href="#/documentation/app-bar"
               />,
               <ListItem
                 primaryText="Auto Complete"
-                value="/components/auto-complete"
-                href="#/components/auto-complete"
+                value="/documentation/auto-complete"
+                href="#/documentation/auto-complete"
               />,
               <ListItem
                 primaryText="Avatar"
-                value="/components/avatar"
-                href="#/components/avatar"
+                value="/documentation/avatar"
+                href="#/documentation/avatar"
               />,
               <ListItem
                 primaryText="Badge"
-                value="/components/badge"
-                href="#/components/badge"
+                value="/documentation/badge"
+                href="#/documentation/badge"
               />,
             ]}
           />
