@@ -7,9 +7,9 @@ import Title from 'react-title-component';
 import avatarExampleSimpleCode from '!raw-loader!./ExampleSimple';
 import avatarCode from '!raw-loader!resonance/Surface/Surface';
 
-import CodeExample from '../../../CodeExample';
-import MarkdownElement from '../../../MarkdownElement';
-import PropTypeDescription from '../../../PropTypeDescription';
+import CodeExample from '../../../components/CodeExample';
+import MarkdownElement from '../../../components/MarkdownElement';
+import PropTypeDescription from '../../../components/PropTypeDescription';
 
 import avatarReadmeText from './README.md';
 import AvatarExampleSimple from './ExampleSimple';

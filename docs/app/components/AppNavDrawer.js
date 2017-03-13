@@ -77,26 +77,6 @@ class AppNavDrawer extends Component {
           onChange={onChangeList}
         >
           <ListItem
-            primaryText="Get Started"
-            primaryTogglesNestedList
-            nestedItems={[
-              <ListItem primaryText="Required Knowledge" value="/get-started/required-knowledge" />,
-              <ListItem primaryText="Installation" value="/get-started/installation" />,
-              <ListItem primaryText="Usage" value="/get-started/usage" />,
-              <ListItem primaryText="Server Rendering" value="/get-started/server-rendering" />,
-              <ListItem primaryText="Examples" value="/get-started/examples" />,
-            ]}
-          />
-          <ListItem
-            primaryText="Customization"
-            primaryTogglesNestedList
-            nestedItems={[
-              <ListItem primaryText="Themes" value="/customization/themes" />,
-              <ListItem primaryText="Styles" value="/customization/styles" />,
-              <ListItem primaryText="Colors" value="/customization/colors" />,
-            ]}
-          />
-          <ListItem
             primaryText="Components"
             primaryTogglesNestedList
             nestedItems={[

@@ -9,9 +9,9 @@ import appBarExampleIconComposition from '!raw-loader!./ExampleComposition';
 import appBarCode from '!raw-loader!resonance/Surface/Surface';
 import AppBarExampleComposition from './ExampleComposition';
 import AppBarExampleIconButton from './ExampleIconButton';
-import CodeExample from '../../../CodeExample';
-import PropTypeDescription from '../../../PropTypeDescription';
-import MarkdownElement from '../../../MarkdownElement';
+import CodeExample from '../../../components/CodeExample';
+import PropTypeDescription from '../../../components/PropTypeDescription';
+import MarkdownElement from '../../../components/MarkdownElement';
 import appBarReadmeText from './README.md';
 import AppBarExampleIcon from './ExampleIcon';
 

@@ -16,10 +16,10 @@ import AutoCompleteExampleDataSources from './ExampleDataSources';
 import AutoCompleteExampleFilters from './ExampleFilters';
 import AutoCompleteExampleControlled from './ExampleControlled';
 
-import CodeExample from '../../../CodeExample';
+import CodeExample from '../../../components/CodeExample';
 import autoCompleteReadmeText from './README.md';
-import MarkdownElement from '../../../MarkdownElement';
-import PropTypeDescription from '../../../PropTypeDescription';
+import MarkdownElement from '../../../components/MarkdownElement';
+import PropTypeDescription from '../../../components/PropTypeDescription';
 
 const AutoCompletesPage = () => (
   <div>

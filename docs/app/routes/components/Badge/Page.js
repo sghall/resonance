@@ -9,9 +9,9 @@ import badgeExampleContentCode from '!raw-loader!./ExampleContent';
 import badgeCode from '!raw-loader!resonance/Surface/Surface';
 
 import BadgeExampleContent from './ExampleContent';
-import CodeExample from '../../../CodeExample';
-import PropTypeDescription from '../../../PropTypeDescription';
-import MarkdownElement from '../../../MarkdownElement';
+import CodeExample from '../../../components/CodeExample';
+import PropTypeDescription from '../../../components/PropTypeDescription';
+import MarkdownElement from '../../../components/MarkdownElement';
 
 import badgeReadmeText from './README.md';
 import BadgeExampleSimple from './ExampleSimple';
