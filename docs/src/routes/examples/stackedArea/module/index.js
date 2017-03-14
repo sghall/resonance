@@ -9,7 +9,7 @@ import { extent, merge } from 'd3-array';
 import { VIEW, TRBL, COLORS, EXAMPLE_STORE_KEY } from './constants';
 import { getInitialValues, getPath } from './helpers';
 
-const { data, filter } = getInitialValues(150);
+const { data, filter } = getInitialValues(100);
 
 const colors = scaleOrdinal()
   .range(COLORS)

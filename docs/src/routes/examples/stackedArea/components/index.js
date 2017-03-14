@@ -48,7 +48,7 @@ export class Example extends Component {
     const { filter, offset, paths, xScale, yScale, dispatch } = this.props;
     const { duration } = this.state;
 
-    const xAxisTicks = xScale.ticks ? xScale.ticks() : [];
+    const xAxisTicks = xScale.ticks ? xScale.ticks(4) : [];
 
     return (
       <Paper style={{ padding: 20 }}>
