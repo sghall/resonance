@@ -46,7 +46,7 @@
     "history": "3.x",
     "jss": "^6.3.0",
     "marked": "^0.3.6",
-    "material-ui": "^0.17.0",
+    "material-ui": "^0.17.1",
     "moment": "^2.17.1",
     "react-addons-perf": "^15.4.2",
     "react-redux": "^5.0.3",

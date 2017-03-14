@@ -84,7 +84,6 @@ export class Example extends Component {
                       <TableRow
                         key={age}
                         selected={sortKey === age}
-                        style={{ cursor: 'pointer' }}
                       >
                         <TableRowColumn>{age}</TableRowColumn>
                       </TableRow>
