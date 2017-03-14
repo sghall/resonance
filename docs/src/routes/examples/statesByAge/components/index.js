@@ -96,6 +96,12 @@ export class Example extends Component {
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
+                  <TickGroup
+                    scale={xScale}
+                    duration={duration}
+                    tickCount={8}
+                    tickComponent={Tick}
+                  />
                   <NodeGroup
                     data={data}
                     xScale={xScale}
@@ -103,12 +109,6 @@ export class Example extends Component {
                     duration={duration}
                     nodeComponent={Bar}
                     keyAccessor={barKeyAccessor}
-                  />
-                  <TickGroup
-                    scale={xScale}
-                    duration={duration}
-                    tickCount={8}
-                    tickComponent={Tick}
                   />
                 </Surface>
               </div>

@@ -8,4 +8,5 @@ export default {
   accent2Color: '#1E272E',
   accent3Color: '#121E26',
   canvasColor: '#f8f8f9',
+  textColor: '#333333',
 };

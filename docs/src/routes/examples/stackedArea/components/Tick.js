@@ -3,6 +3,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { format } from 'd3-format';
 import withTransitions from 'resonance/withTransitions';
+import palette from 'docs/src/utils/palette';
 import { dims } from '../module';
 
 const numberFormat = format(',');
@@ -94,14 +95,14 @@ class Tick extends PureComponent {
         <line
           x1={0} y1={0}
           x2={dims[0]} y2={0}
-          stroke="grey"
+          stroke={palette.textColor}
           opacity={0.2}
         />
         <text
           fontSize={'9px'}
           textAnchor="end"
           dy=".35em"
-          fill="grey"
+          fill={palette.textColor}
           x={-5} y={0}
         >{offset === 'expand' ? percentFormat(val) : numberFormat(val)}</text>
       </g>

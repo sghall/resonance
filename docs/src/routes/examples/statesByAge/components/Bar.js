@@ -80,7 +80,7 @@ class Bar extends PureComponent {
           dy="0.35em"
           x={-15}
           textAnchor="middle"
-          fill="grey"
+          fill={palette.textColor}
           fontSize={10}
           y={yScale.bandwidth() / 2}
         >{name}</text>

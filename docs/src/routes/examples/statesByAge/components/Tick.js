@@ -4,6 +4,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { format } from 'd3-format';
 import withTransitions from 'resonance/withTransitions';
 import { easeExp } from 'd3-ease';
+import palette from 'docs/src/utils/palette';
 import { dims } from '../module';
 
 const percentFormat = format('.1%');
@@ -69,13 +70,13 @@ class Tick extends PureComponent {
         <line
           x1={0} y1={0}
           x2={0} y2={dims[1]}
-          stroke="grey"
+          stroke={palette.textColor}
           opacity={0.2}
         />
         <text
           x={0} y={-5}
           textAnchor="middle"
-          fill="grey"
+          fill={palette.textColor}
           fontSize="10px"
         >{percentFormat(val)}</text>
       </g>

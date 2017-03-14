@@ -6,7 +6,7 @@ import { easePoly } from 'd3-ease';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
 
-const colors = { APPEAR: 'red', UPDATE: 'green', REMOVE: 'blue' };
+const colors = { APPEAR: '#3C564B', UPDATE: '#A5937C', REMOVE: '#4D2B1D' };
 
 class Text extends PureComponent {
   static propTypes = {

@@ -11,6 +11,7 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
+import palette from 'docs/src/utils/palette';
 import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
 import Path from './Path';
@@ -136,12 +137,12 @@ export class Example extends Component {
                           x1={0} y1={0}
                           x2={0} y2={yScale.range()[0]}
                           opacity={0.2}
-                          stroke="grey"
+                          stroke={palette.textColor}
                         />
                         <text
                           fontSize="9px"
                           textAnchor="middle"
-                          fill="grey"
+                          fill={palette.textColor}
                           x={0} y={-10}
                         >{date}</text>
                       </g>
