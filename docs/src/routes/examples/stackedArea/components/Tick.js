@@ -30,7 +30,7 @@ class Tick extends PureComponent {
       return {
         tick: {
           opacity: [1e-6, 1],
-          transform: `translate(0,${currScale(val)})`,
+          transform: [`translate(0,${currScale(val)})`],
         },
         timing,
       };
@@ -69,9 +69,9 @@ class Tick extends PureComponent {
       return {
         tick: {
           opacity: 1e-6,
-          transform: [`translate(0,${currScale(val)})`],
+          transform: `translate(0,${currScale(val)})`,
         },
-        timing,
+        timing: { duration: 0 },
         events,
       };
     }
