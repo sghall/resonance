@@ -54,8 +54,8 @@ const routes = {
       },
       childRoutes: [
         require('./examples/alphabet').default(store, injectReducer),
-        require('./examples/packedByAge').default(store, injectReducer),
         require('./examples/statesByAge').default(store, injectReducer),
+        require('./examples/packedByAge').default(store, injectReducer),
         require('./examples/stackedArea').default(store, injectReducer),
       ],
     },
