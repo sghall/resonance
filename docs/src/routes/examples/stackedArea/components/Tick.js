@@ -94,14 +94,14 @@ class Tick extends PureComponent {
         <line
           x1={0} y1={0}
           x2={dims[0]} y2={0}
-          stroke="white"
+          stroke="grey"
           opacity={0.2}
         />
         <text
           fontSize={'9px'}
           textAnchor="end"
           dy=".35em"
-          fill="white"
+          fill="grey"
           x={-5} y={0}
         >{offset === 'expand' ? percentFormat(val) : numberFormat(val)}</text>
       </g>

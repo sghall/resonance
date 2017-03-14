@@ -117,9 +117,9 @@ class AppNavDrawer extends Component {
                 href="#/examples/states-by-age"
               />,
               <ListItem
-                primaryText="Alphabet"
-                value="/examples/alphabet"
-                href="#/examples/alphabet"
+                primaryText="Stacked Area Chart"
+                value="/examples/stacked-area"
+                href="#/examples/stacked-area"
               />,
               <ListItem
                 primaryText="Alphabet"
