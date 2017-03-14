@@ -86,7 +86,7 @@ export class Example extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-3 col-sm-3">
+            <div className="col-md-4 col-sm-3">
               <Table
                 multiSelectable
                 wrapperStyle={{ width: '100%' }}
@@ -107,7 +107,7 @@ export class Example extends Component {
                 </TableBody>
               </Table>
             </div>
-            <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
+            <div className="col-md-8 col-sm-9" style={{ padding: 0 }}>
               <Surface view={VIEW} trbl={TRBL}>
                 <NodeGroup
                   data={paths}
