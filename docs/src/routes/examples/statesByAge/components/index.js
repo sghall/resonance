@@ -8,7 +8,7 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
-import { updateSortOrder, makeGetSelectedData } from '../module';
+import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
 import Bar from './Bar';
 import Tick from './Tick';
@@ -22,12 +22,12 @@ export class Example extends Component {
     super(props);
 
     (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).setShowTopN = this.setShowTopN.bind(this);
+    (this:any).setShowTop = this.setShowTop.bind(this);
   }
 
   state = {
     duration: 1500,
-    showTopN: this.props.showTop,
+    showTop: this.props.showTop,
   }
 
   setDuration(e, value) {
@@ -36,15 +36,15 @@ export class Example extends Component {
     });
   }
 
-  setShowTopN(e, value) {
+  setShowTop(e, value) {
     this.setState({
-      showTopN: Math.floor(value * 20) + 5,
+      showTop: value,
     });
   }
 
   render() {
     const { sortKey, data, xScale, yScale, dispatch } = this.props;
-    const { duration, showTopN } = this.state;
+    const { duration, showTop } = this.state;
 
     return (
       <div className="row">
@@ -56,11 +56,13 @@ export class Example extends Component {
           </div>
           <div className="row">
             <div className="col-md-6 col-sm-6">
-              <span>Show Top {showTopN} States:</span>
+              <span>Show Top {showTop} States:</span>
               <Slider
                 style={{ margin: '5px 0px' }}
-                defaultValue={0.25}
-                onChange={this.setShowTopN}
+                min={5} max={25} step={1}
+                value={showTop}
+                onChange={this.setShowTop}
+                onDragStop={() => dispatch(updateTopCount(showTop))}
               />
             </div>
             <div className="col-md-6 col-sm-6">

@@ -23,9 +23,9 @@ export const updateSortOrder = (sortKey) => ({
   sortKey,
 });
 
-export const updateTopCount = (topN) => ({
+export const updateTopCount = (showTop) => ({
   type: STATES_BY_AGE_UPDATE_COUNT,
-  topN,
+  showTop,
 });
 
 // ********************************************************************
@@ -90,14 +90,14 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { rawData: DATA, showTop: 20, sortKey: 'Under 5 Years' };
+const initialState = { rawData: DATA, showTop: 10, sortKey: 'Under 5 Years' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case STATES_BY_AGE_UPDATE_ORDER:
       return Object.assign({}, state, { sortKey: action.sortKey });
     case STATES_BY_AGE_UPDATE_COUNT:
-      return Object.assign({}, state, { showTop: action.topN });
+      return Object.assign({}, state, { showTop: action.showTop });
     default:
       return state;
   }
