@@ -9,7 +9,6 @@ const styles = {
   root: {
     marginTop: 20,
     marginBottom: 20,
-    padding: '0 10px',
   },
 };
 

@@ -3,15 +3,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/table';
-import { Card, CardHeader } from 'material-ui/Card';
 import Slider from 'material-ui/Slider';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import TickGroup from 'resonance/TickGroup';
+import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
 import Bar from './Bar';
 import Tick from './Tick';
+import description from '../description.md';
 
 const barKeyAccessor = (d) => d.name;
 
@@ -48,7 +49,12 @@ export class Example extends Component {
     return (
       <div className="row">
         <div className="col-md-12 col-sm-12">
-          <div className="row" style={{ marginLeft: 0, marginRight: 0 }}>
+          <div className="row">
+            <div className="col-md-12 col-sm-12">
+              <MarkdownElement text={description} />
+            </div>
+          </div>
+          <div className="row">
             <div className="col-md-6 col-sm-6">
               <span>Show Top {showTopN} States:</span>
               <Slider
@@ -64,12 +70,6 @@ export class Example extends Component {
                 defaultValue={0.1}
                 onChange={this.setDuration}
               />
-            </div>
-          </div>
-          <div className="row" style={{ margin: '20px 0px' }}>
-            <div className="col-md-12 col-sm-12">
-              <h4 style={{ marginTop: -45, marginBottom: -10 }}>Top States by Age Bracket, 2008</h4>
-              <p>The bar chart shows the top states for the selected age bracket sorted by population percentage. Adapted from Mike Bostock <a href="https://bost.ocks.org/mike/constancy/">classic example</a> on object constancy.</p>
             </div>
           </div>
           <div className="row">
