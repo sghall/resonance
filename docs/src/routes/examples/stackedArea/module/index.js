@@ -103,7 +103,7 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { data, filter, offset: 'stacked' };
+const initialState = { data, filter, offset: 'stream' };
 
 function toggle(state, action) {
   const item = state.filter[action.index];
