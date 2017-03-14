@@ -14,6 +14,7 @@ import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
 import Path from './Path';
 import Tick from './Tick';
+import description from '../description.md';
 
 const dateFormat = utcFormat('%-d/%-m/%Y');
 
@@ -52,12 +53,12 @@ export class Example extends Component {
         <div className="col-md-12 col-sm-12">
           <div className="row">
             <div className="col-md-12 col-sm-12">
-              <MarkdownElement text={'gfdgdgdfgdfg'} />
+              <MarkdownElement text={description} />
             </div>
           </div>
           <div className="row">
             <div className="col-md-4 col-sm-4">
-              <span>Chart Offset:</span>
+              <h5>Chart Offset:</h5>
               <RadioButtonGroup
                 name="offsets"
                 valueSelected={offset}
@@ -78,7 +79,7 @@ export class Example extends Component {
               </RadioButtonGroup>
             </div>
             <div className="col-md-8 col-sm-8">
-              <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
+              <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
               <Slider
                 defaultValue={0.1}
                 onChange={this.setDuration}

@@ -56,7 +56,7 @@ export class Example extends Component {
           </div>
           <div className="row">
             <div className="col-md-6 col-sm-6">
-              <span>Show Top {showTop} States:</span>
+              <h5>Show Top {showTop} States:</h5>
               <Slider
                 min={5} max={25} step={1}
                 value={showTop}
@@ -65,7 +65,7 @@ export class Example extends Component {
               />
             </div>
             <div className="col-md-6 col-sm-6">
-              <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
+              <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
               <Slider
                 defaultValue={0.1}
                 onChange={this.setDuration}
