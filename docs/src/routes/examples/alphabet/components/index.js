@@ -32,17 +32,19 @@ export class Example extends Component {
 
   render() {
     return (
-      <div>
-        <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
-        <MarkdownElement text={'the markdown text'} />
-        <Surface view={VIEW} trbl={TRBL}>
-          <line stroke="grey" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
-          <NodeGroup
-            data={this.props.data}
-            keyAccessor={(d) => d.letter}
-            nodeComponent={Text}
-          />
-        </Surface>
+      <div className="row">
+        <div className="col-md-12 col-sm-12">
+          <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
+          <MarkdownElement text={'the markdown text'} />
+          <Surface view={VIEW} trbl={TRBL}>
+            <line stroke="grey" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
+            <NodeGroup
+              data={this.props.data}
+              keyAccessor={(d) => d.letter}
+              nodeComponent={Text}
+            />
+          </Surface>
+        </div>
       </div>
     );
   }
