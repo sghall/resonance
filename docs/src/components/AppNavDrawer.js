@@ -6,7 +6,7 @@ import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import { spacing, typography, zIndex } from 'material-ui/styles';
-import { cyan500 } from 'material-ui/styles/colors';
+import palette from '../utils/palette';
 
 const SelectableList = makeSelectable(List);
 
@@ -17,7 +17,7 @@ const styles = {
     color: typography.textFullWhite,
     lineHeight: `${spacing.desktopKeylineIncrement}px`,
     fontWeight: typography.fontWeightLight,
-    backgroundColor: cyan500,
+    backgroundColor: palette.primary1Color,
     paddingLeft: spacing.desktopGutter,
     marginBottom: 8,
   },

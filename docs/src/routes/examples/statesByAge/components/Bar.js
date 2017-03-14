@@ -4,6 +4,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import withTransitions from 'resonance/withTransitions';
 import { easePoly } from 'd3-ease';
 import { format } from 'd3-format';
+import palette from 'docs/src/utils/palette';
 
 const percentFormat = format('.2%');
 
@@ -72,8 +73,8 @@ class Bar extends PureComponent {
       <g ref={(d) => { this.node = d; }}>
         <rect
           ref={(d) => { this.rect = d; }}
-          fill="#295667"
-          opacity={0.6}
+          fill={palette.primary2Color}
+          opacity={0.5}
         />
         <text
           dy="0.35em"

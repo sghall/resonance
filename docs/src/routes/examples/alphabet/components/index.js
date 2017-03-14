@@ -2,7 +2,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Title from 'react-title-component';
 import Surface from 'resonance/Surface';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';

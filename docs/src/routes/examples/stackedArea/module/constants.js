@@ -1,39 +1,28 @@
 // @flow weak
+import { shuffle } from 'd3-array';
+
 export const EXAMPLE_STORE_KEY = 'stacked-area';
 
 export const VIEW = [500, 400];        // ViewBox: Width, Height
 export const TRBL = [30, 30, 10, 40];  // Margins: Top, Right, Bottom, Left
 
-export const COLORS = [
-  '#272e5d',
-  '#999eb8',
-  '#1930ff',
-  '#bfccd1',
-  '#e5ebed',
-  '#333c70',
-  '#74cfff',
-  '#202753',
-  '#001afe',
-  '#1f4554',
-  '#244f5f',
-  '#193c4a',
-  '#70779b',
-  '#c2c5d4',
-  '#141a41',
-  '#e7e8ee',
-  '#00a0f4',
-  '#0f2b39',
-  '#525985',
-  '#94abb3',
-  '#2e3668',
-  '#295667',
-  '#0eadff',
-  '#4c5eff',
-  '#496f7e',
-  '#41beff',
-  '#698995',
-  '#7f8cff',
-];
+export const COLORS = shuffle([
+  '#12291F',
+  '#3C564B',
+  '#1E3129',
+  '#091F16',
+  '#02130C',
+  '#121E26',
+  '#3A4751',
+  '#1E272E',
+  '#0A151D',
+  '#030C12',
+  '#253517',
+  '#5D704E',
+  '#324027',
+  '#19280C',
+  '#0D1903',
+]);
 
 export const FRUITS = [{
   name: 'Abaca',

@@ -8,6 +8,7 @@ import spacing from 'material-ui/styles/spacing';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { darkWhite, lightWhite, grey900 } from 'material-ui/styles/colors';
 import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
+import palette from '../utils/palette';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 
@@ -38,7 +39,7 @@ class AppFrame extends Component {
 
   componentWillMount() {
     this.setState({
-      muiTheme: getMuiTheme(),
+      muiTheme: getMuiTheme({ palette }),
     });
   }
 
