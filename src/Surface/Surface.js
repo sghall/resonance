@@ -12,14 +12,14 @@ import React, { PropTypes } from 'react';
  * ```
  */
 export default function Surface(props) {
-  const { className, view, trbl, children, ...other } = props;
+  const { className, view, trbl, style, children, ...other } = props;
   const paddingBottom = `${Math.round((view[1] / view[0]) * 100)}%`;
 
   // uses bottom-padding hack. See https://css-tricks.com/scale-svg/
   return (
     <div
       className={className}
-      style={{ position: 'relative', width: '100%', height: '0px', paddingBottom }}
+      style={{ ...style, position: 'relative', width: '100%', height: '0px', paddingBottom }}
       {...other}
     >
       <svg
@@ -45,6 +45,10 @@ Surface.propTypes = {
   className: PropTypes.string,
   /**
    * Shadow depth, corresponds to `dp` in the spec.
+   */
+  style: PropTypes.object,
+  /**
+   * Set to false to disable rounded corners.
    */
   trbl: PropTypes.array,
   /**
