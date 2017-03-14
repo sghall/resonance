@@ -73,8 +73,8 @@ class Bar extends PureComponent {
       <g ref={(d) => { this.node = d; }}>
         <rect
           ref={(d) => { this.rect = d; }}
-          fill={palette.primary2Color}
-          opacity={0.5}
+          fill={palette.primary1Color}
+          opacity={0.4}
         />
         <text
           dy="0.35em"

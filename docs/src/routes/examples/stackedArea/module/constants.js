@@ -1,5 +1,6 @@
 // @flow weak
 import { shuffle } from 'd3-array';
+import { color } from 'd3-color';
 
 export const EXAMPLE_STORE_KEY = 'stacked-area';
 
@@ -22,7 +23,7 @@ export const COLORS = shuffle([
   '#324027',
   '#19280C',
   '#0D1903',
-]);
+]).map((d) => color(d).brighter());
 
 export const FRUITS = [{
   name: 'Abaca',

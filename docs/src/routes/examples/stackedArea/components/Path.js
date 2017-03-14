@@ -7,7 +7,7 @@ class Path extends Component {
   static propTypes = {
     data: PropTypes.shape({
       path: PropTypes.string.isRequired,
-      fill: PropTypes.string.isRequired,
+      fill: PropTypes.object.isRequired,
     }).isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
@@ -20,7 +20,7 @@ class Path extends Component {
 
     return {
       node: {
-        opacity: [1e-6, 0.9],
+        opacity: [1e-6, 0.8],
         d: [path],
       },
       timing: { duration },
@@ -32,7 +32,7 @@ class Path extends Component {
 
     return {
       node: {
-        opacity: [0.9],
+        opacity: [0.8],
         d: [path],
       },
       timing: { duration },
