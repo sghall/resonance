@@ -133,7 +133,7 @@ export class Example extends Component {
                         x1={0} y1={0}
                         x2={0} y2={yScale.range()[0]}
                         opacity={0.2}
-                        stroke="#fff"
+                        stroke="grey"
                       />
                       <text
                         fontSize="9px"
