@@ -42,6 +42,8 @@ export default function transition(config) {
         }
       } else {
         this[refName].setAttribute(attr, val);
+        // This assures any existing transitions are killed
+        tweens.push(tween.call(this[refName], attr, val));
       }
     });
 
