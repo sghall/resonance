@@ -11,6 +11,7 @@ import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { VIEW, TRBL, ALPHABET, BASE_DURATION } from '../module/constants';
 import Text from './Text';
 import { dataUpdate, makeGetSelectedData, dims } from '../module';
+import description from '../description.md';
 
 export class Example extends Component {
 
@@ -34,16 +35,23 @@ export class Example extends Component {
     return (
       <div className="row">
         <div className="col-md-12 col-sm-12">
-          <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
-          <MarkdownElement text={'the markdown text'} />
-          <Surface view={VIEW} trbl={TRBL}>
-            <line stroke="grey" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
-            <NodeGroup
-              data={this.props.data}
-              keyAccessor={(d) => d.letter}
-              nodeComponent={Text}
-            />
-          </Surface>
+          <div className="row">
+            <div className="col-md-12 col-sm-12">
+              <MarkdownElement text={description} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-sm-12">
+              <Surface view={VIEW} trbl={TRBL}>
+                <line stroke="grey" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
+                <NodeGroup
+                  data={this.props.data}
+                  keyAccessor={(d) => d.letter}
+                  nodeComponent={Text}
+                />
+              </Surface>
+            </div>
+          </div>
         </div>
       </div>
     );
