@@ -15,7 +15,7 @@ const getFill = (depth, name, sortKey) => {
     return 'black';
   }
 
-  return depth === 2 ? colors(age) : 'rgba(255,255,255,0.7)';
+  return depth === 2 ? colors(age) : 'rgba(127,127,127,0.5)';
 };
 
 class Circle extends PureComponent {

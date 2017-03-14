@@ -24,9 +24,9 @@ export const updateSortOrder = (sortKey) => ({
   sortKey,
 });
 
-export const updateTopCount = (topN) => ({
+export const updateTopCount = (showTop) => ({
   type: PACKED_BY_AGE_UPDATE_COUNT,
-  topN,
+  showTop,
 });
 
 // ********************************************************************
@@ -97,7 +97,7 @@ export default function reducer(state = initialState, action) {
     case PACKED_BY_AGE_UPDATE_ORDER:
       return Object.assign({}, state, { sortKey: action.sortKey });
     case PACKED_BY_AGE_UPDATE_COUNT:
-      return Object.assign({}, state, { showTop: action.topN });
+      return Object.assign({}, state, { showTop: action.showTop });
     default:
       return state;
   }

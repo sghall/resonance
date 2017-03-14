@@ -2,14 +2,15 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Layout from 'material-ui/Layout';
-import Paper from 'material-ui/Paper';
+import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/table';
+import Slider from 'material-ui/Slider';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
-import { updateSortOrder, makeGetSelectedData } from '../module';
-import { VIEW, TRBL } from '../module/constants';
+import MarkdownElement from 'docs/src/components/MarkdownElement';
+import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
+import { VIEW, TRBL, AGES } from '../module/constants';
 import Circle from './Circle';
-import Legend from './Legend';
+import description from '../description.md';
 
 const circleKeyAccessor = (d) => d.name;
 
@@ -18,19 +19,19 @@ export class Example extends Component {
   constructor(props) {
     super(props);
 
-    (this:any).setSortKey = this.setSortKey.bind(this);
+    (this:any).setShowTop = this.setShowTop.bind(this);
     (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).setShowTopN = this.setShowTopN.bind(this);
   }
 
   state = {
-    duration: 500,
-    showTopN: this.props.showTop,
+    duration: 1000,
+    showTop: this.props.showTop,
   }
 
-  setSortKey(sortKey) {
-    const { dispatch } = this.props;
-    dispatch(updateSortOrder(sortKey));
+  setShowTop(e, value) {
+    this.setState({
+      showTop: value,
+    });
   }
 
   setDuration(e, value) {
@@ -39,48 +40,70 @@ export class Example extends Component {
     });
   }
 
-  setShowTopN(e, value) {
-    this.setState({
-      showTopN: Math.floor(value * 20) + 5,
-    });
-  }
-
   render() {
-    const { sortKey, data } = this.props;
-    const { duration, showTopN } = this.state;
+    const { sortKey, data, dispatch } = this.props;
+    const { duration, showTop } = this.state;
 
     return (
-      <Layout container gutter={24}>
-        <Layout item xs={12} sm={6}>
-          <Paper>
-            <span>Show Top {showTopN} States:</span>
-          </Paper>
-        </Layout>
-        <Layout item xs={12} sm={6}>
-          <Paper>
-            <span>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</span>
-          </Paper>
-        </Layout>
-        <Layout item xs={12} sm={4} md={3}>
-          <Legend
-            sortKey={sortKey}
-            setSortKey={this.setSortKey}
-          />
-        </Layout>
-        <Layout item xs={12} sm={8} md={9}>
-          <Paper>
-            <Surface view={VIEW} trbl={TRBL}>
-              <NodeGroup
-                data={data}
-                duration={duration}
-                keyAccessor={circleKeyAccessor}
-                sortKey={sortKey}
-                nodeComponent={Circle}
+      <div className="row">
+        <div className="col-md-12 col-sm-12">
+          <div className="row">
+            <div className="col-md-12 col-sm-12">
+              <MarkdownElement text={description} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 col-sm-6">
+              <h5>Show Top {showTop} States:</h5>
+              <Slider
+                min={5} max={25} step={1}
+                value={showTop}
+                onChange={this.setShowTop}
+                onDragStop={() => dispatch(updateTopCount(showTop))}
               />
-            </Surface>
-          </Paper>
-        </Layout>
-      </Layout>
+            </div>
+            <div className="col-md-6 col-sm-6">
+              <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
+              <Slider
+                defaultValue={0.1}
+                onChange={this.setDuration}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-3 col-sm-3">
+              <Table
+                wrapperStyle={{ width: '100%' }}
+                onCellClick={(d) => dispatch(updateSortOrder(AGES[d]))}
+              >
+                <TableBody deselectOnClickaway={false}>
+                  {AGES.map((age) => {
+                    return (
+                      <TableRow
+                        key={age}
+                        selected={sortKey === age}
+                      >
+                        <TableRowColumn>{age}</TableRowColumn>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+            <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
+              <Surface view={VIEW} trbl={TRBL}>
+                <NodeGroup
+                  data={data}
+                  duration={duration}
+                  keyAccessor={circleKeyAccessor}
+                  sortKey={sortKey}
+                  nodeComponent={Circle}
+                />
+              </Surface>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

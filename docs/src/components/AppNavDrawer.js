@@ -122,9 +122,9 @@ class AppNavDrawer extends Component {
                 href="#/examples/stacked-area"
               />,
               <ListItem
-                primaryText="Alphabet"
-                value="/examples/alphabet"
-                href="#/examples/alphabet"
+                primaryText="States Circle Pack"
+                value="/examples/packed-by-age"
+                href="#/examples/packed-by-age"
               />,
             ]}
           />
