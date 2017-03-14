@@ -3,9 +3,7 @@
 import { EXAMPLE_STORE_KEY } from './module/constants';
 
 export default (store, injectReducer) => ({
-  nav: true,
   path: `/examples/${EXAMPLE_STORE_KEY}`,
-  title: 'Stacked Area',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
       const Example = require('./components').default;
