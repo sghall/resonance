@@ -16,7 +16,7 @@ function withTransitions(Component) {
   class Transition extends PureComponent {
     static propTypes = propTypes;
 
-    static displayName = `withTransition(${getDisplayName(Component)})`
+    static displayName = `withTransitions(${getDisplayName(Component)})`
 
     constructor(props) {
       super(props);
