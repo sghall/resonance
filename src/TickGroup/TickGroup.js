@@ -4,6 +4,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
 import dataUpdate from '../core/dataUpdate';
+import withTransitions from '../withTransitions';
 
 const propTypes = {
   /**
@@ -54,6 +55,11 @@ export default class TickGroup extends PureComponent {
     currScale: () => {},
   }
 
+  componentWillMount() {
+    const { tickComponent: Node } = this.props;
+    this.WrappedComponent = withTransitions(Node);
+  }
+
   componentDidMount() {
     this.updateTicks(this.props, this.props);
   }
@@ -82,7 +88,7 @@ export default class TickGroup extends PureComponent {
   }
 
   render() {
-    const { props: { keyAccessor, className, tickComponent: Tick }, state } = this;
+    const { props: { keyAccessor, className }, WrappedComponent, state } = this;
 
     const props = Object.assign({}, this.props);
 
@@ -97,7 +103,7 @@ export default class TickGroup extends PureComponent {
           const type = state.udids[udid];
 
           return (
-            <Tick
+            <WrappedComponent
               key={udid}
               udid={udid}
               type={type}
