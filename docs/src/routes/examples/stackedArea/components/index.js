@@ -19,6 +19,7 @@ import Tick from './Tick';
 import description from '../description.md';
 
 const dateFormat = utcFormat('%-d/%-m/%Y');
+const getPathKey = (d) => d.name;
 
 export class Example extends Component {
   constructor(props) {
@@ -26,6 +27,8 @@ export class Example extends Component {
 
     (this:any).setDuration = this.setDuration.bind(this);
     (this:any).setShowTopN = this.setShowTopN.bind(this);
+    (this:any).changeOffset = this.changeOffset.bind(this);
+    (this:any).toggleFilter = this.toggleFilter.bind(this);
   }
 
   state = {
@@ -44,8 +47,18 @@ export class Example extends Component {
     });
   }
 
+  changeOffset(e, d) {
+    const { dispatch } = this.props;
+    dispatch(changeOffset(d));
+  }
+
+  toggleFilter(d) {
+    const { dispatch } = this.props;
+    dispatch(toggleFilter(d));
+  }
+
   render() {
-    const { filter, offset, paths, xScale, yScale, dispatch } = this.props;
+    const { filter, offset, paths, xScale, yScale } = this.props;
     const { duration } = this.state;
 
     const xAxisTicks = xScale.ticks ? xScale.ticks(4) : [];
@@ -65,7 +78,7 @@ export class Example extends Component {
                 <RadioButtonGroup
                   name="offsets"
                   valueSelected={offset}
-                  onChange={(e, d) => dispatch(changeOffset(d))}
+                  onChange={this.changeOffset}
                 >
                   <RadioButton
                     value="stacked"
@@ -94,7 +107,7 @@ export class Example extends Component {
                 <Table
                   multiSelectable
                   wrapperStyle={{ width: '100%' }}
-                  onCellClick={(d) => dispatch(toggleFilter(d))}
+                  onCellClick={this.toggleFilter}
                 >
                   <TableBody deselectOnClickaway={false}>
                     {filter.map((d) => {
@@ -118,7 +131,7 @@ export class Example extends Component {
                     xScale={xScale}
                     yScale={yScale}
                     duration={duration}
-                    keyAccessor={(d) => d.name}
+                    keyAccessor={getPathKey}
                     nodeComponent={Path}
                   />
                   <TickGroup
