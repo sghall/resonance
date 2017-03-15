@@ -78,12 +78,14 @@ export class Example extends Component {
                   wrapperStyle={{ width: '100%' }}
                   onCellClick={(d) => dispatch(updateSortOrder(AGES[d]))}
                 >
-                  <TableBody deselectOnClickaway={false}>
+                  <TableBody displayRowCheckbox={false}>
                     {AGES.map((age) => {
+                      const color = sortKey === age ? 'rgba(51,51,51,0.1)' : 'transparent';
+
                       return (
                         <TableRow
                           key={age}
-                          selected={sortKey === age}
+                          style={{ backgroundColor: color }}
                         >
                           <TableRowColumn>{age}</TableRowColumn>
                         </TableRow>
