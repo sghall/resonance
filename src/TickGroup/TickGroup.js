@@ -56,8 +56,8 @@ export default class TickGroup extends PureComponent {
   }
 
   componentWillMount() {
-    const { tickComponent: Node } = this.props;
-    this.WrappedComponent = withTransitions(Node);
+    const { tickComponent: Tick } = this.props;
+    this.WrappedComponent = withTransitions(Tick);
   }
 
   componentDidMount() {
