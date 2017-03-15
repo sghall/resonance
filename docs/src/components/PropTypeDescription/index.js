@@ -24,31 +24,21 @@ function getDeprecatedInfo(type) {
 }
 
 function generatePropType(type) {
+  let values = '';
+
   switch (type.name) {
     case 'func':
       return 'function';
-    case 'custom':
-      const deprecatedInfo = getDeprecatedInfo(type);
-
-      if (deprecatedInfo !== false) {
-        return generatePropType({
-          name: deprecatedInfo.propTypes,
-        });
-      }
-
-      return type.raw;
-
     case 'enum':
     case 'union':
-      const values = type.value.map((v) => v.value || v.name).join('<br>&nbsp;');
+      values = type.value.map((v) => v.value || v.name).join('<br>&nbsp;');
       return `${type.name}:<br>&nbsp;${values}<br>`;
-
     default:
       return type.name;
   }
 }
 
-function generateDescription(required, description, type) {
+function genDescription(required, description, type) {
   let deprecated = '';
 
   if (type.name === 'custom') {
@@ -87,13 +77,14 @@ function generateDescription(required, description, type) {
       parsedReturns = parsed.tags[parsedLength - 1];
     } else {
       parsedArgs = parsed.tags;
-      parsedReturns = { type: { name: 'void' }};
+      parsedReturns = { type: { name: 'void' } };
     }
 
     signature += '<br><br>**Signature:**<br>`function(';
     signature += parsedArgs.map((tag) => `${tag.name}: ${tag.type.name}`).join(', ');
-    signature += `) => ${parsedReturns.type.name}` + '`<br>';
+    signature += `) => ${parsedReturns.type.name}<br>`;
     signature += parsedArgs.map((tag) => `*${tag.name}:* ${tag.description}`).join('<br>');
+
     if (parsedReturns.description) {
       signature += `<br> *returns* (${parsedReturns.type.name}): ${parsedReturns.description}`;
     }
@@ -128,18 +119,16 @@ class PropTypeDescription extends Component {
 
     let requiredProps = 0;
 
-    let text = `${header}
-| Name | Type | Default | Description |
-|:-----|:-----|:-----|:-----|\n`;
+    let text = `${header}`;
+    text += '\n| Name | Type | Default | Description |';
+    text += '\n|:-----|:-----|:-----|:-----|\n';
 
-    const componentInfo = parse(code);
+    const info = parse(code);
 
-    for (let key in componentInfo.props) {
-      const prop = componentInfo.props[key];
+    for (let key in info.props) {
+      const prop = info.props[key];
 
-      const description = generateDescription(prop.required, prop.description, prop.type);
-
-      if (description === null) continue;
+      const description = genDescription(prop.required, prop.description, prop.type) || '';
 
       let defaultValue = '';
 
@@ -148,7 +137,7 @@ class PropTypeDescription extends Component {
       }
 
       if (prop.required) {
-        key = `<span style="color: #31a148">${key} \*</span>`;
+        key = `<span style="color: #31a148">${key} *</span>`;
         requiredProps += 1;
       }
 
@@ -163,9 +152,13 @@ class PropTypeDescription extends Component {
 
     text += 'Other properties (not documented) are applied to the root element.';
 
-    const requiredPropFootnote = (requiredProps === 1) ? '* required property' :
-      (requiredProps > 1) ? '* required properties' :
-        '';
+    let requiredPropFootnote = '';
+
+    if (requiredProps === 1) {
+      requiredPropFootnote = '* required property';
+    } else if (requiredProps > 1) {
+      requiredPropFootnote = '* required properties';
+    }
 
     return (
       <div className="propTypeDescription">
