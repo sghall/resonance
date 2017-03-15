@@ -3,5 +3,5 @@ node_modules
 /flow
 /tmp
 /docs/build
-/packages/**/lib
+/scripts/eslint-plugin-material-ui/
 /test/coverage
