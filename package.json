@@ -1,7 +1,7 @@
 {
   "name": "resonance",
   "version": "0.1.0",
-  "description": "React data visualization tools",
+  "description": "React data visualization components",
   "main": "index.js",
   "repository": "git+https://github.com/sghall/resonance.git",
   "keywords": [
@@ -28,11 +28,8 @@
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "build:umd:dev": "webpack",
     "build:umd:min": "cross-env NODE_ENV=production webpack",
-    "build:docs": "babel-node ./scripts/build-api-docs.js",
     "clean": "npm run clean:build",
-    "clean:docs": "rimraf docs/src/routes/api/*",
     "clean:build": "rimraf build",
-    "docs:start": "(cd docs/site; npm start)",
     "lint": "eslint . --cache && echo \"eslint: no lint errors\"",
     "prebuild": "npm run clean:build",
     "test": "cross-env NODE_ENV=test mocha",
