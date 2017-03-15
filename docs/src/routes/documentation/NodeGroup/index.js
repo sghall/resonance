@@ -21,7 +21,7 @@ import autoCompleteReadmeText from './README.md';
 import MarkdownElement from '../../../components/MarkdownElement';
 import PropTypeDescription from '../../../components/PropTypeDescription';
 
-const AutoCompletesPage = () => (
+const NodeGroupDocs = () => (
   <div>
     <Title render={(previousTitle) => `Auto Complete - ${previousTitle}`} />
     <MarkdownElement text={autoCompleteReadmeText} />
@@ -53,4 +53,4 @@ const AutoCompletesPage = () => (
   </div>
 );
 
-export default AutoCompletesPage;
+export default NodeGroupDocs;

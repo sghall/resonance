@@ -81,24 +81,19 @@ class AppNavDrawer extends Component {
             primaryTogglesNestedList
             nestedItems={[
               <ListItem
-                primaryText="App Bar"
-                value="/documentation/app-bar"
-                href="#/documentation/app-bar"
+                primaryText="Surface"
+                value="/documentation/surface"
+                href="#/documentation/surface"
               />,
               <ListItem
-                primaryText="Auto Complete"
-                value="/documentation/auto-complete"
-                href="#/documentation/auto-complete"
+                primaryText="NodeGroup"
+                value="/documentation/node-group"
+                href="#/documentation/node-group"
               />,
               <ListItem
-                primaryText="Avatar"
-                value="/documentation/avatar"
-                href="#/documentation/avatar"
-              />,
-              <ListItem
-                primaryText="Badge"
-                value="/documentation/badge"
-                href="#/documentation/badge"
+                primaryText="TickGroup"
+                value="/documentation/tick-group"
+                href="#/documentation/tick-group"
               />,
             ]}
           />

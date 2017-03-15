@@ -15,7 +15,7 @@ import MarkdownElement from '../../../components/MarkdownElement';
 import appBarReadmeText from './README.md';
 import AppBarExampleIcon from './ExampleIcon';
 
-const AppBarPage = () => (
+const SurfaceDocs = () => (
   <div>
     <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
     <MarkdownElement text={appBarReadmeText} />
@@ -41,4 +41,4 @@ const AppBarPage = () => (
   </div>
 );
 
-export default AppBarPage;
+export default SurfaceDocs;

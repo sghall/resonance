@@ -14,7 +14,7 @@ import PropTypeDescription from '../../../components/PropTypeDescription';
 import avatarReadmeText from './README.md';
 import AvatarExampleSimple from './ExampleSimple';
 
-const AvatarsPage = () => (
+const TickGroupDocs = () => (
   <div>
     <Title render={(previousTitle) => `Avatar - ${previousTitle}`} />
     <MarkdownElement text={avatarReadmeText} />
@@ -28,4 +28,4 @@ const AvatarsPage = () => (
   </div>
 );
 
-export default AvatarsPage;
+export default TickGroupDocs;
