@@ -1,8 +1,8 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class Path extends Component {
+class Path extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       path: PropTypes.string.isRequired,
@@ -10,6 +10,7 @@ class Path extends Component {
     }).isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
+    activeSeries: PropTypes.string.isRequired,
   };
 
   node = null; // Root node ref set in render method
@@ -49,12 +50,12 @@ class Path extends Component {
   }
 
   render() {
-    const { data: { fill } } = this.props;
+    const { activeSeries, data: { fill, name } } = this.props;
 
     return (
       <path
         ref={(d) => { this.node = d; }}
-        fill={fill}
+        fill={activeSeries === name ? 'url(#hatch)' : fill}
       />
     );
   }
