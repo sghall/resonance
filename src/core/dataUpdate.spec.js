@@ -1,12 +1,12 @@
 // @flow weak
 /* eslint-env mocha */
 
-import React from 'react';
-import { assert } from 'chai';
-import dataUpdate from './dataUpdate';
+// import React from 'react';
+// import { assert } from 'chai';
+// import dataUpdate from './dataUpdate';
 
-const Node = () => <line />;
-const data = [1, 2, 3, 4, 5];
+// const Node = () => <line />;
+// const data = [1, 2, 3, 4, 5];
 
 describe('<NodeGroup />', () => {
   // it('should render a g element', () => {

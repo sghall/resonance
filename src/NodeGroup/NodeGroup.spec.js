@@ -8,7 +8,7 @@ import { shallow, mount } from 'enzyme';
 import NodeGroup from './NodeGroup';
 
 const Node = () => <line />;
-const data = [1, 2, 3, 4, 5];
+const data = [1, 2, 3, 4, 5].map((d) => ({ val: d }));
 
 describe('<NodeGroup />', () => {
   it('should render a g element', () => {
@@ -60,7 +60,7 @@ describe('<NodeGroup />', () => {
 
     const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
 
-    wrapper.setProps({ data: [1, 2] });
+    wrapper.setProps({ data: [{ val: 1 }, { val: 2 }] });
 
     const callCount = NodeGroup.prototype.updateNodes.callCount;
     spy.restore();
