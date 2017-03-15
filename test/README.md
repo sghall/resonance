@@ -13,5 +13,3 @@
 
 #### Watch the core mocha unit test suite.
 `npm run test:watch`
-
-## Writing Tests
