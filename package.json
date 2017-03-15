@@ -78,7 +78,7 @@
     "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-material-ui": "file:packages/eslint-plugin-material-ui",
+    "eslint-plugin-material-ui": "file:scripts/eslint-plugin-material-ui",
     "eslint-plugin-mocha": "^4.8.0",
     "eslint-plugin-react": "^6.10.0",
     "eventsource-polyfill": "^0.9.6",
