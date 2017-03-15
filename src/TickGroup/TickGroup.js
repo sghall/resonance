@@ -1,10 +1,10 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
+import dataUpdate from '../core/dataUpdate';
+import withTransitions from '../core/withTransitions';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 import defaultComposeNode from '../core/defaultComposeNode';
-import dataUpdate from '../core/dataUpdate';
-import withTransitions from '../withTransitions';
 
 const propTypes = {
   /**

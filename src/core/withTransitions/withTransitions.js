@@ -3,7 +3,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import transition from './transition';
 import stop from './stop';
 import { getDisplayName } from './helpers';
-import { APPEAR, UPDATE, REMOVE } from '../core/types';
+import { APPEAR, UPDATE, REMOVE } from '../types';
 
 const propTypes = {
   type: PropTypes.string.isRequired,
