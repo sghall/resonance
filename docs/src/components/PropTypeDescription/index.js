@@ -56,6 +56,7 @@ function genDescription(required, description, type) {
   const jsDocText = parsed.description.replace(/\n\n/g, '<br>').replace(/\n/g, ' ');
 
   if (parsed.tags.some((tag) => tag.title === 'ignore')) return null;
+
   let signature = '';
 
   if (type.name === 'func' && parsed.tags.length > 0) {
@@ -125,10 +126,11 @@ class PropTypeDescription extends Component {
 
     const info = parse(code);
 
-    for (let key in info.props) {
-      const prop = info.props[key];
+    Object.keys(info.props).forEach((key) => {
+      let name = key;
 
-      const description = genDescription(prop.required, prop.description, prop.type) || '';
+      const prop = info.props[name];
+      const desc = genDescription(prop.required, prop.description, prop.type) || '';
 
       let defaultValue = '';
 
@@ -137,18 +139,18 @@ class PropTypeDescription extends Component {
       }
 
       if (prop.required) {
-        key = `<span style="color: #31a148">${key} *</span>`;
+        name = `<span style="color: #31a148">${name} *</span>`;
         requiredProps += 1;
       }
 
       if (prop.type.name === 'custom') {
         if (getDeprecatedInfo(prop.type)) {
-          key = `~~${key}~~`;
+          name = `~~${name}~~`;
         }
       }
 
-      text += `| ${key} | ${generatePropType(prop.type)} | ${defaultValue} | ${description} |\n`;
-    }
+      text += `| ${name} | ${generatePropType(prop.type)} | ${defaultValue} | ${desc} |\n`;
+    });
 
     text += 'Other properties (not documented) are applied to the root element.';
 
