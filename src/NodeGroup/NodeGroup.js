@@ -4,7 +4,6 @@ import React, { PureComponent, PropTypes } from 'react';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
-import defaultComposeNode from '../core/defaultComposeNode';
 
 const propTypes = {
   /**
@@ -20,10 +19,6 @@ const propTypes = {
    */
   keyAccessor: PropTypes.func,
   /**
-   * Shadow depth, corresponds to `dp` in the spec.
-   */
-  composeNode: PropTypes.func,
-  /**
    * Set to false to disable rounded corners.
    */
   nodeComponent: PropTypes.func.isRequired,
@@ -34,7 +29,6 @@ export default class NodeGroup extends PureComponent {
 
   static defaultProps = {
     keyAccessor: defaultKeyAccessor,
-    composeNode: defaultComposeNode,
   };
 
   constructor(props) {
