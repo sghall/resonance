@@ -1,6 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import MarkdownElement from '../MarkdownElement';
+// @flow weak
+
+import React, { Component, PropTypes } from 'react';
 import transitions from 'material-ui/styles/transitions';
+import MarkdownElement from '../MarkdownElement';
 import CodeBlockTitle from './CodeBlockTitle';
 
 const styles = {
