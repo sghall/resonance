@@ -44,7 +44,6 @@
     "d3-time-format": "^2.0.4",
     "highlight.js": "^9.10.0",
     "history": "3.x",
-    "jss": "^6.3.0",
     "marked": "^0.3.6",
     "material-ui": "^0.17.1",
     "moment": "^2.17.1",
