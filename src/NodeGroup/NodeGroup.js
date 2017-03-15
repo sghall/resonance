@@ -7,19 +7,19 @@ import defaultKeyAccessor from '../core/defaultKeyAccessor';
 
 const propTypes = {
   /**
-   * The CSS class name of the root element.
+   * An array of objects.
    */
   data: PropTypes.array.isRequired,
   /**
-   * The CSS class name of the root element.
+   * The CSS class name of the root g element.
    */
   className: PropTypes.string,
   /**
-   * The CSS class name of the root element.
+   * Function that returns the string key for each object.
    */
   keyAccessor: PropTypes.func,
   /**
-   * Set to false to disable rounded corners.
+   * A component that will be used for each data node.
    */
   nodeComponent: PropTypes.func.isRequired,
 };

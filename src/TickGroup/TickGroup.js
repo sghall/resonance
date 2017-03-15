@@ -7,23 +7,23 @@ import defaultKeyAccessor from '../core/defaultKeyAccessor';
 
 const propTypes = {
   /**
-   * The CSS class name of the root element.
+   * A continuous D3 scale with a ticks method.
    */
   scale: PropTypes.func.isRequired,
   /**
-   * The CSS class name of the root element.
+   * The CSS class name of the root g element.
    */
   className: PropTypes.string,
   /**
-   * The CSS class name of the root element.
+   * Function that returns the string key for each object.
    */
   keyAccessor: PropTypes.func,
   /**
-   * Set to false to disable rounded corners.
+   * The number of ticks to render (approximate)
    */
   tickCount: PropTypes.number,
   /**
-   * Set to false to disable rounded corners.
+   * A component that will be used for each tick.
    */
   tickComponent: PropTypes.func.isRequired,
 };
