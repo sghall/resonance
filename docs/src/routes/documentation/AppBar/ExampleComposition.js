@@ -1,4 +1,5 @@
 // @flow weak
+/* eslint react/no-multi-comp: 0 */
 
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';

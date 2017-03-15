@@ -1,5 +1,5 @@
 // @flow weak
-/* eslint no-shadow: "false" */
+/* eslint no-shadow: 0 */
 
 import { createSelector } from 'reselect';
 import * as shape from 'd3-shape';
@@ -58,8 +58,8 @@ export const makeGetSelectedData = () => {
           offset,
           paths: [],
           xScale: () => 0,
-          yScale: () => 0, 
-        }
+          yScale: () => 0,
+        };
       }
 
       const dates = data.map((d) => utcParse('%Y-%m-%dT%H:%M:%S.%LZ')(d.date));
