@@ -50,9 +50,6 @@ function genDescription(required, description, type) {
   }
 
   const parsed = parseDoctrine(description);
-
-  // two new lines result in a newline in the table. all other new lines
-  // must be eliminated to prevent markdown mayhem.
   const jsDocText = parsed.description.replace(/\n\n/g, '<br>').replace(/\n/g, ' ');
 
   if (parsed.tags.some((tag) => tag.title === 'ignore')) return null;
@@ -60,22 +57,22 @@ function genDescription(required, description, type) {
   let signature = '';
 
   if (type.name === 'func' && parsed.tags.length > 0) {
-    // Remove new lines from tag descriptions to avoid markdown errors.
-    parsed.tags.forEach((tag) => {
-      if (tag.description) {
-        tag.description = tag.description.replace(/\n/g, ' ');
+    parsed.tags.map((tag) => {
+      const res = { ...tag };
+
+      if (res.description) {
+        res.description.replace(/\n/g, ' ');
       }
+
+      return res;
     });
 
-    // Split up the parsed tags into 'arguments' and 'returns' parsed objects. If there's no
-    // 'returns' parsed object (i.e., one with title being 'returns'), make one of type 'void'.
-    const parsedLength = parsed.tags.length;
     let parsedArgs = [];
     let parsedReturns;
 
-    if (parsed.tags[parsedLength - 1].title === 'returns') {
-      parsedArgs = parsed.tags.slice(0, parsedLength - 1);
-      parsedReturns = parsed.tags[parsedLength - 1];
+    if (parsed.tags[parsed.tags.length - 1].title === 'returns') {
+      parsedArgs = parsed.tags.slice(0, parsed.tags.length - 1);
+      parsedReturns = parsed.tags[parsed.tags.length - 1];
     } else {
       parsedArgs = parsed.tags;
       parsedReturns = { type: { name: 'void' } };
@@ -151,8 +148,6 @@ class PropTypeDescription extends Component {
 
       text += `| ${name} | ${generatePropType(prop.type)} | ${defaultValue} | ${desc} |\n`;
     });
-
-    text += 'Other properties (not documented) are applied to the root element.';
 
     let requiredPropFootnote = '';
 
