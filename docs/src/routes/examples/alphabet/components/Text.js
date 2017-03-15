@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import withTransitions from 'resonance/withTransitions';
 import { easePoly } from 'd3-ease';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
@@ -76,5 +75,5 @@ class Text extends PureComponent {
   }
 }
 
-export default withTransitions(Text);
+export default Text;
 

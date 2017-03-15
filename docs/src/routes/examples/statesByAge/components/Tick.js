@@ -2,7 +2,6 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import { format } from 'd3-format';
-import withTransitions from 'resonance/withTransitions';
 import { easeExp } from 'd3-ease';
 import palette from 'docs/src/utils/palette';
 import { dims } from '../module';
@@ -84,5 +83,5 @@ class Tick extends PureComponent {
   }
 }
 
-export default withTransitions(Tick);
+export default Tick;
 

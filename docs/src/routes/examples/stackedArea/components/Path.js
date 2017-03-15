@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import withTransitions from 'resonance/withTransitions';
 
 class Path extends Component {
   static propTypes = {
@@ -61,4 +60,4 @@ class Path extends Component {
   }
 }
 
-export default withTransitions(Path);
+export default Path;

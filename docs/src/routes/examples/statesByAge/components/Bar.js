@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import withTransitions from 'resonance/withTransitions';
 import { easePoly } from 'd3-ease';
 import { format } from 'd3-format';
 import palette from 'docs/src/utils/palette';
@@ -97,5 +96,5 @@ class Bar extends PureComponent {
   }
 }
 
-export default withTransitions(Bar);
+export default Bar;
 

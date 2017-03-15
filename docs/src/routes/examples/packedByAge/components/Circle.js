@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { PureComponent, PropTypes } from 'react';
-import withTransitions from 'resonance/withTransitions';
 import { scaleOrdinal } from 'd3-scale';
 import { COLORS, AGES } from '../module/constants';
 
@@ -103,5 +102,5 @@ class Circle extends PureComponent {
   }
 }
 
-export default withTransitions(Circle);
+export default Circle;
 
