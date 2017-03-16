@@ -7,7 +7,7 @@ import defaultKeyAccessor from '../core/defaultKeyAccessor';
 
 const propTypes = {
   /**
-   * An array of objects.
+   * An array of data objects.
    */
   data: PropTypes.array.isRequired,
   /**
@@ -15,11 +15,11 @@ const propTypes = {
    */
   className: PropTypes.string,
   /**
-   * Function that returns the string key for each object.
+   * The function that returns a string key given a data object.
    */
   keyAccessor: PropTypes.func,
   /**
-   * A component that will be used for each data node.
+   * The component that will be used to render each node.
    */
   nodeComponent: PropTypes.func.isRequired,
 };
@@ -35,16 +35,12 @@ export default class NodeGroup extends PureComponent {
     super(props);
 
     (this:any).removeUDID = this.removeUDID.bind(this);
+    this.WrappedComponent = withTransitions(props.nodeComponent);
   }
 
   state = {
     nodes: [],
     udids: {},
-  }
-
-  componentWillMount() {
-    const { nodeComponent: Node } = this.props;
-    this.WrappedComponent = withTransitions(Node);
   }
 
   componentDidMount() {
@@ -57,6 +53,7 @@ export default class NodeGroup extends PureComponent {
     }
   }
 
+  WrappedComponent = null;
   removed = new Map();
 
   updateNodes(props) {

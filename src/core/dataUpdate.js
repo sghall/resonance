@@ -1,6 +1,7 @@
 // @flow weak
 
 import composeNode from './defaultComposeNode';
+import defaultKeyAccessor from './defaultKeyAccessor';
 import {
   APPEAR,
   UPDATE,
@@ -9,7 +10,7 @@ import {
 
 
 const nodeUpdate = (props, state, removed) => {
-  const { data, keyAccessor } = props;
+  const { data, keyAccessor = defaultKeyAccessor } = props;
   const nodes = [];
   const udids = {};
 

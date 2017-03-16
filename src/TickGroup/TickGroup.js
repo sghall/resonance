@@ -3,11 +3,11 @@
 import React, { PureComponent, PropTypes } from 'react';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
-import defaultKeyAccessor from '../core/defaultKeyAccessor';
+import keyAccessor from '../core/defaultKeyAccessor';
 
 const propTypes = {
   /**
-   * A continuous D3 scale with a ticks method.
+   * The continuous D3 scale to use to render ticks.
    */
   scale: PropTypes.func.isRequired,
   /**
@@ -15,15 +15,11 @@ const propTypes = {
    */
   className: PropTypes.string,
   /**
-   * Function that returns the string key for each object.
-   */
-  keyAccessor: PropTypes.func,
-  /**
    * The number of ticks to render (approximate)
    */
   tickCount: PropTypes.number,
   /**
-   * A component that will be used for each tick.
+   * The component that will be used to render each tick.
    */
   tickComponent: PropTypes.func.isRequired,
 };
@@ -33,13 +29,13 @@ export default class TickGroup extends PureComponent {
 
   static defaultProps = {
     tickCount: 10,
-    keyAccessor: defaultKeyAccessor,
   };
 
   constructor(props) {
     super(props);
 
     (this:any).removeUDID = this.removeUDID.bind(this);
+    this.WrappedComponent = withTransitions(props.tickComponent);
   }
 
   state = {
@@ -47,11 +43,6 @@ export default class TickGroup extends PureComponent {
     udids: {},
     prevScale: () => {},
     currScale: () => {},
-  }
-
-  componentWillMount() {
-    const { tickComponent: Tick } = this.props;
-    this.WrappedComponent = withTransitions(Tick);
   }
 
   componentDidMount() {
@@ -64,6 +55,7 @@ export default class TickGroup extends PureComponent {
     }
   }
 
+  WrappedComponent = null;
   removed = new Map();
 
   updateTicks(prev, next) {
@@ -82,7 +74,7 @@ export default class TickGroup extends PureComponent {
   }
 
   render() {
-    const { props: { keyAccessor, className }, WrappedComponent, state } = this;
+    const { props: { className }, WrappedComponent, state } = this;
 
     const props = Object.assign({}, this.props);
 
