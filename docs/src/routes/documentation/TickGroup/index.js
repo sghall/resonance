@@ -5,7 +5,7 @@ import React from 'react';
 import Title from 'react-title-component';
 
 import avatarExampleSimpleCode from '!raw-loader!./ExampleSimple';
-import avatarCode from '!raw-loader!resonance/Surface/Surface';
+import tickGroupCode from '!raw-loader!resonance/TickGroup/TickGroup';
 
 import CodeExample from '../../../components/CodeExample';
 import MarkdownElement from '../../../components/MarkdownElement';
@@ -24,7 +24,7 @@ const TickGroupDocs = () => (
     >
       <AvatarExampleSimple />
     </CodeExample>
-    <PropTypeDescription code={avatarCode} />
+    <PropTypeDescription code={tickGroupCode} />
   </div>
 );
 

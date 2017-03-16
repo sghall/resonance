@@ -4,7 +4,7 @@
 import React from 'react';
 import Title from 'react-title-component';
 
-import autoCompleteCode from '!raw-loader!resonance/Surface/Surface';
+import nodeGroupCode from '!raw-loader!resonance/NodeGroup/NodeGroup';
 
 import autoCompleteExampleSimpleCode from '!raw-loader!./ExampleSimple';
 import autoCompleteExampleDataSourcesCode from '!raw-loader!./ExampleDataSources';
@@ -49,7 +49,7 @@ const NodeGroupDocs = () => (
     >
       <AutoCompleteExampleControlled />
     </CodeExample>
-    <PropTypeDescription code={autoCompleteCode} />
+    <PropTypeDescription code={nodeGroupCode} />
   </div>
 );
 
