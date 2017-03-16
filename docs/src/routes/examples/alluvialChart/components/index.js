@@ -10,6 +10,7 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
+import { utcFormat } from 'd3-time-format';
 import palette from 'docs/src/utils/palette';
 import { updateData, changeOffset, changeTension, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
@@ -19,6 +20,7 @@ import XAxis from './XAxis';
 import description from '../description.md';
 
 const getPathKey = (d) => d.name;
+const dateFormat = utcFormat('%-d/%-m/%Y');
 
 export class Example extends Component {
   constructor(props) {
@@ -68,61 +70,76 @@ export class Example extends Component {
             </div>
             <div className="row">
               <div className="col-md-4 col-sm-4">
-                <div className="row">
-                  <div className="col-md-12 col-sm-12">
-                    <h5>Chart Offset:</h5>
-                    <RadioButtonGroup
-                      name="offsets"
-                      valueSelected={offset}
-                      onChange={this.changeOffset}
-                    >
-                      <RadioButton
-                        value="stacked"
-                        label="Stacked"
-                      />
-                      <RadioButton
-                        value="stream"
-                        label="Stream"
-                      />
-                    </RadioButtonGroup>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12 col-sm-12">
-                    <RaisedButton
-                      label="Update Data"
-                      onClick={() => dispatch(updateData())}
-                    />
-                  </div>
-                </div>
+                <h5>Chart Offset:</h5>
+                <RadioButtonGroup
+                  name="offsets"
+                  valueSelected={offset}
+                  onChange={this.changeOffset}
+                >
+                  <RadioButton
+                    value="stacked"
+                    label="Stacked"
+                  />
+                  <RadioButton
+                    value="stream"
+                    label="Stream"
+                  />
+                </RadioButtonGroup>
               </div>
               <div className="col-md-8 col-sm-8">
-                <div className="row">
-                  <div className="col-md-12 col-sm-12">
-                    <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
-                    <Slider
-                      min={0} max={10000} step={100}
-                      value={duration}
-                      onChange={this.setDuration}
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12 col-sm-12">
-                    <h5>Tension Setting: {(tension).toFixed(2)}</h5>
-                    <Slider
-                      min={0} max={1} step={0.01}
-                      value={tension}
-                      onChange={this.setTension}
-                      onDragStop={this.changeTension}
-                    />
-                  </div>
-                </div>
+                <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
+                <Slider
+                  sliderStyle={{ marginBottom: 20 }}
+                  min={0} max={10000} step={100}
+                  value={duration}
+                  onChange={this.setDuration}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-4 col-sm-4">
+                <RaisedButton
+                  style={{ width: '100%', height: 60 }}
+                  label="Update Data"
+                  onClick={() => dispatch(updateData())}
+                />
+              </div>
+              <div className="col-md-8 col-sm-8">
+                <h5>Tension Setting: {(tension).toFixed(2)}</h5>
+                <Slider
+                  sliderStyle={{ marginBottom: 10 }}
+                  min={0} max={1} step={0.01}
+                  value={tension}
+                  onChange={this.setTension}
+                  onDragStop={this.changeTension}
+                />
               </div>
             </div>
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
+                  <g>
+                    {xScale.ticks(4).map((d) => {
+                      const date = dateFormat(d);
+                      return (
+                        <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
+                          <line
+                            style={{ pointerEvents: 'none' }}
+                            x1={0} y1={0}
+                            x2={0} y2={yScale.range()[0]}
+                            opacity={0.2}
+                            stroke={palette.textColor}
+                          />
+                          <text
+                            fontSize="8px"
+                            textAnchor="middle"
+                            fill={palette.textColor}
+                            x={0} y={-10}
+                          >{date}</text>
+                        </g>
+                      );
+                    })}
+                  </g>
                   <TickGroup
                     scale={yScale}
                     xScale={xScale}

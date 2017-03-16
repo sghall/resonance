@@ -98,7 +98,7 @@ class Tick extends PureComponent {
           opacity={0.2}
         />
         <text
-          fontSize={'9px'}
+          fontSize={'8px'}
           textAnchor="end"
           dy=".35em"
           fill={palette.textColor}
