@@ -106,14 +106,7 @@ export class Example extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-4 col-sm-3">
-                <Legend
-                  filter={filter}
-                  toggleFilter={this.toggleFilter}
-                  setActiveSeries={this.setActiveSeries}
-                />
-              </div>
-              <div className="col-md-8 col-sm-9" style={{ padding: 0 }}>
+              <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
                   <defs>
                     <pattern id="hatch" patternUnits="userSpaceOnUse" width="4" height="4">

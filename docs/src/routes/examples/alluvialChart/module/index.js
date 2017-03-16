@@ -64,55 +64,55 @@ export const makeGetSelectedData = () => {
 
       const dates = data.map((d) => utcParse('%Y-%m-%dT%H:%M:%S.%LZ')(d.date));
 
-      let layoutOffset = shape.stackOffsetNone;
+      // let layoutOffset = shape.stackOffsetNone;
 
-      if (offset === 'stream') {
-        layoutOffset = shape.stackOffsetSilhouette;
-      } else if (offset === 'expand') {
-        layoutOffset = shape.stackOffsetExpand;
-      }
+      // if (offset === 'stream') {
+      //   layoutOffset = shape.stackOffsetSilhouette;
+      // } else if (offset === 'expand') {
+      //   layoutOffset = shape.stackOffsetExpand;
+      // }
 
       const layout = shape.stack()
         .keys(shown.map((d) => d.name))
         .value((d, key) => d[key])
-        .offset(layoutOffset)(data);
+        .offset(shape.stackOffsetSilhouette)(data);
 
-     console.log(layout);
 
-      const lenY = layout.length;
-      const lenX = layout[0].length;
+      if (offset !== 'stream') {
+        const lenY = layout.length;
+        const lenX = layout[0].length;
 
-      for (let x = 0; x < lenX; x++) {
-        const temp = [];
+        for (let x = 0; x < lenX; x++) {
+          const temp = [];
 
-        let minY = Number.POSITIVE_INFINITY;
+          let minY = Number.POSITIVE_INFINITY;
 
-        for (let y = 0; y < lenY; y++) {
-          const y0 = layout[y][x][0];
-          const y1 = layout[y][x][1];
-          const dy = y1 - y0;
+          for (let y = 0; y < lenY; y++) {
+            const y0 = layout[y][x][0];
+            const y1 = layout[y][x][1];
+            const dy = y1 - y0;
 
-          if (y0 < minY) {
-            minY = y0;
+            if (y0 < minY) {
+              minY = y0;
+            }
+
+            temp.push({ y, dy });
           }
 
-          temp.push({ y, dy });
-        }
+          const sorted = temp.sort((a, b) => a.dy - b.dy);
 
-        const sorted = temp.sort((a, b) => a.dy - b.dy);
+          let curY = minY;
 
-        let curY = minY;
+          for (let k = 0; k < lenY; k++) {
+            const { y, dy } = sorted[k];
 
-        for (let k = 0; k < lenY; k++) {
-          const { y, dy } = sorted[k];
+            layout[y][x][0] = curY;
+            layout[y][x][1] = curY + dy;
 
-          layout[y][x][0] = curY;
-          layout[y][x][1] = curY + dy;
-
-          curY += dy;
+            curY += dy;
+          }
         }
       }
-
 
       const xScale = scaleUtc()
         .range([0, dims[0]])
