@@ -20,7 +20,7 @@ class Path extends PureComponent {
 
     return {
       node: {
-        opacity: [1e-6, 0.8],
+        opacity: [1e-6, 0.5],
         d: [path],
       },
       timing: { duration },
@@ -32,7 +32,7 @@ class Path extends PureComponent {
 
     return {
       node: {
-        opacity: [0.8],
+        opacity: [0.5],
         d: [path],
       },
       timing: { duration },

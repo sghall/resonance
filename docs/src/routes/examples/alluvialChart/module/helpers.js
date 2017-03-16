@@ -42,6 +42,7 @@ export function getInitialValues(days:number) {
 
 export function getPath(x, y, yVals, dates) {
   return shape.area()
+    .curve(shape.curveMonotoneX)
     .x((d) => x(d))
     .y0((d, i) => y(yVals[i][0]))
     .y1((d, i) => y(yVals[i][1]))(dates);

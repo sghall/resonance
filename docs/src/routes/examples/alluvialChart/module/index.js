@@ -9,7 +9,7 @@ import { extent, merge } from 'd3-array';
 import { VIEW, TRBL, COLORS, EXAMPLE_STORE_KEY } from './constants';
 import { getInitialValues, getPath } from './helpers';
 
-const { data, filter } = getInitialValues(100);
+const { data, filter } = getInitialValues(20);
 
 const colors = scaleOrdinal()
   .range(COLORS)
@@ -23,19 +23,19 @@ export const dims = [
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-const STACKED_AREA_TOGGLE_FILTER = 'STACKED_AREA_TOGGLE_FILTER';
-const STACKED_AREA_CHANGE_OFFSET = 'STACKED_AREA_CHANGE_OFFSET';
+const ALLUVIAL_CHART_TOGGLE_FILTER = 'ALLUVIAL_CHART_TOGGLE_FILTER';
+const ALLUVIAL_CHART_CHANGE_OFFSET = 'ALLUVIAL_CHART_CHANGE_OFFSET';
 
 // ********************************************************************
 //  ACTION CREATORS
 // ********************************************************************
 export const toggleFilter = (index) => ({
-  type: STACKED_AREA_TOGGLE_FILTER,
+  type: ALLUVIAL_CHART_TOGGLE_FILTER,
   index,
 });
 
 export const changeOffset = (name) => ({
-  type: STACKED_AREA_CHANGE_OFFSET,
+  type: ALLUVIAL_CHART_CHANGE_OFFSET,
   name,
 });
 
@@ -77,6 +77,43 @@ export const makeGetSelectedData = () => {
         .value((d, key) => d[key])
         .offset(layoutOffset)(data);
 
+     console.log(layout);
+
+      const lenY = layout.length;
+      const lenX = layout[0].length;
+
+      for (let x = 0; x < lenX; x++) {
+        const temp = [];
+
+        let minY = Number.POSITIVE_INFINITY;
+
+        for (let y = 0; y < lenY; y++) {
+          const y0 = layout[y][x][0];
+          const y1 = layout[y][x][1];
+          const dy = y1 - y0;
+
+          if (y0 < minY) {
+            minY = y0;
+          }
+
+          temp.push({ y, dy });
+        }
+
+        const sorted = temp.sort((a, b) => a.dy - b.dy);
+
+        let curY = minY;
+
+        for (let k = 0; k < lenY; k++) {
+          const { y, dy } = sorted[k];
+
+          layout[y][x][0] = curY;
+          layout[y][x][1] = curY + dy;
+
+          curY += dy;
+        }
+      }
+
+
       const xScale = scaleUtc()
         .range([0, dims[0]])
         .domain([dates[0], dates[dates.length - 1]]);
@@ -117,9 +154,9 @@ function toggle(state, action) {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case STACKED_AREA_TOGGLE_FILTER:
+    case ALLUVIAL_CHART_TOGGLE_FILTER:
       return Object.assign({}, state, { filter: toggle(state, action) });
-    case STACKED_AREA_CHANGE_OFFSET:
+    case ALLUVIAL_CHART_CHANGE_OFFSET:
       return Object.assign({}, state, { offset: action.name });
     default:
       return state;
