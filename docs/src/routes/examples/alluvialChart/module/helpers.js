@@ -7,7 +7,7 @@ import { genRandomSeries } from 'docs/src/utils/helpers';
 import { FRUITS } from './constants';
 
 export function getInitialValues(days:number) {
-  const data = shuffle(FRUITS).slice(0, 10);
+  const data = shuffle(FRUITS).slice(0, 15);
   const time = moment().subtract(days, 'days').hour(0).minute(0);
 
   const names = {};
@@ -42,7 +42,7 @@ export function getInitialValues(days:number) {
 
 export function getPath(x, y, yVals, dates) {
   return shape.area()
-    .curve(shape.curveMonotoneX)
+    .curve(shape.curveCardinal.tension(0.1))
     .x((d) => x(d))
     .y0((d, i) => y(yVals[i][0]))
     .y1((d, i) => y(yVals[i][1]))(dates);

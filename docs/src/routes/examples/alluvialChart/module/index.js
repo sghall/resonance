@@ -78,7 +78,7 @@ export const makeGetSelectedData = () => {
         .offset(shape.stackOffsetSilhouette)(data);
 
 
-      if (offset !== 'stream') {
+      if (offset === 'stream') {
         const lenY = layout.length;
         const lenX = layout[0].length;
 
