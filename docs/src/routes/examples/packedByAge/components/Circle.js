@@ -38,14 +38,14 @@ class Circle extends PureComponent {
   onAppear() {
     const { duration, data: { name, x, y, r, depth }, sortKey } = this.props;
     const d0 = depth === 0 ? 0 : duration;
-    const d1 = depth === 0 ? 0 : duration * 1.5;
+    const d1 = depth === 0 ? 0 : duration * 2;
 
     return {
       node: {
         opacity: [1e-6, 0.8],
-        transform: ['translate(0,0)', `translate(${x},${y})`],
+        transform: `translate(${x},${y})`,
       },
-      circle: { fill: getFill(depth, name, sortKey), r },
+      circle: { fill: getFill(depth, name, sortKey), r: [0, r] },
       timing: { duration: d0, delay: d1 },
     };
   }

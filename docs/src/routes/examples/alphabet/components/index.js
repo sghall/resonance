@@ -13,6 +13,8 @@ import Text from './Text';
 import { dataUpdate, makeGetSelectedData, dims } from '../module';
 import description from '../description.md';
 
+const keyAccessor = (d) => d.letter;
+
 export class Example extends Component {
 
   componentDidMount() {
@@ -47,7 +49,7 @@ export class Example extends Component {
                   <line stroke="grey" x1={0} y1={dims[1] / 2} x2={dims[0]} y2={dims[1] / 2} />
                   <NodeGroup
                     data={this.props.data}
-                    keyAccessor={(d) => d.letter}
+                    keyAccessor={keyAccessor}
                     nodeComponent={Text}
                   />
                 </Surface>

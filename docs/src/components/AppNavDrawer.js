@@ -121,6 +121,11 @@ class AppNavDrawer extends Component {
                 value="/examples/stacked-area"
                 href="#/examples/stacked-area"
               />,
+              <ListItem
+                primaryText="Alluvial Chart"
+                value="/examples/alluvial-chart"
+                href="#/examples/alluvial-chart"
+              />,
             ]}
           />
         </SelectableList>

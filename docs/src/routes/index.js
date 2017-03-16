@@ -54,6 +54,7 @@ const routes = {
         require('./examples/statesByAge').default(store, injectReducer),
         require('./examples/packedByAge').default(store, injectReducer),
         require('./examples/stackedArea').default(store, injectReducer),
+        require('./examples/alluvialChart').default(store, injectReducer),
       ],
     },
   ],
