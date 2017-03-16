@@ -25,7 +25,6 @@ export class Example extends Component {
     super(props);
 
     (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).setShowTopN = this.setShowTopN.bind(this);
     (this:any).changeOffset = this.changeOffset.bind(this);
     (this:any).toggleFilter = this.toggleFilter.bind(this);
     (this:any).setActiveSeries = this.setActiveSeries.bind(this);
@@ -39,12 +38,6 @@ export class Example extends Component {
   setDuration(e, value) {
     this.setState({
       duration: Math.floor(value * 10000),
-    });
-  }
-
-  setShowTopN(e, value) {
-    this.setState({
-      showTopN: Math.floor(value * 20) + 5,
     });
   }
 

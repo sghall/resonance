@@ -10,7 +10,6 @@ class Path extends PureComponent {
     }).isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
-    activeSeries: PropTypes.string.isRequired,
   };
 
   node = null; // Root node ref set in render method
@@ -50,12 +49,12 @@ class Path extends PureComponent {
   }
 
   render() {
-    const { activeSeries, data: { fill, name } } = this.props;
+    const { data: { fill } } = this.props;
 
     return (
       <path
         ref={(d) => { this.node = d; }}
-        fill={activeSeries === name ? 'url(#hatch)' : fill}
+        fill={fill}
       />
     );
   }

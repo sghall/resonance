@@ -6,43 +6,45 @@ import { shuffle } from 'd3-array';
 import { genRandomSeries } from 'docs/src/utils/helpers';
 import { FRUITS } from './constants';
 
-export function getInitialValues(days:number) {
-  const data = shuffle(FRUITS).slice(0, 15);
-  const time = moment().subtract(days, 'days').hour(0).minute(0);
+const days = 20;
 
-  const names = {};
+export function getKeys(count) {
+  return shuffle(FRUITS).slice(0, count).map((d) => d.name);
+}
 
-  for (let i = 0; i < data.length; i++) {
-    const name = data[i].name;
-    names[name] = genRandomSeries(days);
+export function genData(keys) {
+  const series = {};
+
+  for (let i = 0; i < keys.length; i++) {
+    const name = keys[i];
+    series[name] = genRandomSeries(days);
   }
 
-  const items = [];
+  const data = [];
 
   for (let i = 0; i < days; i++) {
-    const date = time.clone().add(i, 'days').toISOString();
+    const date = moment()
+      .subtract(days - i, 'days').hour(0).minute(0)
+      .toISOString();
 
     const item = { date, total: 0 };
 
-    for (let j = 0; j < data.length; j++) {
-      const label = data[j].name;
-      const value = Math.floor(names[label][i] * 1000);
+    for (let j = 0; j < keys.length; j++) {
+      const label = keys[j];
+      const value = Math.floor(series[label][i] * 1000);
       item[label] = value;
       item.total += value;
     }
 
-    items.push(item);
+    data.push(item);
   }
 
-  return {
-    data: items,
-    filter: Object.keys(names).sort().map((d) => ({ name: d, show: true })),
-  };
+  return data;
 }
 
-export function getPath(x, y, yVals, dates) {
+export function getPath(x, y, yVals, dates, tension) {
   return shape.area()
-    .curve(shape.curveCardinal.tension(0.1))
+    .curve(shape.curveCardinal.tension(tension))
     .x((d) => x(d))
     .y0((d, i) => y(yVals[i][0]))
     .y1((d, i) => y(yVals[i][1]))(dates);

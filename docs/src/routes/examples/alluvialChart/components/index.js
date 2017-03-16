@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import palette from 'docs/src/utils/palette';
-import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
+import { updateData, changeOffset, changeTension, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
 import Path from './Path';
 import Tick from './Tick';
 import XAxis from './XAxis';
-import Legend from './Legend';
 import description from '../description.md';
 
 const getPathKey = (d) => d.name;
@@ -24,28 +24,23 @@ export class Example extends Component {
   constructor(props) {
     super(props);
 
+    (this:any).setTension = this.setTension.bind(this);
     (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).setShowTopN = this.setShowTopN.bind(this);
     (this:any).changeOffset = this.changeOffset.bind(this);
-    (this:any).toggleFilter = this.toggleFilter.bind(this);
-    (this:any).setActiveSeries = this.setActiveSeries.bind(this);
+    (this:any).changeTension = this.changeTension.bind(this);
   }
 
   state = {
     duration: 1000,
-    activeSeries: '',
+    tension: this.props.tension,
   }
 
-  setDuration(e, value) {
-    this.setState({
-      duration: Math.floor(value * 10000),
-    });
+  setTension(e, tension) {
+    this.setState({ tension });
   }
 
-  setShowTopN(e, value) {
-    this.setState({
-      showTopN: Math.floor(value * 20) + 5,
-    });
+  setDuration(e, duration) {
+    this.setState({ duration });
   }
 
   changeOffset(e, d) {
@@ -53,18 +48,14 @@ export class Example extends Component {
     dispatch(changeOffset(d));
   }
 
-  toggleFilter(d) {
-    const { dispatch } = this.props;
-    dispatch(toggleFilter(d));
-  }
-
-  setActiveSeries(activeSeries) {
-    this.setState({ activeSeries });
+  changeTension() {
+    const { props, state } = this;
+    props.dispatch(changeTension(state.tension));
   }
 
   render() {
-    const { filter, offset, paths, xScale, yScale } = this.props;
-    const { duration, activeSeries } = this.state;
+    const { offset, paths, xScale, yScale, dispatch } = this.props;
+    const { duration, tension } = this.state;
 
     return (
       <Paper style={{ padding: 20 }}>
@@ -77,55 +68,61 @@ export class Example extends Component {
             </div>
             <div className="row">
               <div className="col-md-4 col-sm-4">
-                <h5>Chart Offset:</h5>
-                <RadioButtonGroup
-                  name="offsets"
-                  valueSelected={offset}
-                  onChange={this.changeOffset}
-                >
-                  <RadioButton
-                    value="stacked"
-                    label="Stacked"
-                  />
-                  <RadioButton
-                    value="stream"
-                    label="Stream"
-                  />
-                  <RadioButton
-                    value="expand"
-                    label="Expand"
-                  />
-                </RadioButtonGroup>
+                <div className="row">
+                  <div className="col-md-12 col-sm-12">
+                    <h5>Chart Offset:</h5>
+                    <RadioButtonGroup
+                      name="offsets"
+                      valueSelected={offset}
+                      onChange={this.changeOffset}
+                    >
+                      <RadioButton
+                        value="stacked"
+                        label="Stacked"
+                      />
+                      <RadioButton
+                        value="stream"
+                        label="Stream"
+                      />
+                    </RadioButtonGroup>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12 col-sm-12">
+                    <RaisedButton
+                      label="Update Data"
+                      onClick={() => dispatch(updateData())}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="col-md-8 col-sm-8">
-                <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
-                <Slider
-                  defaultValue={0.1}
-                  onChange={this.setDuration}
-                />
+                <div className="row">
+                  <div className="col-md-12 col-sm-12">
+                    <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
+                    <Slider
+                      min={0} max={10000} step={100}
+                      value={duration}
+                      onChange={this.setDuration}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12 col-sm-12">
+                    <h5>Tension Setting: {(tension).toFixed(2)}</h5>
+                    <Slider
+                      min={0} max={1} step={0.01}
+                      value={tension}
+                      onChange={this.setTension}
+                      onDragStop={this.changeTension}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <defs>
-                    <pattern id="hatch" patternUnits="userSpaceOnUse" width="4" height="4">
-                      <path
-                        d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2"
-                        style={{ stroke: palette.textColor, strokeWidth: 2, opacity: 0.5 }}
-                      />
-                    </pattern>
-                  </defs>
-                  <NodeGroup
-                    data={paths}
-                    xScale={xScale}
-                    yScale={yScale}
-                    duration={duration}
-                    activeSeries={activeSeries}
-                    keyAccessor={getPathKey}
-                    nodeComponent={Path}
-
-                  />
                   <TickGroup
                     scale={yScale}
                     xScale={xScale}
@@ -134,6 +131,15 @@ export class Example extends Component {
                     tickComponent={Tick}
                   />
                   <XAxis xScale={xScale} yScale={yScale} />
+                  <NodeGroup
+                    data={paths}
+                    xScale={xScale}
+                    yScale={yScale}
+                    duration={duration}
+                    keyAccessor={getPathKey}
+                    nodeComponent={Path}
+
+                  />
                 </Surface>
               </div>
             </div>
@@ -146,10 +152,10 @@ export class Example extends Component {
 
 Example.propTypes = {
   paths: PropTypes.array.isRequired,
-  filter: PropTypes.array.isRequired,
-  offset: PropTypes.string.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
+  offset: PropTypes.string.isRequired,
+  tension: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

@@ -7,13 +7,13 @@ import { scaleLinear, scaleOrdinal, scaleUtc } from 'd3-scale';
 import { utcParse } from 'd3-time-format';
 import { extent, merge } from 'd3-array';
 import { VIEW, TRBL, COLORS, EXAMPLE_STORE_KEY } from './constants';
-import { getInitialValues, getPath } from './helpers';
+import { getKeys, genData, getPath } from './helpers';
 
-const { data, filter } = getInitialValues(20);
+const keys = getKeys(20);
 
 const colors = scaleOrdinal()
   .range(COLORS)
-  .domain(filter.map((d) => d.name));
+  .domain(keys);
 
 export const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
@@ -23,57 +23,42 @@ export const dims = [
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-const ALLUVIAL_CHART_TOGGLE_FILTER = 'ALLUVIAL_CHART_TOGGLE_FILTER';
+const ALLUVIAL_CHART_UPDATE_DATA = 'ALLUVIAL_CHART_UPDATE_DATA';
 const ALLUVIAL_CHART_CHANGE_OFFSET = 'ALLUVIAL_CHART_CHANGE_OFFSET';
+const ALLUVIAL_CHART_CHANGE_TENSION = 'ALLUVIAL_CHART_CHANGE_TENSION';
 
 // ********************************************************************
 //  ACTION CREATORS
 // ********************************************************************
-export const toggleFilter = (index) => ({
-  type: ALLUVIAL_CHART_TOGGLE_FILTER,
-  index,
-});
-
 export const changeOffset = (name) => ({
   type: ALLUVIAL_CHART_CHANGE_OFFSET,
   name,
+});
+
+export const changeTension = (value) => ({
+  type: ALLUVIAL_CHART_CHANGE_TENSION,
+  value,
+});
+
+export const updateData = () => ({
+  type: ALLUVIAL_CHART_UPDATE_DATA,
 });
 
 // ********************************************************************
 //  SELECTOR
 // ********************************************************************
 const getData = (state) => state[EXAMPLE_STORE_KEY].data;
-const getFilter = (state) => state[EXAMPLE_STORE_KEY].filter;
 const getOffset = (state) => state[EXAMPLE_STORE_KEY].offset;
+const getTension = (state) => state[EXAMPLE_STORE_KEY].tension;
 
 export const makeGetSelectedData = () => {
   return createSelector(
-    [getData, getFilter, getOffset],
-    (data, filter, offset) => {
-      const shown = filter.filter((d) => d.show === true);
-
-      if (data.length === 0 || shown.length === 0) {
-        return {
-          filter,
-          offset,
-          paths: [],
-          xScale: () => 0,
-          yScale: () => 0,
-        };
-      }
-
+    [getData, getOffset, getTension],
+    (data, offset, tension) => {
       const dates = data.map((d) => utcParse('%Y-%m-%dT%H:%M:%S.%LZ')(d.date));
 
-      // let layoutOffset = shape.stackOffsetNone;
-
-      // if (offset === 'stream') {
-      //   layoutOffset = shape.stackOffsetSilhouette;
-      // } else if (offset === 'expand') {
-      //   layoutOffset = shape.stackOffsetExpand;
-      // }
-
       const layout = shape.stack()
-        .keys(shown.map((d) => d.name))
+        .keys(keys)
         .value((d, key) => d[key])
         .offset(shape.stackOffsetSilhouette)(data);
 
@@ -124,15 +109,15 @@ export const makeGetSelectedData = () => {
 
       const paths = [];
 
-      for (let k = 0; k < shown.length; k++) {
+      for (let k = 0; k < keys.length; k++) {
         paths.push({
-          name: shown[k].name,
-          fill: colors(shown[k].name),
-          path: getPath(xScale, yScale, layout[k], dates),
+          name: keys[k],
+          fill: colors(keys[k]),
+          path: getPath(xScale, yScale, layout[k], dates, tension),
         });
       }
 
-      return { filter, offset, paths, xScale, yScale };
+      return { paths, xScale, yScale, offset, tension };
     },
   );
 };
@@ -140,24 +125,16 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { data, filter, offset: 'stream' };
-
-function toggle(state, action) {
-  const item = state.filter[action.index];
-
-  return [
-    ...state.filter.slice(0, action.index),
-    { name: item.name, show: !item.show },
-    ...state.filter.slice(action.index + 1),
-  ];
-}
+const initialState = { data: genData(keys), offset: 'stream', tension: 0.1 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case ALLUVIAL_CHART_TOGGLE_FILTER:
-      return Object.assign({}, state, { filter: toggle(state, action) });
+    case ALLUVIAL_CHART_UPDATE_DATA:
+      return Object.assign({}, state, { data: genData(keys) });
     case ALLUVIAL_CHART_CHANGE_OFFSET:
       return Object.assign({}, state, { offset: action.name });
+    case ALLUVIAL_CHART_CHANGE_TENSION:
+      return Object.assign({}, state, { tension: action.value });
     default:
       return state;
   }

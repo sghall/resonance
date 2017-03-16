@@ -5,7 +5,7 @@ import { color } from 'd3-color';
 export const EXAMPLE_STORE_KEY = 'alluvial-chart';
 
 export const VIEW = [500, 250];        // ViewBox: Width, Height
-export const TRBL = [30, 30, 40, 40];  // Margins: Top, Right, Bottom, Left
+export const TRBL = [30, 30, 10, 40];  // Margins: Top, Right, Bottom, Left
 
 export const COLORS = shuffle([
   '#12291F',
