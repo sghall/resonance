@@ -3,7 +3,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Router, useRouterHistory} from 'react-router';
+import { Provider } from 'react-redux';
 import routes from './routes';
+import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {createHashHistory} from 'history';
 
@@ -20,10 +22,12 @@ injectTapEventPlugin();
  * https://github.com/reactjs/react-router/blob/master/docs/guides/README.md
  */
 render(
-  <Router
-    history={useRouterHistory(createHashHistory)({queryKey: false})}
-    onUpdate={() => window.scrollTo(0, 0)}
-  >
-    {routes}
-  </Router>
+  <Provider store={store}>
+    <Router
+      history={useRouterHistory(createHashHistory)({queryKey: false})}
+      onUpdate={() => window.scrollTo(0, 0)}
+    >
+      {routes}
+    </Router>
+  </Provider>
 , document.getElementById('app'));
