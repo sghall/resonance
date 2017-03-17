@@ -102,7 +102,7 @@ class Tick extends PureComponent {
           textAnchor="end"
           dy=".35em"
           fill={palette.textColor}
-          x={-5} y={0}
+          x={-10} y={0}
         >{offset === 'expand' ? percentFormat(val) : numberFormat(val)}</text>
       </g>
     );
