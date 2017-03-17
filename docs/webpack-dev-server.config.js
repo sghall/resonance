@@ -4,49 +4,40 @@ const buildPath = path.resolve(__dirname, 'src/www');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
-  // Entry point to the project
   entry: [
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
     './node_modules/babel-polyfill/lib/index.js',
     path.resolve(__dirname, 'src/index.js'),
   ],
-  // Webpack config options on how to obtain modules
   resolve: {
-    // When requiring, you don't need to add these extensions
     extensions: ['', '.js', '.md', '.txt'],
     alias: {
       docs: path.resolve(__dirname, '../docs'),
       resonance: path.resolve(__dirname, '../src'),
     },
   },
-  // Configuration for dev server
   devServer: {
     contentBase: 'src/www',
     devtool: 'eval',
     hot: true,
     inline: true,
     port: 3000,
-    // Required for webpack-dev-server.
     outputPath: buildPath,
   },
   devtool: 'eval',
-  // Output file config
   output: {
-    path: buildPath, // Path of output file
-    filename: 'app.js', // Name of output file
+    path: buildPath,
+    filename: 'app.js',
   },
   plugins: [
-    // Allows for sync with browser while developing (like BrowserSync)
     new webpack.HotModuleReplacementPlugin(),
-    // Allows error warninggs but does not stop compiling. Will remove when eslint is added
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
       {from: 'src/www/index.html'},
     ]),
   ],
   module: {
-    // Allow loading of non-es
     loaders: [
       {
         test: /\.js$/,
