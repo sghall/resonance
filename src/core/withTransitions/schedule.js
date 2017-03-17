@@ -4,7 +4,7 @@
 import { timer, timeout } from 'd3-timer';
 import { CREATED, SCHEDULED, STARTING, STARTED, RUNNING, ENDING, ENDED } from './phases';
 
-export default function (node, ref:string, id:number, timing, tweens, events = {}) {
+export default function(node, ref:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
