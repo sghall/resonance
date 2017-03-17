@@ -23,7 +23,7 @@ import PropTypeDescription from '../../../components/PropTypeDescription';
 
 const NodeGroupDocs = () => (
   <div>
-    <Title render={(previousTitle) => `Auto Complete - ${previousTitle}`} />
+    <Title render={(previousTitle) => `Automatic Complete - ${previousTitle}`} />
     <MarkdownElement text={autoCompleteReadmeText} />
     <CodeExample
       code={autoCompleteExampleSimpleCode}

@@ -1,44 +1,29 @@
 // @flow weak
 
-import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux';
 import React from 'react';
-import { render } from 'react-dom';
-import ReactPerf from 'react-addons-perf';
-import store from './store';
-import App from './components/App';
+import {render} from 'react-dom';
+import {Router, useRouterHistory} from 'react-router';
+import routes from './routes';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import {createHashHistory} from 'history';
 
-// Warns about potential accessibility issues with your React elements.
-//
-// import a11y from 'react-a11y';
-// if (process.env.NODE_ENV !== 'production') {
-//   a11y(React, { includeSrcNode: true, ReactDOM });
-// }
+// Helpers for debugging
+window.React = React;
+window.Perf = require('react-addons-perf');
 
-window.Perf = ReactPerf;
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
-const rootEl = document.querySelector('#app');
-
+/**
+ * Render the main app component. You can read more about the react-router here:
+ * https://github.com/reactjs/react-router/blob/master/docs/guides/README.md
+ */
 render(
-  <AppContainer errorReporter={({ error }) => { throw error; }}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </AppContainer>,
-  rootEl,
-);
-
-if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./components/App', () => {
-    const NextApp = require('./components/App').default; // eslint-disable-line global-require
-
-    render(
-      <AppContainer errorReporter={({ error }) => { throw error; }}>
-        <Provider store={store}>
-          <NextApp />
-        </Provider>
-      </AppContainer>,
-      rootEl,
-    );
-  });
-}
+  <Router
+    history={useRouterHistory(createHashHistory)({queryKey: false})}
+    onUpdate={() => window.scrollTo(0, 0)}
+  >
+    {routes}
+  </Router>
+, document.getElementById('app'));

@@ -16,8 +16,8 @@ const config = {
     // When requiring, you don't need to add these extensions
     extensions: ['', '.js', '.md', '.txt'],
     alias: {
-      // material-ui requires will be searched in src folder, not in node_modules
-      'resonance': path.resolve(__dirname, '../src'),
+      docs: path.resolve(__dirname, '../docs'),
+      resonance: path.resolve(__dirname, '../src'),
     },
   },
   // Configuration for dev server
