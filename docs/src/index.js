@@ -1,6 +1,5 @@
 // @flow weak
 
-import 'es6-promise/auto';  // temporarily polyfill promises - webpack 2 bug
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import React from 'react';
