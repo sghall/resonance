@@ -1,19 +1,26 @@
-// @flow weak
-const { jsdom } = require('jsdom');
+import {jsdom} from 'jsdom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-function createDOM() {
-  global.document = jsdom('');
-  global.window = document.defaultView;
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
-  Object.keys(document.defaultView).forEach((property) => {
-    if (typeof global[property] === 'undefined') {
-      global[property] = document.defaultView[property];
-    }
-  });
+/**
+ * Bootstrap the DOM environment in node
+ */
 
-  global.navigator = {
-    userAgent: 'node.js',
-  };
-}
+const exposedProperties = ['window', 'navigator', 'document'];
 
-module.exports = createDOM;
+global.document = jsdom('');
+global.window = document.defaultView;
+
+Object.keys(document.defaultView).forEach((property) => {
+  if (typeof global[property] === 'undefined') {
+    exposedProperties.push(property);
+    global[property] = document.defaultView[property];
+  }
+});
+
+global.navigator = {
+  userAgent: 'node.js',
+};
