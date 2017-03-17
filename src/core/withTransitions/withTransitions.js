@@ -5,7 +5,7 @@ import stop from './stop';
 import { getDisplayName } from './helpers';
 import { APPEAR, UPDATE, REMOVE } from '../types';
 
-const propTypes = {
+export const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
   node: PropTypes.object.isRequired,
