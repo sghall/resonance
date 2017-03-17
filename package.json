@@ -34,7 +34,8 @@
     "test:coverage": "cross-env NODE_ENV=test babel-node ./node_modules/istanbul/lib/cli.js cover test/index.js",
     "test:karma": "karma start test/karma.conf.js --single-run",
     "test:unit": "cross-env NODE_ENV=test babel-node test/index.js unit",
-    "test:unit:watch": "cross-env NODE_ENV=test babel-node test/watch.js unit"
+    "test:unit:watch": "cross-env NODE_ENV=test babel-node test/watch.js unit",
+    "flow": "flow"
   },
   "peerDependencies": {
     "react": "^15.4.2"
@@ -73,6 +74,7 @@
     "eslint-plugin-material-ui": "file:scripts/eslint-plugin-material-ui",
     "eslint-plugin-mocha": "^4.7.0",
     "eslint-plugin-react": "^6.7.1",
+    "flow-bin": "^0.40.0",
     "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
     "istanbul": "^1.1.0-alpha.1",
