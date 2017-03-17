@@ -12,11 +12,10 @@ import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { utcFormat } from 'd3-time-format';
 import palette from 'docs/src/utils/palette';
-import { updateData, changeOffset, changeTension, makeGetSelectedData } from '../module';
+import { updateData, changeLayout, changeTension, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
 import Path from './Path';
 import Tick from './Tick';
-import XAxis from './XAxis';
 import description from '../description.md';
 
 const getPathKey = (d) => d.name;
@@ -28,7 +27,7 @@ export class Example extends Component {
 
     (this:any).setTension = this.setTension.bind(this);
     (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).changeOffset = this.changeOffset.bind(this);
+    (this:any).changeLayout = this.changeLayout.bind(this);
     (this:any).changeTension = this.changeTension.bind(this);
   }
 
@@ -45,9 +44,9 @@ export class Example extends Component {
     this.setState({ duration });
   }
 
-  changeOffset(e, d) {
+  changeLayout(e, d) {
     const { dispatch } = this.props;
-    dispatch(changeOffset(d));
+    dispatch(changeLayout(d));
   }
 
   changeTension() {
@@ -56,7 +55,7 @@ export class Example extends Component {
   }
 
   render() {
-    const { offset, paths, xScale, yScale, dispatch } = this.props;
+    const { layout, paths, xScale, yScale, dispatch } = this.props;
     const { duration, tension } = this.state;
 
     return (
@@ -70,19 +69,19 @@ export class Example extends Component {
             </div>
             <div className="row">
               <div className="col-md-4 col-sm-4">
-                <h5>Chart Offset:</h5>
+                <h5>Chart Layout:</h5>
                 <RadioButtonGroup
-                  name="offsets"
-                  valueSelected={offset}
-                  onChange={this.changeOffset}
+                  name="layouts"
+                  valueSelected={layout}
+                  onChange={this.changeLayout}
                 >
                   <RadioButton
-                    value="stacked"
-                    label="Stacked"
+                    value="standard"
+                    label="Standard"
                   />
                   <RadioButton
-                    value="stream"
-                    label="Stream"
+                    value="alluvial"
+                    label="Alluvial"
                   />
                 </RadioButtonGroup>
               </div>
@@ -143,11 +142,9 @@ export class Example extends Component {
                   <TickGroup
                     scale={yScale}
                     xScale={xScale}
-                    offset={offset}
                     duration={duration}
                     tickComponent={Tick}
                   />
-                  <XAxis xScale={xScale} yScale={yScale} />
                   <NodeGroup
                     data={paths}
                     xScale={xScale}
@@ -155,7 +152,6 @@ export class Example extends Component {
                     duration={duration}
                     keyAccessor={getPathKey}
                     nodeComponent={Path}
-
                   />
                 </Surface>
               </div>
@@ -171,7 +167,7 @@ Example.propTypes = {
   paths: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
-  offset: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
   tension: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
 };

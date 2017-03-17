@@ -1,5 +1,6 @@
-## Alluvial Chart
+## Alluvial Style Chart
 
-The data used in the chart below is fake.  It shows series of data for 10 randomly chosen fruit names.  There are 100 points for each of the series being interpolated on the transitions.
+My take on creating an "alluvial" style layout.  It brings the largest value at each x coordinate to the top.
 It uses the same data generator used in Mike Bostock's [stream graph example](https://bl.ocks.org/mbostock/4060954).
-If you refresh the page you will get a new random dataset.
+The tension parameter is fed to the cardinal interpolator for the areas.
+See the [d3-stack](https://github.com/d3/d3-shape#curves) curves section.

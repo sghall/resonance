@@ -6,14 +6,12 @@ import palette from 'docs/src/utils/palette';
 import { dims } from '../module';
 
 const numberFormat = format(',');
-const percentFormat = format('.1p');
 
 class Tick extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       val: React.PropTypes.number.isRequired,
     }).isRequired,
-    offset: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
@@ -22,19 +20,8 @@ class Tick extends PureComponent {
 
   tick = null; // Root node ref set in render method
 
-  onAppear(prev) {
-    const { prevScale, currScale, data: { val }, offset, duration } = this.props;
-    const timing = { duration };
-
-    if (prev.offset !== offset) {
-      return {
-        tick: {
-          opacity: [1e-6, 1],
-          transform: [`translate(0,${currScale(val)})`],
-        },
-        timing,
-      };
-    }
+  onAppear() {
+    const { prevScale, currScale, data: { val }, duration } = this.props;
 
     return {
       tick: {
@@ -44,7 +31,7 @@ class Tick extends PureComponent {
           `translate(0,${currScale(val)})`,
         ],
       },
-      timing,
+      timing: { duration },
     };
   }
 
@@ -60,34 +47,21 @@ class Tick extends PureComponent {
     };
   }
 
-  onRemove(prev) {
-    const { currScale, data: { val }, offset, duration, removeNode } = this.props;
-    const timing = { duration };
-    const events = { end: removeNode };
-
-    if (prev.offset !== offset) {
-      return {
-        tick: {
-          opacity: 1e-6,
-          transform: `translate(0,${currScale(val)})`,
-        },
-        timing: { duration: 0 },
-        events,
-      };
-    }
+  onRemove() {
+    const { currScale, data: { val }, duration, removeNode } = this.props;
 
     return {
       tick: {
         opacity: [1e-6],
         transform: [`translate(0,${currScale(val)})`],
       },
-      timing,
-      events,
+      timing: { duration },
+      events: { end: removeNode },
     };
   }
 
   render() {
-    const { offset, data: { val } } = this.props;
+    const { data: { val } } = this.props;
 
     return (
       <g ref={(d) => { this.tick = d; }}>
@@ -103,7 +77,7 @@ class Tick extends PureComponent {
           dy=".35em"
           fill={palette.textColor}
           x={-5} y={0}
-        >{offset === 'expand' ? percentFormat(val) : numberFormat(val)}</text>
+        >{numberFormat(val)}</text>
       </g>
     );
   }
