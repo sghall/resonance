@@ -5,7 +5,7 @@ import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
 
-const propTypes = {
+export const propTypes = {
   /**
    * An array of data objects.
    */

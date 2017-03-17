@@ -5,7 +5,7 @@ import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import keyAccessor from '../core/defaultKeyAccessor';
 
-const propTypes = {
+export const propTypes = {
   /**
    * The continuous D3 scale to use to render ticks.
    */
