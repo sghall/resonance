@@ -98,15 +98,5 @@
     "rimraf": "^2.5.3",
     "sinon": "^1.17.3",
     "webpack": "^1.13.3"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "**/*.spec.js"
-    ],
-    "sourceMap": false,
-    "instrument": false
   }
 }
