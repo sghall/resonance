@@ -78,7 +78,6 @@ module.exports = {
     'spaced-comment': 'error',
     'yoda': 'error',
     'generator-star-spacing': 'error',
-    'babel/no-await-in-loop': 'error',
     'flowtype/object-type-delimiter': 'error',
     'react/display-name': 'error',
     'react/jsx-closing-bracket-location': 'error',
