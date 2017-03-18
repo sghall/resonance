@@ -4,10 +4,10 @@ import moment from 'moment';
 import * as shape from 'd3-shape';
 import { shuffle } from 'd3-array';
 import { genRandomSeries } from 'docs/src/utils/helpers';
-import { FRUITS } from './constants';
+import fruits from '../../data/fruits';
 
 export function getInitialValues(days:number) {
-  const data = shuffle(FRUITS).slice(0, 10);
+  const data = shuffle(fruits).slice(0, 10);
   const time = moment().subtract(days, 'days').hour(0).minute(0);
 
   const names = {};

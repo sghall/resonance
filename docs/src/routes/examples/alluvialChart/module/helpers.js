@@ -4,12 +4,12 @@ import moment from 'moment';
 import * as shape from 'd3-shape';
 import { shuffle } from 'd3-array';
 import { genRandomSeries } from 'docs/src/utils/helpers';
-import { FRUITS } from './constants';
+import fruits from '../../data/fruits';
 
 const days = 20;
 
 export function getKeys(count) {
-  return shuffle(FRUITS).slice(0, count).map((d) => d.name);
+  return shuffle(fruits).slice(0, count).map((d) => d.name);
 }
 
 export function genData(keys) {

@@ -2,7 +2,8 @@
 import { createSelector } from 'reselect';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { getSortByKey } from 'docs/src/utils/helpers';
-import { DATA, VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
+import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
+import statesByAge from '../../data/statesByAge';
 
 export const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
@@ -90,7 +91,7 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { rawData: DATA, showTop: 10, sortKey: 'Under 5 Years' };
+const initialState = { rawData: statesByAge, showTop: 10, sortKey: 'Under 5 Years' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
