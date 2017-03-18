@@ -22,21 +22,15 @@ Please don't group multiple topics into one issue, but instead each should be it
 
 ## Submitting a Pull Request
 
-Material-UI is a community project, so pull requests are always welcome, but before working on a large change, it is best to open an issue first to discuss it with the maintainers.
+Pull requests are always welcome, but before working on a large change, it is best to open an issue first.
 
 When in doubt, keep your pull requests small. To give a PR the best chance of getting accepted, don't bundle more than one feature or bug fix per pull request. It's always best to create two smaller PRs than one big one.
-
-As with issues, please begin the title with [ComponentName].
 
 When adding new features or modifying existing, please attempt to include tests to confirm the new behaviour.
 
 ### Branch Structure
 
 All stable releases are tagged ([view tags](https://github.com/sghall/resonance/tags)). At any given time, `master` represents the latest development version of the library. Patches or hotfix releases are prepared on an independent branch.
-
-#### `master` is unsafe
-
-We will do our best to keep `master` in good shape, with tests passing at all times. But in order to move fast, we will make API changes that your application might not be compatible with. 
 
 ## Getting started
 
@@ -57,9 +51,8 @@ git checkout -b my-topic-branch
 npm update
 ```
 
-### Testing the documentation site
+### The documentation site
 
-The documentation site is built with Material-UI, and contains examples of all the components. To get started:
 ```js
 npm install
 cd docs
@@ -72,10 +65,10 @@ You can now access the documentation site [locally](http://localhost:3000).
 
 Please follow the coding style of the current code base. Resonance uses eslint, so if possible, enable linting in your editor to get realtime feedback. The linting rules are also run when Webpack recompiles your changes, and can be run manually with `npm run lint`.
 
-You can also run linting on a subset of the codebase with `gulp eslint:src`, `gulp eslint:docs` or `gulp eslint:test`. Finally, when you submit a pull request, they are run again by Travis CI, but hopefully by then your code is already clean!
-
 ## Roadmap
 
+More tests.
+More odcumentation.
 More examples.
 
 ## License
