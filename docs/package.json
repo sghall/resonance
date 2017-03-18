@@ -8,11 +8,10 @@
     "url": "https://github.com/sghall/resonance.git"
   },
   "scripts": {
-    "start": "npm run browser:development",
-    "browser:development": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
-    "browser:build": "NODE_ENV=docs-production webpack --config webpack-production.config.js --progress --colors --profile",
-    "browser:prd": "NODE_ENV=docs-production webpack-dev-server --config webpack-production.config.js --progress --colors",
-    "gh-pages:build": "node ./gh-pages-build.js",
+    "start": "npm run dev",
+    "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
+    "prd": "NODE_ENV=docs-production webpack-dev-server --config webpack-production.config.js --progress --colors",
+    "build": "NODE_ENV=docs-production webpack --config webpack-production.config.js --progress --colors --profile"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
