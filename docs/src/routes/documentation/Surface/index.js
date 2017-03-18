@@ -1,44 +1,49 @@
 // @flow weak
-/* eslint import/no-webpack-loader-syntax: 0 */
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
-import appBarExampleIconCode from '!raw-loader!./ExampleIcon';
-import appBarExampleIconButtonCode from '!raw-loader!./ExampleIconButton';
-import appBarExampleIconComposition from '!raw-loader!./ExampleComposition';
-import appBarCode from '!raw-loader!resonance/Surface/Surface';
-import AppBarExampleComposition from './ExampleComposition';
-import AppBarExampleIconButton from './ExampleIconButton';
-import CodeExample from '../../../components/CodeExample';
-import PropTypeDescription from '../../../components/PropTypeDescription';
-import MarkdownElement from '../../../components/MarkdownElement';
-import appBarReadmeText from './README.md';
-import AppBarExampleIcon from './ExampleIcon';
+import CodeExample from 'docs/src/components/CodeExample';
+import MarkdownElement from 'docs/src/components/MarkdownElement';
+import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 
-const SurfaceDocs = () => (
-  <div>
-    <Title render={(previousTitle) => `App Bar - ${previousTitle}`} />
-    <MarkdownElement text={appBarReadmeText} />
-    <CodeExample
-      code={appBarExampleIconCode}
-      title="Simple example"
-    >
-      <AppBarExampleIcon />
-    </CodeExample>
-    <CodeExample
-      code={appBarExampleIconButtonCode}
-      title="Buttons example"
-    >
-      <AppBarExampleIconButton />
-    </CodeExample>
-    <CodeExample
-      code={appBarExampleIconComposition}
-      title="Composition example"
-    >
-      <AppBarExampleComposition />
-    </CodeExample>
-    <PropTypeDescription code={appBarCode} />
-  </div>
-);
+import AppBarExampleIcon from './ExampleIcon';
+import AppBarExampleIconButton from './ExampleIconButton';
+import AppBarExampleComposition from './ExampleComposition';
+
+class SurfaceDocs extends Component {
+  static propTypes = {
+    route: PropTypes.object.isRequired,
+  }
+
+  render() {
+    const { route: { docContext, srcContext } } = this.props;
+
+    return (
+      <div>
+        <Title render={(previousTitle) => `Surface - ${previousTitle}`} />
+        <MarkdownElement text={docContext('./Surface/README.md')} />
+        <CodeExample
+          code={docContext('./Surface/ExampleIcon')}
+          title="Simple example"
+        >
+          <AppBarExampleIcon />
+        </CodeExample>
+        <CodeExample
+          code={docContext('./Surface/ExampleIconButton')}
+          title="Buttons example"
+        >
+          <AppBarExampleIconButton />
+        </CodeExample>
+        <CodeExample
+          code={docContext('./Surface/ExampleComposition')}
+          title="Composition example"
+        >
+          <AppBarExampleComposition />
+        </CodeExample>
+        <PropTypeDescription code={srcContext('./Surface/Surface')} />
+      </div>
+    );
+  }
+}
 
 export default SurfaceDocs;

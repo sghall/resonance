@@ -8,6 +8,9 @@ import SurfaceDocs from './documentation/Surface';
 import NodeGroupDocs from './documentation/NodeGroup';
 import TickGroupDocs from './documentation/TickGroup';
 
+const docContext = require.context('!raw-loader!./documentation', true);
+const srcContext = require.context('!raw-loader!../../../src', true);
+
 import store, { injectReducer } from '../store';
 
 const routes = {
@@ -30,14 +33,20 @@ const routes = {
       childRoutes: [
         {
           path: '/documentation/surface',
+          docContext,
+          srcContext,
           component: SurfaceDocs,
         },
         {
           path: '/documentation/node-group',
+          docContext,
+          srcContext,
           component: NodeGroupDocs,
         },
         {
           path: '/documentation/tick-group',
+          docContext,
+          srcContext,
           component: TickGroupDocs,
         },
       ],

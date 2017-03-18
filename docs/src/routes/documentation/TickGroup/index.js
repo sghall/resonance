@@ -1,31 +1,49 @@
 // @flow weak
-/* eslint import/no-webpack-loader-syntax: 0 */
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
+import CodeExample from 'docs/src/components/CodeExample';
+import MarkdownElement from 'docs/src/components/MarkdownElement';
+import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 
-import avatarExampleSimpleCode from '!raw-loader!./ExampleSimple';
-import tickGroupCode from '!raw-loader!resonance/TickGroup/TickGroup';
+import AppBarExampleIcon from './ExampleIcon';
+import AppBarExampleIconButton from './ExampleIconButton';
+import AppBarExampleComposition from './ExampleComposition';
 
-import CodeExample from '../../../components/CodeExample';
-import MarkdownElement from '../../../components/MarkdownElement';
-import PropTypeDescription from '../../../components/PropTypeDescription';
+class SurfaceDocs extends Component {
+  static propTypes = {
+    route: PropTypes.object.isRequired,
+  }
 
-import avatarReadmeText from './README.md';
-import AvatarExampleSimple from './ExampleSimple';
+  render() {
+    const { route: { docContext, srcContext } } = this.props;
 
-const TickGroupDocs = () => (
-  <div>
-    <Title render={(previousTitle) => `Avatar - ${previousTitle}`} />
-    <MarkdownElement text={avatarReadmeText} />
-    <CodeExample
-      code={avatarExampleSimpleCode}
-      title="Examples"
-    >
-      <AvatarExampleSimple />
-    </CodeExample>
-    <PropTypeDescription code={tickGroupCode} />
-  </div>
-);
+    return (
+      <div>
+        <Title render={(previousTitle) => `TickGroup - ${previousTitle}`} />
+        <MarkdownElement text={docContext('./TickGroup/README.md')} />
+        <CodeExample
+          code={docContext('./TickGroup/ExampleIcon')}
+          title="Simple example"
+        >
+          <AppBarExampleIcon />
+        </CodeExample>
+        <CodeExample
+          code={docContext('./TickGroup/ExampleIconButton')}
+          title="Buttons example"
+        >
+          <AppBarExampleIconButton />
+        </CodeExample>
+        <CodeExample
+          code={docContext('./TickGroup/ExampleComposition')}
+          title="Composition example"
+        >
+          <AppBarExampleComposition />
+        </CodeExample>
+        <PropTypeDescription code={srcContext('./TickGroup/TickGroup')} />
+      </div>
+    );
+  }
+}
 
-export default TickGroupDocs;
+export default SurfaceDocs;

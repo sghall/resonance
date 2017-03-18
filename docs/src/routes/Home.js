@@ -158,10 +158,6 @@ class HomePage extends Component {
 
     return (
       <FullWidthSection useContent style={styles.root}>
-        <h3 style={styles.h3}>
-          Want to help make this <span style={styles.nowrap}>project awesome? </span>
-          <span style={styles.nowrap}>Check out our repo.</span>
-        </h3>
         <RaisedButton
           label="GitHub"
           primary

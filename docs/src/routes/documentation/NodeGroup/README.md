@@ -1,7 +1,6 @@
-## Auto Complete
+## NodeGroup
 
-The [automatic-complete](https://www.google.com/design/spec/components/text-fields.html#text-fields-auto-complete-text-field)
-is an extension of a regular text-field that will auto-complete the input dynamically. It can take different auto-complete filters and
-uses a menu to display suggestions.
+The [app bar](https://www.google.com/design/spec/layout/structure.html#structure-app-bar), formerly known as the action bar in Android,
+is a special kind of toolbar that’s used for branding, navigation, search, and actions.
 
 ### Examples
