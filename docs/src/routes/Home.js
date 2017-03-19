@@ -59,11 +59,11 @@ class HomePage extends Component {
 
     styles.h2 = Object.assign({}, styles.h1, styles.h2);
 
-    // if (this.props.width === LARGE) {
+    if (this.props.width === LARGE) {
     //   styles.tagline = Object.assign({}, styles.tagline, styles.taglineWhenLarge);
     //   styles.h1 = Object.assign({}, styles.h1, styles.h1WhenLarge);
     //   styles.h2 = Object.assign({}, styles.h2, styles.h2WhenLarge);
-    // }
+    }
 
     return (
       <FullWidthSection style={styles.root}>
