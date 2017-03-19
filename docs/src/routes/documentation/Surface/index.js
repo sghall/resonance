@@ -15,6 +15,36 @@ class SurfaceDocs extends Component {
     route: PropTypes.object.isRequired,
   }
 
+  // render() {
+  //   const { route: { docContext, srcContext } } = this.props;
+
+  //   return (
+  //     <div>
+  //       <Title render={(previousTitle) => `Surface - ${previousTitle}`} />
+  //       <MarkdownElement text={docContext('./Surface/README.md')} />
+  //       <CodeExample
+  //         code={docContext('./Surface/ExampleIcon')}
+  //         title="Simple example"
+  //       >
+  //         <AppBarExampleIcon />
+  //       </CodeExample>
+  //       <CodeExample
+  //         code={docContext('./Surface/ExampleIconButton')}
+  //         title="Buttons example"
+  //       >
+  //         <AppBarExampleIconButton />
+  //       </CodeExample>
+  //       <CodeExample
+  //         code={docContext('./Surface/ExampleComposition')}
+  //         title="Composition example"
+  //       >
+  //         <AppBarExampleComposition />
+  //       </CodeExample>
+  //       <PropTypeDescription code={srcContext('./Surface/Surface')} />
+  //     </div>
+  //   );
+  // }
+
   render() {
     const { route: { docContext, srcContext } } = this.props;
 
@@ -22,24 +52,6 @@ class SurfaceDocs extends Component {
       <div>
         <Title render={(previousTitle) => `Surface - ${previousTitle}`} />
         <MarkdownElement text={docContext('./Surface/README.md')} />
-        <CodeExample
-          code={docContext('./Surface/ExampleIcon')}
-          title="Simple example"
-        >
-          <AppBarExampleIcon />
-        </CodeExample>
-        <CodeExample
-          code={docContext('./Surface/ExampleIconButton')}
-          title="Buttons example"
-        >
-          <AppBarExampleIconButton />
-        </CodeExample>
-        <CodeExample
-          code={docContext('./Surface/ExampleComposition')}
-          title="Composition example"
-        >
-          <AppBarExampleComposition />
-        </CodeExample>
         <PropTypeDescription code={srcContext('./Surface/Surface')} />
       </div>
     );

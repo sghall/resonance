@@ -2,15 +2,6 @@
 
 import React, { PropTypes } from 'react';
 
-/**
- * A piece of material Surface.
- *
- * ```js
- * import Surface from 'resonance/Surface';
- *
- * const Component = () => <Surface zDepth={8}>Hello World</Surface>;
- * ```
- */
 export default function Surface(props) {
   const { className, view, trbl, style, children, ...other } = props;
   const paddingBottom = `${Math.round((view[1] / view[0]) * 100)}%`;
@@ -36,23 +27,23 @@ export default function Surface(props) {
 
 Surface.propTypes = {
   /**
-   * The CSS class name of the root element.
+   * SVG children to be rendered
    */
   children: PropTypes.node,
   /**
-   * The CSS class name of the root element.
+   * The CSS class name of the root div element.
    */
   className: PropTypes.string,
   /**
-   * Shadow depth, corresponds to `dp` in the spec.
+   * Styles to be spread on the root div element.
    */
   style: PropTypes.object,
   /**
-   * Set to false to disable rounded corners.
+   * Top, right, bottom, left (trbl) margins.
    */
   trbl: PropTypes.array,
   /**
-   * Set to false to disable rounded corners.
+   * Width and height attributes of the SVG view box.
    */
   view: PropTypes.array,
 };
