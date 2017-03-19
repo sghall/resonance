@@ -42,7 +42,6 @@ const config = {
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
       {from: 'src/www/css', to: 'css'},
-      {from: 'src/www/images', to: 'images'},
       {from: 'src/www/index.html'},
     ]),
   ],
