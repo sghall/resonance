@@ -19,9 +19,8 @@ module.exports = {
     'babel',
     'react',
     'mocha',
-    'material-ui',
-    "import",
-    "flowtype"
+    'import',
+    'flowtype'
   ],
   rules: {
     'array-bracket-spacing': ['error', 'never'],
@@ -113,7 +112,6 @@ module.exports = {
     'react/require-render-return': 'error',
     'react/self-closing-comp': 'error',
     'react/sort-comp': 'error',
-    'material-ui/docgen-ignore-before-comment': 'error',
     'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',
     'mocha/no-global-tests': 'error',
