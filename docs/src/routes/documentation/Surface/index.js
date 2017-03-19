@@ -2,13 +2,13 @@
 
 import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
-import CodeExample from 'docs/src/components/CodeExample';
+// import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 
-import AppBarExampleIcon from './ExampleIcon';
-import AppBarExampleIconButton from './ExampleIconButton';
-import AppBarExampleComposition from './ExampleComposition';
+// import AppBarExampleIcon from './ExampleIcon';
+// import AppBarExampleIconButton from './ExampleIconButton';
+// import AppBarExampleComposition from './ExampleComposition';
 
 class SurfaceDocs extends Component {
   static propTypes = {
