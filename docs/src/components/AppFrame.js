@@ -140,10 +140,7 @@ class AppFrame extends Component {
 
     // const router = this.context.router;
     const styles = this.getStyles();
-    const title = 'Components';
-      // router.isActive('/get-started') ? 'Get Started' :
-      // router.isActive('/customization') ? 'Customization' :
-      // router.isActive('/components') ? 'Components' : '';
+    const title = 'Resonance';
 
     let docked = false;
     let showMenuIconButton = true;
@@ -190,15 +187,8 @@ class AppFrame extends Component {
           open={navDrawerOpen}
         />
         <FullWidthSection style={styles.footer}>
-          <p style={prepareStyles(styles.p)}>
-            {'A project from '}
-            <a style={styles.a} href="http://www.delimited.io">
-              Delimited Technologies
-            </a>
-          </p>
           <IconButton
             iconStyle={styles.iconButton}
-            iconClassName="muidocs-icon-custom-github"
             href="https://github.com/sghall/resonance"
           />
           <p style={prepareStyles(styles.browserstack)}>
