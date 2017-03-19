@@ -2,6 +2,14 @@
 
 #  Under Construction
 
+## Installation
+
+Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
+
+```sh
+npm install resonance
+```
+
 Checkout the [examples](https://sghall.github.io/resonance/)
 
 To run the examples in this repo...
