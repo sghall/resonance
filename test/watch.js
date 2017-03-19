@@ -6,7 +6,7 @@ Nodemon({
   script: 'test/index.js',
   execMap: {js: 'node_modules/.bin/babel-node'},
   ext: 'js',
-  watch: ['src/', 'test/integration'],
+  watch: ['src/'],
 });
 
 Nodemon.on('start', () => {
