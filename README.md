@@ -1,4 +1,5 @@
 # Resonance
+[![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
 
 ## Installation
 
