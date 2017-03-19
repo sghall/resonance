@@ -2,10 +2,9 @@
 /* eslint-env mocha */
 
 import React, { Component } from 'react';
-import { jsdom } from 'jsdom';
 import { assert } from 'chai';
-import { render } from 'react-dom';
 import transition from './transition';
+import createMount from '../../../test/utils/createMount';
 
 const DURATION = 500;
 const DELAY = 500;
@@ -61,14 +60,19 @@ class Test extends Component {
 }
 
 describe('transition', () => {
-  it('should change attributes on refs over time', (done) => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('div');
-    body.appendChild(container);
+  let mount;
 
-    render(<Test />, container);
-    const line = root.getElementById('my-line');
+  before(() => {
+    mount = createMount();
+  });
+
+  after(() => {
+    mount.cleanUp();
+  });
+
+  it('should change attributes on refs over time', (done) => {
+    mount(<Test />);
+    const line = window.document.getElementById('my-line');
 
     setTimeout(() => {
       assert.strictEqual(+line.getAttribute('x1'), 200, 'should be equal');
@@ -78,14 +82,9 @@ describe('transition', () => {
   });
 
   it('should transition multiple refs', (done) => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('div');
-    body.appendChild(container);
-
-    render(<Test />, container);
-    const rect = root.getElementById('my-rect');
-    const line = root.getElementById('my-line');
+    mount(<Test />);
+    const rect = window.document.getElementById('my-rect');
+    const line = window.document.getElementById('my-line');
 
     setTimeout(() => {
       assert.strictEqual(+rect.getAttribute('x'), 1000, 'should be equal');
@@ -98,26 +97,9 @@ describe('transition', () => {
     }, DURATION * 1.1);
   });
 
-  it('should set the initial value immediately at index 0 of array ', () => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('div');
-    body.appendChild(container);
-
-    render(<Test />, container);
-    const path = root.getElementById('my-path');
-
-    assert.strictEqual(+path.getAttribute('opacity'), 1e-6, 'should be equal');
-  });
-
   it('should accept a delay in milliseconds', (done) => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('div');
-    body.appendChild(container);
-
-    render(<Test />, container);
-    const path = root.getElementById('my-path');
+    mount(<Test />);
+    const path = window.document.getElementById('my-path');
 
     setTimeout(() => {
       assert.strictEqual(+path.getAttribute('opacity'), 0.8, 'should be equal');
@@ -126,13 +108,8 @@ describe('transition', () => {
   });
 
   it('should set attributes not in an array immediately', (done) => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('div');
-    body.appendChild(container);
-
-    render(<Test />, container);
-    const path = root.getElementById('my-path');
+    mount(<Test />);
+    const path = window.document.getElementById('my-path');
 
     setTimeout(() => {
       assert.strictEqual(path.getAttribute('fill'), 'tomato', 'should be equal');

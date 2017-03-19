@@ -3,9 +3,8 @@
 /* eslint react/no-multi-comp:0 */
 
 import React, { Component } from 'react';
-import { jsdom } from 'jsdom';
 import { assert } from 'chai';
-import { render } from 'react-dom';
+import createMount from '../../../test/utils/createMount';
 import transition from './transition';
 import stop from './stop';
 
@@ -78,14 +77,19 @@ class Line extends Component {
 }
 
 describe('stop', () => {
-  it('should stop all scheduled transitions ', (done) => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('svg');
-    body.appendChild(container);
+  let mount;
 
-    render(<Path />, container);
-    const path = root.getElementById('my-path');
+  before(() => {
+    mount = createMount();
+  });
+
+  after(() => {
+    mount.cleanUp();
+  });
+
+  it('should stop all scheduled transitions ', (done) => {
+    mount(<Path />);
+    const path = window.document.getElementById('my-path');
 
     setTimeout(() => {
       assert.strictEqual(+path.getAttribute('opacity'), 1e-6, 'should be equal');
@@ -94,13 +98,8 @@ describe('stop', () => {
   });
 
   it('should stop all transitions in progress ', (done) => {
-    const root = jsdom('');
-    const body = root.body;
-    const container = root.createElement('svg');
-    body.appendChild(container);
-
-    render(<Line />, container);
-    const line = root.getElementById('my-line');
+    mount(<Line />);
+    const line = window.document.getElementById('my-line');
 
     setTimeout(() => {
       assert.isAbove(+line.getAttribute('x1'), 0, 'should be equal');
