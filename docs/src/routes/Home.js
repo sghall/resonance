@@ -30,12 +30,6 @@ class HomePage extends Component {
       label: {
         color: lightBaseTheme.palette.primary1Color,
       },
-      githubStyle: {
-        margin: '16px 32px 0px 8px',
-      },
-      demoStyle: {
-        margin: '16px 32px 0px 32px',
-      },
       h1: {
         fontWeight: typography.fontWeightLight,
       },
@@ -105,11 +99,9 @@ class HomePage extends Component {
           style={styles.button}
         />
         <RaisedButton
-          className="demo-button"
           label="Examples"
           onTouchTap={this.handleTouchTapDemo}
-          style={styles.demoStyle}
-          labelStyle={styles.label}
+          style={styles.button}
         />
       </FullWidthSection>
     );
