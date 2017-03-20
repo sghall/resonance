@@ -1,4 +1,4 @@
-<img hspace="20" src="https://cloud.githubusercontent.com/assets/4615775/24086129/e5543c64-0cc6-11e7-8256-07c85f734c3a.png">
+<img height="100px" hspace="20" src="https://cloud.githubusercontent.com/assets/4615775/24086129/e5543c64-0cc6-11e7-8256-07c85f734c3a.png">
 
 # Resonance
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
