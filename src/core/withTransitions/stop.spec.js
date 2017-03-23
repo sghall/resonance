@@ -93,8 +93,11 @@ describe('stop', () => {
 
     setTimeout(() => {
       assert.strictEqual(+path.getAttribute('opacity'), 1e-6, 'should be equal');
-      done();
     }, DELAY * 1.2);
+
+    setTimeout(() => {
+      done();
+    }, DELAY + (DURATION * 1.1));
   });
 
   it('should stop all transitions in progress ', (done) => {
@@ -107,6 +110,6 @@ describe('stop', () => {
       assert.isAbove(+line.getAttribute('y1'), 0, 'should be equal');
       assert.isBelow(+line.getAttribute('y1'), 200, 'should be equal');
       done();
-    }, DELAY + (DURATION * 2));
+    }, DELAY + (DURATION * 1.1));
   });
 });
