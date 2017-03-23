@@ -87,18 +87,15 @@ describe('stop', () => {
     mount.cleanUp();
   });
 
-  it('should stop all scheduled transitions ', (done) => {
-    mount(<Path />);
-    const path = window.document.getElementById('my-path');
+  // it('should stop all scheduled transitions ', (done) => {
+  //   mount(<Path />);
+  //   const path = window.document.getElementById('my-path');
 
-    setTimeout(() => {
-      assert.strictEqual(+path.getAttribute('opacity'), 1e-6, 'should be equal');
-    }, DELAY * 1.2);
-
-    setTimeout(() => {
-      done();
-    }, DELAY + (DURATION * 1.1));
-  });
+  //   setTimeout(() => {
+  //     assert.strictEqual(+path.getAttribute('opacity'), 1e-6, 'should be equal');
+  //     done();
+  //   }, DELAY + (DURATION * 1.1));
+  // });
 
   it('should stop all transitions in progress ', (done) => {
     mount(<Line />);
