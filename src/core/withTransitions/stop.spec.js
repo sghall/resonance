@@ -108,10 +108,10 @@ describe('stop', () => {
     const line = wrapper.instance().line;
 
     setTimeout(() => {
-      assert.isAbove(+line.getAttribute('x1'), 0, 'should be equal');
-      assert.isBelow(+line.getAttribute('x1'), 200, 'should be equal');
-      assert.isAbove(+line.getAttribute('y1'), 0, 'should be equal');
-      assert.isBelow(+line.getAttribute('y1'), 200, 'should be equal');
+      assert.isAbove(+line.getAttribute('x1'), 0, 'should be true');
+      assert.isBelow(+line.getAttribute('x1'), 200, 'should be true');
+      assert.isAbove(+line.getAttribute('y1'), 0, 'should be true');
+      assert.isBelow(+line.getAttribute('y1'), 200, 'should be true');
       done();
     }, DELAY + (DURATION * 1.1));
   });
