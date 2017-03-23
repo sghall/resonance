@@ -4,12 +4,19 @@
 import React, { Component } from 'react';
 import { assert } from 'chai';
 import transition from './transition';
-import createMount from '../../../test/utils/createMount';
+import createMount from 'test/utils/createMount';
 
 const DURATION = 500;
 const DELAY = 500;
 
 class Test extends Component {
+
+  state = {
+    end: 0,
+    start: 0,
+    interrupt: 0,
+  }
+
   componentDidMount() {
     transition.call(this, {
       line: {
@@ -21,6 +28,11 @@ class Test extends Component {
         y: [5, 2000],
       },
       timing: { duration: DURATION },
+      events: {
+        interrupt: this.onInterrupt.bind(this),
+        start: this.onStart.bind(this),
+        end: this.onEnd.bind(this),
+      },
     });
 
     transition.call(this, {
@@ -30,6 +42,24 @@ class Test extends Component {
       },
       timing: { duration: DURATION, delay: DELAY },
     });
+  }
+
+  onStart() {
+    this.setState((prevState) => ({
+      start: prevState.start + 1,
+    }));
+  }
+
+  onInterrupt() {
+    this.setState((prevState) => ({
+      interrupt: prevState.interrupt + 1,
+    }));
+  }
+
+  onEnd() {
+    this.setState((prevState) => ({
+      end: prevState.end + 1,
+    }));
   }
 
   line = null // ref set in render
@@ -114,6 +144,48 @@ describe('transition', () => {
     setTimeout(() => {
       assert.strictEqual(path.getAttribute('fill'), 'tomato', 'should be equal');
       done();
-    }, 0);
+    }, DURATION * 1.1);
+  });
+
+  it('should call the end event handler once per transition', (done) => {
+    const wrapper = mount(<Test />);
+
+    setTimeout(() => {
+      const count = wrapper.instance().state.end;
+      assert.strictEqual(count, 1, 'should be equal to one');
+      done();
+    }, DURATION * 1.1);
+  });
+
+  it('should call the start event handler once per transition', (done) => {
+    const wrapper = mount(<Test />);
+
+    setTimeout(() => {
+      const count = wrapper.instance().state.start;
+      assert.strictEqual(count, 1, 'should be equal to one');
+      done();
+    }, DURATION * 1.1);
+  });
+
+  it('should call the interrupt event handler once if interrupted', (done) => {
+    const wrapper = mount(<Test />);
+    const instance = wrapper.instance();
+
+    transition.call(instance, {
+      line: {
+        x1: [5, 200],
+        y1: [5, 400],
+      },
+      rect: {
+        x: [5, 1000],
+        y: [5, 2000],
+      },
+      timing: { duration: DURATION },
+    });
+
+    setTimeout(() => {
+      assert.strictEqual(instance.state.interrupt, 1, 'should be equal to one');
+      done();
+    }, DURATION * 1.1);
   });
 });
