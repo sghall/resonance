@@ -11,37 +11,37 @@ import stop from './stop';
 const DURATION = 500;
 const DELAY = 50;
 
-class Path extends Component {
-  componentDidMount() {
-    transition.call(this, {
-      path: {
-        transform: ['translate(0, 0)', 'translate(100, 0)'],
-      },
-      timing: {
-        duration: DURATION,
-        delay: DELAY,
-      },
-    });
+// class Path extends Component {
+//   componentDidMount() {
+//     transition.call(this, {
+//       path: {
+//         transform: ['translate(0, 0)', 'translate(100, 0)'],
+//       },
+//       timing: {
+//         duration: DURATION,
+//         delay: DELAY,
+//       },
+//     });
 
-    setTimeout(() => {
-      stop.call(this);
-    }, DELAY * 0.75);
-  }
+//     setTimeout(() => {
+//       stop.call(this);
+//     }, DELAY * 0.75);
+//   }
 
-  path = null // ref set in render
+//   path = null // ref set in render
 
-  render() {
-    return (
-      <g>
-        <path
-          ref={(d) => { this.path = d; }}
-          id="my-path"
-          x={0} y={0}
-        />
-      </g>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <g>
+//         <path
+//           ref={(d) => { this.path = d; }}
+//           id="stop-path"
+//           x={0} y={0}
+//         />
+//       </g>
+//     );
+//   }
+// }
 
 class Line extends Component {
   componentDidMount() {
@@ -87,15 +87,15 @@ describe('stop', () => {
     mount.cleanUp();
   });
 
-  it('should stop all scheduled transitions ', (done) => {
-    mount(<Path />);
-    const path = window.document.getElementById('my-path');
+  // it('should stop all scheduled transitions ', (done) => {
+  //   mount(<Path />);
+  //   const path = window.document.getElementById('stop-path');
 
-    setTimeout(() => {
-      assert.strictEqual(path.getAttribute('transform'), 'translate(0, 0)', 'should be equal');
-      done();
-    }, DELAY + (DURATION * 1.1));
-  });
+  //   setTimeout(() => {
+  //     assert.strictEqual(path.getAttribute('transform'), 'translate(0, 0)', 'should be equal');
+  //     done();
+  //   }, DELAY + (DURATION * 1.1));
+  // });
 
   it('should stop all transitions in progress ', (done) => {
     mount(<Line />);
