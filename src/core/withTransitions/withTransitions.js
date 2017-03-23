@@ -13,7 +13,7 @@ export const propTypes = {
 };
 
 function withTransitions(Component) {
-  class Transition extends PureComponent {
+  class TransitionComponent extends PureComponent {
     static propTypes = propTypes;
 
     static displayName = `withTransitions(${getDisplayName(Component)})`
@@ -101,7 +101,7 @@ function withTransitions(Component) {
     }
   }
 
-  return Transition;
+  return TransitionComponent;
 }
 
 export default withTransitions;
