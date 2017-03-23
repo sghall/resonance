@@ -4,44 +4,47 @@
 
 import React, { Component } from 'react';
 import { assert } from 'chai';
-import createMount from '../../../test/utils/createMount';
+import createMount from 'test/utils/createMount';
 import transition from './transition';
 import stop from './stop';
 
 const DURATION = 500;
 const DELAY = 50;
 
-// class Path extends Component {
-//   componentDidMount() {
-//     transition.call(this, {
-//       path: {
-//         transform: ['translate(0, 0)', 'translate(100, 0)'],
-//       },
-//       timing: {
-//         duration: DURATION,
-//         delay: DELAY,
-//       },
-//     });
+class Path extends Component {
+  componentDidMount() {
+    transition.call(this, {
+      path: {
+        transform: ['translate(0, 0)', 'translate(100, 0)'],
+      },
+      timing: {
+        duration: DURATION,
+        delay: DELAY,
+      },
+    });
 
-//     setTimeout(() => {
-//       stop.call(this);
-//     }, DELAY * 0.75);
-//   }
+    setTimeout(() => {
+      stop.call(this);
+    }, DELAY * 0.75);
+  }
 
-//   path = null // ref set in render
+  componentWillUnmount() {
+    stop.call(this);
+  }
 
-//   render() {
-//     return (
-//       <g>
-//         <path
-//           ref={(d) => { this.path = d; }}
-//           id="stop-path"
-//           x={0} y={0}
-//         />
-//       </g>
-//     );
-//   }
-// }
+  path = null // ref set in render
+
+  render() {
+    return (
+      <g>
+        <path
+          ref={(d) => { this.path = d; }}
+          x={0} y={0}
+        />
+      </g>
+    );
+  }
+}
 
 class Line extends Component {
   componentDidMount() {
@@ -61,6 +64,10 @@ class Line extends Component {
     }, DELAY + (DURATION / 2));
   }
 
+  componentWillUnmount() {
+    stop.call(this);
+  }
+
   line = null // ref set in render
 
   render() {
@@ -68,7 +75,6 @@ class Line extends Component {
       <g>
         <line
           ref={(d) => { this.line = d; }}
-          id="my-line"
           x1={0} y1={0}
         />
       </g>
@@ -87,19 +93,19 @@ describe('stop', () => {
     mount.cleanUp();
   });
 
-  // it('should stop all scheduled transitions ', (done) => {
-  //   mount(<Path />);
-  //   const path = window.document.getElementById('stop-path');
+  it('should stop all scheduled transitions ', (done) => {
+    const wrapper = mount(<Path />);
+    const path = wrapper.instance().path;
 
-  //   setTimeout(() => {
-  //     assert.strictEqual(path.getAttribute('transform'), 'translate(0, 0)', 'should be equal');
-  //     done();
-  //   }, DELAY + (DURATION * 1.1));
-  // });
+    setTimeout(() => {
+      assert.strictEqual(path.getAttribute('transform'), 'translate(0, 0)', 'should be equal');
+      done();
+    }, DELAY + (DURATION * 1.1));
+  });
 
   it('should stop all transitions in progress ', (done) => {
-    mount(<Line />);
-    const line = window.document.getElementById('my-line');
+    const wrapper = mount(<Line />);
+    const line = wrapper.instance().line;
 
     setTimeout(() => {
       assert.isAbove(+line.getAttribute('x1'), 0, 'should be equal');

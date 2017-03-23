@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { assert } from 'chai';
 import transition from './transition';
+import stop from './stop';
 import createMount from 'test/utils/createMount';
 
 const DURATION = 500;
@@ -44,6 +45,10 @@ class Test extends Component {
     });
   }
 
+  componentWillUnmount() {
+    stop.call(this);
+  }
+
   onStart() {
     this.setState((prevState) => ({
       start: prevState.start + 1,
@@ -71,17 +76,14 @@ class Test extends Component {
       <g>
         <line
           ref={(d) => { this.line = d; }}
-          id="my-line"
           x1={0} y1={0}
         />
         <rect
           ref={(d) => { this.rect = d; }}
-          id="my-rect"
           x={0} y={0}
         />
         <path
           ref={(d) => { this.path = d; }}
-          id="my-path"
           x={0} y={0}
         />
       </g>
@@ -101,8 +103,8 @@ describe('transition', () => {
   });
 
   it('should change attributes on refs over time', (done) => {
-    mount(<Test />);
-    const line = window.document.getElementById('my-line');
+    const wrapper = mount(<Test />);
+    const line = wrapper.instance().line;
 
     setTimeout(() => {
       assert.strictEqual(+line.getAttribute('x1'), 200, 'should be equal');
@@ -112,9 +114,9 @@ describe('transition', () => {
   });
 
   it('should transition multiple refs', (done) => {
-    mount(<Test />);
-    const rect = window.document.getElementById('my-rect');
-    const line = window.document.getElementById('my-line');
+    const wrapper = mount(<Test />);
+    const line = wrapper.instance().line;
+    const rect = wrapper.instance().rect;
 
     setTimeout(() => {
       assert.strictEqual(+rect.getAttribute('x'), 1000, 'should be equal');
@@ -128,8 +130,8 @@ describe('transition', () => {
   });
 
   it('should accept a delay in milliseconds', (done) => {
-    mount(<Test />);
-    const path = window.document.getElementById('my-path');
+    const wrapper = mount(<Test />);
+    const path = wrapper.instance().path;
 
     setTimeout(() => {
       assert.strictEqual(+path.getAttribute('opacity'), 0.8, 'should be equal');
@@ -138,8 +140,8 @@ describe('transition', () => {
   });
 
   it('should set attributes not in an array immediately', (done) => {
-    mount(<Test />);
-    const path = window.document.getElementById('my-path');
+    const wrapper = mount(<Test />);
+    const path = wrapper.instance().path;
 
     setTimeout(() => {
       assert.strictEqual(path.getAttribute('fill'), 'tomato', 'should be equal');
