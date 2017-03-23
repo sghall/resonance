@@ -1,6 +1,7 @@
 // @flow weak
 
 import { now as timeNow } from 'd3-timer';
+import once from 'lodash/once';
 import tween from './tween';
 import schedule from './schedule';
 import { newId, easeCubicInOut } from './helpers';
@@ -17,6 +18,11 @@ export default function transition(config) {
 
   const events = transitions.events || {};
   delete transitions.events;
+
+  // each event handler should be called only once
+  Object.keys(events).map((d) => {
+    events[d] = once(events[d]);
+  });
 
   const timing = transitions.timing || {};
   delete transitions.timing;
