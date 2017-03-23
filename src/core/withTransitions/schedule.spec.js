@@ -13,7 +13,7 @@ const preset = {
 };
 
 describe('schedule', () => {
-  it('should add a TRANSITION_SCHEDULES proprtty to node ', () => {
+  it('should add a TRANSITION_SCHEDULES property to node ', () => {
     const node = { rect: {} };
 
     schedule(node, 'rect', newId(), preset, []);
