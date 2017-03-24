@@ -95,11 +95,11 @@ class Exmaple1 extends Component {
   }
 
   state = {
-    data: range(15).map((d) => ({x: d})),
+    data: range(10).map((d) => ({x: d})),
   }
 
   update() {
-    const count = Math.ceil(Math.random() * 30);
+    const count = Math.ceil(Math.random() * 20);
 
     this.setState({
       data: range(count).map((d) => ({x: d})),
