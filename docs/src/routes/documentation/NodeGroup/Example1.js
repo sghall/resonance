@@ -52,7 +52,7 @@ class Node extends Component {
       },
       rect: {
         x: [scale(x)],
-        fill: ['blue'],
+        fill: ['#0000FF'],
         width: [scale.bandwidth()],
       },
       timing: { duration: 1000 },
@@ -67,7 +67,7 @@ class Node extends Component {
         opacity: [1e-6],
       },
       rect: {
-        fill: 'white',
+        fill: 'fuchsia',
       },
       timing: { duration: 1000 },
       events: { end: removeNode },
@@ -100,6 +100,7 @@ class Exmaple1 extends Component {
 
   update() {
     const count = Math.ceil(Math.random() * 30);
+
     this.setState({
       data: range(count).map((d) => ({x: d})),
     });
