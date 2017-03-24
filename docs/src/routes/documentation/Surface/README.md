@@ -6,7 +6,7 @@ Using the ***Surface*** component, the svg will scale to fit its container as th
 This is an alternative to using JavaScript listeners to update the svg's width and height in response to resize events.
 Changing the width and height of the svg via JavaScript can be inefficient for complex visualizations.
 Changing the aspect ratio also leads to distorted, inconsistent views of data at different window sizes.
-There are, of course, pros and cons to the different methods and in some cases where using JavaScript to resize the svg will be appropriate.
+There are, of course, pros and cons to the different methods and in some cases using JavaScript to resize the svg will be appropriate.
 
 ### A couple of things to note:
 
