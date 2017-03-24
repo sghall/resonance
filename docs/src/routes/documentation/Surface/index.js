@@ -23,13 +23,13 @@ class SurfaceDocs extends Component {
         <MarkdownElement text={docContext('./Surface/README.md')} />
         <CodeExample
           code={docContext('./Surface/Example1')}
-          title="Example 1: Basic Surface"
+          title="Example 1"
         >
           <Example1 />
         </CodeExample>
         <CodeExample
           code={docContext('./Surface/Example2')}
-          title="Example 2: Multiple Surfaces"
+          title="Example 2"
         >
           <Example2 />
         </CodeExample>
