@@ -8,7 +8,7 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 const CodeBlockTitle = (props) => (
   <Toolbar>
     <ToolbarGroup>
-      <ToolbarTitle text={props.title || 'Example'} />
+      <ToolbarTitle style={{ color: 'white' }} text={props.title || 'Example'} />
     </ToolbarGroup>
     <ToolbarGroup>
       <IconButton touch tooltip={props.tooltip}>
