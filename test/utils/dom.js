@@ -1,4 +1,6 @@
-import {jsdom} from 'jsdom';
+// @flow weak
+
+import { jsdom } from 'jsdom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Needed for onTouchTap

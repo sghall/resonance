@@ -1,18 +1,22 @@
+// @flow weak
+
 const path = require('path');
+
 const argv = process.argv.slice(2);
 const opts = {
   grep: undefined,
+  coverage: true,
 };
 
 argv.forEach((arg) => {
   if (/^--grep=/.test(arg)) {
     opts.grep = arg.replace('--grep=', '').trim();
-    opts.coverage = false; // disable if grepping
+    opts.coverage = false;
   }
 });
 
 // Karma configuration
-module.exports = function(config) {
+module.exports = function createConfig(config) {
   config.set({
     autoWatch: false,
     basePath: '../',
@@ -40,7 +44,7 @@ module.exports = function(config) {
       'karma-webpack',
       'karma-mocha-reporter',
     ],
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
     port: 9876,
     preprocessors: {
@@ -81,7 +85,7 @@ module.exports = function(config) {
         ],
       },
       externals: {
-        'jsdom': 'window',
+        jsdom: 'window',
         'react/lib/ExecutionEnvironment': true,
         'react/lib/ReactContext': 'window',
         'text-encoding': 'window',
@@ -92,7 +96,7 @@ module.exports = function(config) {
       noInfo: true,
     },
     customLaunchers: {
-      'PhantomJS_Sized': {
+      PhantomJS_Sized: {
         base: 'PhantomJS',
         options: {
           viewportSize: { // Matches JSDom size.

@@ -1,8 +1,11 @@
-require('app-module-path').addPath(`${__dirname}'./../`);
+// @flow weak
+
 import Minimist from 'minimist';
 import Mocha from 'mocha';
 import Glob from 'glob';
 import './utils/dom';
+
+require('app-module-path').addPath(`${__dirname}'./../`);
 
 const argv = Minimist(process.argv.slice(2), {
   alias: {
@@ -39,5 +42,5 @@ Glob(
         process.exit(failures);
       });
     });
-  }
+  },
 );

@@ -1,10 +1,12 @@
+// @flow weak
 /* eslint-disable no-console */
+
 import Nodemon from 'nodemon';
 
 Nodemon({
   args: process.argv,
   script: 'test/index.js',
-  execMap: {js: 'node_modules/.bin/babel-node'},
+  execMap: { js: 'node_modules/.bin/babel-node' },
   ext: 'js',
   watch: ['src/'],
 });
