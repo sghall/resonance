@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+/* eslint flowtype/require-valid-file-annotation: "off" */
 
 import { assert } from 'chai';
 import schedule from './schedule';

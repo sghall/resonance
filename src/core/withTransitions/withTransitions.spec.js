@@ -1,5 +1,6 @@
 // @flow weak
-/* eslint-env mocha */
+/* eslint-env mocha, class-methods-use-this: "off" */
+/* eslint class-methods-use-this: "off" */
 
 import React, { Component } from 'react';
 import { assert } from 'chai';
@@ -11,7 +12,7 @@ import withTransitions from './withTransitions';
 const props = {
   type: APPEAR,
   udid: 'unique_id',
-  node: {x: 10, y: 20 },
+  node: { x: 10, y: 20 },
   removeUDID: () => {},
 };
 

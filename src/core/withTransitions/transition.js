@@ -20,7 +20,7 @@ export default function transition(config) {
   delete transitions.events;
 
   // each event handler should be called only once
-  Object.keys(events).map((d) => {
+  Object.keys(events).forEach((d) => {
     events[d] = once(events[d]);
   });
 

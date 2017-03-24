@@ -17,7 +17,7 @@ export const propTypes = {
   /**
    * The number of ticks to render (approximate)
    */
-  tickCount: PropTypes.number,
+  tickCount: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   /**
    * The component that will be used to render each tick.
    */
