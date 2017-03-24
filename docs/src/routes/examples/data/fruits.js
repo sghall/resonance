@@ -1,3 +1,4 @@
+/* eslint flowtype/require-valid-file-annotation: "off" */
 
 export default [{
   name: 'Abaca',

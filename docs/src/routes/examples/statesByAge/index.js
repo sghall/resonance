@@ -1,4 +1,5 @@
 // @flow weak
+/* eslint global-require: "off" */
 
 import { EXAMPLE_STORE_KEY } from './module/constants';
 

@@ -1,13 +1,13 @@
 // @flow weak
 
 import React from 'react';
-import {render} from 'react-dom';
-import {Router, useRouterHistory} from 'react-router';
+import { render } from 'react-dom';
+import { Router, useRouterHistory } from 'react-router';
 import { Provider } from 'react-redux';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import { createHashHistory } from 'history';
 import routes from './routes';
 import store from './store';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import {createHashHistory} from 'history';
 
 // Helpers for debugging
 window.React = React;
@@ -24,7 +24,7 @@ injectTapEventPlugin();
 render(
   <Provider store={store}>
     <Router
-      history={useRouterHistory(createHashHistory)({queryKey: false})}
+      history={useRouterHistory(createHashHistory)({ queryKey: false })}
       onUpdate={() => window.scrollTo(0, 0)}
     >
       {routes}
