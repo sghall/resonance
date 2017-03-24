@@ -3,9 +3,9 @@
 
 import React, { Component } from 'react';
 import { assert } from 'chai';
+import createMount from 'test/utils/createMount';
 import transition from './transition';
 import stop from './stop';
-import createMount from 'test/utils/createMount';
 
 const DURATION = 500;
 const DELAY = 500;

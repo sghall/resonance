@@ -11,7 +11,7 @@ describe('dataUpdate', () => {
 
   before(() => {
     state = { udids: {}, nodes: [] };
-    update = [1, 2, 3, 4, 5].map((d) => ({x: d, y: d }));
+    update = [1, 2, 3, 4, 5].map((d) => ({ x: d, y: d }));
     removed = new Map();
   });
 

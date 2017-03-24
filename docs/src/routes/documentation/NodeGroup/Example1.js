@@ -1,4 +1,5 @@
 // @flow weak
+/* eslint react/no-multi-comp: "off" */
 
 import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -101,14 +102,14 @@ class Example1 extends Component {
   }
 
   state = {
-    data: range(10).map((d) => ({x: d})),
+    data: range(10).map((d) => ({ x: d })),
   }
 
   update() {
     const count = Math.ceil(Math.random() * 20);
 
     this.setState({
-      data: range(count).map((d) => ({x: d})),
+      data: range(count).map((d) => ({ x: d })),
     });
   }
 

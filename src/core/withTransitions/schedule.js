@@ -1,10 +1,11 @@
 // @flow weak
+/* eslint no-use-before-define: "off" */
 // Apapted from https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
 
 import { timer, timeout } from 'd3-timer';
 import { CREATED, SCHEDULED, STARTING, STARTED, RUNNING, ENDING, ENDED } from './phases';
 
-export default function(node, ref:string, id:number, timing, tweens, events = {}) {
+export default function (node, ref:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {

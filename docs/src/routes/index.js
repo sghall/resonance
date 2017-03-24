@@ -8,10 +8,10 @@ import SurfaceDocs from './documentation/Surface';
 import NodeGroupDocs from './documentation/NodeGroup';
 import TickGroupDocs from './documentation/TickGroup';
 
+import store, { injectReducer } from '../store';
+
 const docContext = require.context('!raw-loader!./documentation', true);
 const srcContext = require.context('!raw-loader!../../../src', true);
-
-import store, { injectReducer } from '../store';
 
 const routes = {
   path: '/',

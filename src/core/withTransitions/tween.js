@@ -38,6 +38,6 @@ export function getInterpolator(attr, value) {
   return interpolateString;
 }
 
-export default function(name, value) {
+export default function (name, value) {
   return getTween.call(this, name, getInterpolator(name, value), value);
 }
