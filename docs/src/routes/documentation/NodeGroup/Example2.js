@@ -8,14 +8,17 @@ import { easeExpInOut } from 'd3-ease';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
 
-const view = [1000, 350];
-const trbl = [50, 20, 50, 20];
+const view = [1000, 350];      // [width, height]
+const trbl = [50, 20, 50, 20]; // [top, right, bottom, left] margins
 
-const dims = [
+const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
   view[1] - trbl[0] - trbl[2],
 ];
 
+// **************************************************
+//  Node Component
+// **************************************************
 class Node extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -88,7 +91,10 @@ class Node extends Component {
   }
 }
 
-class Exmaple2 extends Component {
+// **************************************************
+//  Example
+// **************************************************
+class Example2 extends Component {
 
   constructor(props) {
     super(props);
@@ -140,4 +146,4 @@ class Exmaple2 extends Component {
   }
 }
 
-export default Exmaple2;
+export default Example2;

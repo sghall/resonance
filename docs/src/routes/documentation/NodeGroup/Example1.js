@@ -7,14 +7,17 @@ import NodeGroup from 'resonance/NodeGroup';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
 
-const view = [1000, 250];
-const trbl = [10, 10, 10, 10];
+const view = [1000, 250];      // [width, height]
+const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
-const dims = [
+const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
   view[1] - trbl[0] - trbl[2],
 ];
 
+// **************************************************
+//  Node Component
+// **************************************************
 class Node extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -86,7 +89,10 @@ class Node extends Component {
   }
 }
 
-class Exmaple1 extends Component {
+// **************************************************
+//  Example
+// **************************************************
+class Example1 extends Component {
 
   constructor(props) {
     super(props);
@@ -138,4 +144,4 @@ class Exmaple1 extends Component {
   }
 }
 
-export default Exmaple1;
+export default Example1;

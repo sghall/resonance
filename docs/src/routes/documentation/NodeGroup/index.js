@@ -23,13 +23,13 @@ class NodeGroupDocs extends Component {
         <MarkdownElement text={docContext('./NodeGroup/README.md')} />
         <CodeExample
           code={docContext('./NodeGroup/Example1')}
-          title="Example 1: Basic Surface"
+          title="Example 1: Basic Bars"
         >
           <Example1 />
         </CodeExample>
         <CodeExample
           code={docContext('./NodeGroup/Example2')}
-          title="Example 2: Multiple Surfaces"
+          title="Example 2: Circles w/ D3 Ease Function"
         >
           <Example2 />
         </CodeExample>
