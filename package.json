@@ -72,10 +72,10 @@
     "eslint": "^3.10.2",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-flowtype": "^2.30.0",
-    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-mocha": "^4.7.0",
     "eslint-plugin-react": "^6.7.1",
-    "flow-bin": "^0.40.0",
+    "flow-bin": "^0.42.0",
     "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
     "istanbul": "^1.1.0-alpha.1",
@@ -97,7 +97,7 @@
     "react-tap-event-plugin": "^2.0.0",
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.5.3",
-    "sinon": "^1.17.3",
-    "webpack": "^1.13.3"
+    "sinon": "^2.1.0",
+    "webpack": "^2.3.1"
   }
 }
