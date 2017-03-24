@@ -6,6 +6,8 @@
 
 ## Installation
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
+
 Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
 
 ```sh
