@@ -3,18 +3,12 @@
 import React from 'react';
 import Surface from 'resonance/Surface';
 
-/**
- * A simple example of `Surface` component.
- * By adopting the the convention of defining view and trbl props
- * it makes it easier to reason about the placement of child elements.
- * Note how the rect element has no translation and is drawn with the correct margins around it
- */
 const color = 'rgba(0,0,0,0.3)';
 
-const view = [1000, 250];      // view [width, height] fed to SVG viewbox attribute
-const trbl = [10, 10, 10, 100]; // Margins [top, right, bottom, left] for the SVG
+const view = [1000, 250];       // [width, height]
+const trbl = [10, 10, 40, 100]; // [top, right, bottom, left] margins
 
-const dims = [ // The usable dimensions.
+const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
   view[1] - trbl[0] - trbl[2],
 ];

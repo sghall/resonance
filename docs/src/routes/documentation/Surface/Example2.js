@@ -4,15 +4,14 @@ import React from 'react';
 import Surface from 'resonance/Surface';
 
 /**
- * This example shows how surfaces will conform to their containers
- * NOTE: Bootstrap grid CSS is loaded on this page and are used to define the layout below
+ * NOTE: Bootstrap grid CSS is loaded on this page and is used to define the layout below
  */
 const color = 'rgba(0,0,0,0.3)';
 
-const view = [1000, 250];      // view [width, height] fed to SVG viewbox attribute
-const trbl = [10, 10, 10, 100]; // Margins [top, right, bottom, left] for the SVG
+const view = [1000, 250];       // [width, height]
+const trbl = [10, 10, 40, 100]; // [top, right, bottom, left] margins
 
-const dims = [ // The usable dimensions.
+const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
   view[1] - trbl[0] - trbl[2],
 ];
