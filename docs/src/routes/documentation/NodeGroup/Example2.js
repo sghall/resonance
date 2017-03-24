@@ -29,7 +29,7 @@ class Node extends Component {
   }
 
   node = null // ref set in render
-  rect = null // ref set in render
+  circle = null // ref set in render
 
   onAppear() {
     const { scale, data: { x } } = this.props;
