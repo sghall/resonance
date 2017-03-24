@@ -22,13 +22,13 @@ class TickGroupDocs extends Component {
         <Title render={(previousTitle) => `TickGroup - ${previousTitle}`} />
         <MarkdownElement text={docContext('./TickGroup/README.md')} />
         <CodeExample
-          code={docContext('./Surface/Example1')}
+          code={docContext('./TickGroup/Example1')}
           title="Example 1: Basic Surface"
         >
           <Example1 />
         </CodeExample>
         <CodeExample
-          code={docContext('./Surface/Example2')}
+          code={docContext('./TickGroup/Example2')}
           title="Example 2: Multiple Surfaces"
         >
           <Example2 />
