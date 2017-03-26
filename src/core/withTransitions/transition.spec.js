@@ -13,6 +13,18 @@ const DELAY = 500;
 class Test extends Component {
 
   state = {
+    line: {
+      x1: 5,
+      y1: 5,
+    },
+    rect: {
+      x: 5,
+      y: 5,
+    },
+    path: {
+      fill: 'green',
+      opacity: 1e-6,
+    },
     end: 0,
     start: 0,
     interrupt: 0,
@@ -67,25 +79,11 @@ class Test extends Component {
     }));
   }
 
-  line = null // ref set in render
-  rect = null // ref set in render
-  path = null // ref set in render
-
   render() {
     return (
       <g>
-        <line
-          ref={(d) => { this.line = d; }}
-          x1={0} y1={0}
-        />
-        <rect
-          ref={(d) => { this.rect = d; }}
-          x={0} y={0}
-        />
-        <path
-          ref={(d) => { this.path = d; }}
-          x={0} y={0}
-        />
+        <line {...this.state.line} />
+        <rect {...this.state.rect} />
       </g>
     );
   }
@@ -102,28 +100,30 @@ describe('transition', () => {
     mount.cleanUp();
   });
 
-  it('should change attributes on refs over time', (done) => {
+  it('should change values over time', (done) => {
     const wrapper = mount(<Test />);
-    const line = wrapper.instance().line;
 
     setTimeout(() => {
-      assert.strictEqual(+line.getAttribute('x1'), 200, 'should be equal');
-      assert.strictEqual(+line.getAttribute('y1'), 400, 'should be equal');
+      assert.isBelow(wrapper.state().line.x1, 200, 'should be true');
+      assert.isBelow(wrapper.state().line.y1, 400, 'should be true');
+    }, DURATION * 0.5);
+
+    setTimeout(() => {
+      assert.strictEqual(wrapper.state().line.x1, 200, 'should be equal');
+      assert.strictEqual(wrapper.state().line.y1, 400, 'should be equal');
       done();
     }, DURATION * 1.1);
   });
 
-  it('should transition multiple refs', (done) => {
+  it('should transition multiple entities', (done) => {
     const wrapper = mount(<Test />);
-    const line = wrapper.instance().line;
-    const rect = wrapper.instance().rect;
 
     setTimeout(() => {
-      assert.strictEqual(+rect.getAttribute('x'), 1000, 'should be equal');
-      assert.strictEqual(+rect.getAttribute('y'), 2000, 'should be equal');
+      assert.strictEqual(wrapper.state().rect.x, 1000, 'should be equal');
+      assert.strictEqual(wrapper.state().rect.y, 2000, 'should be equal');
 
-      assert.strictEqual(+line.getAttribute('x1'), 200, 'should be equal');
-      assert.strictEqual(+line.getAttribute('y1'), 400, 'should be equal');
+      assert.strictEqual(wrapper.state().line.x1, 200, 'should be equal');
+      assert.strictEqual(wrapper.state().line.y1, 400, 'should be equal');
 
       done();
     }, DURATION * 1.1);
@@ -131,20 +131,19 @@ describe('transition', () => {
 
   it('should accept a delay in milliseconds', (done) => {
     const wrapper = mount(<Test />);
-    const path = wrapper.instance().path;
 
     setTimeout(() => {
-      assert.strictEqual(+path.getAttribute('opacity'), 0.8, 'should be equal');
+      assert.strictEqual(wrapper.state().path.opacity, 0.8, 'should be equal');
       done();
     }, (DURATION * 1.1) + DELAY);
   });
 
-  it('should set attributes not in an array immediately', (done) => {
+  it('should set values not in an array immediately', (done) => {
     const wrapper = mount(<Test />);
-    const path = wrapper.instance().path;
+
+    assert.strictEqual(wrapper.state().path.fill, 'tomato', 'should be equal');
 
     setTimeout(() => {
-      assert.strictEqual(path.getAttribute('fill'), 'tomato', 'should be equal');
       done();
     }, DURATION * 1.1);
   });

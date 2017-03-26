@@ -47,6 +47,18 @@ const DELAY = 50;
 // }
 
 class Line extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      line: {
+        x1: 0,
+        y1: 0,
+      },
+    };
+  }
+
   componentDidMount() {
     transition.call(this, {
       line: {
@@ -68,15 +80,10 @@ class Line extends Component {
     stop.call(this);
   }
 
-  line = null // ref set in render
-
   render() {
     return (
       <g>
-        <line
-          ref={(d) => { this.line = d; }}
-          x1={0} y1={0}
-        />
+        <line {...this.state.line} />
       </g>
     );
   }
@@ -105,13 +112,12 @@ describe('stop', () => {
 
   it('should stop all transitions in progress ', (done) => {
     const wrapper = mount(<Line />);
-    const line = wrapper.instance().line;
 
     setTimeout(() => {
-      assert.isAbove(+line.getAttribute('x1'), 0, 'should be true');
-      assert.isBelow(+line.getAttribute('x1'), 200, 'should be true');
-      assert.isAbove(+line.getAttribute('y1'), 0, 'should be true');
-      assert.isBelow(+line.getAttribute('y1'), 200, 'should be true');
+      assert.isAbove(wrapper.state().line.x1, 0, 'should be true');
+      assert.isBelow(wrapper.state().line.x1, 200, 'should be true');
+      assert.isAbove(wrapper.state().line.y1, 0, 'should be true');
+      assert.isBelow(wrapper.state().line.y1, 200, 'should be true');
       done();
     }, DELAY + (DURATION * 1.1));
   });
