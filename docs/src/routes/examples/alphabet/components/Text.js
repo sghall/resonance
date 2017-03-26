@@ -14,8 +14,21 @@ class Text extends PureComponent {
       letter: PropTypes.string.isRequired,
     }).isRequired,
     type: PropTypes.string.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    // removeNode: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: {
+        x: props.data.xValue,
+        y: 0,
+        fill: colors[props.type],
+        opacity: 1e-6,
+      },
+    };
+  }
 
   text = null; // Root text ref set in render method
 
@@ -27,40 +40,40 @@ class Text extends PureComponent {
         x: xValue,
         y: [0, dims[1] / 2],
         fill: colors[type],
-        opacity: [1e-6, 1],
-      },
-      timing: { duration: BASE_DURATION, ease: easePoly },
-    };
-  }
-
-  onUpdate() {
-    const { type, data: { xValue } } = this.props;
-
-    return {
-      text: {
-        x: [xValue],
-        y: [dims[1] / 2],
-        fill: colors[type],
         opacity: [1],
       },
       timing: { duration: BASE_DURATION, ease: easePoly },
     };
   }
 
-  onRemove() {
-    const { type, data: { xValue }, removeNode } = this.props;
+  // onUpdate() {
+  //   const { type, data: { xValue } } = this.props;
 
-    return {
-      text: {
-        x: [xValue],
-        y: [dims[1]],
-        fill: colors[type],
-        opacity: [1e-6],
-      },
-      timing: { duration: BASE_DURATION, ease: easePoly },
-      events: { end: removeNode },
-    };
-  }
+  //   return {
+  //     text: {
+  //       x: [xValue],
+  //       y: [dims[1] / 2],
+  //       fill: colors[type],
+  //       opacity: [1],
+  //     },
+  //     timing: { duration: BASE_DURATION, ease: easePoly },
+  //   };
+  // }
+
+  // onRemove() {
+  //   const { type, data: { xValue }, removeNode } = this.props;
+
+  //   return {
+  //     text: {
+  //       x: [xValue],
+  //       y: [dims[1]],
+  //       fill: colors[type],
+  //       opacity: [1e-6],
+  //     },
+  //     timing: { duration: BASE_DURATION, ease: easePoly },
+  //     events: { end: removeNode },
+  //   };
+  // }
 
   render() {
     const { data: { letter } } = this.props;
@@ -70,6 +83,7 @@ class Text extends PureComponent {
         ref={(d) => { this.text = d; }}
         dy="-.35em"
         style={{ font: 'bold 30px monospace' }}
+        {...this.state.text}
       >{letter}</text>
     );
   }
