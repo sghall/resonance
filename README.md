@@ -1,6 +1,6 @@
 ## Resonance
 
-Data driven SVG transitions in React.  This is an experimental libary and will have breaking changes going forward.
+Data driven SVG transitions in React.  This is an experimental library and will have breaking changes going forward.
 
 [Documentation](https://sghall.github.io/resonance/#/documentation/node-group) and [examples](https://sghall.github.io/resonance/#/examples/states-by-age) are a work in progress.  Feedback welcome. 
 
