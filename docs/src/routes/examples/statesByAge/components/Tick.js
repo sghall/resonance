@@ -19,7 +19,16 @@ class Tick extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  tick = null; // Root node ref set in render method
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tick: {
+        opacity: 1e-6,
+        transform: `translate(${props.prevScale(props.data.val)},0)`,
+      },
+    };
+  }
 
   onAppear() {
     const { prevScale, currScale, data: { val }, duration } = this.props;
@@ -65,7 +74,7 @@ class Tick extends PureComponent {
     const { data: { val } } = this.props;
 
     return (
-      <g ref={(d) => { this.tick = d; }}>
+      <g {...this.state.tick}>
         <line
           x1={0} y1={0}
           x2={0} y2={dims[1]}

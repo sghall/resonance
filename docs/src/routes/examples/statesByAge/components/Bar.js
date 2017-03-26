@@ -20,9 +20,23 @@ class Bar extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  node = null; // Root node ref set in render method
-  rect = null; // Rect node ref set in render method
-  text = null; // Text node ref set in render method
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      node: {
+        opacity: 1e-6,
+        transform: 'translate(0,500)',
+      },
+      rect: {
+        width: props.data.xVal,
+        height: props.yScale.bandwidth(),
+      },
+      text: {
+        x: props.data.xVal - 3,
+      },
+    };
+  }
 
   onAppear() {
     const { yScale, duration, data: { xVal, yVal } } = this.props;
@@ -69,11 +83,11 @@ class Bar extends PureComponent {
     const { xScale, yScale, data: { name, xVal } } = this.props;
 
     return (
-      <g ref={(d) => { this.node = d; }}>
+      <g {...this.state.node}>
         <rect
-          ref={(d) => { this.rect = d; }}
           fill={palette.primary1Color}
           opacity={0.4}
+          {...this.state.rect}
         />
         <text
           dy="0.35em"
@@ -84,12 +98,12 @@ class Bar extends PureComponent {
           y={yScale.bandwidth() / 2}
         >{name}</text>
         <text
-          ref={(d) => { this.text = d; }}
           textAnchor="end"
           dy="0.35em"
           fill="white"
           fontSize={10}
           y={yScale.bandwidth() / 2}
+          {...this.state.text}
         >{percentFormat(xScale.invert(xVal))}</text>
       </g>
     );
