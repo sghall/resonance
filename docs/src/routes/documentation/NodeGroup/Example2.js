@@ -30,7 +30,7 @@ class Node extends Component {
   }
 
   state = {
-    nodes: {
+    node: {
       opacity: 1e-6,
     },
     circle: {
