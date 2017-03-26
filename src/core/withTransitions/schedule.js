@@ -5,7 +5,7 @@
 import { timer, timeout } from 'd3-timer';
 import { CREATED, SCHEDULED, STARTING, STARTED, RUNNING, ENDING, ENDED } from './phases';
 
-export default function (node, ref:string, id:number, timing, tweens, events = {}) {
+export default function (node, stateKey:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
   if (!schedules) {
@@ -14,7 +14,7 @@ export default function (node, ref:string, id:number, timing, tweens, events = {
     return;
   }
 
-  const config = { ref, events, tweens, ...timing, timer: null, state: CREATED };
+  const config = { stateKey, events, tweens, ...timing, timer: null, state: CREATED };
   create(node, id, config);
 }
 
@@ -47,7 +47,7 @@ function create(node, id:number, config) {
     for (const sid in schedules) { // eslint-disable-line
       const s = schedules[sid];
 
-      if (s.ref !== transition.ref) {
+      if (s.stateKey !== transition.stateKey) {
         continue; // eslint-disable-line no-continue
       }
 
@@ -102,7 +102,6 @@ function create(node, id:number, config) {
     let j = -1;
 
     for (let i = 0; i < n; ++i) {
-      // const ref = node[transition.ref];
       const res = transition.tweens[i].call(node);
 
       if (res) {

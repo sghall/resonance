@@ -27,32 +27,32 @@ export default function transition(config) {
   const timing = transitions.timing || {};
   delete transitions.timing;
 
-  Object.keys(transitions).forEach((nameSpace) => {
+  Object.keys(transitions).forEach((stateKey) => {
     const tweens = [];
 
-    Object.keys(transitions[nameSpace]).forEach((attr) => {
-      const val = transitions[nameSpace][attr];
+    Object.keys(transitions[stateKey]).forEach((attr) => {
+      const val = transitions[stateKey][attr];
 
       if (Array.isArray(val)) {
         if (val.length === 1) {
-          tweens.push(tween.call(this, nameSpace, attr, val[0]));
+          tweens.push(tween.call(this, stateKey, attr, val[0]));
         } else {
           this.setState((state) => {
-            return { [nameSpace]: { ...state[nameSpace], [attr]: val[0] } };
+            return { [stateKey]: { ...state[stateKey], [attr]: val[0] } };
           });
 
-          tweens.push(tween.call(this, nameSpace, attr, val[1]));
+          tweens.push(tween.call(this, stateKey, attr, val[1]));
         }
       } else {
         this.setState((state) => {
-          return { [nameSpace]: { ...state[nameSpace], [attr]: val } };
+          return { [stateKey]: { ...state[stateKey], [attr]: val } };
         });
-        // This assures any existing transitions are killed
-        tweens.push(tween.call(this, nameSpace, attr, val));
+        // This assures any existing transitions are stopped
+        tweens.push(tween.call(this, stateKey, attr, val));
       }
     });
 
     const timingConfig = { ...preset, ...timing, time: timeNow() };
-    schedule(this, nameSpace, newId(), timingConfig, tweens, events);
+    schedule(this, stateKey, newId(), timingConfig, tweens, events);
   });
 }
