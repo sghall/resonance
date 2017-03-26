@@ -2,7 +2,7 @@
 
 Data driven SVG transitions in React.  This is an experimental libary and will have breaking changes going forward.
 
-[documentation](https://sghall.github.io/resonance/#/documentation/node-group) and [examples](https://sghall.github.io/resonance/#/examples/states-by-age) are a work in progress.  Feedback welcome. 
+[Documentation](https://sghall.github.io/resonance/#/documentation/node-group) and [examples](https://sghall.github.io/resonance/#/examples/states-by-age) are a work in progress.  Feedback welcome. 
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
