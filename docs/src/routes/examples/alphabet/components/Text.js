@@ -24,51 +24,45 @@ class Text extends PureComponent {
       text: {
         x: props.data.xValue,
         y: 0,
-        fill: colors[props.type],
         opacity: 1e-6,
       },
     };
   }
 
-  text = null; // Root text ref set in render method
-
   onAppear() {
-    const { type, data: { xValue } } = this.props;
+    const { data: { xValue } } = this.props;
 
     return {
       text: {
         x: xValue,
-        y: dims[1] / 2,
-        fill: colors[type],
-        opacity: 1,
+        y: [0, dims[1] / 2],
+        opacity: [1e-6, 1],
       },
       timing: { duration: BASE_DURATION, ease: easePoly },
     };
   }
 
   onUpdate() {
-    const { type, data: { xValue } } = this.props;
+    const { data: { xValue } } = this.props;
 
     return {
       text: {
-        x: xValue,
-        y: dims[1] / 2,
-        fill: colors[type],
-        opacity: 1,
+        x: [xValue],
+        y: [dims[1] / 2],
+        opacity: [1],
       },
       timing: { duration: BASE_DURATION, ease: easePoly },
     };
   }
 
   onRemove() {
-    const { type, data: { xValue }, removeNode } = this.props;
+    const { data: { xValue }, removeNode } = this.props;
 
     return {
       text: {
-        x: xValue,
-        y: dims[1],
-        fill: colors[type],
-        // opacity: 1e-6,
+        x: [xValue],
+        y: [dims[1]],
+        opacity: [1e-6],
       },
       timing: { duration: BASE_DURATION, ease: easePoly },
       events: { end: removeNode },
@@ -76,12 +70,12 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { data: { letter } } = this.props;
+    const { type, data: { letter } } = this.props;
 
     return (
       <text
-        ref={(d) => { this.text = d; }}
         dy="-.35em"
+        fill={colors[type]}
         style={{ font: 'bold 30px monospace' }}
         {...this.state.text}
       >{letter}</text>
