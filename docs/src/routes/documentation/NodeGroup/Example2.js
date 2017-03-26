@@ -29,8 +29,16 @@ class Node extends Component {
     removeNode: PropTypes.func.isRequired,
   }
 
-  node = null // ref set in render
-  circle = null // ref set in render
+  state = {
+    nodes: {
+      opacity: 1e-6,
+    },
+    circle: {
+      r: 1e-6,
+      cx: this.props.scale(this.props.data.x) + (this.props.scale.bandwidth() / 2),
+      fill: '#D2B362',
+    },
+  }
 
   onAppear() {
     const { scale, data: { x } } = this.props;
@@ -81,11 +89,11 @@ class Node extends Component {
 
   render() {
     return (
-      <g ref={(d) => { this.node = d; }}>
+      <g {...this.state.node}>
         <circle
-          ref={(d) => { this.circle = d; }}
           stroke="grey"
           cy={dims[1] / 2}
+          {...this.state.circle}
         />
       </g>
     );

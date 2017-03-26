@@ -28,8 +28,16 @@ class Node extends Component {
     removeNode: PropTypes.func.isRequired,
   }
 
-  node = null // ref set in render
-  rect = null // ref set in render
+  state = {
+    nodes: {
+      opacity: 1e-6,
+    },
+    rect: {
+      x: this.props.scale(this.props.data.x),
+      fill: 'tomato',
+      width: this.props.scale.bandwidth(),
+    },
+  }
 
   onAppear() {
     const { scale, data: { x } } = this.props;
@@ -80,10 +88,10 @@ class Node extends Component {
 
   render() {
     return (
-      <g ref={(d) => { this.node = d; }}>
+      <g {...this.state.node}>
         <rect
-          ref={(d) => { this.rect = d; }}
           height={dims[1]}
+          {...this.state.rect}
         />
       </g>
     );
