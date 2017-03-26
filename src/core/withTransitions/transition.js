@@ -27,33 +27,15 @@ export default function transition(config) {
   const timing = transitions.timing || {};
   delete transitions.timing;
 
-  Object.keys(transitions).forEach((refName) => {
+  Object.keys(transitions).forEach((nameSpace) => {
     const tweens = [];
 
-    Object.keys(transitions[refName]).forEach((attr) => {
-      const val = transitions[refName][attr];
-      const ref = this[refName];
-
-      if (!ref) {
-        const name = this.constructor.name || 'Component';
-        throw new Error(`No ref "${refName}" found on ${name}`);
-      }
-
-      if (Array.isArray(val)) {
-        if (val.length === 1) {
-          tweens.push(tween.call(this[refName], attr, val[0]));
-        } else {
-          this[refName].setAttribute(attr, val[0]);
-          tweens.push(tween.call(this[refName], attr, val[1]));
-        }
-      } else {
-        this[refName].setAttribute(attr, val);
-        // This assures any existing transitions are killed
-        tweens.push(tween.call(this[refName], attr, val));
-      }
+    Object.keys(transitions[nameSpace]).forEach((attr) => {
+      const val = transitions[nameSpace][attr];
+      tweens.push(tween.call(this, nameSpace, attr, val));
     });
 
     const timingConfig = { ...preset, ...timing, time: timeNow() };
-    schedule(this, refName, newId(), timingConfig, tweens, events);
+    schedule(this, nameSpace, newId(), timingConfig, tweens, events);
   });
 }
