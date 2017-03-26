@@ -17,16 +17,12 @@ class Text extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: {
-        x: props.data.xValue,
-        y: 0,
-        opacity: 1e-6,
-      },
-    };
+  state = {
+    text: {
+      x: this.props.data.xValue,
+      y: 0,
+      opacity: 1e-6,
+    },
   }
 
   onAppear() {
