@@ -13,13 +13,22 @@ class Path extends PureComponent {
     activeSeries: PropTypes.string.isRequired,
   };
 
-  node = null; // Root node ref set in render method
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      path: {
+        opacity: 1e-6,
+        d: props.data.path,
+      },
+    };
+  }
 
   onAppear() {
     const { data: { path }, duration } = this.props;
 
     return {
-      node: {
+      path: {
         opacity: [1e-6, 0.8],
         d: [path],
       },
@@ -31,7 +40,7 @@ class Path extends PureComponent {
     const { data: { path }, duration } = this.props;
 
     return {
-      node: {
+      path: {
         opacity: [0.8],
         d: [path],
       },
@@ -43,7 +52,7 @@ class Path extends PureComponent {
     const { duration, removeNode } = this.props;
 
     return {
-      node: { opacity: [1e-6] },
+      path: { opacity: [1e-6] },
       timing: { duration },
       events: { end: removeNode },
     };
@@ -54,7 +63,7 @@ class Path extends PureComponent {
 
     return (
       <path
-        ref={(d) => { this.node = d; }}
+        {...this.state.path}
         fill={activeSeries === name ? 'url(#hatch)' : fill}
       />
     );
