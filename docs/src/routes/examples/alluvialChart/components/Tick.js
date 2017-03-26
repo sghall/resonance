@@ -1,13 +1,13 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { format } from 'd3-format';
 import palette from 'docs/src/utils/palette';
 import { dims } from '../module';
 
 const numberFormat = format(',');
 
-class Tick extends PureComponent {
+class Tick extends Component {
   static propTypes = {
     data: PropTypes.shape({
       val: React.PropTypes.number.isRequired,
@@ -18,15 +18,11 @@ class Tick extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      tick: {
-        opacity: 1e-6,
-        transform: `translate(0,${props.prevScale(props.data.val)})`,
-      },
-    };
+  state = {
+    tick: {
+      opacity: 1e-6,
+      transform: `translate(0,${this.props.prevScale(this.props.data.val)})`,
+    },
   }
 
   onAppear() {

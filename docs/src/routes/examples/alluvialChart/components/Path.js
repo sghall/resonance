@@ -1,8 +1,8 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-class Path extends PureComponent {
+class Path extends Component {
   static propTypes = {
     data: PropTypes.shape({
       path: PropTypes.string.isRequired,
@@ -12,15 +12,11 @@ class Path extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      path: {
-        opacity: 1e-6,
-        d: props.data.path,
-      },
-    };
+  state = {
+    path: {
+      opacity: 1e-6,
+      d: this.props.data.path,
+    },
   }
 
   onAppear() {
