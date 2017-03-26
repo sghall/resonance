@@ -1,7 +1,7 @@
 {
   "name": "resonance",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "React data visualization components",
   "main": "index.js",
   "repository": "git+https://github.com/sghall/resonance.git",
