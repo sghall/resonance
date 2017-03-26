@@ -1,16 +1,15 @@
-/* eslint-disable no-console */
+// @flow weak
+/* eslint no-console: "off", no-use-before-define: "off" */
+
 import path from 'path';
 import fse from 'fs-extra';
 
 const files = [
   'README.md',
-  'CHANGELOG.md',
   'LICENSE',
 ];
 
-Promise.all(
-  files.map((file) => copyFile(file))
-)
+Promise.all(files.map((file) => copyFile(file)))
 .then(() => createPackageFile());
 
 function copyFile(file) {
@@ -22,7 +21,7 @@ function copyFile(file) {
       (err) => {
         if (err) throw err;
         resolve();
-      }
+      },
     );
   })
   .then(() => console.log(`Copied ${file} to ${buildPath}`));
