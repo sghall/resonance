@@ -7,7 +7,7 @@ import { COLORS, AGES } from '../module/constants';
 const colors = scaleOrdinal()
   .range(COLORS).domain(AGES);
 
-const getFill = (depth, name, sortKey) => {
+const getFill = ({ data: { name, depth }, sortKey }) => {
   const age = name.slice(5);
 
   if (age === sortKey) {
@@ -32,11 +32,22 @@ class Circle extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
+  state = {
+    node: {
+      opacity: 1e-6,
+      transform: `translate(${this.props.data.x},${this.props.data.y})`,
+    },
+    circle: {
+      r: 1e-6,
+      fill: getFill(this.props),
+    },
+  }
+
   node = null;   // Root node ref set in render method
   circle = null; // Circle node ref set in render method
 
   onAppear() {
-    const { duration, data: { name, x, y, r, depth }, sortKey } = this.props;
+    const { duration, data: { x, y, r, depth } } = this.props;
     const d0 = depth === 0 ? 0 : duration;
     const d1 = depth === 0 ? 0 : duration * 2;
 
@@ -45,20 +56,20 @@ class Circle extends PureComponent {
         opacity: [1e-6, 0.8],
         transform: `translate(${x},${y})`,
       },
-      circle: { fill: getFill(depth, name, sortKey), r: [0, r] },
+      circle: { fill: getFill(this.props), r: [1e-6, r] },
       timing: { duration: d0, delay: d1 },
     };
   }
 
   onUpdate() {
-    const { duration, data: { name, x, y, r, depth }, sortKey } = this.props;
+    const { duration, data: { x, y, r } } = this.props;
 
     return {
       node: {
         opacity: [0.8],
         transform: [`translate(${x},${y})`],
       },
-      circle: { fill: getFill(depth, name, sortKey), r: [r] },
+      circle: { fill: getFill(this.props), r: [r] },
       timing: { duration, delay: duration },
     };
   }
@@ -81,13 +92,13 @@ class Circle extends PureComponent {
 
     return (
       <g
-        ref={(d) => { this.node = d; }}
+        {...this.state.node}
         style={{ pointerEvents: type === 'REMOVE' ? 'none' : 'all' }}
       >
         <title>{name}</title>
         <circle
-          ref={(d) => { this.circle = d; }}
           stroke="rgba(0,0,0,0.2)"
+          {...this.state.circle}
         />
         <text
           fill="white"
