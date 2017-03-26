@@ -30,6 +30,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
+    'react/no-unused-prop-types': 'off', // buggy
     'react/require-default-props': 'off', // airbnb use error
     'react/forbid-prop-types': 'off', // airbnb use error
     'react/jsx-filename-extension': ['error', {extensions: ['.js']}], // airbnb is using .jsx
