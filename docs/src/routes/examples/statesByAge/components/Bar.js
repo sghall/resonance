@@ -20,22 +20,18 @@ class Bar extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      node: {
-        opacity: 1e-6,
-        transform: 'translate(0,500)',
-      },
-      rect: {
-        width: props.data.xVal,
-        height: props.yScale.bandwidth(),
-      },
-      text: {
-        x: props.data.xVal - 3,
-      },
-    };
+  state = {
+    node: {
+      opacity: 1e-6,
+      transform: 'translate(0,500)',
+    },
+    rect: {
+      width: this.props.data.xVal,
+      height: this.props.yScale.bandwidth(),
+    },
+    text: {
+      x: this.props.data.xVal - 3,
+    },
   }
 
   onAppear() {
