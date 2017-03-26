@@ -14,7 +14,7 @@ class Text extends PureComponent {
       letter: PropTypes.string.isRequired,
     }).isRequired,
     type: PropTypes.string.isRequired,
-    // removeNode: PropTypes.func.isRequired,
+    removeNode: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -38,42 +38,42 @@ class Text extends PureComponent {
     return {
       text: {
         x: xValue,
-        y: [0, dims[1] / 2],
+        y: dims[1] / 2,
         fill: colors[type],
-        opacity: [1],
+        opacity: 1,
       },
       timing: { duration: BASE_DURATION, ease: easePoly },
     };
   }
 
-  // onUpdate() {
-  //   const { type, data: { xValue } } = this.props;
+  onUpdate() {
+    const { type, data: { xValue } } = this.props;
 
-  //   return {
-  //     text: {
-  //       x: [xValue],
-  //       y: [dims[1] / 2],
-  //       fill: colors[type],
-  //       opacity: [1],
-  //     },
-  //     timing: { duration: BASE_DURATION, ease: easePoly },
-  //   };
-  // }
+    return {
+      text: {
+        x: xValue,
+        y: dims[1] / 2,
+        fill: colors[type],
+        opacity: 1,
+      },
+      timing: { duration: BASE_DURATION, ease: easePoly },
+    };
+  }
 
-  // onRemove() {
-  //   const { type, data: { xValue }, removeNode } = this.props;
+  onRemove() {
+    const { type, data: { xValue }, removeNode } = this.props;
 
-  //   return {
-  //     text: {
-  //       x: [xValue],
-  //       y: [dims[1]],
-  //       fill: colors[type],
-  //       opacity: [1e-6],
-  //     },
-  //     timing: { duration: BASE_DURATION, ease: easePoly },
-  //     events: { end: removeNode },
-  //   };
-  // }
+    return {
+      text: {
+        x: xValue,
+        y: dims[1],
+        fill: colors[type],
+        // opacity: 1e-6,
+      },
+      timing: { duration: BASE_DURATION, ease: easePoly },
+      events: { end: removeNode },
+    };
+  }
 
   render() {
     const { data: { letter } } = this.props;
