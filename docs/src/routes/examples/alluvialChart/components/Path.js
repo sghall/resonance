@@ -12,13 +12,22 @@ class Path extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  node = null; // Root node ref set in render method
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      path: {
+        opacity: 1e-6,
+        d: props.data.path,
+      },
+    };
+  }
 
   onAppear() {
     const { data: { path }, duration } = this.props;
 
     return {
-      node: {
+      path: {
         opacity: [1e-6, 0.5],
         d: [path],
       },
@@ -30,7 +39,7 @@ class Path extends PureComponent {
     const { data: { path }, duration } = this.props;
 
     return {
-      node: {
+      path: {
         opacity: [0.5],
         d: [path],
       },
@@ -42,7 +51,7 @@ class Path extends PureComponent {
     const { duration, removeNode } = this.props;
 
     return {
-      node: { opacity: [1e-6] },
+      path: { opacity: [1e-6] },
       timing: { duration },
       events: { end: removeNode },
     };
@@ -52,10 +61,7 @@ class Path extends PureComponent {
     const { data: { fill } } = this.props;
 
     return (
-      <path
-        ref={(d) => { this.node = d; }}
-        fill={fill}
-      />
+      <path fill={fill} {...this.state.path} />
     );
   }
 }
