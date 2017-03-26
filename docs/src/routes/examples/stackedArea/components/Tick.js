@@ -20,15 +20,11 @@ class Tick extends PureComponent {
     removeNode: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      tick: {
-        opacity: 1e-6,
-        transform: `translate(0,${props.currScale(props.data.val)})`,
-      },
-    };
+  state = {
+    tick: {
+      opacity: 1e-6,
+      transform: `translate(0,${this.props.currScale(this.props.data.val)})`,
+    },
   }
 
   onAppear(prev) {

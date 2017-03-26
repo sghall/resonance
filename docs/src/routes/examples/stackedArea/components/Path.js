@@ -13,15 +13,11 @@ class Path extends PureComponent {
     activeSeries: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      path: {
-        opacity: 1e-6,
-        d: props.data.path,
-      },
-    };
+  state = {
+    path: {
+      opacity: 1e-6,
+      d: this.props.data.path,
+    },
   }
 
   onAppear() {
