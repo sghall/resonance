@@ -8,18 +8,20 @@ import {
 } from 'd3-interpolate';
 import { color } from 'd3-color';
 
-function getTween(name, interpol, value1) {
+function getTween(nameSpace, attr, interpol, value1) {
   return function nullOrTween() {
-    const value0 = this.getAttribute(name);
+    const value0 = this.state[nameSpace][attr];
 
-    if (value0 === `${value1}`) {
+    if (value0 === value1) {
       return null;
     }
 
     const i = interpol(value0, value1);
 
     const tween = (t) => {
-      this.setAttribute(name, i(t));
+      this.setState((state) => {
+        return { [nameSpace]: { ...state[nameSpace], [attr]: i(t) } };
+      });
     };
 
     return tween;
@@ -38,6 +40,6 @@ export function getInterpolator(attr, value) {
   return interpolateString;
 }
 
-export default function (name, value) {
-  return getTween.call(this, name, getInterpolator(name, value), value);
+export default function (nameSpace, attr, value) {
+  return getTween.call(this, nameSpace, attr, getInterpolator(attr, value), value);
 }
