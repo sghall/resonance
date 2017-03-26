@@ -102,8 +102,8 @@ function create(node, id:number, config) {
     let j = -1;
 
     for (let i = 0; i < n; ++i) {
-      const ref = node[transition.ref];
-      const res = transition.tweens[i].call(ref);
+      // const ref = node[transition.ref];
+      const res = transition.tweens[i].call(node);
 
       if (res) {
         tweens[++j] = res;
