@@ -25,7 +25,7 @@ const config = {
     port: 3000,
     outputPath: buildPath,
   },
-  devtool: 'eval',
+  devtool: 'source-map',
   output: {
     path: buildPath,
     filename: 'app.js',
@@ -34,7 +34,7 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
-      {from: 'src/www/index.html'},
+      { from: 'src/www/index.html' },
     ]),
   ],
   module: {
