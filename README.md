@@ -1,4 +1,6 @@
-<img height="100px" hspace="20" src="https://cloud.githubusercontent.com/assets/4615775/24086129/e5543c64-0cc6-11e7-8256-07c85f734c3a.png">
+## Resonance
+
+Data-driven SVG transitions in React.  This is an experimental libary and will liely have breaking changes going forward. 
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
