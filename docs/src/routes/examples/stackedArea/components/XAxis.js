@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { utcFormat } from 'd3-time-format';
 import palette from 'docs/src/utils/palette';
 

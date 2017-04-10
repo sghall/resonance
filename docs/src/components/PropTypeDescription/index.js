@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import recast from 'recast';
 import { parse } from 'react-docgen';
 import { parse as parseDoctrine } from 'doctrine';

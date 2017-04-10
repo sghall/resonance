@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { format } from 'd3-format';
 import palette from 'docs/src/utils/palette';
 import { dims } from '../module';
@@ -10,7 +11,7 @@ const numberFormat = format(',');
 class Tick extends Component {
   static propTypes = {
     data: PropTypes.shape({
-      val: React.PropTypes.number.isRequired,
+      val: PropTypes.number.isRequired,
     }).isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,

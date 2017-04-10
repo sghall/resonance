@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
 class Legend extends PureComponent {

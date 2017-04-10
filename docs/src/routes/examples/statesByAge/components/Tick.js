@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { format } from 'd3-format';
 import { easeExp } from 'd3-ease';
 import palette from 'docs/src/utils/palette';
@@ -11,7 +12,7 @@ const percentFormat = format('.1%');
 class Tick extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
-      val: React.PropTypes.number.isRequired,
+      val: PropTypes.number.isRequired,
     }).isRequired,
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,

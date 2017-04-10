@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';

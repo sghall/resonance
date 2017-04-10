@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { easePoly } from 'd3-ease';
 import { format } from 'd3-format';
 import palette from 'docs/src/utils/palette';

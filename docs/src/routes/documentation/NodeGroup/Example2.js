@@ -1,7 +1,8 @@
 // @flow weak
 /* eslint react/no-multi-comp: "off" */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';

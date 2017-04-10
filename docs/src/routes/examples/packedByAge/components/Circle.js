@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { scaleOrdinal } from 'd3-scale';
 import { COLORS, AGES } from '../module/constants';
 
