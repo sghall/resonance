@@ -84,7 +84,7 @@ export default class TickGroup extends PureComponent {
 
     return (
       <g className={className}>
-        {state.nodes.map((node) => {
+        {state.nodes.map((node, index) => {
           const udid = keyAccessor(node);
           const type = state.udids[udid];
 
@@ -94,6 +94,7 @@ export default class TickGroup extends PureComponent {
               udid={udid}
               type={type}
               node={node}
+              index={index}
               prevScale={state.prevScale}
               currScale={state.currScale}
               removeUDID={this.removeUDID}
