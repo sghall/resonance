@@ -77,7 +77,7 @@ export default class NodeGroup extends PureComponent {
 
     return (
       <g className={className}>
-        {state.nodes.map((node) => {
+        {state.nodes.map((node, index) => {
           const udid = keyAccessor(node);
           const type = state.udids[udid];
 
@@ -87,6 +87,7 @@ export default class NodeGroup extends PureComponent {
               udid={udid}
               type={type}
               node={node}
+              index={index}
               removeUDID={this.removeUDID}
               {...props}
             />
