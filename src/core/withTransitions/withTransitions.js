@@ -1,5 +1,6 @@
 // @flow weak
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import transition from './transition';
 import stop from './stop';
 import { getDisplayName } from './helpers';

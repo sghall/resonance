@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import defaultKeyAccessor from '../core/defaultKeyAccessor';
