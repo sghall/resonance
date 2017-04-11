@@ -8,25 +8,30 @@
     "url": "https://github.com/sghall/resonance.git"
   },
   "scripts": {
-    "start": "npm run dev",
-    "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
-    "prd": "NODE_ENV=docs-production webpack-dev-server --config webpack-production.config.js --progress --colors",
-    "build": "NODE_ENV=docs-production webpack --config webpack-production.config.js --progress --colors --profile"
+    "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",
+    "start:dll": "webpack --config webpack.dev.dll.config.js",
+    "build": "npm run clean && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
+    "build:dll": "cross-env NODE_ENV=production webpack --config webpack.dll.prod.config.js",
+    "clean": "rimraf build"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.25.0",
+    "css-loader": "^0.28.0",
     "doctrine": "^2.0.0",
+    "eventsource-polyfill": "^0.9.6",
+    "file-loader": "^0.11.1",
     "highlight.js": "^9.8.0",
     "history": "^2.0.0",
+    "img-loader": "^2.0.0",
     "json-loader": "^0.5.4",
     "marked": "^0.3.5",
     "raw-loader": "^0.5.1",
     "react-addons-perf": "^15.4.0",
     "react-docgen": "^2.12.1",
+    "react-hot-loader": "3.0.0-beta.6",
     "recast": "^0.11.17",
-    "style-loader": "0.13.1",
-    "webpack-dev-server": "^1.16.2"
+    "style-loader": "^0.16.1",
+    "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
     "babel-polyfill": "^6.16.0",
