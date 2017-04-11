@@ -1,19 +1,11 @@
 // @flow weak
-/* eslint no-console: "off", no-use-before-define: "off" */
+/* eslint-disable no-console */
 
 import path from 'path';
 import fse from 'fs-extra';
 
-const files = [
-  'README.md',
-  'LICENSE',
-];
-
-Promise.all(files.map((file) => copyFile(file)))
-.then(() => createPackageFile());
-
 function copyFile(file) {
-  const buildPath = resolveBuildPath(file);
+  const buildPath = path.resolve(__dirname, '../build/', path.basename(file));
   return new Promise((resolve) => {
     fse.copy(
       file,
@@ -25,10 +17,6 @@ function copyFile(file) {
     );
   })
   .then(() => console.log(`Copied ${file} to ${buildPath}`));
-}
-
-function resolveBuildPath(file) {
-  return path.resolve(__dirname, '../build/', path.basename(file));
 }
 
 function createPackageFile() {
@@ -84,3 +72,13 @@ function createPackageFile() {
     });
   });
 }
+
+const files = [
+  'README.md',
+  'LICENSE',
+];
+
+Promise
+  .all(files.map((file) => copyFile(file)))
+  .then(() => createPackageFile());
+
