@@ -10,12 +10,13 @@
   "scripts": {
     "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",
     "start:dll": "webpack --config webpack.dev.dll.config.js",
-    "build": "npm run clean && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
-    "build:dll": "cross-env NODE_ENV=production webpack --config webpack.dll.prod.config.js",
+    "build": "npm run clean && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prd.config.js",
+    "build:dll": "cross-env NODE_ENV=production webpack --config webpack.prd.dll.config.js",
     "clean": "rimraf build"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "doctrine": "^2.0.0",
     "eventsource-polyfill": "^0.9.6",
