@@ -1,5 +1,4 @@
 @import "bootstrap.grid.css";
-/* hightlight.js for syntax highlighting */
 @import "github.css";
 
 a {
@@ -23,12 +22,4 @@ body, h1, h2, h3, h4, h5, h6 {
 body {
   font-size: 15px;
   line-height: 24px;
-}
-
-/* Used in StylesOverridingCssExample.js */
-.styles-overriding-css-example {
-  width: 50% !important;
-  margin: 0 auto !important;
-  border: 2px solid #FF9800 !important;
-  background-color: #ffd699 !important;
 }
