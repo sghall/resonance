@@ -27,6 +27,7 @@ class Node extends Component {
       x: PropTypes.number.isRequired,
     }).isRequired,
     scale: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
   }
 
@@ -42,7 +43,7 @@ class Node extends Component {
   }
 
   onAppear() {
-    const { scale, data: { x } } = this.props;
+    const { scale, index, data: { x } } = this.props;
 
     return {
       node: {
@@ -51,6 +52,7 @@ class Node extends Component {
       circle: {
         r: [1e-6, scale.bandwidth() / 2],
         cx: scale(x) + (scale.bandwidth() / 2),
+        strokeWidth: [1e-6, index + 1],
         fill: '#D2B362',
       },
       timing: { duration: 1000, ease: easeExpInOut },
@@ -58,7 +60,7 @@ class Node extends Component {
   }
 
   onUpdate() {
-    const { scale, data: { x } } = this.props;
+    const { scale, index, data: { x } } = this.props;
 
     return {
       node: {
@@ -67,6 +69,7 @@ class Node extends Component {
       circle: {
         r: [scale.bandwidth() / 2],
         cx: [scale(x) + (scale.bandwidth() / 2)],
+        strokeWidth: [index + 1],
         fill: ['#634A8F'],
       },
       timing: { duration: 1000, ease: easeExpInOut },
@@ -92,7 +95,7 @@ class Node extends Component {
     return (
       <g {...this.state.node}>
         <circle
-          stroke="grey"
+          stroke="tomato"
           cy={dims[1] / 2}
           {...this.state.circle}
         />
