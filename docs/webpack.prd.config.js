@@ -9,6 +9,7 @@ module.exports = Object.assign({}, webpackBaseConfig, {
   context: path.resolve(__dirname),
   entry: {
     main: [
+      'babel-polyfill', // polyfill for lesser browsers
       './src/index',
     ],
   },

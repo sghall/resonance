@@ -11,6 +11,7 @@ module.exports = Object.assign({}, webpackBaseConfig, {
   context: path.resolve(__dirname),
   entry: {
     main: [
+      'babel-polyfill', // polyfill for lesser browsers
       'eventsource-polyfill', // hot reloading in IE
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://0.0.0.0:3000',
