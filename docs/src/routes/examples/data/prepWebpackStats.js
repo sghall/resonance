@@ -58,7 +58,6 @@ function buildHierarchy(modules) {
     }
 
     const mod = {
-      id: module.id,
       fullName: module.name,
       size: module.size,
     };
@@ -85,7 +84,37 @@ function buildHierarchy(modules) {
   return root;
 }
 
-fs.writeFile('./wepack-stats.json', JSON.stringify(buildHierarchy(stats.modules), null, 4), 'utf-8', (err) => {
+const tree = buildHierarchy(stats.modules);
+const data = { byID: {}, allIDs: [] };
+
+let nid = -1;
+
+const stack = [{ node: tree, parentID: null }];
+
+while (stack.length) {
+  const next = stack.pop();
+
+  data.allIDs.push(++nid);
+
+  if (next.parentID !== null) {
+    data.byID[next.parentID].childIDs.push(nid);
+  }
+
+  data.byID[nid] = {
+    name: next.node.name || null,
+    size: next.node.size || null,
+    fullName: next.node.fullName || null,
+    childIDs: [],
+  };
+
+  if (next.node.children) {
+    next.node.children.forEach((node) => { // eslint-disable-line no-loop-func
+      stack.unshift({ node, parentID: nid });
+    });
+  }
+}
+
+fs.writeFile('./wepack-stats.json', JSON.stringify(data, null, 2), 'utf-8', (err) => {
   if (err) {
     console.log('ERROR: ', err);
   } else {
