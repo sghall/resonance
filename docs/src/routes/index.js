@@ -64,6 +64,7 @@ const routes = {
         require('./examples/packedByAge').default(store, injectReducer),
         require('./examples/stackedArea').default(store, injectReducer),
         require('./examples/alluvialChart').default(store, injectReducer),
+        require('./examples/webpackStatsV1').default(store, injectReducer),
       ],
     },
   ],
