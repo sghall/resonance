@@ -2,9 +2,8 @@
 
 import { createSelector } from 'reselect';
 import { pack as packLayout, hierarchy } from 'd3-hierarchy';
-import { getSortByKey } from 'docs/src/utils/helpers';
-import { AGES, VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
-import statesByAge from '../../data/statesByAge';
+import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
+import webpackStats from '../../data/webpack-stats.json';
 
 export const dims = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
@@ -14,75 +13,67 @@ export const dims = [
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-const PACKED_BY_AGE_UPDATE_ORDER = 'PACKED_BY_AGE_UPDATE_ORDER';
-const PACKED_BY_AGE_UPDATE_COUNT = 'PACKED_BY_AGE_UPDATE_COUNT';
+const WEBPACK_STATS_V1_UPDATE_ORDER = 'WEBPACK_STATS_V1_UPDATE_ORDER';
+const WEBPACK_STATS_V1_UPDATE_COUNT = 'WEBPACK_STATS_V1_UPDATE_COUNT';
 
 // ********************************************************************
 //  ACTION CREATORS
 // ********************************************************************
 export const updateSortOrder = (sortKey) => ({
-  type: PACKED_BY_AGE_UPDATE_ORDER,
+  type: WEBPACK_STATS_V1_UPDATE_ORDER,
   sortKey,
 });
 
 export const updateTopCount = (showTop) => ({
-  type: PACKED_BY_AGE_UPDATE_COUNT,
+  type: WEBPACK_STATS_V1_UPDATE_COUNT,
   showTop,
 });
 
 // ********************************************************************
 //  SELECTOR
 // ********************************************************************
-const getRawData = (state) => state[EXAMPLE_STORE_KEY].rawData;
+const getRawData = (state) => state[EXAMPLE_STORE_KEY].data;
 const getSortKey = (state) => state[EXAMPLE_STORE_KEY].sortKey;
 const getShowTop = (state) => state[EXAMPLE_STORE_KEY].showTop;
+
+const addNode = (parent, node, data) => {
+  const child = { name: node.name };
+
+  if (node.size) {
+    child.size = node.size;
+  } else {
+    child.children = [];
+  }
+
+  parent.children.push(child);
+
+  node.childIDs.forEach((id) => {
+    addNode(child, data.byID[id], data);
+  });
+};
 
 export const makeGetSelectedData = () => {
   return createSelector(
     [getRawData, getSortKey, getShowTop],
-    (rawData, sortKey, showTop) => {
-      if (rawData.length === 0) {
-        return {
-          sortKey,
-          data: rawData,
-          xScale: () => 0,
-          yScale: () => 0,
-        };
-      }
+    (data, sortKey, showTop) => {
+      const tree = {
+        name: 'root',
+        children: [],
+      };
 
-      const sort = getSortByKey(sortKey);
-      const data = rawData.sort(sort).slice(0, showTop);
+      data.byID[0].childIDs.forEach((id) => {
+        addNode(tree, data.byID[id], data);
+      });
 
-      const pack = packLayout()
-        .padding(2)
-        .size([Math.min(...dims), Math.min(...dims)]);
-
-      const nodes = { name: 'root', children: [] };
-
-      for (let i = 0; i < data.length; i++) {
-        const d = data[i];
-
-
-        const state = { name: d.State, children: [] };
-        nodes.children.push(state);
-
-        for (let j = 0; j < AGES.length; j++) {
-          const group = AGES[j];
-          const child = { name: `${d.State} - ${group}`, size: d[group] * d.Total };
-          state.children.push(child);
-        }
-      }
+      console.log(tree);
 
       return {
-        showTop,
         sortKey,
-        data: pack(
-        hierarchy(nodes)
-          .sum((d) => d.size)
-          .sort((a, b) => b.value - a.value),
-        ).descendants().map(({ data: { name }, x, y, r, depth }) => ({
-          x, y, r, depth, name,
-        })),
+        showTop,
+        tree,
+        data: [],
+        xScale: () => 0,
+        yScale: () => 0,
       };
     },
   );
@@ -91,13 +82,13 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { rawData: statesByAge, showTop: 10, sortKey: 'Under 5 Years' };
+const initialState = { data: webpackStats, showTop: 10, sortKey: 'Under 5 Years' };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case PACKED_BY_AGE_UPDATE_ORDER:
+    case WEBPACK_STATS_V1_UPDATE_ORDER:
       return Object.assign({}, state, { sortKey: action.sortKey });
-    case PACKED_BY_AGE_UPDATE_COUNT:
+    case WEBPACK_STATS_V1_UPDATE_COUNT:
       return Object.assign({}, state, { showTop: action.showTop });
     default:
       return state;
