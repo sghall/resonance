@@ -61,7 +61,6 @@ function buildHierarchy(modules) {
       id: module.id,
       fullName: module.name,
       size: module.size,
-      reasons: module.reasons,
     };
 
     const depth = mod.fullName.split('/').length - 1;
@@ -86,7 +85,7 @@ function buildHierarchy(modules) {
   return root;
 }
 
-fs.writeFile('./wepack-stats.json', JSON.stringify(buildHierarchy(stats.modules)), (err) => {
+fs.writeFile('./wepack-stats.json', JSON.stringify(buildHierarchy(stats.modules), null, 4), 'utf-8', (err) => {
   if (err) {
     console.log('ERROR: ', err);
   } else {
