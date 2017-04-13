@@ -37,10 +37,19 @@ const getSortKey = (state) => state[EXAMPLE_STORE_KEY].sortKey;
 const getShowTop = (state) => state[EXAMPLE_STORE_KEY].showTop;
 
 const addNode = (parent, node, data) => {
-  const child = { name: node.name };
+  const child = {
+    parent,
+    name: node.name,
+    size: node.size || 0,
+  };
 
-  if (node.size) {
-    child.size = node.size;
+  if (node.size > 0) {
+    let next = parent;
+
+    while (next) {
+      next.size += node.size;
+      next = next.parent;
+    }
   } else {
     child.children = [];
   }
@@ -58,6 +67,7 @@ export const makeGetSelectedData = () => {
     (data, sortKey, showTop) => {
       const tree = {
         name: 'root',
+        size: 0,
         children: [],
       };
 
