@@ -114,7 +114,7 @@ while (stack.length) {
   }
 }
 
-fs.writeFile('./wepack-stats.json', JSON.stringify(data, null, 2), 'utf-8', (err) => {
+fs.writeFile('./docs/src/routes/examples/data/wepack-stats.json', JSON.stringify(data, null, 2), 'utf-8', (err) => {
   if (err) {
     console.log('ERROR: ', err);
   } else {
