@@ -127,6 +127,11 @@ class AppNavDrawer extends Component {
                 value="/examples/alluvial-chart"
                 href="#/examples/alluvial-chart"
               />,
+              <ListItem
+                primaryText="Webpack Circles"
+                value="/examples/webpack-stats-v1"
+                href="#/examples/webpack-stats-v1"
+              />,
             ]}
           />
         </SelectableList>
