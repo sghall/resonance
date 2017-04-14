@@ -2,19 +2,30 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { arc } from 'd3-shape';
 import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
+// import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
-import { VIEW, TRBL, AGES } from '../module/constants';
-import Circle from './Circle';
+import { VIEW, TRBL, AGES, COLORS } from '../module/constants';
+// import Circle from './Circle';
 import description from '../description.md';
 
-const circleKeyAccessor = (d) => d.name;
+const dims = [
+  VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
+  VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
+];
+
+const path = arc()
+  .startAngle((d) => d.x0).endAngle((d) => d.x1)
+  .innerRadius((d) => Math.sqrt(d.y0))
+  .outerRadius((d) => Math.sqrt(d.y1));
+
+const arcKeyAccessor = (d) => d.filePath;
 
 export class Example extends Component {
 
@@ -98,13 +109,13 @@ export class Example extends Component {
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
                 <h3>This example is under construction</h3>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <NodeGroup
-                    data={data}
-                    duration={duration}
-                    keyAccessor={circleKeyAccessor}
-                    sortKey={sortKey}
-                    nodeComponent={Circle}
-                  />
+                  <g transform={`translate(${dims[0] / 2},${dims[1] / 2})`}>
+                    {data.map((d) => {
+                      return (
+                        <path key={arcKeyAccessor(d)} fill={COLORS[d.depth]} stroke="grey" d={path(d)} />
+                      );
+                    })}
+                  </g>
                 </Surface>
               </div>
             </div>

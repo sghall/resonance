@@ -1,16 +1,13 @@
 // @flow weak
 
-import { shuffle } from 'd3-array';
-
 export const EXAMPLE_STORE_KEY = 'webpack-stats-v1';
 
-export const VIEW = [500, 400];        // ViewBox: Width, Height
+export const VIEW = [500, 500];        // ViewBox: Width, Height
 export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
 
-export const COLORS = shuffle([
+export const COLORS = [
   '#12291F',
   '#3C564B',
-  '#1E3129',
   '#091F16',
   '#02130C',
   '#121E26',
@@ -23,7 +20,7 @@ export const COLORS = shuffle([
   '#324027',
   '#19280C',
   '#0D1903',
-]);
+];
 
 export const AGES = [
   'Under 5 Years',

@@ -32,46 +32,46 @@ export const updateTopCount = (showTop) => ({
   showTop,
 });
 
-const radius = Math.min(...dims) / 2;
+// const radius = Math.min(...dims) / 2;
 
-const x = scaleLinear()
-  .range([0, 2 * Math.PI]);
+// const x = scaleLinear()
+//   .range([0, 2 * Math.PI]);
 
-const y = scaleSqrt()
-  .range([0, radius]);
+// const y = scaleSqrt()
+//   .range([0, radius]);
 
-const path = arc()
-  .startAngle((d) => {
-    Math.max(0, Math.min(2 * Math.PI, x(d.x)));
-  })
-  .endAngle((d) => {
-    Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
-  })
-  .innerRadius((d) => {
-    Math.max(0, y(d.y));
-  })
-  .outerRadius((d) => {
-    Math.max(0, y(d.y + d.dy));
-  });
+// const path = arc()
+//   .startAngle((d) => {
+//     Math.max(0, Math.min(2 * Math.PI, x(d.x)));
+//   })
+//   .endAngle((d) => {
+//     Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
+//   })
+//   .innerRadius((d) => {
+//     Math.max(0, y(d.y));
+//   })
+//   .outerRadius((d) => {
+//     Math.max(0, y(d.y + d.dy));
+//   });
 
-export function arcTweenZoom(d) {
-  const xd = interpolate(x.domain(), [d.x, d.x + d.dx]);
-  const yd = interpolate(y.domain(), [d.y, 1]);
-  const yr = interpolate(y.range(), [d.y ? 20 : 0, radius]);
+// export function arcTweenZoom(d) {
+//   const xd = interpolate(x.domain(), [d.x, d.x + d.dx]);
+//   const yd = interpolate(y.domain(), [d.y, 1]);
+//   const yr = interpolate(y.range(), [d.y ? 20 : 0, radius]);
 
-  return (d0, i) => {
-    if (i === 0) {
-      return () => path(d0);
-    }
+//   return (d0, i) => {
+//     if (i === 0) {
+//       return () => path(d0);
+//     }
 
-    return (t) => {
-      x.domain(xd(t));
-      y.domain(yd(t)).range(yr(t));
+//     return (t) => {
+//       x.domain(xd(t));
+//       y.domain(yd(t)).range(yr(t));
 
-      return path(d0);
-    };
-  };
-}
+//       return path(d0);
+//     };
+//   };
+// }
 
 // ********************************************************************
 //  SELECTOR
@@ -102,27 +102,36 @@ export const makeGetSelectedData = () => {
   return createSelector(
     [getRawData, getSortKey, getShowTop],
     (data, sortKey, showTop) => {
-      const tree = {
+      const root = {
         name: 'root',
         children: [],
       };
 
       data.byID[0].childIDs.forEach((id) => {
-        addNode(tree, data.byID[id], data);
+        addNode(root, data.byID[id], data);
       });
 
-      const root = hierarchy(tree)
-        .sum((d) => d.size || 0);
+      const tree = hierarchy(root)
+        .sum((d) => d.size || 0)
+        .sort((a, b) => b.value - a.value);
 
-      partition().size(dims)(root);
+      const radius = Math.min(...dims) / 2;
 
-      console.log('root: ', root);
+      partition().size([2 * Math.PI, radius * radius])(tree);
+
+      tree.each((d) => {
+        d.filePath = d.path(tree) // eslint-disable-line no-param-reassign
+          .reverse()
+          .reduce((m, n) => `${m}/${n.data.name}`, '');
+      });
+
+      console.log('tree: ', tree.descendants());
 
       return {
         sortKey,
         showTop,
         tree,
-        data: [],
+        data: tree.descendants(),
         xScale: () => 0,
         yScale: () => 0,
       };
