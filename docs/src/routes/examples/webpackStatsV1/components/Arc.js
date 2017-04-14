@@ -39,12 +39,16 @@ class Arc extends Component {
     removeNode: PropTypes.func.isRequired,
   };
 
+  state = {
+    opacity: 0.7,
+  }
+
   render() {
     const { data } = this.props;
 
     return (
       <path
-        opacity={0.7}
+        opacity={this.state.opacity}
         fill={COLORS[data.depth]}
         stroke="grey"
         d={path(data)}
