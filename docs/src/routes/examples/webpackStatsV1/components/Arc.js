@@ -4,20 +4,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arc } from 'd3-shape';
 import { scaleLinear, scaleSqrt } from 'd3-scale';
-import { VIEW, TRBL, COLORS } from '../module/constants';
+import { DIMS, COLORS } from '../module/constants';
 
-const dims = [
-  VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
-  VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
-];
-
-const radius = Math.min(...dims) / 2;
+const radius = Math.min(...DIMS) / 2;
 
 const x = scaleLinear()
-    .range([0, 2 * Math.PI]);
+  .range([0, 2 * Math.PI]);
 
 const y = scaleSqrt()
-    .range([0, radius]);
+  .range([0, radius]);
 
 const path = arc()
   .startAngle((d) => Math.max(0, Math.min(2 * Math.PI, x(d.x0))))
@@ -34,7 +29,6 @@ class Arc extends Component {
       y1: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
     }).isRequired,
-    type: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
   };
