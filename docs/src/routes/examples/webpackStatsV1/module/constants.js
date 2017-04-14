@@ -2,8 +2,8 @@
 
 export const EXAMPLE_STORE_KEY = 'webpack-stats-v1';
 
-export const VIEW = [500, 500];        // ViewBox: Width, Height
-export const TRBL = [75, 75, 75, 75];  // Margins: Top, Right, Bottom, Left
+export const VIEW = [500, 500];            // ViewBox: Width, Height
+export const TRBL = [100, 100, 100, 100];  // Margins: Top, Right, Bottom, Left
 
 export const DIMS = [
   VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
