@@ -1,7 +1,10 @@
 // @flow weak
 
 import { createSelector } from 'reselect';
-import { pack as packLayout, hierarchy } from 'd3-hierarchy';
+import { arc } from 'd3-shape';
+import { scaleLinear, scaleSqrt } from 'd3-scale';
+import { interpolate } from 'd3-interpolate';
+import { hierarchy, partition } from 'd3-hierarchy';
 import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
 import webpackStats from '../../data/webpack-stats.json';
 
@@ -29,6 +32,47 @@ export const updateTopCount = (showTop) => ({
   showTop,
 });
 
+const radius = Math.min(...dims) / 2;
+
+const x = scaleLinear()
+  .range([0, 2 * Math.PI]);
+
+const y = scaleSqrt()
+  .range([0, radius]);
+
+const path = arc()
+  .startAngle((d) => {
+    Math.max(0, Math.min(2 * Math.PI, x(d.x)));
+  })
+  .endAngle((d) => {
+    Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
+  })
+  .innerRadius((d) => {
+    Math.max(0, y(d.y));
+  })
+  .outerRadius((d) => {
+    Math.max(0, y(d.y + d.dy));
+  });
+
+export function arcTweenZoom(d) {
+  const xd = interpolate(x.domain(), [d.x, d.x + d.dx]);
+  const yd = interpolate(y.domain(), [d.y, 1]);
+  const yr = interpolate(y.range(), [d.y ? 20 : 0, radius]);
+
+  return (d0, i) => {
+    if (i === 0) {
+      return () => path(d0);
+    }
+
+    return (t) => {
+      x.domain(xd(t));
+      y.domain(yd(t)).range(yr(t));
+
+      return path(d0);
+    };
+  };
+}
+
 // ********************************************************************
 //  SELECTOR
 // ********************************************************************
@@ -38,18 +82,11 @@ const getShowTop = (state) => state[EXAMPLE_STORE_KEY].showTop;
 
 const addNode = (parent, node, data) => {
   const child = {
-    parent,
     name: node.name,
-    size: node.size || 0,
   };
 
-  if (node.size > 0) {
-    let next = parent;
-
-    while (next) {
-      next.size += node.size;
-      next = next.parent;
-    }
+  if (node.size) {
+    child.size = node.size;
   } else {
     child.children = [];
   }
@@ -67,7 +104,6 @@ export const makeGetSelectedData = () => {
     (data, sortKey, showTop) => {
       const tree = {
         name: 'root',
-        size: 0,
         children: [],
       };
 
@@ -75,7 +111,12 @@ export const makeGetSelectedData = () => {
         addNode(tree, data.byID[id], data);
       });
 
-      console.log(tree);
+      const root = hierarchy(tree)
+        .sum((d) => d.size || 0);
+
+      partition().size(dims)(root);
+
+      console.log(root);
 
       return {
         sortKey,
