@@ -44,9 +44,6 @@ class Circle extends PureComponent {
     },
   }
 
-  node = null;   // Root node ref set in render method
-  circle = null; // Circle node ref set in render method
-
   onAppear() {
     const { duration, data: { x, y, r, depth } } = this.props;
     const d0 = depth === 0 ? 0 : duration;
