@@ -2,11 +2,10 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, useRouterHistory } from 'react-router';
+import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { createHashHistory } from 'history';
-import routes from './routes';
+import App from './App';
 import store from './store';
 
 // Helpers for debugging
@@ -17,17 +16,26 @@ window.Perf = require('react-addons-perf');
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-/**
- * Render the main app component. You can read more about the react-router here:
- * https://github.com/reactjs/react-router/blob/master/docs/guides/README.md
- */
 render(
-  <Provider store={store}>
-    <Router
-      history={useRouterHistory(createHashHistory)({ queryKey: false })}
-      onUpdate={() => window.scrollTo(0, 0)}
-    >
-      {routes}
-    </Router>
-  </Provider>
-, document.getElementById('app'));
+  <AppContainer errorReporter={({ error }) => { throw error; }}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </AppContainer>,
+  document.getElementById('app'),
+);
+
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default; // eslint-disable-line global-require
+
+    render(
+      <AppContainer errorReporter={({ error }) => { throw error; }}>
+        <Provider store={store}>
+          <NextApp />
+        </Provider>
+      </AppContainer>,
+      document.getElementById('app'),
+    );
+  });
+}
