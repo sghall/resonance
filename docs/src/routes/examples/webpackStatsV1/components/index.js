@@ -96,6 +96,7 @@ export class Example extends Component {
                 </Table>
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
+                <h3>This example is under construction</h3>
                 <Surface view={VIEW} trbl={TRBL}>
                   <NodeGroup
                     data={data}
