@@ -1,9 +1,9 @@
 // @flow weak
 
 import { createSelector } from 'reselect';
-import { arc } from 'd3-shape';
-import { scaleLinear, scaleSqrt } from 'd3-scale';
-import { interpolate } from 'd3-interpolate';
+// import { arc } from 'd3-shape';
+// import { scaleLinear, scaleSqrt } from 'd3-scale';
+// import { interpolate } from 'd3-interpolate';
 import { hierarchy, partition } from 'd3-hierarchy';
 import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
 import webpackStats from '../../data/webpack-stats.json';
