@@ -116,7 +116,7 @@ export const makeGetSelectedData = () => {
 
       partition().size(dims)(root);
 
-      console.log(root);
+      console.log('root: ', root);
 
       return {
         sortKey,
