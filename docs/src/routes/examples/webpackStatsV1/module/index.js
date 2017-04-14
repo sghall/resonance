@@ -115,9 +115,7 @@ export const makeGetSelectedData = () => {
         .sum((d) => d.size || 0)
         .sort((a, b) => b.value - a.value);
 
-      const radius = Math.min(...dims) / 2;
-
-      partition().size([2 * Math.PI, radius * radius])(tree);
+      partition()(tree);
 
       tree.each((d) => {
         d.filePath = d.path(tree) // eslint-disable-line no-param-reassign

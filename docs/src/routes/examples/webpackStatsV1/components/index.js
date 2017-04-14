@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arc } from 'd3-shape';
+import { scaleLinear, scaleSqrt } from 'd3-scale';
 import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
@@ -20,15 +21,23 @@ const dims = [
   VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
 ];
 
+const radius = Math.min(...dims) / 2;
+
+const x = scaleLinear()
+    .range([0, 2 * Math.PI]);
+
+const y = scaleSqrt()
+    .range([0, radius]);
+
 const path = arc()
-  .startAngle((d) => d.x0).endAngle((d) => d.x1)
-  .innerRadius((d) => Math.sqrt(d.y0))
-  .outerRadius((d) => Math.sqrt(d.y1));
+  .startAngle((d) => Math.max(0, Math.min(2 * Math.PI, x(d.x0))))
+  .endAngle((d) => Math.max(0, Math.min(2 * Math.PI, x(d.x1))))
+  .innerRadius((d) => Math.max(0, y(d.y0)))
+  .outerRadius((d) => Math.max(0, y(d.y1)));
 
 const arcKeyAccessor = (d) => d.filePath;
 
 export class Example extends Component {
-
   constructor(props) {
     super(props);
 
@@ -112,7 +121,7 @@ export class Example extends Component {
                   <g transform={`translate(${dims[0] / 2},${dims[1] / 2})`}>
                     {data.map((d) => {
                       return (
-                        <path key={arcKeyAccessor(d)} fill={COLORS[d.depth]} stroke="grey" d={path(d)} />
+                        <path opacity={0.7} key={arcKeyAccessor(d)} fill={COLORS[d.depth]} stroke="grey" d={path(d)} />
                       );
                     })}
                   </g>
