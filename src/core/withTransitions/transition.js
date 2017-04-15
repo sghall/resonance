@@ -16,6 +16,10 @@ const preset = {
 export default function transition(config) {
   const transitions = { ...config };
 
+  if (!this || !this.isReactComponent) {
+    throw new Error('transitions must be run against a React Component');
+  }
+
   const events = transitions.events || {};
   delete transitions.events;
 
