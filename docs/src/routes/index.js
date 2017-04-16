@@ -15,7 +15,6 @@ const srcContext = require.context('!raw-loader!../../../src', true);
 
 const routes = {
   path: '/',
-  title: 'Material Charts',
   component: AppFrame,
   indexRoute: {
     title: null,
