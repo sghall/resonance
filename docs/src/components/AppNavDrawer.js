@@ -128,9 +128,9 @@ class AppNavDrawer extends Component {
                 href="#/examples/alluvial-chart"
               />,
               <ListItem
-                primaryText="Webpack Circles"
-                value="/examples/webpack-stats-v1"
-                href="#/examples/webpack-stats-v1"
+                primaryText="Webpack Sunburst"
+                value="/examples/webpack-sunburst"
+                href="#/examples/webpack-sunburst"
               />,
             ]}
           />
