@@ -1,6 +1,6 @@
 // @flow weak
 
-export const EXAMPLE_STORE_KEY = 'webpack-stats-v1';
+export const EXAMPLE_STORE_KEY = 'webpack-sunburst';
 
 export const VIEW = [500, 500];            // ViewBox: Width, Height
 export const TRBL = [100, 100, 100, 100];  // Margins: Top, Right, Bottom, Left

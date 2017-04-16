@@ -9,9 +9,10 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Arc from './Arc';
-import { updateTopCount, makeGetSelectedData } from '../module';
+import { makeGetSelectedData } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
+import { arcTweenZoom } from './utils';
 
 const arcKeyAccessor = (d) => d.filePath;
 
@@ -19,19 +20,17 @@ export class Example extends Component {
   constructor(props) {
     super(props);
 
-    (this:any).setShowTop = this.setShowTop.bind(this);
     (this:any).setDuration = this.setDuration.bind(this);
+    (this:any).setActiveArc = this.setActiveArc.bind(this);
   }
 
   state = {
+    activeArc: null,
     duration: 500,
-    showTop: this.props.showTop,
   }
 
-  setShowTop(e, value) {
-    this.setState({
-      showTop: value,
-    });
+  setActiveArc(activeArc) {
+    this.setState({ activeArc });
   }
 
   setDuration(e, value) {
@@ -41,8 +40,14 @@ export class Example extends Component {
   }
 
   render() {
-    const { data, dispatch } = this.props;
-    const { duration, showTop } = this.state;
+    const { data } = this.props;
+    const { duration, activeArc } = this.state;
+
+    let tween = null;
+
+    if (this.state.activeArc) {
+      tween = arcTweenZoom(activeArc);
+    }
 
     return (
       <Paper style={{ padding: 20 }}>
@@ -54,16 +59,7 @@ export class Example extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-6 col-sm-6">
-                <h5>Show Top {showTop} States:</h5>
-                <Slider
-                  min={5} max={25} step={1}
-                  value={showTop}
-                  onChange={this.setShowTop}
-                  onDragStop={() => dispatch(updateTopCount(showTop))}
-                />
-              </div>
-              <div className="col-md-6 col-sm-6">
+              <div className="col-md-12 col-sm-12">
                 <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
                 <Slider
                   defaultValue={0.1}
@@ -79,7 +75,9 @@ export class Example extends Component {
                     <NodeGroup
                       data={data}
                       duration={duration}
+                      clickHandler={this.setActiveArc}
                       keyAccessor={arcKeyAccessor}
+                      tween={tween}
                       nodeComponent={Arc}
                     />
                   </g>
@@ -95,7 +93,6 @@ export class Example extends Component {
 
 Example.propTypes = {
   data: PropTypes.array.isRequired,
-  showTop: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

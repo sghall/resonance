@@ -1,24 +1,10 @@
 // @flow weak
 
 import React, { Component } from 'react';
+import { transition } from 'resonance';
 import PropTypes from 'prop-types';
-import { arc } from 'd3-shape';
-import { scaleLinear, scaleSqrt } from 'd3-scale';
-import { DIMS, COLORS } from '../module/constants';
-
-const radius = Math.min(...DIMS) / 2;
-
-const x = scaleLinear()
-  .range([0, 2 * Math.PI]);
-
-const y = scaleSqrt()
-  .range([0, radius]);
-
-const path = arc()
-  .startAngle((d) => Math.max(0, Math.min(2 * Math.PI, x(d.x0))))
-  .endAngle((d) => Math.max(0, Math.min(2 * Math.PI, x(d.x1))))
-  .innerRadius((d) => Math.max(0, y(d.y0)))
-  .outerRadius((d) => Math.max(0, y(d.y1)));
+import { path } from './utils';
+import { COLORS } from '../module/constants';
 
 class Arc extends Component {
   static propTypes = {
@@ -29,23 +15,37 @@ class Arc extends Component {
       y1: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
     }).isRequired,
+    clickHandler: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
   };
 
   state = {
     opacity: 0.7,
+    path: {
+      d: path(this.props.data),
+    },
+  }
+
+  componentWillReceiveProps(next) {
+    if (next.tween && typeof next.tween === 'function') {
+      transition.call(this, {
+        path: { d: next.tween(next.data, next.index) },
+        timing: { duration: 5000 },
+      });
+    }
   }
 
   render() {
-    const { data } = this.props;
+    const { data, clickHandler } = this.props;
 
     return (
       <path
+        onClick={() => clickHandler(data)}
         opacity={this.state.opacity}
         fill={COLORS[data.depth]}
         stroke="grey"
-        d={path(data)}
+        d={this.state.path.d}
       />
     );
   }

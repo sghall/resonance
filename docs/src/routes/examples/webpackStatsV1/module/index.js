@@ -8,28 +8,26 @@ import webpackStats from '../../data/webpack-stats.json';
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-const WEBPACK_STATS_V1_UPDATE_ORDER = 'WEBPACK_STATS_V1_UPDATE_ORDER';
-const WEBPACK_STATS_V1_UPDATE_COUNT = 'WEBPACK_STATS_V1_UPDATE_COUNT';
+const WEBPACK_SUNBURST_UPDATE_X_DOMAIN = 'WEBPACK_SUNBURST_UPDATE_X_DOMAIN';
+const WEBPACK_SUNBURST_UPDATE_Y_DOMAIN = 'WEBPACK_SUNBURST_UPDATE_Y_DOMAIN';
 
 // ********************************************************************
 //  ACTION CREATORS
 // ********************************************************************
-export const updateSortOrder = (sortKey) => ({
-  type: WEBPACK_STATS_V1_UPDATE_ORDER,
-  sortKey,
+export const updateXDomain = (domain) => ({
+  type: WEBPACK_SUNBURST_UPDATE_X_DOMAIN,
+  domain,
 });
 
-export const updateTopCount = (showTop) => ({
-  type: WEBPACK_STATS_V1_UPDATE_COUNT,
-  showTop,
+export const updateYDomain = (domain) => ({
+  type: WEBPACK_SUNBURST_UPDATE_Y_DOMAIN,
+  domain,
 });
 
 // ********************************************************************
 //  SELECTOR
 // ********************************************************************
-const getRawData = (state) => state[EXAMPLE_STORE_KEY].data;
-const getSortKey = (state) => state[EXAMPLE_STORE_KEY].sortKey;
-const getShowTop = (state) => state[EXAMPLE_STORE_KEY].showTop;
+const getData = (state) => state[EXAMPLE_STORE_KEY].data;
 
 const addNode = (parent, node, data) => {
   const child = {
@@ -51,8 +49,8 @@ const addNode = (parent, node, data) => {
 
 export const makeGetSelectedData = () => {
   return createSelector(
-    [getRawData, getSortKey, getShowTop],
-    (data, sortKey, showTop) => {
+    [getData],
+    (data) => {
       const root = {
         name: 'root',
         children: [],
@@ -74,15 +72,8 @@ export const makeGetSelectedData = () => {
           .reduce((m, n) => `${m}/${n.data.name}`, '');
       });
 
-      console.log('tree: ', tree.descendants());
-
       return {
-        sortKey,
-        showTop,
-        tree,
         data: tree.descendants(),
-        xScale: () => 0,
-        yScale: () => 0,
       };
     },
   );
@@ -91,14 +82,14 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { data: webpackStats, showTop: 10, sortKey: 'Under 5 Years' };
+const initialState = { data: webpackStats, xDomain: [0, 1], yDomain: [0, 1] };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case WEBPACK_STATS_V1_UPDATE_ORDER:
-      return Object.assign({}, state, { sortKey: action.sortKey });
-    case WEBPACK_STATS_V1_UPDATE_COUNT:
-      return Object.assign({}, state, { showTop: action.showTop });
+    case WEBPACK_SUNBURST_UPDATE_X_DOMAIN:
+      return Object.assign({}, state, { xDomain: action.domain });
+    case WEBPACK_SUNBURST_UPDATE_Y_DOMAIN:
+      return Object.assign({}, state, { yDomain: action.domain });
     default:
       return state;
   }

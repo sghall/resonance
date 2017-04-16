@@ -26,14 +26,14 @@ export function arcTweenZoom(d) {
 
   return (data, index) => {
     if (index === 0) {
-      return () => arc(data);
+      return () => path(data);
     }
 
     return (t) => {
       x.domain(xd(t));
       y.domain(yd(t)).range(yr(t));
 
-      return arc(data);
+      return path(data);
     };
   };
 }
