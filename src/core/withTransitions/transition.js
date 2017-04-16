@@ -47,6 +47,14 @@ export default function transition(config) {
 
           tweens.push(tween.call(this, stateKey, attr, val[1]));
         }
+      } else if (typeof val === 'function') {
+        const customTween = (t) => {
+          this.setState((state) => {
+            return { [stateKey]: { ...state[stateKey], [attr]: val(t) } };
+          });
+        };
+
+        tweens.push(customTween);
       } else {
         this.setState((state) => {
           return { [stateKey]: { ...state[stateKey], [attr]: val } };
