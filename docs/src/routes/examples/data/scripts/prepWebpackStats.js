@@ -1,5 +1,5 @@
-// @flow weak
 /* eslint global-require: "off", import/no-absolute-path: "off" */
+/* eslint flowtype/require-valid-file-annotation: "off" */
 
 const stats = require('/Users/steve/Desktop/stats.json');
 const fs = require('fs');
