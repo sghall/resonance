@@ -40,18 +40,27 @@ export class Example extends Component {
     const { props } = this;
     const { duration } = this.state;
 
-    const { xd, yd, yr } = getScaleInterpolators(props, next);
-
-    this.transition = timer((elapsed) => {
-      const t = elapsed < duration ? (elapsed / duration) : 1;
-
-      x.domain(xd(t));
-      y.domain(yd(t)).range(yr(t));
-
-      if (t === 1) {
+    if (
+      next.xScale !== props.xScale ||
+      next.yScale !== props.yScale
+    ) {
+      if (this.transition) {
         this.transition.stop();
       }
-    });
+
+      const { xd, yd, yr } = getScaleInterpolators(props, next);
+
+      this.transition = timer((elapsed) => {
+        const t = elapsed < duration ? (elapsed / duration) : 1;
+
+        x.domain(xd(t));
+        y.domain(yd(t)).range(yr(t));
+
+        if (t === 1) {
+          this.transition.stop();
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
