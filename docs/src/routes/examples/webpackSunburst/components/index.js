@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { timer } from 'd3-timer';
 import { connect } from 'react-redux';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
@@ -12,7 +13,7 @@ import Arc from './Arc';
 import { makeGetNodes, makeGetScales, updateScales } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
-import { x, y } from './utils';
+import { x, y, getScaleInterpolators } from './utils';
 
 const arcKeyAccessor = (d) => d.filePath;
 
@@ -21,7 +22,7 @@ export class Example extends Component {
     super(props);
 
     (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).setActiveArc = this.setActiveArc.bind(this);
+    (this:any).setActiveNode = this.setActiveNode.bind(this);
   }
 
   state = {
@@ -36,13 +37,30 @@ export class Example extends Component {
   }
 
   componentWillReceiveProps(next) {
-    const { xScale, yScale } = next;
+    const { props } = this;
+    const { duration } = this.state;
 
-    x.range(xScale.range()).domain(xScale.domain());
-    y.range(yScale.range()).domain(yScale.domain());
+    const { xd, yd, yr } = getScaleInterpolators(props, next);
+
+    this.transition = timer((elapsed) => {
+      const t = elapsed < duration ? (elapsed / duration) : 1;
+
+      x.domain(xd(t));
+      y.domain(yd(t)).range(yr(t));
+
+      if (t === 1) {
+        this.transition.stop();
+      }
+    });
   }
 
-  setActiveArc(node) {
+  componentWillUnmount() {
+    if (this.transition) {
+      this.transition.stop();
+    }
+  }
+
+  setActiveNode(node) {
     const { dispatch } = this.props;
     dispatch(updateScales(node));
   }
@@ -52,6 +70,8 @@ export class Example extends Component {
       duration: Math.floor(value * 10000),
     });
   }
+
+  transition = null;
 
   render() {
     const { nodes, xScale, yScale } = this.props;
@@ -83,7 +103,7 @@ export class Example extends Component {
                     <NodeGroup
                       data={nodes}
                       duration={duration}
-                      clickHandler={this.setActiveArc}
+                      clickHandler={this.setActiveNode}
                       keyAccessor={arcKeyAccessor}
                       xScale={xScale}
                       yScale={yScale}

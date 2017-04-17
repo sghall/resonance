@@ -25,6 +25,12 @@ export function scaleTween(nextX, nextY) {
   };
 }
 
+export const getScaleInterpolators = (prev, next) => ({
+  xd: interpolate(prev.xScale.domain(), next.xScale.domain()),
+  yd: interpolate(prev.yScale.domain(), next.yScale.domain()),
+  yr: interpolate(prev.yScale.range(), next.yScale.range()),
+});
+
 export function arcTween(data) {
   return () => {
     return path(data);
