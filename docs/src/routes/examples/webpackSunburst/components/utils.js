@@ -14,10 +14,10 @@ export const path = arc()
   .innerRadius((d) => Math.max(0, y(d.y0)))
   .outerRadius((d) => Math.max(0, y(d.y1)));
 
-export const getScaleInterpolators = (prev, next) => ({
-  xd: interpolate(prev.xScale.domain(), next.xScale.domain()),
-  yd: interpolate(prev.yScale.domain(), next.yScale.domain()),
-  yr: interpolate(prev.yScale.range(), next.yScale.range()),
+export const getScaleInterpolators = (next) => ({
+  xd: interpolate(x.domain(), next.xScale.domain()),
+  yd: interpolate(y.domain(), next.yScale.domain()),
+  yr: interpolate(y.range(), next.yScale.range()),
 });
 
 export function arcTween(data) {

@@ -26,7 +26,7 @@ export class Example extends Component {
   }
 
   state = {
-    duration: 750,
+    duration: 1500,
   }
 
   componentWillMount() {
@@ -48,7 +48,7 @@ export class Example extends Component {
         this.transition.stop();
       }
 
-      const { xd, yd, yr } = getScaleInterpolators(props, next);
+      const { xd, yd, yr } = getScaleInterpolators(next);
 
       this.transition = timer((elapsed) => {
         const t = elapsed < duration ? (elapsed / duration) : 1;
