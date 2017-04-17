@@ -34,14 +34,12 @@ const getTree = createSelector(
     };
 
     const addNode = (parent, node) => {
-      const child = {
-        name: node.name,
-      };
+      let child;
 
       if (node.size) {
-        child.size = node.size;
+        child = { name: node.name, size: node.size };
       } else {
-        child.children = [];
+        child = { name: node.name, children: [] };
       }
 
       parent.children.push(child);
