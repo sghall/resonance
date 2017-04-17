@@ -9,10 +9,10 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Arc from './Arc';
-import { makeGetNodes, makeGetScales } from '../module';
+import { makeGetNodes, makeGetScales, updateScales } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
-import { arcTweenZoom, x, y } from './utils';
+import { x, y } from './utils';
 
 const arcKeyAccessor = (d) => d.filePath;
 
@@ -35,8 +35,16 @@ export class Example extends Component {
     y.range(yScale.range()).domain(yScale.domain());
   }
 
-  setActiveArc(activeArc) {
-    this.setState({ activeArc });
+  componentWillReceiveProps(next) {
+    const { xScale, yScale } = next;
+
+    x.range(xScale.range()).domain(xScale.domain());
+    y.range(yScale.range()).domain(yScale.domain());
+  }
+
+  setActiveArc(node) {
+    const { dispatch } = this.props;
+    dispatch(updateScales(node));
   }
 
   setDuration(e, value) {
@@ -46,14 +54,8 @@ export class Example extends Component {
   }
 
   render() {
-    const { nodes } = this.props;
-    const { duration, activeArc } = this.state;
-
-    let tween = null;
-
-    if (this.state.activeArc) {
-      tween = arcTweenZoom(activeArc);
-    }
+    const { nodes, xScale, yScale } = this.props;
+    const { duration } = this.state;
 
     return (
       <Paper style={{ padding: 20 }}>
@@ -83,7 +85,8 @@ export class Example extends Component {
                       duration={duration}
                       clickHandler={this.setActiveArc}
                       keyAccessor={arcKeyAccessor}
-                      tween={tween}
+                      xScale={xScale}
+                      yScale={yScale}
                       nodeComponent={Arc}
                     />
                   </g>

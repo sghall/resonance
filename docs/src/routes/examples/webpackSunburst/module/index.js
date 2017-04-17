@@ -9,20 +9,14 @@ import webpackStats from '../../data/webpack-stats.json';
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
-const WEBPACK_SUNBURST_UPDATE_X_DOMAIN = 'WEBPACK_SUNBURST_UPDATE_X_DOMAIN';
-const WEBPACK_SUNBURST_UPDATE_Y_DOMAIN = 'WEBPACK_SUNBURST_UPDATE_Y_DOMAIN';
+const WEBPACK_SUNBURST_UPDATE_SCALES = 'WEBPACK_SUNBURST_UPDATE_SCALES';
 
 // ********************************************************************
 //  ACTION CREATORS
 // ********************************************************************
-export const updateXDomain = (domain) => ({
-  type: WEBPACK_SUNBURST_UPDATE_X_DOMAIN,
-  domain,
-});
-
-export const updateYDomain = (domain) => ({
-  type: WEBPACK_SUNBURST_UPDATE_Y_DOMAIN,
-  domain,
+export const updateScales = (node) => ({
+  type: WEBPACK_SUNBURST_UPDATE_SCALES,
+  node,
 });
 
 // ********************************************************************
@@ -107,12 +101,17 @@ const initialState = {
   yDomain: [0, 1],
 };
 
+const scaleUpdate = ({ node: { x0, x1, y0 } }) => ({
+  xRange: [0, 2 * PI],
+  xDomain: [x0, x1],
+  yRange: [y0 ? 20 : 0, RADIUS],
+  yDomain: [y0, 1],
+});
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case WEBPACK_SUNBURST_UPDATE_X_DOMAIN:
-      return Object.assign({}, state, { xDomain: action.domain });
-    case WEBPACK_SUNBURST_UPDATE_Y_DOMAIN:
-      return Object.assign({}, state, { yDomain: action.domain });
+    case WEBPACK_SUNBURST_UPDATE_SCALES:
+      return Object.assign({}, state, scaleUpdate(action));
     default:
       return state;
   }

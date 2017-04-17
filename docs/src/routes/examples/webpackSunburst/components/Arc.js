@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react';
-import { transition } from 'resonance';
+// import { transition } from 'resonance';
 import PropTypes from 'prop-types';
 import { path } from './utils';
 import { COLORS } from '../module/constants';
@@ -27,13 +27,12 @@ class Arc extends Component {
     },
   }
 
-  componentWillReceiveProps(next) {
-    if (next.tween && typeof next.tween === 'function') {
-      transition.call(this, {
-        path: { d: next.tween(next.data, next.index) },
-        timing: { duration: 5000 },
-      });
-    }
+  componentWillReceiveProps() {
+    this.setState({
+      path: {
+        d: path(this.props.data),
+      },
+    });
   }
 
   render() {
@@ -44,7 +43,8 @@ class Arc extends Component {
         onClick={() => clickHandler(data)}
         opacity={this.state.opacity}
         fill={COLORS[data.depth]}
-        stroke="grey"
+        stroke="white"
+        strokeWidth={0.5}
         d={this.state.path.d}
       />
     );
