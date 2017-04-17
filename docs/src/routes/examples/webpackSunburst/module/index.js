@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 import { hierarchy, partition } from 'd3-hierarchy';
-import { EXAMPLE_STORE_KEY } from './constants';
+import { EXAMPLE_STORE_KEY, RADIUS, PI } from './constants';
 import webpackStats from '../../data/webpack-stats.json';
 
 // ********************************************************************
@@ -29,25 +29,7 @@ export const updateYDomain = (domain) => ({
 // ********************************************************************
 const getData = (state) => state[EXAMPLE_STORE_KEY].data;
 
-const addNode = (parent, node, data) => {
-  const child = {
-    name: node.name,
-  };
-
-  if (node.size) {
-    child.size = node.size;
-  } else {
-    child.children = [];
-  }
-
-  parent.children.push(child);
-
-  node.childIDs.forEach((id) => {
-    addNode(child, data.byID[id], data);
-  });
-};
-
-export const makeGetSelectedData = () => {
+export const makeGetNodes = () => {
   return createSelector(
     [getData],
     (data) => {
@@ -56,8 +38,26 @@ export const makeGetSelectedData = () => {
         children: [],
       };
 
+      const addNode = (parent, node) => {
+        const child = {
+          name: node.name,
+        };
+
+        if (node.size) {
+          child.size = node.size;
+        } else {
+          child.children = [];
+        }
+
+        parent.children.push(child);
+
+        node.childIDs.forEach((id) => {
+          addNode(child, data.byID[id]);
+        });
+      };
+
       data.byID[0].childIDs.forEach((id) => {
-        addNode(root, data.byID[id], data);
+        addNode(root, data.byID[id]);
       });
 
       const tree = hierarchy(root)
@@ -72,9 +72,7 @@ export const makeGetSelectedData = () => {
           .reduce((m, n) => `${m}/${n.data.name}`, '');
       });
 
-      return {
-        data: tree.descendants(),
-      };
+      return tree.descendants();
     },
   );
 };
@@ -82,7 +80,13 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
-const initialState = { data: webpackStats, xDomain: [0, 1], yDomain: [0, 1] };
+const initialState = {
+  data: webpackStats,
+  xRange: [0, 2 * PI],
+  xDomain: [0, 1],
+  yRange: [0, RADIUS],
+  yDomain: [0, 1],
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

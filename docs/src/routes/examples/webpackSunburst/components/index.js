@@ -9,7 +9,7 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Arc from './Arc';
-import { makeGetSelectedData } from '../module';
+import { makeGetNodes } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
 import { arcTweenZoom } from './utils';
@@ -25,7 +25,6 @@ export class Example extends Component {
   }
 
   state = {
-    activeArc: null,
     duration: 500,
   }
 
@@ -40,7 +39,7 @@ export class Example extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { nodes } = this.props;
     const { duration, activeArc } = this.state;
 
     let tween = null;
@@ -73,7 +72,7 @@ export class Example extends Component {
                 <Surface view={VIEW} trbl={TRBL}>
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <NodeGroup
-                      data={data}
+                      data={nodes}
                       duration={duration}
                       clickHandler={this.setActiveArc}
                       keyAccessor={arcKeyAccessor}
@@ -92,14 +91,20 @@ export class Example extends Component {
 }
 
 Example.propTypes = {
-  data: PropTypes.array.isRequired,
+  nodes: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const makeMapStateToProps = () => {
-  const getSelectedData = makeGetSelectedData();
+  const getNodes = makeGetNodes();
   const mapStateToProps = (state) => {
-    return getSelectedData(state);
+    return {
+      nodes: getNodes(state),
+      xRange: state.xRange,
+      xDomain: state.xDomain,
+      yRange: state.yRange,
+      yDomain: state.yDomain,
+    };
   };
   return mapStateToProps;
 };

@@ -10,6 +10,10 @@ export const DIMS = [
   VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
 ];
 
+export const RADIUS = Math.min(...DIMS) / 2;
+
+export const PI = Math.PI;
+
 export const COLORS = [
   '#12291F',
   '#3C564B',
