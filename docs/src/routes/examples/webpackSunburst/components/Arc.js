@@ -26,8 +26,8 @@ class Arc extends Component {
   }
 
   state = {
-    opacity: 0.4,
     path: {
+      strokeOpacity: 0.6,
       d: this.props.path(this.props.data),
     },
   }
@@ -35,14 +35,16 @@ class Arc extends Component {
   onUpdate() {
     const { data, path, duration } = this.props;
 
+    // a little optimization - avoids transitions on unseen arcs :)
     if (data.noTransition) {
       return this.setState({
-        path: { d: path(data) },
+        path: { d: path(data), strokeOpacity: 1e-6 },
       });
     }
 
     return {
       path: {
+        strokeOpacity: data.angle === 0 ? [1e-6] : 0.6,
         d: arcTween(data),
       },
       timing: { duration },
@@ -58,13 +60,16 @@ class Arc extends Component {
 
     return (
       <path
+        style={{ cursor: 'pointer' }}
         onClick={this.clickHandler}
-        opacity={this.state.opacity}
         fill={COLORS[data.depth]}
-        stroke={data.noTransition ? 'none' : 'white'}
+        opacity={data.noTransition ? 1e-6 : 0.6}
+        stroke="white"
         strokeWidth={0.5}
-        d={this.state.path.d}
-      />
+        {...this.state.path}
+      >
+        <title>{data.filePath}</title>
+      </path>
     );
   }
 }
