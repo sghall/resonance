@@ -1,6 +1,3 @@
-## Top States Circle Packing 
+## Zoomable Sunburst
 
-This is the same data from the bar chart example.  It shows the top states for the selected age bracket sorted by population percentage. 
-The circle size, however, is using the actual by population count for all of the age brackets.
-The chosen age bracket is given a black fill.
-It doesn't make for a great visualization, but is testing a more complex set of transitions that happen in a sequence.
+A zoomable sunburst of the webpack bundle for resonance.  Inspired by mbostock's [awesome example](https://bl.ocks.org/mbostock/4348373).
