@@ -1,6 +1,7 @@
 // @flow weak
 
 import { createSelector } from 'reselect';
+import { scaleLinear, scaleSqrt } from 'd3-scale';
 import { hierarchy, partition } from 'd3-hierarchy';
 import { EXAMPLE_STORE_KEY, RADIUS, PI } from './constants';
 import webpackStats from '../../data/webpack-stats.json';
@@ -76,6 +77,24 @@ export const makeGetNodes = () => {
     },
   );
 };
+
+const getXRange = (state) => state[EXAMPLE_STORE_KEY].xRange;
+const getXDomain = (state) => state[EXAMPLE_STORE_KEY].xDomain;
+const getYRange = (state) => state[EXAMPLE_STORE_KEY].yRange;
+const getYDomain = (state) => state[EXAMPLE_STORE_KEY].yDomain;
+
+export const makeGetScales = () => {
+  return createSelector(
+    [getXRange, getXDomain, getYRange, getYDomain],
+    (xRange, xDomain, yRange, yDomain) => {
+      return {
+        xScale: scaleLinear().range(xRange).domain(xDomain),
+        yScale: scaleSqrt().range(yRange).domain(yDomain),
+      };
+    },
+  );
+};
+
 
 // ********************************************************************
 //  REDUCER

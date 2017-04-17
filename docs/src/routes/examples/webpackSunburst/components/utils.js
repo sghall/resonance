@@ -7,11 +7,8 @@ import { DIMS } from '../module/constants';
 
 const radius = Math.min(...DIMS) / 2;
 
-const x = scaleLinear()
-  .range([0, 2 * Math.PI]);
-
-const y = scaleSqrt()
-  .range([0, radius]);
+export const x = scaleLinear();
+export const y = scaleSqrt();
 
 export const path = arc()
   .startAngle((d) => Math.max(0, Math.min(2 * Math.PI, x(d.x0))))

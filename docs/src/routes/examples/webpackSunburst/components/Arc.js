@@ -15,9 +15,9 @@ class Arc extends Component {
       y1: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
     }).isRequired,
-    clickHandler: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
+    clickHandler: PropTypes.func.isRequired,
   };
 
   state = {

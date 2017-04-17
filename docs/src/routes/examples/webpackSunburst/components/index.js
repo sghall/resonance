@@ -9,10 +9,10 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Arc from './Arc';
-import { makeGetNodes } from '../module';
+import { makeGetNodes, makeGetScales } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
-import { arcTweenZoom } from './utils';
+import { arcTweenZoom, x, y } from './utils';
 
 const arcKeyAccessor = (d) => d.filePath;
 
@@ -26,6 +26,13 @@ export class Example extends Component {
 
   state = {
     duration: 500,
+  }
+
+  componentWillMount() {
+    const { xScale, yScale } = this.props;
+
+    x.range(xScale.range()).domain(xScale.domain());
+    y.range(yScale.range()).domain(yScale.domain());
   }
 
   setActiveArc(activeArc) {
@@ -92,18 +99,22 @@ export class Example extends Component {
 
 Example.propTypes = {
   nodes: PropTypes.array.isRequired,
+  xScale: PropTypes.func.isRequired,
+  yScale: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const makeMapStateToProps = () => {
   const getNodes = makeGetNodes();
+  const getScales = makeGetScales();
+
   const mapStateToProps = (state) => {
+    const { xScale, yScale } = getScales(state);
+
     return {
+      xScale,
+      yScale,
       nodes: getNodes(state),
-      xRange: state.xRange,
-      xDomain: state.xDomain,
-      yRange: state.yRange,
-      yDomain: state.yDomain,
     };
   };
   return mapStateToProps;
