@@ -1,9 +1,8 @@
 // @flow weak
 
 import React, { Component } from 'react';
-// import { transition } from 'resonance';
 import PropTypes from 'prop-types';
-import { path } from './utils';
+import { arcTween } from './utils';
 import { COLORS } from '../module/constants';
 
 class Arc extends Component {
@@ -15,35 +14,54 @@ class Arc extends Component {
       y1: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
     }).isRequired,
+    path: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
     clickHandler: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    (this:any).clickHandler = this.clickHandler.bind(this);
+  }
+
   state = {
-    opacity: 0.7,
+    opacity: 0.4,
     path: {
-      d: path(this.props.data),
+      d: this.props.path(this.props.data),
     },
   }
 
-  componentWillReceiveProps() {
-    this.setState({
+  onUpdate() {
+    const { data, path, duration } = this.props;
+
+    if (data.noTransition) {
+      return this.setState({
+        path: { d: path(data) },
+      });
+    }
+
+    return {
       path: {
-        d: path(this.props.data),
+        d: arcTween(data),
       },
-    });
+      timing: { duration },
+    };
+  }
+
+  clickHandler() {
+    this.props.clickHandler(this.props.data);
   }
 
   render() {
-    const { data, clickHandler } = this.props;
+    const { data } = this.props;
 
     return (
       <path
-        onClick={() => clickHandler(data)}
+        onClick={this.clickHandler}
         opacity={this.state.opacity}
         fill={COLORS[data.depth]}
-        stroke="white"
+        stroke={data.noTransition ? 'none' : 'white'}
         strokeWidth={0.5}
         d={this.state.path.d}
       />

@@ -10,7 +10,7 @@ import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Arc from './Arc';
-import { makeGetNodes, makeGetScales, updateScales } from '../module';
+import { getNodes, getScales, updateScales } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
 import { x, y, getScaleInterpolators } from './utils';
@@ -26,7 +26,7 @@ export class Example extends Component {
   }
 
   state = {
-    duration: 500,
+    duration: 750,
   }
 
   componentWillMount() {
@@ -74,7 +74,7 @@ export class Example extends Component {
   transition = null;
 
   render() {
-    const { nodes, xScale, yScale } = this.props;
+    const { nodes, path } = this.props;
     const { duration } = this.state;
 
     return (
@@ -102,12 +102,11 @@ export class Example extends Component {
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <NodeGroup
                       data={nodes}
+                      path={path}
                       duration={duration}
-                      clickHandler={this.setActiveNode}
-                      keyAccessor={arcKeyAccessor}
-                      xScale={xScale}
-                      yScale={yScale}
                       nodeComponent={Arc}
+                      keyAccessor={arcKeyAccessor}
+                      clickHandler={this.setActiveNode}
                     />
                   </g>
                 </Surface>
@@ -121,6 +120,7 @@ export class Example extends Component {
 }
 
 Example.propTypes = {
+  path: PropTypes.func.isRequired,
   nodes: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
@@ -128,16 +128,15 @@ Example.propTypes = {
 };
 
 const makeMapStateToProps = () => {
-  const getNodes = makeGetNodes();
-  const getScales = makeGetScales();
-
   const mapStateToProps = (state) => {
-    const { xScale, yScale } = getScales(state);
+    const nodes = getNodes(state);
+    const { path, xScale, yScale } = getScales(state);
 
     return {
+      path,
+      nodes,
       xScale,
       yScale,
-      nodes: getNodes(state),
     };
   };
   return mapStateToProps;

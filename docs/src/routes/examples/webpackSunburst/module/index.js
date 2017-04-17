@@ -1,6 +1,7 @@
 // @flow weak
 
 import { createSelector } from 'reselect';
+import { arc } from 'd3-shape';
 import { scaleLinear, scaleSqrt } from 'd3-scale';
 import { hierarchy, partition } from 'd3-hierarchy';
 import { EXAMPLE_STORE_KEY, RADIUS, PI } from './constants';
@@ -24,85 +25,118 @@ export const updateScales = (node) => ({
 // ********************************************************************
 const getData = (state) => state[EXAMPLE_STORE_KEY].data;
 
-export const makeGetNodes = () => {
-  return createSelector(
-    [getData],
-    (data) => {
-      const root = {
-        name: 'root',
-        children: [],
+const getTree = createSelector(
+  [getData],
+  (data) => {
+    const root = {
+      name: 'resonance',
+      children: [],
+    };
+
+    const addNode = (parent, node) => {
+      const child = {
+        name: node.name,
       };
 
-      const addNode = (parent, node) => {
-        const child = {
-          name: node.name,
-        };
+      if (node.size) {
+        child.size = node.size;
+      } else {
+        child.children = [];
+      }
 
-        if (node.size) {
-          child.size = node.size;
-        } else {
-          child.children = [];
-        }
+      parent.children.push(child);
 
-        parent.children.push(child);
-
-        node.childIDs.forEach((id) => {
-          addNode(child, data.byID[id]);
-        });
-      };
-
-      data.byID[0].childIDs.forEach((id) => {
-        addNode(root, data.byID[id]);
+      node.childIDs.forEach((id) => {
+        addNode(child, data.byID[id]);
       });
+    };
 
-      const tree = hierarchy(root)
-        .sum((d) => d.size || 0)
-        .sort((a, b) => b.value - a.value);
+    data.byID[0].childIDs.forEach((id) => {
+      addNode(root, data.byID[id]);
+    });
 
-      partition()(tree);
+    const tree = hierarchy(root)
+      .sum((d) => d.size || 0)
+      .sort((a, b) => b.value - a.value);
 
-      tree.each((d) => {
-        d.filePath = d.path(tree) // eslint-disable-line no-param-reassign
-          .reverse()
-          .reduce((m, n) => `${m}/${n.data.name}`, '');
-      });
+    partition()(tree);
 
-      return tree.descendants();
-    },
-  );
-};
+    tree.each((d) => {
+      d.filePath = d.path(tree) // eslint-disable-line no-param-reassign
+        .reverse()
+        .reduce((m, n) => `${m}/${n.data.name}`, '');
+    });
 
-const getXRange = (state) => state[EXAMPLE_STORE_KEY].xRange;
+    return tree;
+  },
+);
+
 const getXDomain = (state) => state[EXAMPLE_STORE_KEY].xDomain;
 const getYRange = (state) => state[EXAMPLE_STORE_KEY].yRange;
 const getYDomain = (state) => state[EXAMPLE_STORE_KEY].yDomain;
 
-export const makeGetScales = () => {
-  return createSelector(
-    [getXRange, getXDomain, getYRange, getYDomain],
-    (xRange, xDomain, yRange, yDomain) => {
-      return {
-        xScale: scaleLinear().range(xRange).domain(xDomain),
-        yScale: scaleSqrt().range(yRange).domain(yDomain),
-      };
-    },
-  );
-};
+export const getScales = createSelector(
+  [getXDomain, getYRange, getYDomain],
+  (xDomain, yRange, yDomain) => {
+    const xScale = scaleLinear().range([0, 2 * PI]).domain(xDomain);
+    const yScale = scaleSqrt().range(yRange).domain(yDomain);
 
+    const path = arc()
+      .startAngle((d) => Math.max(0, Math.min(2 * PI, xScale(d.x0))))
+      .endAngle((d) => Math.max(0, Math.min(2 * PI, xScale(d.x1))))
+      .innerRadius((d) => Math.max(0, yScale(d.y0)))
+      .outerRadius((d) => Math.max(0, yScale(d.y1)));
+
+    return {
+      path,
+      xScale,
+      yScale,
+    };
+  },
+);
+
+export const getNodes = createSelector(
+  [getScales, getTree],
+  ({ xScale }, tree) => {
+    tree.each((d) => {
+      const a0 = (n) => Math.max(0, Math.min(2 * PI, xScale(n.x0)));
+      const a1 = (n) => Math.max(0, Math.min(2 * PI, xScale(n.x1)));
+
+      const angle = a1(d) - a0(d);
+      const noTransition = d.angle === 0 && angle === 0; // Going from 0 to 0;
+
+      d.angle = angle;               // eslint-disable-line no-param-reassign
+      d.noTransition = noTransition; // eslint-disable-line no-param-reassign
+    });
+
+    return tree.descendants().map((node) => {
+      const { x0, x1, y0, y1, angle, depth, filePath, noTransition } = node;
+
+      return {
+        x0,
+        x1,
+        y0,
+        y1,
+        angle,
+        depth,
+        filePath,
+        noTransition,
+      };
+    });
+  },
+);
 
 // ********************************************************************
 //  REDUCER
 // ********************************************************************
 const initialState = {
   data: webpackStats,
-  xRange: [0, 2 * PI],
   xDomain: [0, 1],
   yRange: [0, RADIUS],
   yDomain: [0, 1],
 };
 
 const scaleUpdate = ({ node: { x0, x1, y0 } }) => ({
-  xRange: [0, 2 * PI],
   xDomain: [x0, x1],
   yRange: [y0 ? 20 : 0, RADIUS],
   yDomain: [y0, 1],
