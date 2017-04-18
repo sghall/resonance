@@ -36,7 +36,7 @@ All stable releases are tagged ([view tags](https://github.com/sghall/resonance/
 
 Please create a new branch from an up to date master on your fork. (Note, urgent hotfixes should be branched off the latest stable release rather than master)
 
-1. Fork the Reonance repository on Github
+1. Fork the Resonance repository on Github
 2. Clone your fork to your local machine `git clone git@github.com:<yourname>/resonance.git`
 3. Create a branch `git checkout -b my-topic-branch`
 4. Make your changes, lint, then push to to github with `git push --set-upstream origin my-topic-branch`.

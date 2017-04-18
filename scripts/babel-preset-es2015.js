@@ -6,8 +6,10 @@ const ENV = process.env.BABEL_ENV;
 
 module.exports = {
   presets: [
-    [es2015, {
-      modules: ENV === 'es' ? false : 'commonjs',
-    }],
+    [
+      es2015, {
+        modules: ENV === 'modules' ? false : 'commonjs',
+      },
+    ],
   ],
 };
