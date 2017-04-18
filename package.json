@@ -53,20 +53,19 @@
   },
   "devDependencies": {
     "app-module-path": "^2.1.0",
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.0",
-    "babel-loader": "^6.2.7",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.1",
+    "babel-loader": "^6.4.1",
     "babel-plugin-transform-dev-warning": "^0.1.0",
-    "babel-plugin-transform-react-constant-elements": "^6.5.0",
-    "babel-plugin-transform-react-inline-elements": "^6.6.5",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.0",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-polyfill": "^6.7.4",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-1": "^6.5.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "cross-env": "^4.0.0",
@@ -102,6 +101,6 @@
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.5.3",
     "sinon": "^2.1.0",
-    "webpack": "^2.3.3"
+    "webpack": "^2.4.1"
   }
 }
