@@ -15,7 +15,7 @@ import { VIEW, TRBL, DIMS } from '../module/constants';
 import { x, y, getScaleInterpolators } from '../module/scales';
 import description from '../description.md';
 
-const arcKeyAccessor = (d) => d.filePath.toString();
+const arcKeyAccessor = (d) => d.filePath;
 
 export class Example extends Component {
   constructor(props) {
