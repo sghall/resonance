@@ -63,7 +63,7 @@ onUpdate
 onRemove
 ```
 
-So a minimal component would look like this...
+So a minimal component would look like the one below...
 ```js
 class Node extends Component {
   static propTypes = {
@@ -93,6 +93,9 @@ class Node extends Component {
   }
 }
 ```
+
+You can implement none, one, two or all three of the transition methods.  Just depends on what your trying to achieve.
+
 
 ## Examples
 

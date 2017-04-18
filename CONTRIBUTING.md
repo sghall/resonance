@@ -68,7 +68,7 @@ Please follow the coding style of the current code base. Resonance uses eslint, 
 ## Roadmap
 
 More tests.
-More odcumentation.
+More documentation.
 More examples.
 
 ## License
