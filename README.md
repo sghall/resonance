@@ -45,7 +45,7 @@ import Node from './Node';
 />
 ```
 
-Inside your component you recieve the data object, index, type and a function to call to remove the node. 
+Inside your component you receive the data object, index, type and a function to call to remove the node. 
 
 In Resonance, the types are:
 ```js
