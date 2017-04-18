@@ -15,7 +15,7 @@ import { VIEW, TRBL, DIMS } from '../module/constants';
 import description from '../description.md';
 import { x, y, getScaleInterpolators } from './utils';
 
-const arcKeyAccessor = (d) => d.filePath;
+const arcKeyAccessor = (d) => d.filePath.toString();
 
 export class Example extends Component {
   constructor(props) {
@@ -23,10 +23,12 @@ export class Example extends Component {
 
     (this:any).setDuration = this.setDuration.bind(this);
     (this:any).setActiveNode = this.setActiveNode.bind(this);
+    (this:any).setActivePath = this.setActivePath.bind(this);
   }
 
   state = {
     duration: 1500,
+    activePath: [],
   }
 
   componentWillMount() {
@@ -74,6 +76,12 @@ export class Example extends Component {
     dispatch(updateScales(node));
   }
 
+  setActivePath(path) {
+    this.setState({
+      activePath: path,
+    });
+  }
+
   setDuration(e, value) {
     this.setState({
       duration: Math.floor(value * 10000),
@@ -84,7 +92,7 @@ export class Example extends Component {
 
   render() {
     const { nodes, path } = this.props;
-    const { duration } = this.state;
+    const { duration, activePath } = this.state;
 
     return (
       <Paper style={{ padding: 20 }}>
@@ -106,8 +114,8 @@ export class Example extends Component {
             </div>
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
-                <h3>This example is under construction</h3>
                 <Surface view={VIEW} trbl={TRBL}>
+                  <text y={-10} fontSize="10px">{activePath.join('/')}</text>
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <NodeGroup
                       data={nodes}
@@ -115,7 +123,8 @@ export class Example extends Component {
                       duration={duration}
                       nodeComponent={Arc}
                       keyAccessor={arcKeyAccessor}
-                      clickHandler={this.setActiveNode}
+                      setActiveNode={this.setActiveNode}
+                      setActivePath={this.setActivePath}
                     />
                   </g>
                 </Surface>
