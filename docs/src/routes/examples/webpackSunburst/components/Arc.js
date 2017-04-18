@@ -13,16 +13,21 @@ class Arc extends Component {
       y0: PropTypes.number.isRequired,
       y1: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
+      filePath: PropTypes.array.isRequired,
     }).isRequired,
     path: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
-    clickHandler: PropTypes.func.isRequired,
+    setActiveNode: PropTypes.func.isRequired,
+    setActivePath: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    (this:any).clickHandler = this.clickHandler.bind(this);
+
+    (this:any).handleMouseOver = props.setActivePath.bind(this, props.data.filePath);
+    (this:any).handleMouseOut = props.setActivePath.bind(this, []);
+    (this:any).handleClick = this.handleClick.bind(this);
   }
 
   state = {
@@ -51,25 +56,26 @@ class Arc extends Component {
     };
   }
 
-  clickHandler() {
-    this.props.clickHandler(this.props.data);
+  handleClick() {
+    const { setActiveNode, data } = this.props;
+    setActiveNode(data);
   }
 
   render() {
-    const { data } = this.props;
+    const { data: { noTransition, depth } } = this.props;
 
     return (
       <path
         style={{ cursor: 'pointer' }}
-        onClick={this.clickHandler}
-        fill={COLORS[data.depth]}
-        opacity={data.noTransition ? 1e-6 : 0.6}
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}
+        onClick={this.handleClick}
+        fill={COLORS[depth]}
+        opacity={noTransition ? 1e-6 : 0.6}
         stroke="white"
         strokeWidth={0.5}
         {...this.state.path}
-      >
-        <title>{data.filePath}</title>
-      </path>
+      />
     );
   }
 }
