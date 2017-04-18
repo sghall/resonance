@@ -71,7 +71,7 @@ onUpdate
 onRemove
 ```
 
-So a minimal component would look like the one below...
+So a typical component would look like...
 ```js
 class Node extends Component {
   static propTypes = {
