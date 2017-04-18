@@ -96,6 +96,129 @@ class Node extends Component {
 
 You can implement none, one, two or all three of the transition methods.  Just depends on what your trying to achieve.
 
+Inside your transition methods you return an object that describes how you want to transition the state of your component.
+
+Let's look at the bar component from the bar chart example for a real world task with some complexity.
+The initial state of the component looks like this...
+```js
+class Bar extends PureComponent {
+  static propTypes = {
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      xVal: PropTypes.number.isRequired,
+      yVal: PropTypes.number.isRequired,
+    }).isRequired,
+    xScale: PropTypes.func.isRequired,
+    yScale: PropTypes.func.isRequired,
+    duration: PropTypes.number.isRequired,
+    removeNode: PropTypes.func.isRequired,
+  };
+
+  state = {
+    node: {
+      opacity: 1e-6,
+      transform: 'translate(0,500)',
+    },
+    rect: {
+      width: this.props.data.xVal,
+      height: this.props.yScale.bandwidth(),
+    },
+    text: {
+      x: this.props.data.xVal - 3,
+    },
+  }
+
+  onAppear() {
+  	...
+  }
+
+  onUpdate() {
+  	...
+  }
+
+  onRemove() {
+  	...
+  }
+
+  render() {
+    const { xScale, yScale, data: { name, xVal } } = this.props;
+
+    return (
+      <g {...this.state.node}>
+        <rect
+          fill={palette.primary1Color}
+          opacity={0.4}
+          {...this.state.rect}
+        />
+        <text
+          dy="0.35em"
+          x={-15}
+          textAnchor="middle"
+          fill={palette.textColor}
+          fontSize={10}
+          y={yScale.bandwidth() / 2}
+        >{name}</text>
+        <text
+          textAnchor="end"
+          dy="0.35em"
+          fill="white"
+          fontSize={10}
+          y={yScale.bandwidth() / 2}
+          {...this.state.text}
+        >{percentFormat(xScale.invert(xVal))}</text>
+      </g>
+    );
+  }
+}
+
+export default Bar;
+```
+
+The way you describe what you want to do is in flux but here's how it works right now.
+On the state above, notice there are three "top level" keys: node, rect and text.
+In Resonance you can run transitions against these top level keys and it will handle scheduling, interrupts, etc for you.
+You always have some top level key(s) on your state that is an object composed of string and number properties (primitive values).
+You can have as many top level keys as you want each with as many properites as you want.
+
+So in the case above the "node" state key has "opacity" and "transform" properites on it.  Those are what actually get interpolated over time.
+If you create a new transition on the "node" key it will interrupt the old one and start the new one.
+
+Notice that the properties that get transitioned are named exactly what the SVG attributes are called: transform, opacity, x, y, etc.
+That's partly out of convenience so you can just spread them in the render function like so...
+```js
+  render() {
+    return (
+      <g {...this.state.node}>
+       ...
+      </g>
+    );
+  }
+}
+```
+You can call them whatever you want, but there is one special case: transform. When you use the name "transform" you are telling Resonance that it needs to use the special d3 transform interpolator to transition it.
+This is essentially the same way d3 handles transitions. If it's a transform attribute it uses that special interpolator. After that it looks at the value. If it's a number it uses the number interpolator.  If it's a string, it checks to see if it's a color and uses a color interpolator.  After that you get the regular string interpolator.
+Resonance uses the same process to figure what interpolator to use.  In fact, here's the exact function...    
+```js
+import {
+  interpolateRgb,
+  interpolateNumber,
+  interpolateString,
+  interpolateTransformSvg,
+} from 'd3-interpolate';
+import { color } from 'd3-color';
+
+export function getInterpolator(attr, value) {
+  if (attr === 'transform') {
+    return interpolateTransformSvg;
+  } else if (typeof value === 'number') {
+    return interpolateNumber;
+  } else if (value instanceof color || color(value) !== null) {
+    return interpolateRgb;
+  }
+
+  return interpolateString;
+}
+```
 
 ## Examples
 
