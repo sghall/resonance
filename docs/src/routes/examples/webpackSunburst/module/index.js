@@ -108,7 +108,7 @@ export const getNodes = createSelector(
       // If the last angle was zero and the next is zero, flag it.
       // Note: you have to update the path because the y domain is changing, but there's
       // no need to animate it.  Just set the state to the final destination. When they reappear
-      // They will have the correct y dimension (radius) for transitioning. See the Arc component.
+      // they will have the correct y dimension (radius) for transitioning. See the Arc component.
       const angle = a1(d) - a0(d);
       const noTransition = d.angle === 0 && angle === 0; // Going from 0 to 0;
 
