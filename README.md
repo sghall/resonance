@@ -189,7 +189,7 @@ You always have some top level key(s) on your state that is an object composed o
 You can have as many top level keys as you want each with as many properites as you want.
 
 So in the case above the "node" state key has "opacity" and "transform" properites on it.  Those properties are what actually get interpolated over time.
-If you create a new transition on the "node" key it will interrupt all old ones on the opacity and transform keys and start new ones.  If the component unmounts it will kill any running transitions.
+If you create a new transition on the "node" key it will interrupt the old ones on the opacity and transform keys and start new ones.  If the component unmounts it will kill any running transitions.
 
 Notice that the properties that get transitioned are named exactly what the SVG attributes are called: transform, opacity, x, y, etc.
 That's partly out of convenience so you can just spread them in the render function like so...
