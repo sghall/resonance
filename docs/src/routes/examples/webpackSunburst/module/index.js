@@ -21,7 +21,7 @@ export const updateScales = (node) => ({
 });
 
 // ********************************************************************
-//  SELECTOR
+//  SELECTORS
 // ********************************************************************
 const getData = (state) => state[EXAMPLE_STORE_KEY].data;
 
@@ -79,6 +79,8 @@ export const getScales = createSelector(
     const xScale = scaleLinear().range([0, 2 * PI]).domain(xDomain);
     const yScale = scaleSqrt().range(yRange).domain(yDomain);
 
+    // For convenience, just tuck a path generator in here for setting
+    // state of arcs with noTransition set to true - see below.
     const path = arc()
       .startAngle((d) => Math.max(0, Math.min(2 * PI, xScale(d.x0))))
       .endAngle((d) => Math.max(0, Math.min(2 * PI, xScale(d.x1))))
@@ -100,6 +102,13 @@ export const getNodes = createSelector(
       const a0 = (n) => Math.max(0, Math.min(2 * PI, xScale(n.x0)));
       const a1 = (n) => Math.max(0, Math.min(2 * PI, xScale(n.x1)));
 
+      // Optimization - arcs are never removed on zoom and, when zoomed in, interpolators
+      // are running on paths that are not visible (this is true in mbostocks original as well).
+      // This can be a huge waste of CPU with lots of arcs so they get flagged here.
+      // If the last angle was zero and the next is zero, flag it.
+      // Note: you have to update the path because the y domain is changing, but there's
+      // no need to animate it.  Just set the state to the final destination. When they reappear
+      // They will have the correct y dimension (radius) for transitioning. See the Arc component.
       const angle = a1(d) - a0(d);
       const noTransition = d.angle === 0 && angle === 0; // Going from 0 to 0;
 
