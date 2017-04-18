@@ -98,7 +98,7 @@ You can implement none, one, two or all three of the transition methods.  Just d
 
 Inside your transition methods you return an object that describes how you want to transition the state of your component.
 
-Let's look at the bar component from the bar chart example for a real world task with some complexity.
+Let's look at the [bar component](https://github.com/sghall/resonance/blob/master/docs/src/routes/examples/statesByAge/components/Bar.js) from the [bar chart example](https://sghall.github.io/resonance/#/examples/states-by-age) for a real world task with some complexity.
 The initial state of the component looks like this...
 ```js
 class Bar extends PureComponent {
@@ -174,14 +174,14 @@ class Bar extends PureComponent {
 export default Bar;
 ```
 
-The way you describe what you want to do is in flux but here's how it works right now.
+The way you describe what you want to do is evolving but here's how it works right now.
 On the state above, notice there are three "top level" keys: node, rect and text.
-In Resonance you can run transitions against these top level keys and it will handle scheduling, interrupts, etc for you.
+In Resonance you can run transitions against the properties of these top level objects and it will handle scheduling, interrupts, etc for you.
 You always have some top level key(s) on your state that is an object composed of string and number properties (primitive values).
 You can have as many top level keys as you want each with as many properites as you want.
 
-So in the case above the "node" state key has "opacity" and "transform" properites on it.  Those are what actually get interpolated over time.
-If you create a new transition on the "node" key it will interrupt the old one and start the new one.
+So in the case above the "node" state key has "opacity" and "transform" properites on it.  Those properties are what actually get interpolated over time.
+If you create a new transition on the "node" key it will interrupt all old ones on the opacity and transform keys and start new ones.  If the component unmounts it will kill any running transitions.
 
 Notice that the properties that get transitioned are named exactly what the SVG attributes are called: transform, opacity, x, y, etc.
 That's partly out of convenience so you can just spread them in the render function like so...
@@ -195,9 +195,9 @@ That's partly out of convenience so you can just spread them in the render funct
   }
 }
 ```
-You can call them whatever you want, but there is one special case: transform. When you use the name "transform" you are telling Resonance that it needs to use the special d3 transform interpolator to transition it.
+For the most part, you can call the properties whatever you want, but there is one special case: transform. When you use the property name "transform" you are telling Resonance that it needs to use the special d3 SVG transform interpolator to transition it.
 This is essentially the same way d3 handles transitions. If it's a transform attribute it uses that special interpolator. After that it looks at the value. If it's a number it uses the number interpolator.  If it's a string, it checks to see if it's a color and uses a color interpolator.  After that you get the regular string interpolator.
-Resonance uses the same process to figure what interpolator to use.  In fact, here's the exact function...    
+Resonance uses the same process to figure out what interpolator to use.  In fact, here's the exact function...    
 ```js
 import {
   interpolateRgb,
@@ -217,6 +217,52 @@ export function getInterpolator(attr, value) {
   }
 
   return interpolateString;
+}
+```
+
+In your onAppear, onUpdate and onRemove methods you return an object to describe how to transition this state.
+In the bar component the onAppear method looks like this...
+```js
+onAppear() {
+  const { yScale, duration, data: { xVal, yVal } } = this.props;
+
+  return {
+    node: {
+      opacity: [1e-6, 1],
+      transform: ['translate(0,500)', `translate(0,${yVal})`],
+    },
+    rect: { width: xVal, height: yScale.bandwidth() },
+    text: { x: xVal - 3 },
+    timing: { duration, ease: easePoly },
+  };
+}
+```
+The method returns an object.  There are two reserved keys: timing and events.  Both are optional.
+
+The default timing object looks like this...
+```js
+const default = {
+  delay: 0,
+  duration: 250,
+  ease: easeCubicInOut,
+};
+```
+You can override these properties.  Just specify the keys you want to change.  You can use any easing function you want like those from [d3-ease](https://github.com/d3/d3-timer)
+
+The events are the same as in d3.  You can specify a function to be called on the start, end or interrupt event of a transition.
+In the bar chart component the removeNode function gets called on the end event...
+```js
+onRemove() {
+  const { duration, removeNode } = this.props;
+
+  return {
+    node: {
+      opacity: [1e-6],
+      transform: ['translate(0,500)'],
+    },
+    timing: { duration, ease: easePoly },
+    events: { end: removeNode },
+  };
 }
 ```
 
