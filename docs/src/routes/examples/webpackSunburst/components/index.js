@@ -28,7 +28,7 @@ export class Example extends Component {
 
   state = {
     duration: 1500,
-    activePath: '',
+    activePath: 'Click on an arc...',
   }
 
   componentWillMount() {
