@@ -27,7 +27,7 @@ export class Example extends Component {
   }
 
   state = {
-    duration: 1500,
+    duration: 750,
     activePath: 'Click on an arc...',
   }
 
