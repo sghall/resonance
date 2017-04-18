@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { easeLinear } from 'd3-ease';
 import PropTypes from 'prop-types';
-import { arcTween } from './utils';
+import { arcTween } from '../module/scales';
 import { COLORS } from '../module/constants';
 
 class Arc extends Component {

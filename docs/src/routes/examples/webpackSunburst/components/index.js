@@ -12,8 +12,8 @@ import MarkdownElement from 'docs/src/components/MarkdownElement';
 import Arc from './Arc';
 import { getNodes, getScales, updateScales } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
+import { x, y, getScaleInterpolators } from '../module/scales';
 import description from '../description.md';
-import { x, y, getScaleInterpolators } from './utils';
 
 const arcKeyAccessor = (d) => d.filePath.toString();
 
@@ -115,7 +115,7 @@ export class Example extends Component {
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <text y={20} fontSize="10px">{activePath}</text>
+                  <text y={15} fontSize="10px">{activePath}</text>
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <NodeGroup
                       data={nodes}

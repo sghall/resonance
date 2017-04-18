@@ -5,6 +5,7 @@ import { interpolate } from 'd3-interpolate';
 import { scaleLinear, scaleSqrt } from 'd3-scale';
 import { PI } from '../module/constants';
 
+// The x and y scales are set and interpolated in the components/index
 export const x = scaleLinear();
 export const y = scaleSqrt();
 
