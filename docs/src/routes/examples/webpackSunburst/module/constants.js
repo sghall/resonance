@@ -1,8 +1,8 @@
 // @flow weak
 
-export const EXAMPLE_STORE_KEY = 'webpack-sunburst';
+export const EXAMPLE_STORE_KEY = 'webpack-sunburst'; // Redux store key
 
-export const VIEW = [500, 500];            // ViewBox: Width, Height
+export const VIEW = [500, 500];           // ViewBox: Width, Height
 export const TRBL = [50, 100, 100, 100];  // Margins: Top, Right, Bottom, Left
 
 export const DIMS = [
