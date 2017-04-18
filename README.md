@@ -19,7 +19,7 @@ This is an experimental library and will have breaking changes going forward.
 I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.  Fiber is not ready yet and, last I heard, setting of priority levels won't land until React 17.
 In the mean time, the library and the example site are using React 15.5 and the performance is pretty good.
 
-[examples](https://sghall.github.io/resonance/#/examples/states-by-age) are a work in progress.  Feedback welcome. 
+[Examples](https://sghall.github.io/resonance/#/examples/states-by-age) are a work in progress.  Feedback welcome. 
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
