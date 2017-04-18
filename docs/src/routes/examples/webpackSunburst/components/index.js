@@ -28,7 +28,7 @@ export class Example extends Component {
 
   state = {
     duration: 1500,
-    activePath: [],
+    activePath: '',
   }
 
   componentWillMount() {
@@ -115,7 +115,7 @@ export class Example extends Component {
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <text y={-10} fontSize="10px">{activePath.join('/')}</text>
+                  <text y={20} fontSize="10px">{activePath}</text>
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <NodeGroup
                       data={nodes}
@@ -124,6 +124,7 @@ export class Example extends Component {
                       nodeComponent={Arc}
                       keyAccessor={arcKeyAccessor}
                       setActiveNode={this.setActiveNode}
+                      activePath={activePath}
                       setActivePath={this.setActivePath}
                     />
                   </g>

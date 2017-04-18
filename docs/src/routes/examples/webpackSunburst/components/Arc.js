@@ -1,6 +1,8 @@
 // @flow weak
+/* eslint no-nested-ternary:"off" */
 
 import React, { Component } from 'react';
+import { easeLinear } from 'd3-ease';
 import PropTypes from 'prop-types';
 import { arcTween } from './utils';
 import { COLORS } from '../module/constants';
@@ -13,12 +15,13 @@ class Arc extends Component {
       y0: PropTypes.number.isRequired,
       y1: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
-      filePath: PropTypes.array.isRequired,
+      filePath: PropTypes.string.isRequired,
     }).isRequired,
     path: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
     removeNode: PropTypes.func.isRequired,
     setActiveNode: PropTypes.func.isRequired,
+    activePath: PropTypes.string.isRequired,
     setActivePath: PropTypes.func.isRequired,
   };
 
@@ -26,7 +29,7 @@ class Arc extends Component {
     super(props);
 
     (this:any).handleMouseOver = props.setActivePath.bind(this, props.data.filePath);
-    (this:any).handleMouseOut = props.setActivePath.bind(this, []);
+    (this:any).handleMouseOut = props.setActivePath.bind(this, '');
     (this:any).handleClick = this.handleClick.bind(this);
   }
 
@@ -52,7 +55,7 @@ class Arc extends Component {
         strokeOpacity: data.angle === 0 ? [1e-6] : 0.6,
         d: arcTween(data),
       },
-      timing: { duration },
+      timing: { duration, ease: easeLinear },
     };
   }
 
@@ -65,7 +68,9 @@ class Arc extends Component {
   handleMouseOut = null;
 
   render() {
-    const { data: { noTransition, depth } } = this.props;
+    const { activePath, data: { filePath, noTransition, depth } } = this.props;
+
+    const active = activePath.startsWith(filePath);
 
     return (
       <path
@@ -74,7 +79,7 @@ class Arc extends Component {
         onMouseOut={this.handleMouseOut}
         onClick={this.handleClick}
         fill={COLORS[depth]}
-        opacity={noTransition ? 1e-6 : 0.6}
+        opacity={noTransition ? 1e-6 : active ? 0.9 : 0.4}
         stroke="white"
         strokeWidth={0.5}
         {...this.state.path}
