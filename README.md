@@ -34,7 +34,7 @@ The main component of the library is the NodeGroup.  You can think of it as repl
 Using Resonance you pass an array of data objects (at the moment, they have to be objects) into the NodeGroup and give it a key accessor function that returns a string key when passed a data object.
 That key is used by React to keep track of what's mounted.
 
-```sh
+```js
 import NodeGroup from 'resonance/NodeGroup';
 import Node from './Node';
 
@@ -48,19 +48,23 @@ import Node from './Node';
 Inside your component you recieve the data object, index, type and a function to call to remove the node. 
 
 In Resonance, the types are:
-
+```sh
 1. APPEAR ~= d3 enter
 2. UPDATE ~= d3 update
 3. REMOVE ~= d3 exit
+```
 
 You receive the type but you will rarely use it directly. Every time the data updates the NodeGroup updates its state and calls the appropriate method (if implemented) on your component for you.
 It calls it in the context of your component so you have access to props, state, etc.
 
+```sh
 1. onAppear
 2. onUpdate
 3. onRemove
+```
 
-```sh
+So a minimal component would look like this...
+```js
 class Node extends Component {
   static propTypes = {
     data: PropTypes.object,
@@ -75,7 +79,6 @@ class Node extends Component {
 
   onUpdate() {
   	const { data, index } = this.props;
-
   	...
   }
 
