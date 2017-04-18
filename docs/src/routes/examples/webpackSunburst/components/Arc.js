@@ -61,6 +61,9 @@ class Arc extends Component {
     setActiveNode(data);
   }
 
+  handleMouseOver = null;
+  handleMouseOut = null;
+
   render() {
     const { data: { noTransition, depth } } = this.props;
 
