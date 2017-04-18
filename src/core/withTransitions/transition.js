@@ -13,7 +13,7 @@ const preset = {
   ease: easeCubicInOut,
 };
 
-export default function transition(config) {
+export default function transition(config = {}) {
   const transitions = { ...config };
 
   if (!this || !this.isReactComponent) {
