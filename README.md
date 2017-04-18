@@ -6,7 +6,14 @@ This very small (and very experimental) library harnesses the power of [d3-timer
 It provides an interface for utilizing the various [d3 interpolaters](https://github.com/d3/d3-interpolate) to make state transitions.  All the examples are SVG and the library is focused on data visualization, but in the future this library could be used to transition any component state.
 
 The basic idea. D3 stores data and schedules transitions against DOM nodes.  Resonance takes the same scheduling mechanism and much of the same tooling (d3 4.0 modules) and schedules transitions against your React components.
-It handles interrupts, applying [d3-ease](https://github.com/d3/d3-timer) functions and stopping in-flight transitions on unmount for you.
+It handles much of the heavy lifting for...
+
+1. setting transition durations and delays
+2. transition interrupts
+3. hooks for transition events (start, interrupt, end)
+4. custom tween functions
+5. specifying ease functions
+6. stopping transitions on component unmount
 
 This is an experimental library and will have breaking changes going forward.
 I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.  Fiber is not ready yet and, last I heard, setting of priority levels won't land until React 17.
