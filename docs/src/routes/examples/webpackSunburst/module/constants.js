@@ -15,11 +15,11 @@ export const RADIUS = Math.min(...DIMS) / 2;
 export const PI = Math.PI;
 
 export const COLORS = [
-  '#12291F',
-  '#3C564B',
-  '#091F16',
-  '#02130C',
-  '#121E26',
+  '#6C6B74',
+  '#2E303E',
+  '#9199BE',
+  '#54678F',
+  '#212624',
   '#3A4751',
   '#1E272E',
   '#0A151D',
