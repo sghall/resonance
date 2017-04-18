@@ -3,7 +3,7 @@
 Data driven transitons in React. Covering the 5% of animations that [react-motion](https://github.com/chenglou/react-motion) doesn't handle.
 
 This very small (and very experimental) library harnesses the power of [d3-timer](https://github.com/d3/d3-timer) which can efficiently schedule 1000s of animated transitions.
-It provides an interface for utilizing the various [d3 interpolaters](https://github.com/d3/d3-interpolate) to make state transitions.  All the examples are SVG and my focus is on data visualization, but this could be used to any state really.
+It provides an interface for utilizing the various [d3 interpolaters](https://github.com/d3/d3-interpolate) to make state transitions.  All the examples are SVG and my focus is on data visualization, but this could be used to transition any component state really.
 
 The basic idea. D3 stores data and schedules transitions against DOM nodes.  Resonance takes the same scheduling mechanism and much of the same tooling (d3 4.0 modules) and instead schedules transitions against your React components.
 It handles interrupts, applying [d3-ease](https://github.com/d3/d3-timer) functions and stopping in-flight transitions on unmount for you.
