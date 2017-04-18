@@ -80,7 +80,7 @@ class Arc extends Component {
         onClick={this.handleClick}
         fill={COLORS[depth]}
         opacity={noTransition ? 1e-6 : active ? 0.9 : 0.4}
-        stroke="white"
+        stroke={active ? 'blue' : 'white'}
         strokeWidth={0.5}
         {...this.state.path}
       />
