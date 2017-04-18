@@ -62,7 +62,7 @@ const getTree = createSelector(
     tree.each((d) => {
       d.filePath = d.path(tree) // eslint-disable-line no-param-reassign
         .reverse()
-        .reduce((m, n) => `${m}/${n.data.name}`, '');
+        .map((n) => n.data.name);
     });
 
     return tree;
