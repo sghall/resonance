@@ -5,7 +5,7 @@ Data driven transitons in React.
 Harnesses the awesome [d3-timer](https://github.com/d3/d3-timer) which can efficiently schedule 1000s of animated transitions.
 Provides an interface for utilizing the various [d3 interpolaters](https://github.com/d3/d3-interpolate) to make state transitions.
 
-The basic idea is that, while d3 stores data and schedules transitions against DOM nodes.  Resonance takes the same sheduling mechanism and much of the same tooling (d3 4.0 modules) and instead schedules transitions against your React components.
+The basic idea. D3 stores data and schedules transitions against DOM nodes.  Resonance takes the same sheduling mechanism and much of the same tooling (d3 4.0 modules) and instead schedules transitions against your React components.
 It handles interrupts, applying [d3-ease](https://github.com/d3/d3-timer) functions and stopping in-flight transitions on unmount for you.
 
 This is an experimental library and will have breaking changes going forward.
