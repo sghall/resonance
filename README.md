@@ -48,19 +48,19 @@ import Node from './Node';
 Inside your component you recieve the data object, index, type and a function to call to remove the node. 
 
 In Resonance, the types are:
-```sh
-1. APPEAR ~= d3 enter
-2. UPDATE ~= d3 update
-3. REMOVE ~= d3 exit
+```js
+APPEAR ~= d3 enter
+UPDATE ~= d3 update
+REMOVE ~= d3 exit
 ```
 
 You receive the type but you will rarely use it directly. Every time the data updates the NodeGroup updates its state and calls the appropriate method (if implemented) on your component for you.
 It calls it in the context of your component so you have access to props, state, etc.
 
-```sh
-1. onAppear
-2. onUpdate
-3. onRemove
+```js
+onAppear
+onUpdate
+onRemove
 ```
 
 So a minimal component would look like this...
@@ -68,6 +68,7 @@ So a minimal component would look like this...
 class Node extends Component {
   static propTypes = {
     data: PropTypes.object,
+    type: PropTypes.string,
     index: PropTypes.number,
     removeNode: PropTypes.func,
   };
