@@ -46,6 +46,8 @@ That key is used by React to keep track of what's mounted.
 import NodeGroup from 'resonance/NodeGroup';
 import Node from './Node';
 
+const keyAccessor = (d) => d.name;
+
 <NodeGroup
   data={nodes}
   nodeComponent={Node}
