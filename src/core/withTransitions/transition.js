@@ -48,7 +48,7 @@ export default function transition(config = {}) {
           tweens.push(tween.call(this, stateKey, attr, val[1]));
         }
       } else if (typeof val === 'function') {
-        const getCustomTween = () => {
+        const customTween = () => {
           return (t) => {
             this.setState((state) => {
               return { [stateKey]: { ...state[stateKey], [attr]: val(t) } };
@@ -56,7 +56,7 @@ export default function transition(config = {}) {
           };
         };
 
-        tweens.push(getCustomTween);
+        tweens.push(customTween);
       } else {
         this.setState((state) => {
           return { [stateKey]: { ...state[stateKey], [attr]: val } };
