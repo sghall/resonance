@@ -28,6 +28,66 @@ Resonance is available as an [npm package](https://www.npmjs.org/package/resonan
 npm install resonance
 ```
 
+## Components
+
+The main component of the library is the NodeGroup.  You can think of it as replacing d3's selection.data method which breaks your data array into entering, updating and exiting nodes.
+Using Resonance you pass an array of data objects (they have to be objects) into the NodeGroup and give it a key accessor function that returns a string key when passed a data object.
+That key is used by React to keep track of what's mounted.
+
+```sh
+import Node from './Node';
+
+<NodeGroup
+  data={nodes}
+  nodeComponent={Node}
+  keyAccessor={keyAccessor}
+/>
+```
+
+Inside your component you recieve the data object, index, type and a function to call to remove the node. 
+
+In Resonance, the types are:
+
+1. APPEAR ~= enter
+2. UPDATE ~= update
+3. REMOVE ~= exit
+
+Every time the data updates the NodeGroup updates its state and calls the appropriate method (if implemented) on your component:
+
+1. onAppear
+2. onUpdate
+3. onRemove
+
+```sh
+class Node extends Component {
+  static propTypes = {
+    data: PropTypes.object,
+    index: PropTypes.number,
+    removeNode: PropTypes.func,
+  };
+
+  onAppear() {
+  	const { data, index } = this.props;
+  	...
+  }
+
+  onUpdate() {
+  	const { data, index } = this.props;
+
+  	...
+  }
+
+  onRemove() {
+  	const { data, index } = this.props;
+  	...
+  }
+
+  render() {
+  	...
+  }
+}
+```
+
 ## Examples
 
 Check out the [examples](https://sghall.github.io/resonance/)
