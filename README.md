@@ -31,7 +31,7 @@ npm install resonance
 ## Components
 
 The main component of the library is the NodeGroup.  You can think of it as replacing d3's selection.data method which breaks your data array into entering, updating and exiting nodes.
-Using Resonance you pass an array of data objects (they have to be objects) into the NodeGroup and give it a key accessor function that returns a string key when passed a data object.
+Using Resonance you pass an array of data objects (at the moment, they have to be objects) into the NodeGroup and give it a key accessor function that returns a string key when passed a data object.
 That key is used by React to keep track of what's mounted.
 
 ```sh
@@ -49,11 +49,12 @@ Inside your component you recieve the data object, index, type and a function to
 
 In Resonance, the types are:
 
-1. APPEAR ~= enter
-2. UPDATE ~= update
-3. REMOVE ~= exit
+1. APPEAR ~= d3 enter
+2. UPDATE ~= d3 update
+3. REMOVE ~= d3 exit
 
-Every time the data updates the NodeGroup updates its state and calls the appropriate method (if implemented) on your component:
+You receive the type but you will rarely use it directly. Every time the data updates the NodeGroup updates its state and calls the appropriate method (if implemented) on your component for you.
+It calls it in the context of your component so you have access to props, state, etc.
 
 1. onAppear
 2. onUpdate
