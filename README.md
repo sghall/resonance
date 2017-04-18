@@ -64,6 +64,7 @@ REMOVE ~= d3 exit
 You receive the type but you will rarely use it directly. Every time the data updates the NodeGroup updates its state and calls the appropriate method (if implemented) on your component for you.
 It calls it in the context of your component so you have access to props, state, etc.
 
+The three transition methods you can implement are:
 ```js
 onAppear
 onUpdate
