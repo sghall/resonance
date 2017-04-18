@@ -9,7 +9,7 @@ import {
 import { color } from 'd3-color';
 
 function getTween(nameSpace, attr, interpol, value1) {
-  return function nullOrTween() {
+  return function tween() {
     const value0 = this.state[nameSpace][attr];
 
     if (value0 === value1) {
@@ -18,13 +18,13 @@ function getTween(nameSpace, attr, interpol, value1) {
 
     const i = interpol(value0, value1);
 
-    const tween = (t) => {
+    const stateTween = (t) => {
       this.setState((state) => {
         return { [nameSpace]: { ...state[nameSpace], [attr]: i(t) } };
       });
     };
 
-    return tween;
+    return stateTween;
   };
 }
 
