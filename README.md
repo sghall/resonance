@@ -35,6 +35,7 @@ Using Resonance you pass an array of data objects (they have to be objects) into
 That key is used by React to keep track of what's mounted.
 
 ```sh
+import NodeGroup from 'resonance/NodeGroup';
 import Node from './Node';
 
 <NodeGroup
