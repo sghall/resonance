@@ -283,8 +283,8 @@ onRemove() {
 You specify what you want to be done using a shorthand (still working on this idea). There's four options:
 
 1. Number or String - The state will be set to that value when the method is called.  Any existing transitions on that top level key will be stopped.
-2. [value] - An array of length equal to 1. Transition the state from where it is to that value.  The value should be a string or number.
-3. [value, value] - An array with length equal to 2. Set the state to the first value immediately and transition to the second value.
+2. [value] - An array with length 1. Transition the state from where it is to that value.  The value should be a string or number.
+3. [value, value] - An array with length === 2. Set the state to the first value immediately and transition to the second value.
 4. Function -  Custom tween function. If you return a function it will be used as a custom tween function.
 
 Let's look at a real component. This is the onAppear method from the [circle component](https://github.com/sghall/resonance/blob/master/docs/src/routes/examples/packedByAge/components/Circle.js) in the [circle packing example](https://sghall.github.io/resonance/#/examples/packed-by-age).
