@@ -61,11 +61,11 @@ Resonance handles much of the heavy lifting for:
 
 This is an experimental library and will have breaking changes going forward.
 I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.
-The master branch and the example site will continue with the latest stable release of react.  Work on React Fiber will be done on a separate branch.
+The master branch and the example site will continue with the latest stable release of React.  Work on React Fiber will be done on a separate branch.
 
 ## NodeGroup
 
-The main component of the library is the NodeGroup.  You can think of it as replacing d3's selection.data method which breaks your data array into entering, updating and exiting nodes.
+The main component of the library is the NodeGroup.  You can think of it as a React version of D3's selection.data method. Selection.data breaks your data array into entering, updating and exiting nodes and allows you to operate on them as the selection updates.
 Using Resonance you pass an array of data objects (at the moment, they have to be objects) into the NodeGroup and give it a key accessor function that returns a string key when passed a data object.
 That key is used by React to keep track of what's mounted.
 
