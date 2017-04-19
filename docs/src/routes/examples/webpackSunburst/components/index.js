@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { timer } from 'd3-timer';
+import { easeCubic } from 'd3-ease';
 import { connect } from 'react-redux';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
@@ -53,12 +54,12 @@ export class Example extends Component {
       const { xd, yd, yr } = getScaleInterpolators(next);
 
       this.transition = timer((elapsed) => {
-        const t = elapsed < duration ? (elapsed / duration) : 1;
+        const t = easeCubic(elapsed < duration ? (elapsed / duration) : 1);
 
         x.domain(xd(t));
         y.domain(yd(t)).range(yr(t));
 
-        if (t === 1) {
+        if (t >= 1) {
           this.transition.stop();
         }
       });
