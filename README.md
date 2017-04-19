@@ -16,13 +16,10 @@ Documentation and examples are works in progress.  Feedback welcome.
 
 [Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples)
 
-To run the examples in this repo locally...
-
+To run the examples in this repo locally:
 ```sh
-git clone git@github.com:sghall/resonance.git
-cd resonance
+clone the repo and cd into the directory
 npm install && cd docs && npm install && npm start
-
 go to http://localhost:3000/
 ```
 
