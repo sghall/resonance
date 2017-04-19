@@ -6,6 +6,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
 Better React-D3 Integration. Resonance is an experimental library that schedules state transitions on your React components.
+Now you can use all those nifty [d3 4.0 modules](https://github.com/d3) in React without the guilt.
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are works in progress.  Feedback welcome. 
