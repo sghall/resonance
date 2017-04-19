@@ -141,7 +141,8 @@ D3 queries the DOM to figure out what is still mounted when you update a selecti
 
 In React, the data is stored in components as props and state. Resonance does not remove the node from the tree when you call removeNode (a function passed down to you).  It marks that key as removed in a map that it maintains internally, but does not update the state to remove the actual element at that time.
 This avoids a lot of DOM thrashing and makes the transitions easier to reason about. It is different then how it happens in D3 though and needs to be considered when setting up transitions.
-In practical terms, you generally lower the opacity, move the node off the screen or turn off the nodes visibility on remove.  In Resonance it will remain there until there's another data update instead of causing more thrashing of the DOM.
+
+In practical terms, you generally lower the opacity, move the node off the screen or turn off the nodes visibility on an exit transition.  In Resonance the node will remain there until there's another data update instead of causing more thrashing of the DOM.
 You can't do that in D3 because the DOM is storing the data.  The implication is that, unlike in D3 you can have a DOM element that moves from type REMOVE to APPEAR.  You just need to define what the properties should start out as and transition to in your onAppear method.
 
 ## Defining Transitions
