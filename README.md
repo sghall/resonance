@@ -8,7 +8,7 @@
 An experimental library that schedules state transitions on your React components.
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
-Documentation and examples are a works in progress.  Feedback welcome. 
+Documentation and examples are works in progress.  Feedback welcome. 
 
 [Example Site](https://sghall.github.io/resonance/#/examples/states-by-age)
 
