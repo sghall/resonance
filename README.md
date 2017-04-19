@@ -258,7 +258,7 @@ const default = {
   ease: easeCubicInOut,
 };
 ```
-You can override these properties.  Just specify the keys you want to change.  You can use any easing function you want like those from [d3-ease](https://github.com/d3/d3-timer)
+You can override these properties.  Just specify the keys you want to change.  You can use any easing function you want like those from [d3-ease](https://github.com/d3/d3-ease).
 
 The events are the same as in d3.  You can specify a function to be called on the start, end or interrupt event of a transition.
 In the bar chart component the removeNode function gets called on the end event...
@@ -276,7 +276,30 @@ onRemove() {
   };
 }
 ```
+You specify what you want to be done using a shorthand (still working on this idea). There's four options:
 
+1. Number or String - The state will be set to that value when the method is called.  Any existing transitions on that top level key will be stopped.
+2. [value] - An array of length equal to 1. Transition the state from where it is to that value.  The value should be a string or number.
+3. [value, value] - An array with length equal to 2. Set the state to the first value immediately and transition to the second value.
+4. Function -  Custom tween function. If you return a function it will be used as a custom tween function.
+
+Let's look at a real component. This is the onAppear method from the [circle component](https://github.com/sghall/resonance/blob/master/docs/src/routes/examples/packedByAge/components/Circle.js) in the [circle packing example](https://sghall.github.io/resonance/#/examples/packed-by-age).
+```js
+onAppear() {
+  const { duration, data: { x, y, r, depth } } = this.props;
+  const d0 = depth === 0 ? 0 : duration;
+  const d1 = depth === 0 ? 0 : duration * 2;
+
+  return {
+    node: {
+      opacity: [1e-6, 0.8],
+      transform: `translate(${x},${y})`,
+    },
+    circle: { fill: getFill(this.props), r: [1e-6, r] },
+    timing: { duration: d0, delay: d1 },
+  };
+}
+```
 ## Examples
 
 Check out the [examples](https://sghall.github.io/resonance/)
