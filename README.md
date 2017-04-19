@@ -270,10 +270,11 @@ That's partly out of convenience so you can just spread them in the render funct
   }
 }
 ```
+For the most part, you can call the properties whatever you want, but there is one special case: transform. 
 
 ## Interpolators
 
-For the most part, you can call the properties whatever you want, but there is one special case: transform. When you use the property name "transform" you are telling Resonance that it needs to use the special D3 SVG transform interpolator to transition it.
+When you use the property name "transform" you are telling Resonance that it needs to use the special D3 SVG transform interpolator to transition it.
 This is essentially the same way D3 handles transitions. If it's a transform attribute it uses that special interpolator. After that it looks at the value. If it's a number it uses the number interpolator.  If it's a string, it checks to see if it's a color and uses a color interpolator.  After that you get the regular string interpolator.
 Resonance uses the same process to figure out what interpolator to use. Here's the function used to determine the interpolator...    
 ```js
