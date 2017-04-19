@@ -143,7 +143,27 @@ In React, the data is stored in components as props and state. Resonance does no
 This avoids a lot of DOM thrashing and makes the transitions easier to reason about. It is different then how it happens in D3 though and needs to be considered when setting up transitions.
 
 In practical terms, you generally lower the opacity, move the node off the screen or turn off the nodes visibility on an exit transition.  In Resonance the node will remain there until there's another data update instead of causing more thrashing of the DOM.
-You can't do that in D3 because the DOM is storing the data.  The implication is that, unlike in D3 you can have a DOM element that moves from type REMOVE to APPEAR.  You just need to define what the properties should start out as and transition to in your onAppear method.
+You can't do that in D3 because the DOM is storing the data.  The implication is that, unlike in D3, you can have a DOM element that moves from type REMOVE to APPEAR.  You just need to define what the properties should start out as and transition to in your onAppear method.
+
+You can see this in practice in the [bar component](https://github.com/sghall/resonance/blob/master/docs/src/routes/examples/statesByAge/components/Bar.js) from the [bar chart example](https://sghall.github.io/resonance/#/examples/states-by-age).
+
+Its onAppear method is defined like this...
+```js
+onAppear() {
+  const { yScale, duration, data: { xVal, yVal } } = this.props;
+
+  return {
+    node: {
+      opacity: [1e-6, 1],
+      transform: ['translate(0,500)', `translate(0,${yVal})`],
+    },
+    rect: { width: xVal, height: yScale.bandwidth() },
+    text: { x: xVal - 3 },
+    timing: { duration, ease: easePoly },
+  };
+}
+```
+How to define transitions is explained in more detail below, but this will make sure any in-flight animations are stopped (i.e. interrupted onRemove transitions), make sure various attributes are set correctly and fires off new transitions for the node opacity and transform [from, to].
 
 ## Defining Transitions
 
