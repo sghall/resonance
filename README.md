@@ -14,6 +14,15 @@ Documentation and examples are a works in progress.  Feedback welcome.
 
 [Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples)
 
+## Installation
+
+
+Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
+
+```sh
+npm install resonance
+```
+
 ## The Basic Idea
 
 D3 stores data and transition schedules in DOM nodes. Resonance accomplishes the same thing in a way that works with React.
@@ -31,15 +40,6 @@ It handles much of the heavy lifting for...
 This is an experimental library and will have breaking changes going forward.
 I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.  Fiber is not ready yet and, last I heard, setting of priority levels won't land until React 17.
 In the mean time, the library and the example site are using React 15.5 and the performance is pretty good.
-
-## Installation
-
-
-Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
-
-```sh
-npm install resonance
-```
 
 ## Components
 
