@@ -5,7 +5,7 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0)
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
-Data driven transitions in React. An experimental library that schedules state transitions on your React components.
+An experimental library that schedules state transitions on your React components.
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a works in progress.  Feedback welcome. 
