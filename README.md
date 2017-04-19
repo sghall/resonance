@@ -16,7 +16,7 @@ Documentation and examples are a works in progress.  Feedback welcome.
 
 ## The Basic Idea
 
-D3 stores data and schedules transitions against DOM nodes.  Resonance takes the same scheduling mechanism and much of the same tooling (d3 4.0 modules) and schedules transitions against your React components.
+D3 stores data and transition schedules in DOM nodes. Resonance takes the same scheduling approach and much of the same tooling (d3 4.0 modules) and schedules transitions against your React components.
 It handles much of the heavy lifting for...
 
 1. Transitioning numbers, strings, colors, SVG transforms...
