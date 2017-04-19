@@ -61,6 +61,7 @@ export class Example extends Component {
 
         if (t >= 1) {
           this.transition.stop();
+          this.transition = null;
         }
       });
     }
@@ -78,9 +79,12 @@ export class Example extends Component {
   }
 
   setActivePath(path) {
-    this.setState({
-      activePath: path,
-    });
+    // avoid flickering during transition
+    if (!this.transition) {
+      this.setState({
+        activePath: path,
+      });
+    }
   }
 
   setDuration(e, value) {
