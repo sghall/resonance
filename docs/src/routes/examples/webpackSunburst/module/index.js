@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import { arc } from 'd3-shape';
 import { scaleLinear, scaleSqrt } from 'd3-scale';
 import { hierarchy, partition } from 'd3-hierarchy';
+import isEqual from 'lodash/isEqual';
 import { EXAMPLE_STORE_KEY, RADIUS, PI } from './constants';
 import webpackStats from '../../data/webpack-stats.json';
 
@@ -143,16 +144,24 @@ const initialState = {
   yDomain: [0, 1],
 };
 
-const scaleUpdate = ({ node: { x0, x1, y0 } }) => ({
-  xDomain: [x0, x1],
-  yRange: [y0 ? 20 : 0, RADIUS],
-  yDomain: [y0, 1],
-});
+const scaleUpdate = (state, { node: { x0, x1, y0 } }) => {
+  const { xDomain, yRange, yDomain } = state;
+
+  const xd = [x0, x1];
+  const yr = [y0 ? 20 : 0, RADIUS];
+  const yd = [y0, 1];
+
+  return {
+    xDomain: isEqual(xd, xDomain) ? xDomain : xd,
+    yRange: isEqual(yr, yRange) ? yRange : yr,
+    yDomain: isEqual(yd, yDomain) ? yDomain : yd,
+  };
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case WEBPACK_SUNBURST_UPDATE_SCALES:
-      return Object.assign({}, state, scaleUpdate(action));
+      return Object.assign({}, state, scaleUpdate(state, action));
     default:
       return state;
   }
