@@ -9,7 +9,7 @@ Resonance is an experimental library that schedules state transitions on your Re
 Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) in React without the guilt :)
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
-Documentation and examples are works in progress.  Feedback/Comments/Suggestions/PRs welcome. 
+Documentation and examples are a work in progress.  Feedback/Comments/Suggestions/PRs welcome. 
 
 ## Examples
 
