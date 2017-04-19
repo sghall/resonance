@@ -18,9 +18,13 @@ Documentation and examples are works in progress.  Feedback welcome.
 
 To run the examples in this repo locally...
 
-1. Clone the repo and cd into the directory
-2. npm install && cd docs && npm install && npm start
-3. go to http://localhost:3000/
+```sh
+git clone git@github.com:sghall/resonance.git
+cd resonance
+npm install && cd docs && npm install && npm start
+
+go to http://localhost:3000/
+```
 
 <a href="https://sghall.github.io/resonance/#/examples/alluvial-chart">
   <img src="https://cloud.githubusercontent.com/assets/4615775/24084023/d736ddde-0c9f-11e7-8646-b953dd368c84.jpg" height="150px"/>
@@ -46,7 +50,7 @@ npm install resonance
 ## The Basic Idea
 
 D3 stores data and transition schedules in DOM nodes. Resonance accomplishes the same thing in a way that works with React.
-Behind the scenes it takes the same scheduling approach used in D3 and much of the same tooling (d3 4.0 modules) and schedules transitions against your React components.
+Behind the scenes it takes the same scheduling approach used in D3 and much of the same tooling (D3 4.0 modules) and schedules transitions against your React components.
 It handles much of the heavy lifting for...
 
 1. Transitioning numbers, strings, colors, SVG transforms...
