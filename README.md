@@ -17,11 +17,9 @@ Documentation and examples are works in progress.  Feedback welcome.
 [Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples)
 
 To run the examples in this repo locally:
-```sh
-clone the repo and cd into the directory
-npm install && cd docs && npm install && npm start
-go to http://localhost:3000/
-```
+ - clone the repo and cd into the directory 
+ - npm install && cd docs && npm install && npm start
+ - go to http://localhost:3000/
 
 <a href="https://sghall.github.io/resonance/#/examples/alluvial-chart">
   <img src="https://cloud.githubusercontent.com/assets/4615775/24084023/d736ddde-0c9f-11e7-8646-b953dd368c84.jpg" height="150px"/>
