@@ -139,6 +139,10 @@ class Bar extends PureComponent {
     },
   }
 
+  state = {
+  	...
+  }
+
   onAppear() {
   	...
   }
