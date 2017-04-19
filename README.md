@@ -111,6 +111,10 @@ class Node extends Component {
     removeNode: PropTypes.func,
   };
 
+  state = {
+    ...
+  }
+
   onAppear() {
   	const { data, index } = this.props;
   	...
@@ -197,10 +201,6 @@ class Bar extends PureComponent {
     text: {
       x: this.props.data.xVal - 3,
     },
-  }
-
-  state = {
-  	...
   }
 
   onAppear() {
