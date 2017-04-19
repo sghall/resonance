@@ -1,8 +1,8 @@
 ## Resonance
 
-Data driven transitions in React. An experimental library that schedules state transitions on your components.
+Data driven transitions in React. An experimental library that schedules state transitions on your React components.
 
-This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule 1000s of animated transitions.
+This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions.
 It provides an interface for utilizing the various [d3 interpolaters](https://github.com/d3/d3-interpolate) to make state transitions.  All the examples are SVG and the library is focused on data visualization, but in the future this library could be used to transition any component state.
 
 ## The Basic Idea
