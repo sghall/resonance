@@ -13,7 +13,7 @@ Documentation and examples are a works in progress.  Feedback welcome.
 ## Examples
 [Example Site](https://sghall.github.io/resonance/#/examples/states-by-age)
 
-[Example Code](https://sghall.github.io/resonance/docs/src/routes/examples)
+[Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples)
 
 ## The Basic Idea
 
