@@ -316,7 +316,11 @@ onAppear() {
   };
 }
 ```
-The method returns an object.  There are two reserved keys: timing and events.  Both are optional.
+The method, in this case, returns an object.  
+
+**Note: In an upcoming release it will accept an array of objects so you can define custom timing and events on different keys.**
+
+There are two reserved keys for your transition objects: timing and events. Both are optional.
 
 The default timing object looks like this...
 ```js
