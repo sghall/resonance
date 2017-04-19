@@ -15,7 +15,7 @@ Documentation and examples are a work in progress.  Feedback/Comments/Suggestion
 
 [Example Site](https://sghall.github.io/resonance/#/examples/states-by-age) - Live demo of examples. 
 
-[Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) - Each example is built like a mini [redux](http://redux.js.org/) application with all its actions and reducers defined in a small module.
+[Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) - Each example is built like a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
 Resonance does not depend on redux but it is built with this type architecture in mind.
 
 To run the examples in this repo locally:
