@@ -8,9 +8,11 @@
 Data driven transitions in React. An experimental library that schedules state transitions on your React components.
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
-All the examples are SVG and the library is focused on data visualization, but in the future this library could be used to transition any component state.
+Documentation and examples are a works in progress.  Feedback welcome. 
 
-[Examples](https://sghall.github.io/resonance/#/examples/states-by-age) are a work in progress.  Feedback welcome. 
+## Examples
+[Example Site](https://sghall.github.io/resonance/#/examples/states-by-age)
+[Example Code](https://sghall.github.io/resonance/docs/src/routes/examples)
 
 ## The Basic Idea
 
