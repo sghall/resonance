@@ -48,13 +48,13 @@ D3 stores data and transition schedules in DOM nodes. Resonance accomplishes the
 Behind the scenes it takes the same scheduling approach used in D3 and much of the same tooling (D3 4.0 modules) and schedules transitions against your React components.
 It handles much of the heavy lifting for...
 
-1. Transitioning numbers, strings, colors, SVG transforms...
-2. Setting transition durations and delays
-3. Transition interrupts
-4. Hooks for transition events (start, interrupt, end)
-5. Custom tween functions
-6. Specifying ease functions
-7. Stopping transitions on component unmount
+* Transitioning numbers, strings, colors, SVG transforms...
+* Setting transition durations and delays
+* Transition interrupts
+* Hooks for transition events (start, interrupt, end)
+* Custom tween functions
+* Specifying ease functions
+* Stopping transitions on component unmount
 
 This is an experimental library and will have breaking changes going forward.
 I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.  Fiber is not ready yet and, last I heard, setting of priority levels won't land until React 17.
