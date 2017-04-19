@@ -140,9 +140,9 @@ The lifecycle of a node component differs from how D3 handles DOM nodes in an im
 D3 queries the DOM to figure out what is still mounted when you update a selection.  When you finish an exit transition you call selection.remove to remove the element from the document.  It is dettached from the DOM immediately on calling that method and, therefore, won't show up in future selections.
 
 In React, the data is stored in components as props and state. Resonance does not remove the node from the tree when you call removeNode (a function passed down to you).  It marks that key as removed in a map that it maintains internally, but does not update the state to remove the actual element at that time.
-This avoids a lot of DOM thrashing and makes the transitions easier to reason about. It is different then how it happens in D3 though and needs to be considered when setting up transitions.
+This avoids a lot of DOM thrashing and makes the transitions easier to reason about. It is different than how it happens in D3 though and needs to be considered when setting up transitions.
 
-In practical terms, you generally lower the opacity, move the node off the screen or turn off the nodes visibility on an exit transition.  In Resonance the node will remain there until there's another data update instead of causing more thrashing of the DOM.
+In practical terms, you generally lower the opacity, move the node off the screen or turn off the nodes visibility on an exit transition. In Resonance the node will remain there until there's another data update instead of causing more thrashing of the DOM.
 You can't do that in D3 because the DOM is storing the data.  The implication is that, unlike in D3, you can have a DOM element that moves from type REMOVE to APPEAR.  You just need to define what the properties should start out as and transition to in your onAppear method.
 
 You can see this in practice in the [bar component](https://github.com/sghall/resonance/blob/master/docs/src/routes/examples/statesByAge/components/Bar.js) from the [bar chart example](https://sghall.github.io/resonance/#/examples/states-by-age).
