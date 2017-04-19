@@ -5,7 +5,7 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0)
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
-Better React-D3 Integration. Resonance is an experimental library that schedules state transitions on your React components.
+Better React-D3 integration. Resonance is an experimental library that schedules state transitions on your React components.
 Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) in React without the guilt :)
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
@@ -46,7 +46,7 @@ npm install resonance
 
 ## The Basic Idea
 
-D3 stores data and transition schedules in DOM nodes. Resonance accomplishes the same thing in a way that works with React.
+D3 stores data and transition schedules in DOM nodes, but that fights against React's virtual DOM approach. Resonance accomplishes the same thing in a way that works with React.
 Behind the scenes it takes the same scheduling approach used in D3 and much of the same tooling and schedules transitions against your React components.
 
 Resonance handles much of the heavy lifting for:
