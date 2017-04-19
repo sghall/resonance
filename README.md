@@ -11,6 +11,14 @@ Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) in React
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a work in progress.  Feedback/Comments/Suggestions/PRs welcome. 
 
+## Installation
+
+Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
+
+```sh
+npm install resonance
+```
+
 ## Examples
 
 [Example Site](https://sghall.github.io/resonance/#/examples/states-by-age) - Live demo of examples. 
@@ -35,14 +43,6 @@ To run the examples in this repo locally:
 <a href="https://sghall.github.io/resonance/#/examples/stacked-area">
   <img src="https://cloud.githubusercontent.com/assets/4615775/24084030/de9ec4e2-0c9f-11e7-85d8-3be0bbc5c7d0.jpg" height="150px"/>
 </a>
-
-## Installation
-
-Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
-
-```sh
-npm install resonance
-```
 
 ## The Basic Idea
 
