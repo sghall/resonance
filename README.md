@@ -8,7 +8,7 @@
 Resonance is an experimental library that schedules state transitions on your React components.
 Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) for D3-style animated transitions in your React components without the guilt :)
 
-This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
+This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [D3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome. 
 
 This is an experimental library and will have breaking changes going forward.
@@ -270,8 +270,8 @@ That's partly out of convenience so you can just spread them in the render funct
   }
 }
 ```
-For the most part, you can call the properties whatever you want, but there is one special case: transform. When you use the property name "transform" you are telling Resonance that it needs to use the special d3 SVG transform interpolator to transition it.
-This is essentially the same way d3 handles transitions. If it's a transform attribute it uses that special interpolator. After that it looks at the value. If it's a number it uses the number interpolator.  If it's a string, it checks to see if it's a color and uses a color interpolator.  After that you get the regular string interpolator.
+For the most part, you can call the properties whatever you want, but there is one special case: transform. When you use the property name "transform" you are telling Resonance that it needs to use the special D3 SVG transform interpolator to transition it.
+This is essentially the same way D3 handles transitions. If it's a transform attribute it uses that special interpolator. After that it looks at the value. If it's a number it uses the number interpolator.  If it's a string, it checks to see if it's a color and uses a color interpolator.  After that you get the regular string interpolator.
 Resonance uses the same process to figure out what interpolator to use. Here's the function used to determine the interpolator...    
 ```js
 import {
@@ -324,7 +324,7 @@ const default = {
 ```
 You can override these properties.  Just specify the keys you want to change.  You can use any easing function you want like those from [d3-ease](https://github.com/d3/d3-ease).
 
-The events are the same as in d3.  You can specify a function to be called on the start, end or interrupt event of a transition.
+The events are the same as in D3.  You can specify a function to be called on the start, end or interrupt event of a transition.
 In the bar chart component the removeNode function gets called on the end event...
 ```js
 onRemove() {
@@ -346,23 +346,3 @@ You specify what you want to be done using a shorthand (still working on this id
 2. [value] - An array with length 1. Transition the state from where it is to that value.  The value should be a string or number.
 3. [value, value] - An array with length === 2. Set the state to the first value immediately and transition to the second value.
 4. Function -  Custom tween function. If you return a function it will be used as a custom tween function.
-
-Let's look at a real component. This is the onAppear method from the [circle component](https://github.com/sghall/resonance/blob/master/docs/src/routes/examples/packedByAge/components/Circle.js) in the [circle packing example](https://sghall.github.io/resonance/#/examples/packed-by-age).
-```js
-onAppear() {
-  const { duration, data: { x, y, r, depth } } = this.props;
-  const d0 = depth === 0 ? 0 : duration;
-  const d1 = depth === 0 ? 0 : duration * 2;
-
-  return {
-    node: {
-      opacity: [1e-6, 0.8],
-      transform: `translate(${x},${y})`,
-    },
-    circle: { fill: getFill(this.props), r: [1e-6, r] },
-    timing: { duration: d0, delay: d1 },
-  };
-}
-```
-
-
