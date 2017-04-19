@@ -1,9 +1,8 @@
 ### Problem or feature description
 
-**For bugs and other issues:**
-### Steps to reproduce
+### Steps to reproduce (only needed for problems)
 
-### Versions
+### Versions (only needed for problems)
 
 - Resonance: 
 - React: 
