@@ -46,8 +46,9 @@ npm install resonance
 ## The Basic Idea
 
 D3 stores data and transition schedules in DOM nodes. Resonance accomplishes the same thing in a way that works with React.
-Behind the scenes it takes the same scheduling approach used in D3 and much of the same tooling (D3 4.0 modules) and schedules transitions against your React components.
-It handles much of the heavy lifting for...
+Behind the scenes it takes the same scheduling approach used in D3 and much of the same tooling and schedules transitions against your React components.
+
+Resonance handles much of the heavy lifting for:
 
 * Transitioning numbers, strings, colors, SVG transforms...
 * Setting transition durations and delays
