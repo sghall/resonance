@@ -68,7 +68,7 @@ class Arc extends Component {
   handleMouseOut = null;
 
   render() {
-    const { activePath, data: { filePath, noTransition, depth } } = this.props;
+    const { activePath, data: { filePath, noTransition, angle, depth } } = this.props;
 
     const active = activePath.startsWith(filePath);
 
@@ -79,8 +79,8 @@ class Arc extends Component {
         onMouseOut={this.handleMouseOut}
         onClick={this.handleClick}
         fill={COLORS[depth]}
-        opacity={noTransition ? 1e-6 : active ? 0.9 : 0.4}
-        stroke={active ? 'blue' : 'white'}
+        opacity={noTransition ? 1e-6 : active ? 1 : 0.3}
+        stroke={active ? 'blue' : angle < 0.01 ? 'none' : 'white'}
         strokeWidth={0.5}
         {...this.state.path}
       />
