@@ -11,6 +11,10 @@ Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) for D3-s
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [d3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome. 
 
+This is an experimental library and will have breaking changes going forward.
+I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.
+The master branch and the example site will continue with the latest stable release of React.  Work on React Fiber will be done on a separate branch.
+
 ## Installation
 
 Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
@@ -58,10 +62,6 @@ Resonance handles much of the heavy lifting for:
 * Custom tween functions
 * Specifying ease functions
 * Stopping transitions on component unmount
-
-This is an experimental library and will have breaking changes going forward.
-I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.
-The master branch and the example site will continue with the latest stable release of React.  Work on React Fiber will be done on a separate branch.
 
 ## NodeGroup
 
