@@ -14,6 +14,7 @@ class Arc extends Component {
       x1: PropTypes.number.isRequired,
       y0: PropTypes.number.isRequired,
       y1: PropTypes.number.isRequired,
+      value: PropTypes.number.isRequired,
       depth: PropTypes.number.isRequired,
       filePath: PropTypes.string.isRequired,
     }).isRequired,
@@ -28,8 +29,10 @@ class Arc extends Component {
   constructor(props) {
     super(props);
 
-    (this:any).handleMouseOver = props.setActivePath.bind(this, props.data.filePath);
-    (this:any).handleMouseOut = props.setActivePath.bind(this, '');
+    const { data: { filePath, value } } = props;
+
+    (this:any).handleMouseOver = props.setActivePath.bind(this, filePath, value);
+    (this:any).handleMouseOut = props.setActivePath.bind(this, '', undefined);
     (this:any).handleClick = this.handleClick.bind(this);
   }
 

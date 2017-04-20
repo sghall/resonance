@@ -118,13 +118,14 @@ export const getNodes = createSelector(
     });
 
     return tree.descendants().map((node) => {
-      const { x0, x1, y0, y1, angle, depth, filePath, noTransition } = node;
+      const { x0, x1, y0, y1, value, angle, depth, filePath, noTransition } = node;
 
       return {
         x0,
         x1,
         y0,
         y1,
+        value,
         angle,
         depth,
         filePath,
