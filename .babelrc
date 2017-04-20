@@ -1,8 +1,5 @@
 {
   "presets": ["./scripts/babel-preset-es2015", "stage-1", "react"],
-  "plugins": [
-    "./scripts/babel-transform-object-assign-require"
-  ],
   "env": {
     "coverage": {
       "plugins": [
@@ -13,10 +10,7 @@
       "sourceMaps": "both"
     },
     "production": {
-      "plugins": [
-        "transform-dev-warning",
-        "transform-runtime"
-      ]
+      "plugins": ["transform-runtime"]
     }
   }
 }
