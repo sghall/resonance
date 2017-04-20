@@ -5,10 +5,10 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0)
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
-This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [D3 interpolators](https://github.com/d3/d3-interpolate).
+This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions against React components and provides a simple interface for utilizing [D3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome.
 
-Take a look at the Webpack bundle for [Resonance](https://sghall.github.io/resonance/#/examples/webpack-sunburst).
+Take a look at the Webpack bundle for [Resonance](https://sghall.github.io/resonance/#/examples/webpack-sunburst) to see what's inside.
 
 <a href="https://sghall.github.io/resonance/#/examples/webpack-sunburst">
   <img src="https://cloud.githubusercontent.com/assets/4615775/25240281/45acec66-25a7-11e7-9e6a-83012473b748.png" height="300px"/>
