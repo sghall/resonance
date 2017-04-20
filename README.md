@@ -5,9 +5,6 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0)
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
-Resonance is an experimental library that schedules state transitions on your React components.
-Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) for D3-style animated transitions in React components.
-
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [D3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome. 
 
