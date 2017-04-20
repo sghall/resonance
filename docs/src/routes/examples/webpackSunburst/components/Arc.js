@@ -43,7 +43,7 @@ class Arc extends Component {
   onUpdate() {
     const { data, path, duration } = this.props;
 
-    // a little optimization - avoids transitions on unseen arcs :)
+    // optimization - avoids transitions on arc that are not visible
     if (data.noTransition) {
       return this.setState({
         path: { d: path(data), strokeOpacity: 1e-6 },
@@ -69,7 +69,6 @@ class Arc extends Component {
 
   render() {
     const { activePath, data: { filePath, noTransition, angle, depth } } = this.props;
-
     const active = activePath.startsWith(filePath);
 
     return (
