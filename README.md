@@ -6,7 +6,12 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [D3 interpolators](https://github.com/d3/d3-interpolate).
-Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome. 
+Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome.
+
+Take a look at the Webpack bundle for [Resonance](https://sghall.github.io/resonance/#/examples/webpack-sunburst)
+<a href="https://sghall.github.io/resonance/#/examples/webpack-sunburst">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/25240281/45acec66-25a7-11e7-9e6a-83012473b748.png" height="300px"/>
+</a>
 
 This is an experimental library and will have breaking changes going forward.
 I started working on this idea with [React Fiber](http://isfiberreadyyet.com/) in mind.  Fiber will allow you to set priority levels on state updates.
