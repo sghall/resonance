@@ -1,7 +1,6 @@
 [ignore]
 
 .*/node_modules/fbjs/*
-.*/node_modules/jss/lib/.*\.js\.flow
 .*/node_modules/react-event-listener/*
 .*/scripts/*
 .*/docs/webpack.*
