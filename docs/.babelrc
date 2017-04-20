@@ -7,10 +7,7 @@
       ]
     },
     "production": {
-      "plugins": [
-        "transform-dev-warning",
-        "transform-runtime"
-      ]
+      "plugins": ["transform-runtime"]
     }
   }
 }
