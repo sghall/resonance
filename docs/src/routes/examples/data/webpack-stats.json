@@ -8,8 +8,7 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     "1": {
@@ -17,11 +16,10 @@
       "size": null,
       "fullName": null,
       "childIDs": [
+        5,
         6,
         7,
-        8,
-        9,
-        10
+        8
       ]
     },
     "2": {
@@ -29,7 +27,7 @@
       "size": null,
       "fullName": null,
       "childIDs": [
-        11
+        9
       ]
     },
     "3": {
@@ -37,7 +35,7 @@
       "size": null,
       "fullName": null,
       "childIDs": [
-        12
+        10
       ]
     },
     "4": {
@@ -45,150 +43,157 @@
       "size": null,
       "fullName": null,
       "childIDs": [
+        11,
+        12,
         13,
         14,
-        15,
-        16,
-        17
+        15
       ]
     },
     "5": {
-      "name": "(webpack)",
-      "size": null,
-      "fullName": null,
-      "childIDs": [
-        18
-      ]
-    },
-    "6": {
       "name": "d3-color",
       "size": null,
       "fullName": null,
       "childIDs": [
-        19,
-        20
+        16,
+        17
       ]
     },
-    "7": {
+    "6": {
       "name": "d3-interpolate",
       "size": null,
       "fullName": null,
       "childIDs": [
-        21,
-        22
+        18,
+        19
       ]
     },
-    "8": {
+    "7": {
       "name": "d3-timer",
       "size": null,
       "fullName": null,
       "childIDs": [
-        23,
-        24
+        20,
+        21
+      ]
+    },
+    "8": {
+      "name": "lodash.once",
+      "size": null,
+      "fullName": null,
+      "childIDs": [
+        22
       ]
     },
     "9": {
-      "name": "simple-assign",
-      "size": null,
-      "fullName": null,
-      "childIDs": [
-        25
-      ]
-    },
-    "10": {
-      "name": "lodash",
-      "size": null,
-      "fullName": null,
-      "childIDs": [
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-        37,
-        38,
-        39
-      ]
-    },
-    "11": {
       "name": "react\",\"commonjs\":[\".",
       "size": null,
       "fullName": null,
       "childIDs": [
-        40
+        23
       ]
     },
-    "12": {
+    "10": {
       "name": "prop-types\",\"commonjs\":[\".",
       "size": null,
       "fullName": null,
       "childIDs": [
-        41
+        24
       ]
     },
-    "13": {
+    "11": {
       "name": "core",
       "size": null,
       "fullName": null,
       "childIDs": [
-        42,
-        43,
-        44,
-        45,
-        46
+        25,
+        26,
+        27,
+        28,
+        29
       ]
     },
-    "14": {
+    "12": {
       "name": "NodeGroup",
       "size": null,
       "fullName": null,
       "childIDs": [
-        47,
-        48
+        30,
+        31
       ]
     },
-    "15": {
+    "13": {
       "name": "Surface",
       "size": null,
       "fullName": null,
       "childIDs": [
-        49,
-        50
+        32,
+        33
       ]
     },
-    "16": {
+    "14": {
       "name": "TickGroup",
       "size": null,
       "fullName": null,
       "childIDs": [
-        51,
-        52
+        34,
+        35
       ]
     },
-    "17": {
+    "15": {
       "name": "index.js",
       "size": 715,
       "fullName": "./src/index.js",
       "childIDs": []
     },
-    "18": {
-      "name": "buildin",
+    "16": {
+      "name": "index.js",
+      "size": 157,
+      "fullName": "./~/d3-color/index.js",
+      "childIDs": []
+    },
+    "17": {
+      "name": "src",
       "size": null,
       "fullName": null,
       "childIDs": [
-        53
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    "18": {
+      "name": "src",
+      "size": null,
+      "fullName": null,
+      "childIDs": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
       ]
     },
     "19": {
       "name": "index.js",
-      "size": 157,
-      "fullName": "./~/d3-color/index.js",
+      "size": 1179,
+      "fullName": "./~/d3-interpolate/index.js",
       "childIDs": []
     },
     "20": {
@@ -196,22 +201,58 @@
       "size": null,
       "fullName": null,
       "childIDs": [
-        54,
-        55,
-        56,
-        57,
-        58
+        60,
+        61,
+        62
       ]
     },
     "21": {
-      "name": "src",
+      "name": "index.js",
+      "size": 172,
+      "fullName": "./~/d3-timer/index.js",
+      "childIDs": []
+    },
+    "22": {
+      "name": "index.js",
+      "size": 7094,
+      "fullName": "./~/lodash.once/index.js",
+      "childIDs": []
+    },
+    "23": {
+      "name": "react\"],\"amd\":\"react\"}",
+      "size": 42,
+      "fullName": "external {\"root\":\"React\",\"commonjs2\":\"./react\",\"commonjs\":[\"./react\"],\"amd\":\"react\"}",
+      "childIDs": []
+    },
+    "24": {
+      "name": "prop-types\"],\"amd\":\"prop-types\"}",
+      "size": 42,
+      "fullName": "external {\"root\":\"prop-types\",\"commonjs2\":\"./prop-types\",\"commonjs\":[\"./prop-types\"],\"amd\":\"prop-types\"}",
+      "childIDs": []
+    },
+    "25": {
+      "name": "defaultKeyAccessor.js",
+      "size": 696,
+      "fullName": "./src/core/defaultKeyAccessor.js",
+      "childIDs": []
+    },
+    "26": {
+      "name": "dataUpdate.js",
+      "size": 1509,
+      "fullName": "./src/core/dataUpdate.js",
+      "childIDs": []
+    },
+    "27": {
+      "name": "types.js",
+      "size": 209,
+      "fullName": "./src/core/types.js",
+      "childIDs": []
+    },
+    "28": {
+      "name": "withTransitions",
       "size": null,
       "fullName": null,
       "childIDs": [
-        59,
-        60,
-        61,
-        62,
         63,
         64,
         65,
@@ -219,448 +260,278 @@
         67,
         68,
         69,
-        70,
-        71,
-        72,
-        73,
-        74,
-        75,
-        76,
-        77
+        70
       ]
-    },
-    "22": {
-      "name": "index.js",
-      "size": 1179,
-      "fullName": "./~/d3-interpolate/index.js",
-      "childIDs": []
-    },
-    "23": {
-      "name": "src",
-      "size": null,
-      "fullName": null,
-      "childIDs": [
-        78,
-        79,
-        80
-      ]
-    },
-    "24": {
-      "name": "index.js",
-      "size": 172,
-      "fullName": "./~/d3-timer/index.js",
-      "childIDs": []
-    },
-    "25": {
-      "name": "index.js",
-      "size": 281,
-      "fullName": "./~/simple-assign/index.js",
-      "childIDs": []
-    },
-    "26": {
-      "name": "_Symbol.js",
-      "size": 118,
-      "fullName": "./~/lodash/_Symbol.js",
-      "childIDs": []
-    },
-    "27": {
-      "name": "_baseGetTag.js",
-      "size": 792,
-      "fullName": "./~/lodash/_baseGetTag.js",
-      "childIDs": []
-    },
-    "28": {
-      "name": "_freeGlobal.js",
-      "size": 173,
-      "fullName": "./~/lodash/_freeGlobal.js",
-      "childIDs": []
     },
     "29": {
-      "name": "_getRawTag.js",
-      "size": 1139,
-      "fullName": "./~/lodash/_getRawTag.js",
-      "childIDs": []
-    },
-    "30": {
-      "name": "_objectToString.js",
-      "size": 565,
-      "fullName": "./~/lodash/_objectToString.js",
-      "childIDs": []
-    },
-    "31": {
-      "name": "_root.js",
-      "size": 300,
-      "fullName": "./~/lodash/_root.js",
-      "childIDs": []
-    },
-    "32": {
-      "name": "before.js",
-      "size": 1090,
-      "fullName": "./~/lodash/before.js",
-      "childIDs": []
-    },
-    "33": {
-      "name": "isObject.js",
-      "size": 733,
-      "fullName": "./~/lodash/isObject.js",
-      "childIDs": []
-    },
-    "34": {
-      "name": "isObjectLike.js",
-      "size": 614,
-      "fullName": "./~/lodash/isObjectLike.js",
-      "childIDs": []
-    },
-    "35": {
-      "name": "isSymbol.js",
-      "size": 682,
-      "fullName": "./~/lodash/isSymbol.js",
-      "childIDs": []
-    },
-    "36": {
-      "name": "once.js",
-      "size": 665,
-      "fullName": "./~/lodash/once.js",
-      "childIDs": []
-    },
-    "37": {
-      "name": "toFinite.js",
-      "size": 868,
-      "fullName": "./~/lodash/toFinite.js",
-      "childIDs": []
-    },
-    "38": {
-      "name": "toInteger.js",
-      "size": 760,
-      "fullName": "./~/lodash/toInteger.js",
-      "childIDs": []
-    },
-    "39": {
-      "name": "toNumber.js",
-      "size": 1572,
-      "fullName": "./~/lodash/toNumber.js",
-      "childIDs": []
-    },
-    "40": {
-      "name": "react\"],\"amd\":\"react\"}",
-      "size": 42,
-      "fullName": "external {\"root\":\"React\",\"commonjs2\":\"./react\",\"commonjs\":[\"./react\"],\"amd\":\"react\"}",
-      "childIDs": []
-    },
-    "41": {
-      "name": "prop-types\"],\"amd\":\"prop-types\"}",
-      "size": 42,
-      "fullName": "external {\"root\":\"prop-types\",\"commonjs2\":\"./prop-types\",\"commonjs\":[\"./prop-types\"],\"amd\":\"prop-types\"}",
-      "childIDs": []
-    },
-    "42": {
-      "name": "defaultKeyAccessor.js",
-      "size": 696,
-      "fullName": "./src/core/defaultKeyAccessor.js",
-      "childIDs": []
-    },
-    "43": {
-      "name": "dataUpdate.js",
-      "size": 1509,
-      "fullName": "./src/core/dataUpdate.js",
-      "childIDs": []
-    },
-    "44": {
-      "name": "types.js",
-      "size": 209,
-      "fullName": "./src/core/types.js",
-      "childIDs": []
-    },
-    "45": {
-      "name": "withTransitions",
-      "size": null,
-      "fullName": null,
-      "childIDs": [
-        81,
-        82,
-        83,
-        84,
-        85,
-        86,
-        87,
-        88
-      ]
-    },
-    "46": {
       "name": "defaultComposeNode.js",
       "size": 224,
       "fullName": "./src/core/defaultComposeNode.js",
       "childIDs": []
     },
-    "47": {
+    "30": {
       "name": "index.js",
       "size": 402,
       "fullName": "./src/NodeGroup/index.js",
       "childIDs": []
     },
-    "48": {
+    "31": {
       "name": "NodeGroup.js",
-      "size": 5444,
+      "size": 5322,
       "fullName": "./src/NodeGroup/NodeGroup.js",
       "childIDs": []
     },
-    "49": {
+    "32": {
       "name": "index.js",
       "size": 392,
       "fullName": "./src/Surface/index.js",
       "childIDs": []
     },
-    "50": {
+    "33": {
       "name": "Surface.js",
       "size": 2444,
       "fullName": "./src/Surface/Surface.js",
       "childIDs": []
     },
-    "51": {
+    "34": {
       "name": "index.js",
       "size": 402,
       "fullName": "./src/TickGroup/index.js",
       "childIDs": []
     },
-    "52": {
+    "35": {
       "name": "TickGroup.js",
-      "size": 5957,
+      "size": 5835,
       "fullName": "./src/TickGroup/TickGroup.js",
       "childIDs": []
     },
-    "53": {
-      "name": "global.js",
-      "size": 509,
-      "fullName": "(webpack)/buildin/global.js",
-      "childIDs": []
-    },
-    "54": {
+    "36": {
       "name": "color.js",
       "size": 9276,
       "fullName": "./~/d3-color/src/color.js",
       "childIDs": []
     },
-    "55": {
+    "37": {
       "name": "define.js",
       "size": 340,
       "fullName": "./~/d3-color/src/define.js",
       "childIDs": []
     },
-    "56": {
+    "38": {
       "name": "math.js",
       "size": 72,
       "fullName": "./~/d3-color/src/math.js",
       "childIDs": []
     },
-    "57": {
+    "39": {
       "name": "cubehelix.js",
       "size": 1855,
       "fullName": "./~/d3-color/src/cubehelix.js",
       "childIDs": []
     },
-    "58": {
+    "40": {
       "name": "lab.js",
       "size": 3167,
       "fullName": "./~/d3-color/src/lab.js",
       "childIDs": []
     },
-    "59": {
+    "41": {
       "name": "color.js",
       "size": 697,
       "fullName": "./~/d3-interpolate/src/color.js",
       "childIDs": []
     },
-    "60": {
+    "42": {
       "name": "number.js",
       "size": 100,
       "fullName": "./~/d3-interpolate/src/number.js",
       "childIDs": []
     },
-    "61": {
+    "43": {
       "name": "basis.js",
       "size": 600,
       "fullName": "./~/d3-interpolate/src/basis.js",
       "childIDs": []
     },
-    "62": {
+    "44": {
       "name": "value.js",
       "size": 598,
       "fullName": "./~/d3-interpolate/src/value.js",
       "childIDs": []
     },
-    "63": {
+    "45": {
       "name": "array.js",
       "size": 372,
       "fullName": "./~/d3-interpolate/src/array.js",
       "childIDs": []
     },
-    "64": {
+    "46": {
       "name": "basisClosed.js",
       "size": 360,
       "fullName": "./~/d3-interpolate/src/basisClosed.js",
       "childIDs": []
     },
-    "65": {
+    "47": {
       "name": "constant.js",
       "size": 72,
       "fullName": "./~/d3-interpolate/src/constant.js",
       "childIDs": []
     },
-    "66": {
+    "48": {
       "name": "date.js",
       "size": 134,
       "fullName": "./~/d3-interpolate/src/date.js",
       "childIDs": []
     },
-    "67": {
+    "49": {
       "name": "object.js",
       "size": 390,
       "fullName": "./~/d3-interpolate/src/object.js",
       "childIDs": []
     },
-    "68": {
+    "50": {
       "name": "rgb.js",
       "size": 1288,
       "fullName": "./~/d3-interpolate/src/rgb.js",
       "childIDs": []
     },
-    "69": {
+    "51": {
       "name": "string.js",
       "size": 1758,
       "fullName": "./~/d3-interpolate/src/string.js",
       "childIDs": []
     },
-    "70": {
+    "52": {
       "name": "cubehelix.js",
       "size": 760,
       "fullName": "./~/d3-interpolate/src/cubehelix.js",
       "childIDs": []
     },
-    "71": {
+    "53": {
       "name": "hcl.js",
       "size": 547,
       "fullName": "./~/d3-interpolate/src/hcl.js",
       "childIDs": []
     },
-    "72": {
+    "54": {
       "name": "hsl.js",
       "size": 547,
       "fullName": "./~/d3-interpolate/src/hsl.js",
       "childIDs": []
     },
-    "73": {
+    "55": {
       "name": "lab.js",
       "size": 447,
       "fullName": "./~/d3-interpolate/src/lab.js",
       "childIDs": []
     },
-    "74": {
+    "56": {
       "name": "quantize.js",
       "size": 163,
       "fullName": "./~/d3-interpolate/src/quantize.js",
       "childIDs": []
     },
-    "75": {
+    "57": {
       "name": "round.js",
       "size": 112,
       "fullName": "./~/d3-interpolate/src/round.js",
       "childIDs": []
     },
-    "76": {
+    "58": {
       "name": "transform",
       "size": null,
       "fullName": null,
       "childIDs": [
-        89,
-        90,
-        91
+        71,
+        72,
+        73
       ]
     },
-    "77": {
+    "59": {
       "name": "zoom.js",
       "size": 1385,
       "fullName": "./~/d3-interpolate/src/zoom.js",
       "childIDs": []
     },
-    "78": {
+    "60": {
       "name": "timer.js",
       "size": 2789,
       "fullName": "./~/d3-timer/src/timer.js",
       "childIDs": []
     },
-    "79": {
+    "61": {
       "name": "interval.js",
       "size": 400,
       "fullName": "./~/d3-timer/src/interval.js",
       "childIDs": []
     },
-    "80": {
+    "62": {
       "name": "timeout.js",
       "size": 250,
       "fullName": "./~/d3-timer/src/timeout.js",
       "childIDs": []
     },
-    "81": {
+    "63": {
       "name": "helpers.js",
       "size": 531,
       "fullName": "./src/core/withTransitions/helpers.js",
       "childIDs": []
     },
-    "82": {
+    "64": {
       "name": "index.js",
       "size": 844,
       "fullName": "./src/core/withTransitions/index.js",
       "childIDs": []
     },
-    "83": {
+    "65": {
       "name": "stop.js",
       "size": 317,
       "fullName": "./src/core/withTransitions/stop.js",
       "childIDs": []
     },
-    "84": {
+    "66": {
       "name": "transition.js",
-      "size": 2627,
+      "size": 3205,
       "fullName": "./src/core/withTransitions/transition.js",
       "childIDs": []
     },
-    "85": {
+    "67": {
       "name": "phases.js",
       "size": 334,
       "fullName": "./src/core/withTransitions/phases.js",
       "childIDs": []
     },
-    "86": {
+    "68": {
       "name": "schedule.js",
       "size": 5004,
       "fullName": "./src/core/withTransitions/schedule.js",
       "childIDs": []
     },
-    "87": {
+    "69": {
       "name": "tween.js",
-      "size": 1703,
+      "size": 1712,
       "fullName": "./src/core/withTransitions/tween.js",
       "childIDs": []
     },
-    "88": {
+    "70": {
       "name": "withTransitions.js",
-      "size": 5801,
+      "size": 5665,
       "fullName": "./src/core/withTransitions/withTransitions.js",
       "childIDs": []
     },
-    "89": {
+    "71": {
       "name": "decompose.js",
       "size": 672,
       "fullName": "./~/d3-interpolate/src/transform/decompose.js",
       "childIDs": []
     },
-    "90": {
+    "72": {
       "name": "index.js",
       "size": 2064,
       "fullName": "./~/d3-interpolate/src/transform/index.js",
       "childIDs": []
     },
-    "91": {
+    "73": {
       "name": "parse.js",
       "size": 980,
       "fullName": "./~/d3-interpolate/src/transform/parse.js",
@@ -741,24 +612,6 @@
     70,
     71,
     72,
-    73,
-    74,
-    75,
-    76,
-    77,
-    78,
-    79,
-    80,
-    81,
-    82,
-    83,
-    84,
-    85,
-    86,
-    87,
-    88,
-    89,
-    90,
-    91
+    73
   ]
 }
