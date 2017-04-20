@@ -1,4 +1,4 @@
-## Resonance | Better React-D3 Integration
+## Resonance | Data-Driven Transitions in React
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
@@ -6,7 +6,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
 Resonance is an experimental library that schedules state transitions on your React components.
-Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) for D3-style animated transitions in your React components without the guilt :)
+Now you can use all those nifty [D3 4.0 modules](https://github.com/d3) for D3-style animated transitions in React components.
 
 This small library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions and provides a simple interface for utilizing [D3 interpolators](https://github.com/d3/d3-interpolate).
 Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome. 
@@ -35,6 +35,10 @@ Resonance does not depend on redux but it is built with this type architecture i
  - npm install && cd docs && npm install && npm start
  - go to http://localhost:3000/
 
+
+<a href="https://sghall.github.io/resonance/#/examples/webpack-sunburst">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/25240281/45acec66-25a7-11e7-9e6a-83012473b748.png" height="150px"/>
+</a>
 <a href="https://sghall.github.io/resonance/#/examples/alluvial-chart">
   <img src="https://cloud.githubusercontent.com/assets/4615775/24084023/d736ddde-0c9f-11e7-8646-b953dd368c84.jpg" height="150px"/>
 </a>
