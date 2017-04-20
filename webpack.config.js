@@ -7,7 +7,7 @@ const libraryName = 'resonance';
 
 const baseConfig = {
   entry: {
-    'resonance': path.join(__dirname, 'src/index.js'),
+    [libraryName]: path.join(__dirname, 'src/index.js'),
   },
   output: {
     path: path.join(__dirname, 'build/dist'),
