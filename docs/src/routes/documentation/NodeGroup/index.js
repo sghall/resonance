@@ -20,13 +20,13 @@ const NodeGroupDocs = (props) => {
       <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
       <CodeExample
         code={docContext('./NodeGroup/Example1')}
-        title="Example 1: Basic Bars"
+        title="Example 1: SVG Rect Demo"
       >
         <Example1 />
       </CodeExample>
       <CodeExample
         code={docContext('./NodeGroup/Example2')}
-        title="Example 2: Circles w/ D3 Ease Function"
+        title="Example 2: SVG Circle Demo"
       >
         <Example2 />
       </CodeExample>
