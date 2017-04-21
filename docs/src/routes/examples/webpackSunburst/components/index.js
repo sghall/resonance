@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { timer } from 'd3-timer';
-import { easeCubic } from 'd3-ease';
+import { easeQuad } from 'd3-ease';
 import { format } from 'd3-format';
 import { connect } from 'react-redux';
 import Slider from 'material-ui/Slider';
@@ -58,7 +58,7 @@ export class Example extends Component {
       const { xd, yd, yr } = getScaleInterpolators(next);
 
       this.transition = timer((elapsed) => {
-        const t = easeCubic(elapsed < duration ? (elapsed / duration) : 1);
+        const t = easeQuad(elapsed < duration ? (elapsed / duration) : 1);
 
         x.domain(xd(t));
         y.domain(yd(t)).range(yr(t));
