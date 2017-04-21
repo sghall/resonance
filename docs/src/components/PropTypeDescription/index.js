@@ -159,7 +159,7 @@ class PropTypeDescription extends Component {
     }
 
     return (
-      <div className="propTypeDescription">
+      <div style={{ marginBottom: 15 }} className="propTypeDescription">
         <MarkdownElement text={text} />
         <div style={styles.footnote}>
           {requiredPropFootnote}

@@ -102,10 +102,8 @@ class Node extends Component {
 //  Example
 // **************************************************
 class Example1 extends Component {
-
   constructor(props) {
     super(props);
-
     (this:any).update = this.update.bind(this);
   }
 
@@ -131,15 +129,13 @@ class Example1 extends Component {
 
     return (
       <div>
-        <button style={{ margin: 5 }} onClick={this.update}>
-          update
+        <button onClick={this.update}>
+          Update
         </button>
-        <span>Bar Count: {data.length}</span>
-        <Surface
-          view={view}
-          trbl={trbl}
-          style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
-        >
+        <span style={{ margin: 5 }}>
+          Bar Count: {data.length}
+        </span>
+        <Surface view={view} trbl={trbl}>
           <NodeGroup
             data={data}
             scale={scale}

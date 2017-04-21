@@ -135,15 +135,13 @@ class Example2 extends Component {
 
     return (
       <div>
-        <button style={{ margin: 5 }} onClick={this.update}>
-          update
+        <button onClick={this.update}>
+          Update
         </button>
-        <span>Circle Count: {data.length}</span>
-        <Surface
-          view={view}
-          trbl={trbl}
-          style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
-        >
+        <span style={{ margin: 5 }}>
+          Circle Count: {data.length}
+        </span>
+        <Surface view={view} trbl={trbl}>
           <NodeGroup
             data={data}
             scale={scale}
