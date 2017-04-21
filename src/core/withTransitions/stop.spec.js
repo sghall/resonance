@@ -114,11 +114,14 @@ describe('stop', () => {
     const wrapper = mount(<Line />);
 
     setTimeout(() => {
-      assert.isAbove(wrapper.state().line.x1, 0, 'should be true');
-      assert.isBelow(wrapper.state().line.x1, 200, 'should be true');
-      assert.isAbove(wrapper.state().line.y1, 0, 'should be true');
-      assert.isBelow(wrapper.state().line.y1, 200, 'should be true');
+      const x1 = wrapper.state().line.x1;
+      const y1 = wrapper.state().line.y1;
+
+      assert.isAbove(x1, 0, 'should be true');
+      assert.isBelow(x1, 200, 'should be true');
+      assert.isAbove(y1, 0, 'should be true');
+      assert.isBelow(y1, 200, 'should be true');
       done();
-    }, DELAY + (DURATION * 1.1));
+    }, DELAY + (DURATION * 1.5));
   });
 });
