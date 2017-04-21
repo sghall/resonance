@@ -3,7 +3,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Surface, NodeGroup } from 'resonance';
+import Surface from 'resonance/Surface';
+import NodeGroup from 'resonance/NodeGroup';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
 
