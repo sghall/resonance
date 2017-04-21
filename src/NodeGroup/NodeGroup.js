@@ -12,15 +12,15 @@ export const propTypes = {
    */
   data: PropTypes.array.isRequired,
   /**
-   * The CSS class name of the root container element.
+   * The CSS class name of the container component.
    */
   className: PropTypes.string,
   /**
-   * The function that returns a string key given a data object.
+   * Function that returns a string key given a data object.
    */
   keyAccessor: PropTypes.func,
   /**
-   * The wrapping component nodes will be rendered into.
+   * The container component nodes will be rendered into.
    */
   component: PropTypes.any,
   /**

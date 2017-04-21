@@ -12,7 +12,7 @@ export const propTypes = {
    */
   scale: PropTypes.func.isRequired,
   /**
-   * The CSS class name of the root g element.
+   * The CSS class name of the container component.
    */
   className: PropTypes.string,
   /**
@@ -20,7 +20,7 @@ export const propTypes = {
    */
   tickCount: PropTypes.number,
   /**
-   * The wrapping component ticks will be rendered into.
+   * The container component ticks will be rendered into.
    */
   component: PropTypes.any,
   /**
