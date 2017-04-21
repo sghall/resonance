@@ -3,9 +3,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import RaisedButton from 'material-ui/RaisedButton';
-import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
+import { Surface, NodeGroup } from 'resonance';
 import { easeExpInOut } from 'd3-ease';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
@@ -31,15 +29,21 @@ class Node extends Component {
     removeNode: PropTypes.func.isRequired,
   }
 
-  state = {
-    node: {
-      opacity: 1e-6,
-    },
-    circle: {
-      r: 1e-6,
-      cx: this.props.scale(this.props.data.x) + (this.props.scale.bandwidth() / 2),
-      fill: '#D2B362',
-    },
+  constructor(props) {
+    super(props);
+
+    const { data, scale } = props;
+
+    this.state = {
+      node: {
+        opacity: 1e-6,
+      },
+      circle: {
+        r: 1e-6,
+        cx: scale(data.x) + (scale.bandwidth() / 2),
+        fill: '#D2B362',
+      },
+    };
   }
 
   onAppear() {
@@ -108,7 +112,6 @@ class Node extends Component {
 //  Example
 // **************************************************
 class Example2 extends Component {
-
   constructor(props) {
     super(props);
 
@@ -137,11 +140,9 @@ class Example2 extends Component {
 
     return (
       <div>
-        <RaisedButton
-          label="Update"
-          style={{ margin: 5 }}
-          onClick={this.update}
-        />
+        <button style={{ margin: 5 }} onClick={this.update}>
+          update
+        </button>
         <span>Circle Count: {data.length}</span>
         <Surface
           view={view}

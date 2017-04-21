@@ -3,9 +3,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import RaisedButton from 'material-ui/RaisedButton';
-import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
+import { Surface, NodeGroup } from 'resonance';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
 
@@ -132,11 +130,9 @@ class Example1 extends Component {
 
     return (
       <div>
-        <RaisedButton
-          label="Update"
-          style={{ margin: 5 }}
-          onClick={this.update}
-        />
+        <button style={{ margin: 5 }} onClick={this.update}>
+          update
+        </button>
         <span>Bar Count: {data.length}</span>
         <Surface
           view={view}
