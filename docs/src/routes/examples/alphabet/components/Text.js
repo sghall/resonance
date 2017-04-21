@@ -2,11 +2,9 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { easePoly } from 'd3-ease';
+import { easePoly, easeBounce } from 'd3-ease';
 import { BASE_DURATION } from '../module/constants';
 import { dims } from '../module';
-
-const colors = { APPEAR: '#3C564B', UPDATE: '#A5937C', REMOVE: '#4D2B1D' };
 
 class Text extends PureComponent {
   static propTypes = {
@@ -22,6 +20,7 @@ class Text extends PureComponent {
     text: {
       x: this.props.data.xValue,
       y: 0,
+      fill: '#3C564B',
       opacity: 1e-6,
     },
   }
@@ -33,6 +32,7 @@ class Text extends PureComponent {
       text: {
         x: xValue,
         y: [0, dims[1] / 2],
+        fill: '#3C564B',
         opacity: [1e-6, 1],
       },
       timing: { duration: BASE_DURATION, ease: easePoly },
@@ -46,9 +46,10 @@ class Text extends PureComponent {
       text: {
         x: [xValue],
         y: [dims[1] / 2],
+        fill: '#A5937C',
         opacity: [1],
       },
-      timing: { duration: BASE_DURATION, ease: easePoly },
+      timing: { duration: BASE_DURATION, ease: easeBounce },
     };
   }
 
@@ -59,20 +60,20 @@ class Text extends PureComponent {
       text: {
         x: [xValue],
         y: [dims[1]],
+        fill: '#A5937C',
         opacity: [1e-6],
       },
-      timing: { duration: BASE_DURATION, ease: easePoly },
+      timing: { duration: BASE_DURATION / 2, ease: easePoly },
       events: { end: removeNode },
     };
   }
 
   render() {
-    const { type, data: { letter } } = this.props;
+    const { data: { letter } } = this.props;
 
     return (
       <text
         dy="-.35em"
-        fill={colors[type]}
         style={{ font: 'bold 30px monospace' }}
         {...this.state.text}
       >{letter}</text>
