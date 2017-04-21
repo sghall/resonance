@@ -1,3 +1,3 @@
 ## Surface
 
-A basic svg container for visualizations.
+Basic SVG container
