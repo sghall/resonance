@@ -4,7 +4,7 @@
 import Home from './Home';
 import AppFrame from '../components/AppFrame';
 
-import SurfaceDocs from './documentation/Surface';
+// import SurfaceDocs from './documentation/Surface';
 import NodeGroupDocs from './documentation/NodeGroup';
 import TickGroupDocs from './documentation/TickGroup';
 
