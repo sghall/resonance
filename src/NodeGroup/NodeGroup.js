@@ -12,13 +12,17 @@ export const propTypes = {
    */
   data: PropTypes.array.isRequired,
   /**
-   * The CSS class name of the root g element.
+   * The CSS class name of the root container element.
    */
   className: PropTypes.string,
   /**
    * The function that returns a string key given a data object.
    */
   keyAccessor: PropTypes.func,
+  /**
+   * The wrapping component nodes will be rendered into.
+   */
+  component: PropTypes.any,
   /**
    * The component that will be used to render each node.
    */
@@ -29,6 +33,8 @@ export default class NodeGroup extends PureComponent {
   static propTypes = propTypes;
 
   static defaultProps = {
+    className: 'node-group',
+    component: 'g',
     keyAccessor: defaultKeyAccessor,
   };
 
@@ -68,33 +74,34 @@ export default class NodeGroup extends PureComponent {
   }
 
   render() {
-    const { props: { keyAccessor, className }, WrappedComponent, state } = this;
-
-    const props = Object.assign({}, this.props);
+    const { props, WrappedComponent, state } = this;
+    const childProps = Object.assign({}, props);
 
     Object.keys(propTypes).forEach((prop) => {
-      delete props[prop];
+      delete childProps[prop];
     });
 
-    return (
-      <g className={className}>
-        {state.nodes.map((node, index) => {
-          const udid = keyAccessor(node);
-          const type = state.udids[udid];
+    return React.createElement(
+      props.component,
+      { className: props.className },
+      state.nodes.map((node, index) => {
+        const udid = props.keyAccessor(node);
+        const type = state.udids[udid];
 
-          return (
-            <WrappedComponent
-              key={udid}
-              udid={udid}
-              type={type}
-              node={node}
-              index={index}
-              removeUDID={this.removeUDID}
-              {...props}
-            />
-          );
-        })}
-      </g>
+        return (
+          <WrappedComponent
+            key={udid}
+            udid={udid}
+            type={type}
+            node={node}
+            index={index}
+            prevScale={state.prevScale}
+            currScale={state.currScale}
+            removeUDID={this.removeUDID}
+            {...childProps}
+          />
+        );
+      }),
     );
   }
 }
