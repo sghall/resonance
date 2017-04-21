@@ -31,12 +31,6 @@ const routes = {
       },
       childRoutes: [
         {
-          path: '/documentation/surface',
-          docContext,
-          srcContext,
-          component: SurfaceDocs,
-        },
-        {
           path: '/documentation/node-group',
           docContext,
           srcContext,
