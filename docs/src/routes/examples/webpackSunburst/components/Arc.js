@@ -50,15 +50,18 @@ class Arc extends Component {
 
     // optimization - avoids transitions on arc that are not visible
     if (data.noTransition) {
-      return this.setState({
-        path: { d: path(data), strokeOpacity: 1e-6 },
-      });
+      return {
+        path: {
+          strokeOpacity: data.angle === 0 ? [1e-6] : 0.6,
+          d: path(data), // returns string value
+        },
+      };
     }
 
     return {
       path: {
         strokeOpacity: data.angle === 0 ? [1e-6] : 0.6,
-        d: arcTween(data),
+        d: arcTween(data),  // returns custom tween
       },
       timing: { duration, ease: easeLinear },
     };
