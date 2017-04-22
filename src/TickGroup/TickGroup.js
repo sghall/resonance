@@ -79,7 +79,7 @@ export default class TickGroup extends PureComponent {
 
   removeUDID(udid) {
     this.removed.set(udid, true);
-    this.updateNodes(this.props);
+    this.updateTicks(this.props, this.props);
   }
 
   lazyRemoveUDID(udid) {
