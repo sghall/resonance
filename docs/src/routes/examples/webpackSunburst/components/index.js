@@ -122,7 +122,7 @@ export class Example extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-4 col-sm-4">
+              <div className="col-md-6 col-sm-6">
                 <h5>Webpack Data:</h5>
                 <RadioButtonGroup
                   name="offsets"
@@ -139,7 +139,7 @@ export class Example extends Component {
                   />
                 </RadioButtonGroup>
               </div>
-              <div className="col-md-8 col-sm-8">
+              <div className="col-md-6 col-sm-6">
                 <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
                 <Slider
                   defaultValue={0.1}
