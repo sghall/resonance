@@ -2,12 +2,7 @@
 
 import composeNode from './defaultComposeNode';
 import defaultKeyAccessor from './defaultKeyAccessor';
-import {
-  ENTER,
-  UPDATE,
-  EXIT,
-} from './types';
-
+import { ENTER, UPDATE, EXIT } from './types';
 
 const nodeUpdate = (props, state, removed) => {
   const { data, keyAccessor = defaultKeyAccessor } = props;
