@@ -5,7 +5,7 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58cf12fc6893fd004792c7d0)
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 
-This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently schedule animated transitions against React components.
+This library uses [d3-timer](https://github.com/d3/d3-timer) to transition the state of your React component.
 Documentation and examples are a work in progress. PRs/feedback/comments/suggestions welcome.
 
 Take a look at the [Webpack bundle for Resonance](https://sghall.github.io/resonance/#/examples/webpack-sunburst) to see what's inside.
@@ -56,10 +56,7 @@ Resonance does not depend on redux but it is built with this type architecture i
   <img src="https://cloud.githubusercontent.com/assets/4615775/24084030/de9ec4e2-0c9f-11e7-85d8-3be0bbc5c7d0.jpg" height="150px"/>
 </a>
 
-## The Basic Idea
-
-D3 stores data and transition schedules in DOM nodes, but that fights against React's virtual DOM approach. Resonance accomplishes the same thing in a way that works with React.
-Behind the scenes it takes the same basic scheduling method used in D3 and much of the same tooling and schedules transitions against your React components.
+## Why do I need this?
 
 Resonance handles much of the heavy lifting for:
 
@@ -90,7 +87,7 @@ const keyAccessor = (d) => d.name;
 />
 ```
 
-Inside your component you receive the data object, index, type and a function to call to remove the node immediately or have removed lazily on the next data update. 
+Inside your component you receive the data object, index, type and a function to call to remove the node immediately or have removed lazily on the next data update (lazyRemove). 
 
 So a typical component would look like...
 ```js
