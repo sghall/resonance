@@ -20,7 +20,7 @@ class Arc extends Component {
     }).isRequired,
     path: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
-    lazyRemove: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
     setActiveNode: PropTypes.func.isRequired,
     activePath: PropTypes.string.isRequired,
     setActivePath: PropTypes.func.isRequired,
@@ -43,6 +43,8 @@ class Arc extends Component {
     },
   }
 
+  match = new RegExp(`^${this.props.data.filePath}(\/|$)`, 'g') // eslint-disable-line
+
   onUpdate() {
     const { data, path, duration } = this.props;
 
@@ -62,6 +64,10 @@ class Arc extends Component {
     };
   }
 
+  onRemove() {
+    this.props.remove();
+  }
+
   handleClick() {
     const { setActiveNode, data } = this.props;
     setActiveNode(data);
@@ -71,8 +77,8 @@ class Arc extends Component {
   handleMouseOut = null;
 
   render() {
-    const { activePath, data: { filePath, noTransition, angle, depth } } = this.props;
-    const active = activePath.startsWith(filePath);
+    const { activePath, data: { noTransition, angle, depth } } = this.props;
+    const active = activePath.match(this.match);
 
     return (
       <path

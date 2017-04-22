@@ -7,13 +7,14 @@ import { easeQuad } from 'd3-ease';
 import { format } from 'd3-format';
 import { connect } from 'react-redux';
 import Slider from 'material-ui/Slider';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
 import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import formatBytes from 'docs/src/utils/formatBytes';
 import Arc from './Arc';
-import { getNodes, getScales, updateScales } from '../module';
+import { getNodes, getScales, updateScales, changeDataSet } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import { x, y, getScaleInterpolators } from '../module/scales';
 import description from '../description.md';
@@ -26,13 +27,14 @@ export class Example extends Component {
     super(props);
 
     (this:any).setDuration = this.setDuration.bind(this);
+    (this:any).changeDataSet = this.changeDataSet.bind(this);
     (this:any).setActiveNode = this.setActiveNode.bind(this);
     (this:any).setActivePath = this.setActivePath.bind(this);
   }
 
   state = {
     duration: 750,
-    activeSize: this.props.total,
+    activeSize: this.props.size,
     activePath: 'Click on an arc...',
   }
 
@@ -77,17 +79,21 @@ export class Example extends Component {
     }
   }
 
+  changeDataSet(e, d) {
+    const { dispatch } = this.props;
+    dispatch(changeDataSet(d));
+  }
+
   setActiveNode(node) {
     const { dispatch } = this.props;
     dispatch(updateScales(node));
   }
 
   setActivePath(path, size) {
-    const { total } = this.props;
     // avoid flickering during transition
     if (!this.transition) {
       this.setState({
-        activeSize: size || total,
+        activeSize: size || this.props.size,
         activePath: path,
       });
     }
@@ -102,9 +108,9 @@ export class Example extends Component {
   transition = null;
 
   render() {
-    const { nodes, path, total } = this.props;
+    const { nodes, name, size, path } = this.props;
     const { duration, activePath, activeSize } = this.state;
-    const percentage = percentFormat(activeSize / total);
+    const percentage = percentFormat(activeSize / size);
 
     return (
       <Paper style={{ padding: 20 }}>
@@ -116,7 +122,24 @@ export class Example extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12 col-sm-12">
+              <div className="col-md-4 col-sm-4">
+                <h5>Chart Offset:</h5>
+                <RadioButtonGroup
+                  name="offsets"
+                  valueSelected={name}
+                  onChange={this.changeDataSet}
+                >
+                  <RadioButton
+                    value="resonance"
+                    label="resonance"
+                  />
+                  <RadioButton
+                    value="material-ui"
+                    label="material-ui (stress test)"
+                  />
+                </RadioButtonGroup>
+              </div>
+              <div className="col-md-8 col-sm-8">
                 <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
                 <Slider
                   defaultValue={0.1}
@@ -153,9 +176,10 @@ export class Example extends Component {
 }
 
 Example.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
   path: PropTypes.func.isRequired,
   nodes: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
@@ -165,12 +189,14 @@ const makeMapStateToProps = () => {
   const mapStateToProps = (state) => {
     const nodes = getNodes(state);
     const { path, xScale, yScale } = getScales(state);
-    const total = nodes[0].value;
+    const name = nodes[0].filePath;
+    const size = nodes[0].value;
 
     return {
+      name,
+      size,
       path,
       nodes,
-      total,
       xScale,
       yScale,
     };

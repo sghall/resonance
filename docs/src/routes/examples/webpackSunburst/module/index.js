@@ -6,12 +6,14 @@ import { scaleLinear, scaleSqrt } from 'd3-scale';
 import { hierarchy, partition } from 'd3-hierarchy';
 import isEqual from 'lodash/isEqual';
 import { EXAMPLE_STORE_KEY, RADIUS, PI } from './constants';
-import webpackStats from '../../data/webpack-stats.json';
+import res from '../../data/webpack-stats.json';
+import mui from '../../data/material-ui-webpack-stats.json';
 
 // ********************************************************************
 //  ACTIONS
 // ********************************************************************
 const WEBPACK_SUNBURST_UPDATE_SCALES = 'WEBPACK_SUNBURST_UPDATE_SCALES';
+const WEBPACK_SUNBURST_CHANGE_DATASET = 'WEBPACK_SUNBURST_CHANGE_DATASET';
 
 // ********************************************************************
 //  ACTION CREATORS
@@ -21,16 +23,27 @@ export const updateScales = (node) => ({
   node,
 });
 
+export const changeDataSet = (dataSet) => ({
+  type: WEBPACK_SUNBURST_CHANGE_DATASET,
+  dataSet,
+});
+
 // ********************************************************************
 //  SELECTORS
 // ********************************************************************
-const getData = (state) => state[EXAMPLE_STORE_KEY].data;
+const getDataSet = (state) => state[EXAMPLE_STORE_KEY].dataSet;
 
 const getTree = createSelector(
-  [getData],
-  (data) => {
+  [getDataSet],
+  (dataSet) => {
+    let data = res;
+
+    if (dataSet === 'material-ui') {
+      data = mui;
+    }
+
     const root = {
-      name: 'resonance',
+      name: dataSet,
       children: [],
     };
 
@@ -51,7 +64,11 @@ const getTree = createSelector(
     };
 
     data.byID[0].childIDs.forEach((id) => {
-      addNode(root, data.byID[id]);
+      const next = data.byID[id];
+
+      if (!next.name.startsWith('external ')) {
+        addNode(root, next);
+      }
     });
 
     const tree = hierarchy(root)
@@ -139,7 +156,7 @@ export const getNodes = createSelector(
 //  REDUCER
 // ********************************************************************
 const initialState = {
-  data: webpackStats,
+  dataSet: 'resonance',
   xDomain: [0, 1],
   yRange: [0, RADIUS],
   yDomain: [0, 1],
@@ -163,6 +180,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case WEBPACK_SUNBURST_UPDATE_SCALES:
       return Object.assign({}, state, scaleUpdate(state, action));
+    case WEBPACK_SUNBURST_CHANGE_DATASET:
+      return Object.assign({}, state, { dataSet: action.dataSet });
     default:
       return state;
   }
