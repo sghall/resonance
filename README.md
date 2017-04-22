@@ -63,8 +63,3 @@ Resonance handles much of the heavy lifting for:
 * Specifying ease functions
 * Stopping transitions on component unmount
 
-## NodeGroup
-
-A React version of D3's selection.data method. Selection.data breaks your data array into entering, updating and exiting nodes and allows you to operate on them as the selection updates.
-Using Resonance you pass an array of data objects into the NodeGroup and give it a key accessor function that returns a string key when passed a data object.
-That key is used by React to keep track of what's mounted. You also pass a component to the NodeGroup that will be used to render the nodes.
