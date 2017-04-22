@@ -17,7 +17,7 @@ class Tick extends PureComponent {
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -55,7 +55,7 @@ class Tick extends PureComponent {
   }
 
   onRemove() {
-    const { currScale, data: { val }, duration, removeNode } = this.props;
+    const { currScale, data: { val }, duration, lazyRemove } = this.props;
 
     return {
       tick: {
@@ -63,7 +63,7 @@ class Tick extends PureComponent {
         transform: [`translate(${currScale(val)},0)`],
       },
       timing: { duration, ease: easeExp },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

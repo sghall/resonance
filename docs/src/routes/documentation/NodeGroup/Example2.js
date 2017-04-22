@@ -27,7 +27,7 @@ class Node extends Component {
     }).isRequired,
     scale: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   }
 
   state = {
@@ -76,7 +76,7 @@ class Node extends Component {
   }
 
   onRemove() {
-    const { removeNode } = this.props;
+    const { lazyRemove } = this.props;
 
     return {
       node: {
@@ -86,7 +86,7 @@ class Node extends Component {
         fill: '#426F85',
       },
       timing: { duration: 1000, ease: easeExpInOut },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

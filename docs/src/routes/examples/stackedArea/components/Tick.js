@@ -18,7 +18,7 @@ class Tick extends PureComponent {
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -67,9 +67,9 @@ class Tick extends PureComponent {
   }
 
   onRemove(prev) {
-    const { currScale, data: { val }, offset, duration, removeNode } = this.props;
+    const { currScale, data: { val }, offset, duration, lazyRemove } = this.props;
     const timing = { duration };
-    const events = { end: removeNode };
+    const events = { end: lazyRemove };
 
     if (prev.offset !== offset) {
       return {

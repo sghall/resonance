@@ -13,7 +13,7 @@ class Text extends PureComponent {
       letter: PropTypes.string.isRequired,
     }).isRequired,
     type: PropTypes.string.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -54,7 +54,7 @@ class Text extends PureComponent {
   }
 
   onRemove() {
-    const { data: { xValue }, removeNode } = this.props;
+    const { data: { xValue }, lazyRemove } = this.props;
 
     return {
       text: {
@@ -64,7 +64,7 @@ class Text extends PureComponent {
         opacity: [1e-6],
       },
       timing: { duration: BASE_DURATION / 2, ease: easePoly },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

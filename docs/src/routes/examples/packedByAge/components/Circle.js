@@ -30,7 +30,7 @@ class Circle extends PureComponent {
     type: PropTypes.string.isRequired,
     sortKey: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -73,7 +73,7 @@ class Circle extends PureComponent {
   }
 
   onRemove() {
-    const { duration, removeNode } = this.props;
+    const { duration, lazyRemove } = this.props;
 
     return {
       node: {
@@ -81,7 +81,7 @@ class Circle extends PureComponent {
       },
       circle: { fill: 'rgba(0,0,0,0.3)' },
       timing: { duration },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

@@ -16,7 +16,7 @@ class Tick extends Component {
     duration: PropTypes.number.isRequired,
     prevScale: PropTypes.func.isRequired,
     currScale: PropTypes.func.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -54,7 +54,7 @@ class Tick extends Component {
   }
 
   onRemove() {
-    const { currScale, data: { val }, duration, removeNode } = this.props;
+    const { currScale, data: { val }, duration, lazyRemove } = this.props;
 
     return {
       tick: {
@@ -62,7 +62,7 @@ class Tick extends Component {
         transform: [`translate(0,${currScale(val)})`],
       },
       timing: { duration },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

@@ -10,7 +10,7 @@ class Path extends PureComponent {
       fill: PropTypes.object.isRequired,
     }).isRequired,
     duration: PropTypes.number.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
     activeSeries: PropTypes.string.isRequired,
   };
 
@@ -46,12 +46,12 @@ class Path extends PureComponent {
   }
 
   onRemove() {
-    const { duration, removeNode } = this.props;
+    const { duration, lazyRemove } = this.props;
 
     return {
       path: { opacity: [1e-6] },
       timing: { duration },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

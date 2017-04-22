@@ -18,7 +18,7 @@ class Bar extends PureComponent {
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -64,7 +64,7 @@ class Bar extends PureComponent {
   }
 
   onRemove() {
-    const { duration, removeNode } = this.props;
+    const { duration, lazyRemove } = this.props;
 
     return {
       node: {
@@ -72,7 +72,7 @@ class Bar extends PureComponent {
         transform: ['translate(0,500)'],
       },
       timing: { duration, ease: easePoly },
-      events: { end: removeNode },
+      events: { end: lazyRemove },
     };
   }
 

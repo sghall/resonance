@@ -20,7 +20,7 @@ class Arc extends Component {
     }).isRequired,
     path: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
     setActiveNode: PropTypes.func.isRequired,
     activePath: PropTypes.string.isRequired,
     setActivePath: PropTypes.func.isRequired,
