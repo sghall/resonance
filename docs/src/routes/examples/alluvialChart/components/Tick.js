@@ -26,7 +26,7 @@ class Tick extends Component {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { prevScale, currScale, data: { val }, duration } = this.props;
 
     return {

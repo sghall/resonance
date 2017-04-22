@@ -24,7 +24,7 @@ class Node extends Component {
   rect = null // ref set in render
   path = null // ref set in render
 
-  onAppear() {
+  onEnter() {
     return {
       line: {
         x1: [5, 200],
@@ -99,13 +99,13 @@ describe('withTransitions', () => {
     assert.strictEqual(called, true, 'should have been called once');
   });
 
-  it('should call the onAppear method of the wrapped instance', () => {
+  it('should call the onEnter method of the wrapped instance', () => {
     const NodeWithTransitions = withTransitions(Node);
-    sinon.spy(Node.prototype, 'onAppear');
+    sinon.spy(Node.prototype, 'onEnter');
 
     mount(<NodeWithTransitions {...props} />);
 
-    const called = Node.prototype.onAppear.calledOnce;
+    const called = Node.prototype.onEnter.calledOnce;
 
     assert.strictEqual(called, true, 'should have been called once');
   });

@@ -21,7 +21,7 @@ class Path extends PureComponent {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { data: { path }, duration } = this.props;
 
     return {

@@ -44,7 +44,7 @@ class Circle extends PureComponent {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { duration, data: { x, y, r, depth } } = this.props;
     const d0 = depth === 0 ? 0 : duration;
     const d1 = depth === 0 ? 0 : duration * 2;

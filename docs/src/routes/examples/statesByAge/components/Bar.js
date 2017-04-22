@@ -35,7 +35,7 @@ class Bar extends PureComponent {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { yScale, duration, data: { xVal, yVal } } = this.props;
 
     return {

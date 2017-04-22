@@ -25,7 +25,7 @@ class Text extends PureComponent {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { data: { xValue } } = this.props;
 
     return {

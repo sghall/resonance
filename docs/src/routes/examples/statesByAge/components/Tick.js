@@ -27,7 +27,7 @@ class Tick extends PureComponent {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { prevScale, currScale, data: { val }, duration } = this.props;
 
     return {

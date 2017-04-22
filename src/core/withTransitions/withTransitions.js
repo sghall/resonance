@@ -29,7 +29,7 @@ function withTransitions(Component) {
     }
 
     componentDidMount() {
-      this.invokeMethodIfExists('onAppear');
+      this.invokeMethodIfExists('onEnter');
     }
 
     componentDidUpdate(prev) {
@@ -49,7 +49,7 @@ function withTransitions(Component) {
 
         switch (props.type) {
           case ENTER:
-            this.invokeMethodIfExists('onAppear', prevProps);
+            this.invokeMethodIfExists('onEnter', prevProps);
             break;
           case UPDATE:
             this.invokeMethodIfExists('onUpdate', prevProps);

@@ -39,7 +39,7 @@ class Node extends Component {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { scale, data: { x } } = this.props;
 
     return {

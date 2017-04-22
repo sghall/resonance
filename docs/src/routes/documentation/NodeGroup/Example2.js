@@ -41,7 +41,7 @@ class Node extends Component {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { scale, index, data: { x } } = this.props;
 
     return {

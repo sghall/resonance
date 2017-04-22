@@ -20,7 +20,7 @@ class Path extends Component {
     },
   }
 
-  onAppear() {
+  onEnter() {
     const { data: { path }, duration } = this.props;
 
     return {
