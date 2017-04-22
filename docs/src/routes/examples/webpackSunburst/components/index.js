@@ -123,7 +123,7 @@ export class Example extends Component {
             </div>
             <div className="row">
               <div className="col-md-4 col-sm-4">
-                <h5>Chart Offset:</h5>
+                <h5>Webpack Data:</h5>
                 <RadioButtonGroup
                   name="offsets"
                   valueSelected={name}
