@@ -71,7 +71,7 @@ class Node extends Component {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { remove } = this.props;
 
     return {

@@ -75,7 +75,7 @@ class Node extends Component {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { lazyRemove } = this.props;
 
     return {

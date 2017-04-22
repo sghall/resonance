@@ -66,7 +66,7 @@ class Tick extends PureComponent {
     };
   }
 
-  onRemove(prev) {
+  onExit(prev) {
     const { currScale, data: { val }, offset, duration, lazyRemove } = this.props;
     const timing = { duration };
     const events = { end: lazyRemove };

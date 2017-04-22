@@ -53,7 +53,7 @@ class Text extends PureComponent {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { data: { xValue }, lazyRemove } = this.props;
 
     return {

@@ -55,7 +55,7 @@ function withTransitions(Component) {
             this.invokeMethodIfExists('onUpdate', prevProps);
             break;
           case EXIT:
-            this.invokeMethodIfExists('onRemove', prevProps);
+            this.invokeMethodIfExists('onExit', prevProps);
             break;
           default:
             break;

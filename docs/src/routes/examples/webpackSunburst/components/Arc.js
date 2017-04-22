@@ -67,7 +67,7 @@ class Arc extends PureComponent {
     };
   }
 
-  onRemove() {
+  onExit() {
     this.props.remove();
   }
 

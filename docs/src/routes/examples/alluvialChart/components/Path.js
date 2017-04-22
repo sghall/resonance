@@ -44,7 +44,7 @@ class Path extends Component {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { duration, lazyRemove } = this.props;
 
     return {

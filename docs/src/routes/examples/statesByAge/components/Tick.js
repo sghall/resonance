@@ -54,7 +54,7 @@ class Tick extends PureComponent {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { currScale, data: { val }, duration, lazyRemove } = this.props;
 
     return {

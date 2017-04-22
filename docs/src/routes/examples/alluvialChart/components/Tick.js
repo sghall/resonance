@@ -53,7 +53,7 @@ class Tick extends Component {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { currScale, data: { val }, duration, lazyRemove } = this.props;
 
     return {

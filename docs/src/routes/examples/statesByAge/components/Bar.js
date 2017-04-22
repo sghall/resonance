@@ -63,7 +63,7 @@ class Bar extends PureComponent {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { duration, lazyRemove } = this.props;
 
     return {

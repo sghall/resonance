@@ -72,7 +72,7 @@ class Circle extends PureComponent {
     };
   }
 
-  onRemove() {
+  onExit() {
     const { duration, lazyRemove } = this.props;
 
     return {
