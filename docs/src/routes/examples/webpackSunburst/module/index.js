@@ -181,7 +181,7 @@ export default function reducer(state = initialState, action) {
     case WEBPACK_SUNBURST_UPDATE_SCALES:
       return Object.assign({}, state, scaleUpdate(state, action));
     case WEBPACK_SUNBURST_CHANGE_DATASET:
-      return Object.assign({}, state, { dataSet: action.dataSet });
+      return Object.assign({}, initialState, { dataSet: action.dataSet });
     default:
       return state;
   }

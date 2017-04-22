@@ -49,6 +49,12 @@ export class Example extends Component {
     const { props } = this;
     const { duration } = this.state;
 
+    if (next.name !== props.name) {
+      this.setState({
+        activeSize: next.size,
+      });
+    }
+
     if (
       next.xScale !== props.xScale ||
       next.yScale !== props.yScale
