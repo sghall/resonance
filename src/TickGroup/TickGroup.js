@@ -41,7 +41,7 @@ export default class TickGroup extends PureComponent {
   constructor(props) {
     super(props);
 
-    (this:any).removeUDID = this.removeUDID.bind(this);
+    (this:any).lazyRemoveUDID = this.lazyRemoveUDID.bind(this);
     this.WrappedComponent = withTransitions(props.tickComponent);
   }
 
@@ -76,7 +76,7 @@ export default class TickGroup extends PureComponent {
     });
   }
 
-  removeUDID(udid) {
+  lazyRemoveUDID(udid) {
     this.removed.set(udid, true);
   }
 
@@ -104,7 +104,7 @@ export default class TickGroup extends PureComponent {
             index={index}
             prevScale={state.prevScale}
             currScale={state.currScale}
-            removeUDID={this.removeUDID}
+            lazyRemoveUDID={this.lazyRemoveUDID}
             {...childProps}
           />
         );

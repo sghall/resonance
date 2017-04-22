@@ -10,7 +10,7 @@ export const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
   node: PropTypes.object.isRequired,
-  removeUDID: PropTypes.func.isRequired,
+  lazyRemoveUDID: PropTypes.func.isRequired,
 };
 
 function withTransitions(Component) {
@@ -75,8 +75,8 @@ function withTransitions(Component) {
     }
 
     removeNode() {
-      const { removeUDID, udid } = this.props;
-      removeUDID(udid);
+      const { lazyRemoveUDID, udid } = this.props;
+      lazyRemoveUDID(udid);
     }
 
     getNodeRef(d) {
