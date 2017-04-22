@@ -1,13 +1,13 @@
 // @flow weak
 /* eslint no-nested-ternary:"off" */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { easeLinear } from 'd3-ease';
 import PropTypes from 'prop-types';
 import { arcTween } from '../module/scales';
 import { COLORS } from '../module/constants';
 
-class Arc extends Component {
+class Arc extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       x0: PropTypes.number.isRequired,
@@ -52,7 +52,7 @@ class Arc extends Component {
     if (data.noTransition) {
       return {
         path: {
-          strokeOpacity: data.angle === 0 ? [1e-6] : 0.6,
+          strokeOpacity: 0.6,
           d: path(data), // returns string value
         },
       };
