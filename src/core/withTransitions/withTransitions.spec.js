@@ -13,7 +13,9 @@ const props = {
   type: APPEAR,
   udid: 'unique_id',
   node: { x: 10, y: 20 },
+  index: 0,
   removeUDID: () => {},
+  lazyRemoveUDID: () => {},
 };
 
 class Node extends Component {
@@ -131,5 +133,18 @@ describe('withTransitions', () => {
     spy.restore();
 
     assert.strictEqual(callCount, 1, 'should have been called once');
+  });
+
+  it('should call the Node component with the correct props', () => {
+    const NodeWithTransitions = withTransitions(Node);
+    const wrapper = mount(<NodeWithTransitions {...props} />);
+    const nodesProps = wrapper.find(Node).get(0).props;
+
+    assert.strictEqual(Object.keys(nodesProps).length, 5, 'should have 5 props');
+    assert.strictEqual(nodesProps.type, APPEAR, 'should have type prop');
+    assert.strictEqual(nodesProps.data, props.node, 'should have data prop');
+    assert.strictEqual(nodesProps.index, props.index, 'should have index prop');
+    assert.strictEqual(typeof nodesProps.remove, 'function', 'should have remove prop');
+    assert.strictEqual(typeof nodesProps.lazyRemove, 'function', 'should have lazyRemove prop');
   });
 });

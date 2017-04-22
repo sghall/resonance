@@ -10,6 +10,7 @@ export const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
   node: PropTypes.object.isRequired,
+  removeUDID: PropTypes.func.isRequired,
   lazyRemoveUDID: PropTypes.func.isRequired,
 };
 
@@ -23,7 +24,8 @@ function withTransitions(Component) {
       super(props);
 
       (this:any).getNodeRef = this.getNodeRef.bind(this);
-      (this:any).removeNode = this.removeNode.bind(this);
+      (this:any).remove = this.remove.bind(this);
+      (this:any).lazyRemove = this.lazyRemove.bind(this);
     }
 
     componentDidMount() {
@@ -74,7 +76,12 @@ function withTransitions(Component) {
       }
     }
 
-    removeNode() {
+    remove() {
+      const { removeUDID, udid } = this.props;
+      removeUDID(udid);
+    }
+
+    lazyRemove() {
       const { lazyRemoveUDID, udid } = this.props;
       lazyRemoveUDID(udid);
     }
@@ -95,7 +102,8 @@ function withTransitions(Component) {
           ref={this.getNodeRef}
           type={this.props.type}
           data={this.props.node}
-          removeNode={this.removeNode}
+          remove={this.remove}
+          lazyRemove={this.lazyRemove}
           {...props}
         />
       );

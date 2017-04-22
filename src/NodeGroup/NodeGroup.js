@@ -41,6 +41,7 @@ export default class NodeGroup extends PureComponent {
   constructor(props) {
     super(props);
 
+    (this:any).removeUDID = this.removeUDID.bind(this);
     (this:any).lazyRemoveUDID = this.lazyRemoveUDID.bind(this);
     this.WrappedComponent = withTransitions(props.nodeComponent);
   }
@@ -67,6 +68,11 @@ export default class NodeGroup extends PureComponent {
     this.setState((prevState) => {
       return dataUpdate(props, prevState, this.removed);
     });
+  }
+
+  removeUDID(udid) {
+    this.removed.set(udid, true);
+    this.updateNodes(this.props);
   }
 
   lazyRemoveUDID(udid) {
@@ -97,6 +103,7 @@ export default class NodeGroup extends PureComponent {
             index={index}
             prevScale={state.prevScale}
             currScale={state.currScale}
+            removeUDID={this.removeUDID}
             lazyRemoveUDID={this.lazyRemoveUDID}
             {...childProps}
           />
