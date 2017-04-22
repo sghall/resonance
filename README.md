@@ -116,7 +116,7 @@ class Node extends Component {
     data: PropTypes.object,
     type: PropTypes.string,
     index: PropTypes.number,
-    removeNode: PropTypes.func,
+    lazyRemove: PropTypes.func,
   };
 
   state = {
@@ -151,7 +151,7 @@ You can implement none, one, two or all three of the transition methods.  Just d
 The lifecycle of a node component differs from how D3 handles DOM nodes in an important way.
 D3 queries the DOM to figure out what is still mounted when you update a selection.  When you finish an exit transition you call selection.remove to remove the element from the document.  It is dettached from the DOM immediately on calling that method and, therefore, won't show up in future selections.
 
-In React, the data is stored in components as props and state. Resonance does not remove the node from the tree when you call removeNode (a function passed down to you).  It marks that key as removed in a map that it maintains internally, but does not update the state to remove the actual element at that time.
+In React, the data is stored in components as props and state. Resonance does not remove the node from the tree when you call lazyRemove (a function passed down to you).  It marks that key as removed in a map that it maintains internally, but does not update the state to remove the actual element at that time.
 This avoids a lot of DOM thrashing and makes the transitions easier to reason about. It is different than how it happens in D3 though and needs to be considered when setting up transitions.
 
 In practical terms, you generally lower the opacity, move the node off the screen or turn off the nodes visibility on an exit transition. In Resonance the node will remain there until there's another data update instead of causing more thrashing of the DOM.
@@ -194,7 +194,7 @@ class Bar extends PureComponent {
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
     duration: PropTypes.number.isRequired,
-    removeNode: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   };
 
   state = {
@@ -341,10 +341,10 @@ const default = {
 You can override these properties.  Just specify the keys you want to change.  You can use any easing function you want like those from [d3-ease](https://github.com/d3/d3-ease).
 
 The events are the same as in D3.  You can specify a function to be called on the start, end or interrupt event of a transition.
-In the bar chart component the removeNode function gets called on the end event...
+In the bar chart component the lazyRemove function gets called on the end event...
 ```js
 onRemove() {
-  const { duration, removeNode } = this.props;
+  const { duration, lazyRemove } = this.props;
 
   return {
     node: {
@@ -352,7 +352,7 @@ onRemove() {
       transform: ['translate(0,500)'],
     },
     timing: { duration, ease: easePoly },
-    events: { end: removeNode },
+    events: { end: lazyRemove },
   };
 }
 ```
