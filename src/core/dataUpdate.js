@@ -3,7 +3,7 @@
 import composeNode from './defaultComposeNode';
 import defaultKeyAccessor from './defaultKeyAccessor';
 import {
-  APPEAR,
+  ENTER,
   UPDATE,
   EXIT,
 } from './types';
@@ -17,7 +17,7 @@ const nodeUpdate = (props, state, removed) => {
   for (let i = 0, len0 = data.length; i < len0; i++) {
     const udid = keyAccessor(data[i]);
 
-    let type = APPEAR;
+    let type = ENTER;
 
     if (state.udids[udid] && !removed.has(udid)) {
       type = UPDATE;

@@ -1,5 +1,5 @@
 // @flow weak
 
-export const APPEAR = 'APPEAR';
+export const ENTER = 'ENTER';
 export const UPDATE = 'UPDATE';
 export const EXIT = 'EXIT';

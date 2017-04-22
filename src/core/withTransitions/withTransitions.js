@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import transition from './transition';
 import stop from './stop';
 import { getDisplayName } from './helpers';
-import { APPEAR, UPDATE, EXIT } from '../types';
+import { ENTER, UPDATE, EXIT } from '../types';
 
 export const propTypes = {
   type: PropTypes.string.isRequired,
@@ -48,7 +48,7 @@ function withTransitions(Component) {
         });
 
         switch (props.type) {
-          case APPEAR:
+          case ENTER:
             this.invokeMethodIfExists('onAppear', prevProps);
             break;
           case UPDATE:

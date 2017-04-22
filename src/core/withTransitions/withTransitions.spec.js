@@ -6,11 +6,11 @@ import React, { Component } from 'react';
 import { assert } from 'chai';
 import sinon from 'sinon';
 import createMount from 'test/utils/createMount';
-import { APPEAR, UPDATE } from '../types';
+import { ENTER, UPDATE } from '../types';
 import withTransitions from './withTransitions';
 
 const props = {
-  type: APPEAR,
+  type: ENTER,
   udid: 'unique_id',
   node: { x: 10, y: 20 },
   index: 0,
@@ -141,7 +141,7 @@ describe('withTransitions', () => {
     const nodesProps = wrapper.find(Node).get(0).props;
 
     assert.strictEqual(Object.keys(nodesProps).length, 5, 'should have 5 props');
-    assert.strictEqual(nodesProps.type, APPEAR, 'should have type prop');
+    assert.strictEqual(nodesProps.type, ENTER, 'should have type prop');
     assert.strictEqual(nodesProps.data, props.node, 'should have data prop');
     assert.strictEqual(nodesProps.index, props.index, 'should have index prop');
     assert.strictEqual(typeof nodesProps.remove, 'function', 'should have remove prop');
