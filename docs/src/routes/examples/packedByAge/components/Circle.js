@@ -91,7 +91,7 @@ class Circle extends PureComponent {
     return (
       <g
         {...this.state.node}
-        style={{ pointerEvents: type === 'REMOVE' ? 'none' : 'all' }}
+        style={{ pointerEvents: type === 'EXIT' ? 'none' : 'all' }}
       >
         <title>{name}</title>
         <circle

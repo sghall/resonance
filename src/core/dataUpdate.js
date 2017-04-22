@@ -5,7 +5,7 @@ import defaultKeyAccessor from './defaultKeyAccessor';
 import {
   APPEAR,
   UPDATE,
-  REMOVE,
+  EXIT,
 } from './types';
 
 
@@ -32,8 +32,8 @@ const nodeUpdate = (props, state, removed) => {
     const udid = keyAccessor(node);
 
     if (!udids[udid] && !removed.has(udid)) {
-      nodes.push(composeNode(node, REMOVE, udid));
-      udids[udid] = REMOVE;
+      nodes.push(composeNode(node, EXIT, udid));
+      udids[udid] = EXIT;
     }
   }
 

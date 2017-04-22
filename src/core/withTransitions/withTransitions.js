@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import transition from './transition';
 import stop from './stop';
 import { getDisplayName } from './helpers';
-import { APPEAR, UPDATE, REMOVE } from '../types';
+import { APPEAR, UPDATE, EXIT } from '../types';
 
 export const propTypes = {
   type: PropTypes.string.isRequired,
@@ -54,7 +54,7 @@ function withTransitions(Component) {
           case UPDATE:
             this.invokeMethodIfExists('onUpdate', prevProps);
             break;
-          case REMOVE:
+          case EXIT:
             this.invokeMethodIfExists('onRemove', prevProps);
             break;
           default:
