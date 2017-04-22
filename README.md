@@ -14,11 +14,6 @@ Take a look at the [Webpack bundle for Resonance](https://sghall.github.io/reson
   <img src="https://cloud.githubusercontent.com/assets/4615775/25240281/45acec66-25a7-11e7-9e6a-83012473b748.png" height="300px"/>
 </a>
 
-
-This is an experimental library and will have breaking changes going forward.
-I started working on this idea with [React Fiber](https://github.com/acdlite/react-fiber-architecture) in mind but it's not [ready yet](http://isfiberreadyyet.com/).
-The master branch and the example site will continue with the latest stable release of React.  Work on React Fiber will be done on a separate branch.
-
 ## Installation
 
 Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
