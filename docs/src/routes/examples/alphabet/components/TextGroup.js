@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { PureComponent } from 'react';
+import createNodeGroup from 'resonance/createNodeGroup';
 import PropTypes from 'prop-types';
 import { easePoly, easeBounce } from 'd3-ease';
 import { BASE_DURATION } from '../module/constants';
@@ -81,5 +82,5 @@ class Text extends PureComponent {
   }
 }
 
-export default Text;
+export default createNodeGroup(Text, 'g', (d) => d.letter);
 

@@ -7,14 +7,11 @@ import Surface from 'resonance/Surface';
 import Paper from 'material-ui/Paper';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';
-import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { VIEW, TRBL, ALPHABET, BASE_DURATION } from '../module/constants';
-import Text from './Text';
+import TextGroup from './TextGroup';
 import { dataUpdate, makeGetSelectedData, dims } from '../module';
 import description from '../description.md';
-
-const keyAccessor = (d) => d.letter;
 
 export class Example extends Component {
 
@@ -52,10 +49,9 @@ export class Example extends Component {
                     x1={0} y1={dims[1] / 2}
                     x2={dims[0]} y2={dims[1] / 2}
                   />
-                  <NodeGroup
+                  <TextGroup
                     data={this.props.data}
-                    keyAccessor={keyAccessor}
-                    nodeComponent={Text}
+                    className="text-group"
                   />
                 </Surface>
               </div>
