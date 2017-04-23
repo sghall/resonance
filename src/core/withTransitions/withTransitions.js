@@ -39,23 +39,15 @@ function withTransitions(Component) {
         prev.node !== props.node ||
         prev.type !== props.type
       ) {
-        const prevProps = Object.assign({}, prev, {
-          data: prev.node,
-        });
-
-        Object.keys(propTypes).forEach((p) => {
-          delete prevProps[p];
-        });
-
         switch (props.type) {
           case ENTER:
-            this.invokeMethodIfExists('onEnter', prevProps);
+            this.invokeMethodIfExists('onEnter');
             break;
           case UPDATE:
-            this.invokeMethodIfExists('onUpdate', prevProps);
+            this.invokeMethodIfExists('onUpdate');
             break;
           case EXIT:
-            this.invokeMethodIfExists('onExit', prevProps);
+            this.invokeMethodIfExists('onExit');
             break;
           default:
             break;
@@ -69,10 +61,10 @@ function withTransitions(Component) {
 
     node = null; // ref for wrapped component
 
-    invokeMethodIfExists(method, prevProps) {
+    invokeMethodIfExists(method) {
       const { node } = this;
       if (node && node[method]) {
-        transition.call(node, node[method](prevProps || node.props));
+        transition.call(node, node[method]());
       }
     }
 
