@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackBaseConfig = require('./webpackBaseConfig');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const dllManifest = require('./build/dll.manifest.json');
 
 module.exports = Object.assign({}, webpackBaseConfig, {
@@ -59,6 +60,7 @@ module.exports = Object.assign({}, webpackBaseConfig, {
     },
   },
   plugins: webpackBaseConfig.plugins.concat([
+    new BundleAnalyzerPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DllReferencePlugin({
       context: '.',
