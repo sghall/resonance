@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { PureComponent } from 'react';
+import createNodeGroup from 'resonance/createNodeGroup';
 import PropTypes from 'prop-types';
 import { easePoly } from 'd3-ease';
 import { format } from 'd3-format';
@@ -107,5 +108,4 @@ class Bar extends PureComponent {
   }
 }
 
-export default Bar;
-
+export default createNodeGroup(Bar, 'g', (d) => d.name);

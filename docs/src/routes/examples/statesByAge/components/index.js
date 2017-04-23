@@ -7,19 +7,14 @@ import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
-import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
-import Bar from './Bar';
-import Tick from './Tick';
+import BarGroup from './BarGroup';
+import TickGroup from './TickGroup';
 import description from '../description.md';
 
-const barKeyAccessor = (d) => d.name;
-
 export class Example extends Component {
-
   constructor(props) {
     super(props);
 
@@ -102,17 +97,14 @@ export class Example extends Component {
                 <Surface view={VIEW} trbl={TRBL}>
                   <TickGroup
                     scale={xScale}
-                    duration={duration}
                     tickCount={8}
-                    tickComponent={Tick}
+                    duration={duration}
                   />
-                  <NodeGroup
+                  <BarGroup
                     data={data}
                     xScale={xScale}
                     yScale={yScale}
                     duration={duration}
-                    nodeComponent={Bar}
-                    keyAccessor={barKeyAccessor}
                   />
                 </Surface>
               </div>

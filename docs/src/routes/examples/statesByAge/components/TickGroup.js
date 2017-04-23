@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { PureComponent } from 'react';
+import createTickGroup from 'resonance/createTickGroup';
 import PropTypes from 'prop-types';
 import { format } from 'd3-format';
 import { easeExp } from 'd3-ease';
@@ -89,5 +90,5 @@ class Tick extends PureComponent {
   }
 }
 
-export default Tick;
+export default createTickGroup(Tick, 'g');
 
