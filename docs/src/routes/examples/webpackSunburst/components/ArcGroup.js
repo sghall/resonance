@@ -4,6 +4,7 @@
 import React, { PureComponent } from 'react';
 import { easeLinear } from 'd3-ease';
 import PropTypes from 'prop-types';
+import createNodeGroup from 'resonance/createNodeGroup';
 import { arcTween } from '../module/scales';
 import { COLORS } from '../module/constants';
 
@@ -99,5 +100,5 @@ class Arc extends PureComponent {
   }
 }
 
-export default Arc;
+export default createNodeGroup(Arc, 'g', (d) => d.filePath);
 

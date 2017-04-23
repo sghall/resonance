@@ -10,17 +10,17 @@ import Slider from 'material-ui/Slider';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
+// import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import formatBytes from 'docs/src/utils/formatBytes';
-import Arc from './Arc';
+import ArcGroup from './ArcGroup';
 import { getNodes, getScales, updateScales, changeDataSet } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import { x, y, getScaleInterpolators } from '../module/scales';
 import description from '../description.md';
 
 const percentFormat = format('.2%');
-const arcKeyAccessor = (d) => d.filePath;
+// const arcKeyAccessor = (d) => d.filePath;
 
 export class Example extends Component {
   constructor(props) {
@@ -160,12 +160,10 @@ export class Example extends Component {
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <text fill="rgba(0,0,0,0.5)" x={-DIMS[0] / 2} y={(-DIMS[1] / 3) - 10} textAnchor="middle" fontSize="20px">{`${percentage}`}</text>
                     <text fill="rgba(0,0,0,0.5)" x={-DIMS[0] / 2} y={(-DIMS[1] / 3) + 10} textAnchor="middle" fontSize="10px">{`${formatBytes(activeSize)}`}</text>
-                    <NodeGroup
+                    <ArcGroup
                       data={nodes}
                       path={path}
                       duration={duration}
-                      nodeComponent={Arc}
-                      keyAccessor={arcKeyAccessor}
                       setActiveNode={this.setActiveNode}
                       activePath={activePath}
                       setActivePath={this.setActivePath}
