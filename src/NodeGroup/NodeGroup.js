@@ -101,8 +101,6 @@ export default class NodeGroup extends PureComponent {
             type={type}
             node={node}
             index={index}
-            prevScale={state.prevScale}
-            currScale={state.currScale}
             removeUDID={this.removeUDID}
             lazyRemoveUDID={this.lazyRemoveUDID}
             {...childProps}
