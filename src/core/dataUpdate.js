@@ -1,11 +1,9 @@
 // @flow weak
 
 import composeNode from './defaultComposeNode';
-import defaultKeyAccessor from './defaultKeyAccessor';
 import { ENTER, UPDATE, EXIT } from './types';
 
-const nodeUpdate = (props, state, removed) => {
-  const { data, keyAccessor = defaultKeyAccessor } = props;
+const nodeUpdate = (data, state, removed, keyAccessor) => {
   const nodes = [];
   const udids = {};
 
@@ -32,7 +30,7 @@ const nodeUpdate = (props, state, removed) => {
     }
   }
 
-  removed.clear(); // setState is asynch...clear now;
+  removed.clear();
 
   return { nodes, udids };
 };
