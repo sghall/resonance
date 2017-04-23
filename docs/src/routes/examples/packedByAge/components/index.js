@@ -7,17 +7,13 @@ import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
-import Circle from './Circle';
+import CircleGroup from './CircleGroup';
 import description from '../description.md';
 
-const circleKeyAccessor = (d) => d.name;
-
 export class Example extends Component {
-
   constructor(props) {
     super(props);
 
@@ -97,12 +93,10 @@ export class Example extends Component {
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <NodeGroup
+                  <CircleGroup
                     data={data}
-                    duration={duration}
-                    keyAccessor={circleKeyAccessor}
                     sortKey={sortKey}
-                    nodeComponent={Circle}
+                    duration={duration}
                   />
                 </Surface>
               </div>

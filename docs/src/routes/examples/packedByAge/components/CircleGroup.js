@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { PureComponent } from 'react';
+import createNodeGroup from 'resonance/createNodeGroup';
 import PropTypes from 'prop-types';
 import { scaleOrdinal } from 'd3-scale';
 import { COLORS, AGES } from '../module/constants';
@@ -111,5 +112,4 @@ class Circle extends PureComponent {
   }
 }
 
-export default Circle;
-
+export default createNodeGroup(Circle, 'g', (d) => d.name);
