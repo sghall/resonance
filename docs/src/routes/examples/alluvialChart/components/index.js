@@ -8,18 +8,15 @@ import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
-import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { utcFormat } from 'd3-time-format';
 import palette from 'docs/src/utils/palette';
 import { updateData, changeLayout, changeTension, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
-import Path from './Path';
-import Tick from './Tick';
+import PathGroup from './PathGroup';
+import TickGroup from './TickGroup';
 import description from '../description.md';
 
-const getPathKey = (d) => d.name;
 const dateFormat = utcFormat('%-d/%-m/%Y');
 
 export class Example extends Component {
@@ -144,15 +141,12 @@ export class Example extends Component {
                     scale={yScale}
                     xScale={xScale}
                     duration={duration}
-                    tickComponent={Tick}
                   />
-                  <NodeGroup
+                  <PathGroup
                     data={paths}
                     xScale={xScale}
                     yScale={yScale}
                     duration={duration}
-                    keyAccessor={getPathKey}
-                    nodeComponent={Path}
                   />
                 </Surface>
               </div>

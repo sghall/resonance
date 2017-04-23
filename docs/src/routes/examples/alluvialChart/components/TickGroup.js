@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react';
+import createTickGroup from 'resonance/createTickGroup';
 import PropTypes from 'prop-types';
 import { format } from 'd3-format';
 import palette from 'docs/src/utils/palette';
@@ -89,4 +90,4 @@ class Tick extends Component {
   }
 }
 
-export default Tick;
+export default createTickGroup(Tick, 'g');
