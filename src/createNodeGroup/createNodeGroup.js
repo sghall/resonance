@@ -59,8 +59,11 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
     }
 
     removeUDID(udid) {
-      this.removed.set(udid, true);
-      this.updateNodes(this.props);
+      const { removed, props: { data } } = this;
+
+      this.setState((state) => {
+        return dataUpdate(data, state, removed.set(udid, true), keyAccessor);
+      });
     }
 
     lazyRemoveUDID(udid) {
