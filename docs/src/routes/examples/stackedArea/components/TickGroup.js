@@ -29,19 +29,9 @@ class Tick extends PureComponent {
     },
   }
 
-  onEnter(prev) {
-    const { prevScale, currScale, data: { val }, offset, duration } = this.props;
+  onEnter() {
+    const { prevScale, currScale, data: { val }, duration } = this.props;
     const timing = { duration };
-
-    if (prev.offset !== offset) {
-      return {
-        tick: {
-          opacity: [1e-6, 1],
-          transform: [`translate(0,${currScale(val)})`],
-        },
-        timing,
-      };
-    }
 
     return {
       tick: {
@@ -67,21 +57,10 @@ class Tick extends PureComponent {
     };
   }
 
-  onExit(prev) {
-    const { currScale, data: { val }, offset, duration, lazyRemove } = this.props;
+  onExit() {
+    const { currScale, data: { val }, duration, lazyRemove } = this.props;
     const timing = { duration };
     const events = { end: lazyRemove };
-
-    if (prev.offset !== offset) {
-      return {
-        tick: {
-          opacity: 1e-6,
-          transform: `translate(0,${currScale(val)})`,
-        },
-        timing: { duration: 0 },
-        events,
-      };
-    }
 
     return {
       tick: {
