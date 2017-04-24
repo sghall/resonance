@@ -40,13 +40,18 @@ class Bar extends Component {
     timing: { duration: 1000 },
   })
 
-  onUpdate = () => ({
-    opacity: [0.6],
-    x: [this.props.scale(this.props.data.x)],
-    fill: ['#0000FF'],
-    width: [this.props.scale.bandwidth()],
-    timing: { duration: 2000 },
-  })
+  onUpdate = () => ([
+    {
+      opacity: [0.6],
+      x: [this.props.scale(this.props.data.x)],
+      fill: ['#0000FF'],
+      timing: { duration: 2000 },
+    },
+    {
+      width: [this.props.scale.bandwidth()],
+      timing: { duration: 2000 },
+    },
+  ])
 
   onExit = () => ({
     opacity: [1e-6],

@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 import Title from 'react-title-component';
 import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
-import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 
 import Example1 from './Example1';
 import Example2 from './Example2';
+import Example3 from './Example3';
 
 const NodeGroupDocs = (props) => {
-  const { route: { docContext, srcContext } } = props;
+  const { route: { docContext } } = props;
 
   return (
     <div>
       <Title render={(previousTitle) => `NodeGroup - ${previousTitle}`} />
       <MarkdownElement text={docContext('./NodeGroup/README.md')} />
-      <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
       <CodeExample
         code={docContext('./NodeGroup/Example1')}
         title="Example 1: SVG Rect Demo"
@@ -29,6 +28,12 @@ const NodeGroupDocs = (props) => {
         title="Example 2: SVG Circle Demo"
       >
         <Example2 />
+      </CodeExample>
+      <CodeExample
+        code={docContext('./NodeGroup/Example3')}
+        title="Example 3: Passing Arrays of Transition Objects"
+      >
+        <Example3 />
       </CodeExample>
     </div>
   );

@@ -3,8 +3,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
+import createNodeGroup from 'resonance/createNodeGroup';
+import Surface from 'docs/src/components/Surface';
 import { easeExpInOut } from 'd3-ease';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
@@ -18,9 +18,9 @@ const dims = [ // Adjusted dimensions [width, height]
 ];
 
 // **************************************************
-//  Node Component
+//  Circle Component
 // **************************************************
-class Node extends Component {
+class Circle extends Component {
   static propTypes = {
     data: PropTypes.shape({
       x: PropTypes.number.isRequired,
@@ -103,6 +103,8 @@ class Node extends Component {
   }
 }
 
+const CircleGroup = createNodeGroup(Circle, 'g', (d) => `key-${d.x}`);
+
 // **************************************************
 //  Example
 // **************************************************
@@ -142,10 +144,9 @@ class Example2 extends Component {
           Circle Count: {data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <NodeGroup
+          <CircleGroup
             data={data}
             scale={scale}
-            nodeComponent={Node}
           />
         </Surface>
       </div>
