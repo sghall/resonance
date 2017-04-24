@@ -7,19 +7,15 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
 import Surface from 'resonance/Surface';
-import NodeGroup from 'resonance/NodeGroup';
-import TickGroup from 'resonance/TickGroup';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import palette from 'docs/src/utils/palette';
 import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
 import { VIEW, TRBL } from '../module/constants';
-import Path from './Path';
-import Tick from './Tick';
+import PathGroup from './PathGroup';
+import TickGroup from './TickGroup';
 import XAxis from './XAxis';
 import Legend from './Legend';
 import description from '../description.md';
-
-const getPathKey = (d) => d.name;
 
 export class Example extends Component {
   constructor(props) {
@@ -117,22 +113,18 @@ export class Example extends Component {
                       />
                     </pattern>
                   </defs>
-                  <NodeGroup
+                  <PathGroup
                     data={paths}
                     xScale={xScale}
                     yScale={yScale}
                     duration={duration}
                     activeSeries={activeSeries}
-                    keyAccessor={getPathKey}
-                    nodeComponent={Path}
-
                   />
                   <TickGroup
                     scale={yScale}
                     xScale={xScale}
                     offset={offset}
                     duration={duration}
-                    tickComponent={Tick}
                   />
                   <XAxis xScale={xScale} yScale={yScale} />
                 </Surface>

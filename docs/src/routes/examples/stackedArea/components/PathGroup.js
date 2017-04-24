@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { PureComponent } from 'react';
+import createNodeGroup from 'resonance/createNodeGroup';
 import PropTypes from 'prop-types';
 
 class Path extends PureComponent {
@@ -67,4 +68,4 @@ class Path extends PureComponent {
   }
 }
 
-export default Path;
+export default createNodeGroup(Path, 'g', (d) => d.name);
