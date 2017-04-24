@@ -27,7 +27,7 @@ class Circle extends Component {
     }).isRequired,
     scale: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    remove: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   }
 
   state = {
@@ -47,8 +47,9 @@ class Circle extends Component {
       opacity: [1e-6, 0.4],
     },
     circle: {
-      r: [this.props.scale.bandwidth() / 2],
-      strokeWidth: [this.props.index + 1],
+      r: [1e-6, this.props.scale.bandwidth() / 2],
+      cx: this.props.scale(this.props.data.x) + (this.props.scale.bandwidth() / 2),
+      strokeWidth: [1e-6, this.props.index + 1],
       fill: '#D2B362',
     },
     timing: { duration: 1000, ease: easeExpInOut },
@@ -79,7 +80,7 @@ class Circle extends Component {
       fill: '#426F85',
     },
     timing: { duration: 1000, ease: easeExpInOut },
-    events: { end: this.props.remove },
+    events: { end: this.props.lazyRemove },
   })
 
   render() {

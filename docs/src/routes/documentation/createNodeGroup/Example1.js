@@ -36,8 +36,11 @@ class Bar extends Component {
   }
 
   onEnter = () => ({
-    opacity: [0.6],
-    timing: { duration: 1000 },
+    opacity: [1e-6, 0.6],
+    x: this.props.scale(this.props.data.x),
+    fill: 'tomato',
+    width: this.props.scale.bandwidth(),
+    timing: { duration: 500 },
   })
 
   onUpdate = () => ({
@@ -45,13 +48,13 @@ class Bar extends Component {
     x: [this.props.scale(this.props.data.x)],
     fill: ['#0000FF'],
     width: [this.props.scale.bandwidth()],
-    timing: { duration: 2000 },
+    timing: { duration: 1000 },
   })
 
   onExit = () => ({
     opacity: [1e-6],
     fill: 'fuchsia',
-    timing: { duration: 1000 },
+    timing: { duration: 500 },
     events: { end: this.props.remove },
   })
 

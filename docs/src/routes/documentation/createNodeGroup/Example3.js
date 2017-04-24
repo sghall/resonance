@@ -26,7 +26,7 @@ class Bar extends Component {
       x: PropTypes.number.isRequired,
     }).isRequired,
     scale: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired,
+    lazyRemove: PropTypes.func.isRequired,
   }
 
   state = {
@@ -37,7 +37,10 @@ class Bar extends Component {
   }
 
   onEnter = () => ({
-    opacity: [0.6],
+    opacity: [1e-6, 0.6],
+    x: this.props.scale(this.props.data.x),
+    fill: '#4daf4a',
+    width: this.props.scale.bandwidth(),
     timing: { duration: 1000 },
   })
 
@@ -61,7 +64,7 @@ class Bar extends Component {
     opacity: [1e-6],
     fill: '#e41a1c',
     timing: { duration: 1000 },
-    events: { end: this.props.remove },
+    events: { end: this.props.lazyRemove },
   })
 
   render() {

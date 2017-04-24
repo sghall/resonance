@@ -19,13 +19,13 @@ const NodeGroupDocs = (props) => {
       <MarkdownElement text={docContext('./createNodeGroup/README.md')} />
       <CodeExample
         code={docContext('./createNodeGroup/Example1')}
-        title="Example 1: SVG Rect Demo"
+        title="Example 1: Simple Bars"
       >
         <Example1 />
       </CodeExample>
       <CodeExample
         code={docContext('./createNodeGroup/Example2')}
-        title="Example 2: SVG Circle Demo"
+        title="Example 2: SVG Circles"
       >
         <Example2 />
       </CodeExample>
