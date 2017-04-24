@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
-import Surface from 'resonance/Surface';
+import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
 import { VIEW, TRBL, AGES } from '../module/constants';
