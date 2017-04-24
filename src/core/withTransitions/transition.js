@@ -13,7 +13,7 @@ const preset = {
   ease: easeCubicInOut,
 };
 
-export default function transition(config = {}) {
+function scheduleTransitions(config = {}) {
   const transitions = { ...config };
 
   if (!this || !this.isReactComponent) {
@@ -108,4 +108,14 @@ export default function transition(config = {}) {
     const timingConfig = { ...preset, ...timing, time: timeNow() };
     schedule(this, stateKey, newId(), timingConfig, tweens, events);
   });
+}
+
+export default function transition(config) {
+  if (Array.isArray(config)) {
+    config.forEach((c) => {
+      scheduleTransitions.call(this, c);
+    });
+  } else {
+    scheduleTransitions.call(this, config);
+  }
 }
