@@ -23,25 +23,20 @@ class Tick extends PureComponent {
   };
 
   state = {
-    tick: {
-      opacity: 1e-6,
-      transform: `translate(0,${this.props.currScale(this.props.data.val)})`,
-    },
+    opacity: 1e-6,
+    transform: `translate(0,${this.props.currScale(this.props.data.val)})`,
   }
 
   onEnter() {
     const { prevScale, currScale, data: { val }, duration } = this.props;
-    const timing = { duration };
 
     return {
-      tick: {
-        opacity: [1e-6, 1],
-        transform: [
-          `translate(0,${prevScale(val)})`,
-          `translate(0,${currScale(val)})`,
-        ],
-      },
-      timing,
+      opacity: [1e-6, 1],
+      transform: [
+        `translate(0,${prevScale(val)})`,
+        `translate(0,${currScale(val)})`,
+      ],
+      timing: { duration },
     };
   }
 
@@ -49,26 +44,20 @@ class Tick extends PureComponent {
     const { currScale, data: { val }, duration } = this.props;
 
     return {
-      tick: {
-        opacity: [1],
-        transform: [`translate(0,${currScale(val)})`],
-      },
+      opacity: [1],
+      transform: [`translate(0,${currScale(val)})`],
       timing: { duration },
     };
   }
 
   onExit() {
     const { currScale, data: { val }, duration, lazyRemove } = this.props;
-    const timing = { duration };
-    const events = { end: lazyRemove };
 
     return {
-      tick: {
-        opacity: [1e-6],
-        transform: [`translate(0,${currScale(val)})`],
-      },
-      timing,
-      events,
+      opacity: [1e-6],
+      transform: [`translate(0,${currScale(val)})`],
+      timing: { duration },
+      events: { end: lazyRemove },
     };
   }
 
@@ -76,7 +65,7 @@ class Tick extends PureComponent {
     const { offset, data: { val } } = this.props;
 
     return (
-      <g {...this.state.tick}>
+      <g {...this.state}>
         <line
           x1={0} y1={0}
           x2={dims[0]} y2={0}

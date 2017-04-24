@@ -34,39 +34,10 @@ export default function transition(config = {}) {
   Object.keys(transitions).forEach((stateKey) => {
     const tweens = [];
 
-    if (typeof transitions[stateKey] !== 'object') {
-      const val = transitions[stateKey];
-
-      if (Array.isArray(val)) {
-        if (val.length === 1) {
-          tweens.push(tween.call(this, null, stateKey, val[0]));
-        } else {
-          this.setState(() => {
-            return { [stateKey]: val[0] };
-          });
-
-          tweens.push(tween.call(this, null, stateKey, val[1]));
-        }
-      } else if (typeof val === 'function') {
-        const getResonanceCustomTween = () => {
-          const resonanceCustomTween = (t) => {
-            this.setState(() => {
-              return { [stateKey]: val(t) };
-            });
-          };
-
-          return resonanceCustomTween;
-        };
-
-        tweens.push(getResonanceCustomTween);
-      } else {
-        this.setState(() => {
-          return { [stateKey]: val };
-        });
-        // This assures any existing transitions are stopped
-        tweens.push(tween.call(this, null, stateKey, val));
-      }
-    } else {
+    if (
+      typeof transitions[stateKey] === 'object' &&
+      Array.isArray(transitions[stateKey]) === false
+    ) {
       Object.keys(transitions[stateKey]).forEach((attr) => {
         const val = transitions[stateKey][attr];
 
@@ -100,6 +71,38 @@ export default function transition(config = {}) {
           tweens.push(tween.call(this, stateKey, attr, val));
         }
       });
+    } else {
+      const val = transitions[stateKey];
+
+      if (Array.isArray(val)) {
+        if (val.length === 1) {
+          tweens.push(tween.call(this, null, stateKey, val[0]));
+        } else {
+          this.setState(() => {
+            return { [stateKey]: val[0] };
+          });
+
+          tweens.push(tween.call(this, null, stateKey, val[1]));
+        }
+      } else if (typeof val === 'function') {
+        const getResonanceCustomTween = () => {
+          const resonanceCustomTween = (t) => {
+            this.setState(() => {
+              return { [stateKey]: val(t) };
+            });
+          };
+
+          return resonanceCustomTween;
+        };
+
+        tweens.push(getResonanceCustomTween);
+      } else {
+        this.setState(() => {
+          return { [stateKey]: val };
+        });
+        // This assures any existing transitions are stopped
+        tweens.push(tween.call(this, null, stateKey, val));
+      }
     }
 
     const timingConfig = { ...preset, ...timing, time: timeNow() };

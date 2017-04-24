@@ -81,10 +81,6 @@ export class Example extends Component {
                     value="stream"
                     label="Stream"
                   />
-                  <RadioButton
-                    value="expand"
-                    label="Expand"
-                  />
                 </RadioButtonGroup>
               </div>
               <div className="col-md-8 col-sm-8">
