@@ -27,14 +27,6 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
     constructor(props) {
       super(props);
 
-      const { nodes, udids, removed } = dataUpdate(props.data, {}, keyAccessor);
-
-      this.state = {
-        nodes,
-        udids,
-        removed,
-      };
-
       (this:any).removeUDID = this.removeUDID.bind(this);
       (this:any).lazyRemoveUDID = this.lazyRemoveUDID.bind(this);
       this.WrappedComponent = withTransitions(nodeComponent);
@@ -42,7 +34,6 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
 
     componentWillReceiveProps(next) {
       if (this.props.data !== next.data) {
-        ++this.batchNumber;
         this.setState((prevState) => {
           return dataUpdate(next.data, prevState, keyAccessor);
         });
@@ -50,15 +41,16 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
     }
 
     WrappedComponent = null;
-    batchNumber = 0;
+
+    state = dataUpdate(this.props.data, {}, keyAccessor);
 
     removeUDID(udid) {
-      this.setState((prevState) => ({
-        removed: Object.assign({}, prevState.removed, { [udid]: true }),
-      }), () => {
-        this.setState((prevState, props) => {
-          return dataUpdate(props.data, prevState, keyAccessor);
+      this.setState((prevState, props) => {
+        const nextState = Object.assign({}, prevState, {
+          removed: Object.assign({}, prevState.removed, { [udid]: true }),
         });
+
+        return dataUpdate(props.data, nextState, keyAccessor);
       });
     }
 
