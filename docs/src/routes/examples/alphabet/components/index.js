@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Surface from 'resonance/Surface';
 import Paper from 'material-ui/Paper';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';
+import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { VIEW, TRBL, ALPHABET, BASE_DURATION } from '../module/constants';
 import TextGroup from './TextGroup';

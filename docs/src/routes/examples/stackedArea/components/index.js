@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
-import Surface from 'resonance/Surface';
+import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import palette from 'docs/src/utils/palette';
 import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
