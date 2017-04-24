@@ -7,6 +7,7 @@ import createNodeGroup from 'resonance/createNodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand } from 'd3-scale';
 import { range } from 'd3-array';
+import { easePoly } from 'd3-ease';
 
 const view = [1000, 250];      // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
@@ -31,7 +32,7 @@ class Bar extends Component {
   state = {
     opacity: 1e-6,
     x: this.props.scale(this.props.data.x),
-    fill: 'tomato',
+    fill: '#4daf4a',
     width: this.props.scale.bandwidth(),
   }
 
@@ -43,19 +44,22 @@ class Bar extends Component {
   onUpdate = () => ([
     {
       opacity: [0.6],
-      x: [this.props.scale(this.props.data.x)],
-      fill: ['#0000FF'],
+      fill: '#377eb8',
       timing: { duration: 2000 },
     },
     {
+      x: [this.props.scale(this.props.data.x)],
+      timing: { duration: 1000, ease: easePoly },
+    },
+    {
       width: [this.props.scale.bandwidth()],
-      timing: { duration: 2000 },
+      timing: { duration: 500 },
     },
   ])
 
   onExit = () => ({
     opacity: [1e-6],
-    fill: 'fuchsia',
+    fill: '#e41a1c',
     timing: { duration: 1000 },
     events: { end: this.props.remove },
   })
@@ -75,7 +79,7 @@ const BarGroup = createNodeGroup(Bar, 'g', (d) => `key-${d.x}`);
 // **************************************************
 //  Example
 // **************************************************
-class Example1 extends Component {
+class Example3 extends Component {
   constructor(props) {
     super(props);
     (this:any).update = this.update.bind(this);
@@ -118,4 +122,4 @@ class Example1 extends Component {
   }
 }
 
-export default Example1;
+export default Example3;
