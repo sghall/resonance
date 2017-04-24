@@ -82,14 +82,9 @@ class AppNavDrawer extends Component {
             primaryTogglesNestedList
             nestedItems={[
               <ListItem
-                primaryText="NodeGroup"
-                value="/documentation/node-group"
-                href="#/documentation/node-group"
-              />,
-              <ListItem
-                primaryText="TickGroup"
-                value="/documentation/tick-group"
-                href="#/documentation/tick-group"
+                primaryText="createNodeGroup"
+                value="/documentation/create-node-group"
+                href="#/documentation/create-node-group"
               />,
             ]}
           />
