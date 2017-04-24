@@ -18,11 +18,21 @@ function getTween(nameSpace, attr, interpol, value1) {
 
     const i = interpol(value0, value1);
 
-    const stateTween = (t) => {
-      this.setState((state) => {
-        return { [nameSpace]: { ...state[nameSpace], [attr]: i(t) } };
-      });
-    };
+    let stateTween;
+
+    if (nameSpace === null) {
+      stateTween = (t) => {
+        this.setState(() => {
+          return { [attr]: i(t) };
+        });
+      };
+    } else {
+      stateTween = (t) => {
+        this.setState((state) => {
+          return { [nameSpace]: { ...state[nameSpace], [attr]: i(t) } };
+        });
+      };
+    }
 
     return stateTween;
   };

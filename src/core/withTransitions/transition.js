@@ -34,24 +34,24 @@ export default function transition(config = {}) {
   Object.keys(transitions).forEach((stateKey) => {
     const tweens = [];
 
-    Object.keys(transitions[stateKey]).forEach((attr) => {
-      const val = transitions[stateKey][attr];
+    if (typeof transitions[stateKey] !== 'object') {
+      const val = transitions[stateKey];
 
       if (Array.isArray(val)) {
         if (val.length === 1) {
-          tweens.push(tween.call(this, stateKey, attr, val[0]));
+          tweens.push(tween.call(this, null, stateKey, val[0]));
         } else {
-          this.setState((state) => {
-            return { [stateKey]: { ...state[stateKey], [attr]: val[0] } };
+          this.setState(() => {
+            return { [stateKey]: val[0] };
           });
 
-          tweens.push(tween.call(this, stateKey, attr, val[1]));
+          tweens.push(tween.call(this, null, stateKey, val[1]));
         }
       } else if (typeof val === 'function') {
         const getResonanceCustomTween = () => {
           const resonanceCustomTween = (t) => {
-            this.setState((state) => {
-              return { [stateKey]: { ...state[stateKey], [attr]: val(t) } };
+            this.setState(() => {
+              return { [stateKey]: val(t) };
             });
           };
 
@@ -60,13 +60,47 @@ export default function transition(config = {}) {
 
         tweens.push(getResonanceCustomTween);
       } else {
-        this.setState((state) => {
-          return { [stateKey]: { ...state[stateKey], [attr]: val } };
+        this.setState(() => {
+          return { [stateKey]: val };
         });
         // This assures any existing transitions are stopped
-        tweens.push(tween.call(this, stateKey, attr, val));
+        tweens.push(tween.call(this, null, stateKey, val));
       }
-    });
+    } else {
+      Object.keys(transitions[stateKey]).forEach((attr) => {
+        const val = transitions[stateKey][attr];
+
+        if (Array.isArray(val)) {
+          if (val.length === 1) {
+            tweens.push(tween.call(this, stateKey, attr, val[0]));
+          } else {
+            this.setState((state) => {
+              return { [stateKey]: { ...state[stateKey], [attr]: val[0] } };
+            });
+
+            tweens.push(tween.call(this, stateKey, attr, val[1]));
+          }
+        } else if (typeof val === 'function') {
+          const getResonanceCustomTween = () => {
+            const resonanceCustomTween = (t) => {
+              this.setState((state) => {
+                return { [stateKey]: { ...state[stateKey], [attr]: val(t) } };
+              });
+            };
+
+            return resonanceCustomTween;
+          };
+
+          tweens.push(getResonanceCustomTween);
+        } else {
+          this.setState((state) => {
+            return { [stateKey]: { ...state[stateKey], [attr]: val } };
+          });
+          // This assures any existing transitions are stopped
+          tweens.push(tween.call(this, stateKey, attr, val));
+        }
+      });
+    }
 
     const timingConfig = { ...preset, ...timing, time: timeNow() };
     schedule(this, stateKey, newId(), timingConfig, tweens, events);
