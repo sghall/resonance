@@ -3,36 +3,39 @@
 import composeNode from './defaultComposeNode';
 import { ENTER, UPDATE, EXIT } from './types';
 
-const nodeUpdate = (data, state, removed, keyAccessor) => {
-  const nodes = [];
-  const udids = {};
+const nodeUpdate = (data, state, keyAccessor) => {
+  const { nodes = [], udids = [], removed = {} } = state;
+  const nextNodes = [];
+  const nextUdids = {};
 
   for (let i = 0, len0 = data.length; i < len0; i++) {
     const udid = keyAccessor(data[i]);
 
     let type = ENTER;
 
-    if (state.udids[udid] && !removed.has(udid)) {
+    if (udids[udid] && !removed[udid]) {
       type = UPDATE;
     }
 
-    nodes.push(composeNode(data[i], type, udid));
-    udids[udid] = type;
+    nextNodes.push(composeNode(data[i], type, udid));
+    nextUdids[udid] = type;
   }
 
-  for (let j = 0, len1 = state.nodes.length; j < len1; j++) {
-    const node = state.nodes[j];
+  for (let j = 0, len1 = nodes.length; j < len1; j++) {
+    const node = nodes[j];
     const udid = keyAccessor(node);
 
-    if (!udids[udid] && !removed.has(udid)) {
-      nodes.push(composeNode(node, EXIT, udid));
-      udids[udid] = EXIT;
+    if (!nextUdids[udid] && !removed[udid]) {
+      nextNodes.push(composeNode(node, EXIT, udid));
+      nextUdids[udid] = EXIT;
     }
   }
 
-  removed.clear();
-
-  return { nodes, udids };
+  return {
+    nodes: nextNodes,
+    udids: nextUdids,
+    removed: {},
+  };
 };
 
 export default nodeUpdate;

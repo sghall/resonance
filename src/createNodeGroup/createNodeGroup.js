@@ -27,47 +27,45 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
     constructor(props) {
       super(props);
 
+      const { nodes, udids, removed } = dataUpdate(props.data, {}, keyAccessor);
+
+      this.state = {
+        nodes,
+        udids,
+        removed,
+      };
+
       (this:any).removeUDID = this.removeUDID.bind(this);
       (this:any).lazyRemoveUDID = this.lazyRemoveUDID.bind(this);
       this.WrappedComponent = withTransitions(nodeComponent);
     }
 
-    state = {
-      nodes: [],
-      udids: {},
-    }
-
-    componentDidMount() {
-      this.updateNodes(this.props);
-    }
-
     componentWillReceiveProps(next) {
       if (this.props.data !== next.data) {
-        this.updateNodes(next);
+        ++this.batchNumber;
+        this.setState((prevState) => {
+          return dataUpdate(next.data, prevState, keyAccessor);
+        });
       }
     }
 
     WrappedComponent = null;
-    removed = new Map();
-
-    updateNodes({ data }) {
-      const { removed } = this;
-
-      this.setState((state) => {
-        return dataUpdate(data, state, removed, keyAccessor);
-      });
-    }
+    batchNumber = 0;
 
     removeUDID(udid) {
-      const { removed, props: { data } } = this;
-
-      this.setState((state) => {
-        return dataUpdate(data, state, removed.set(udid, true), keyAccessor);
+      this.setState((prevState) => ({
+        removed: Object.assign({}, prevState.removed, { [udid]: true }),
+      }), () => {
+        this.setState((prevState, props) => {
+          return dataUpdate(props.data, prevState, keyAccessor);
+        });
       });
     }
 
     lazyRemoveUDID(udid) {
-      this.removed.set(udid, true);
+      this.setState((prevState) => ({
+        removed: Object.assign({}, prevState.removed, { [udid]: true }),
+      }));
     }
 
     render() {
