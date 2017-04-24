@@ -27,7 +27,7 @@ class Circle extends Component {
     }).isRequired,
     scale: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    lazyRemove: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
   }
 
   state = {
@@ -37,26 +37,22 @@ class Circle extends Component {
     circle: {
       r: 1e-6,
       cx: this.props.scale(this.props.data.x) + (this.props.scale.bandwidth() / 2),
+      strokeWidth: 1e-6,
       fill: '#D2B362',
     },
   }
 
-  onEnter() {
-    const { scale, index, data: { x } } = this.props;
-
-    return {
-      node: {
-        opacity: [1e-6, 0.4],
-      },
-      circle: {
-        r: [1e-6, scale.bandwidth() / 2],
-        cx: scale(x) + (scale.bandwidth() / 2),
-        strokeWidth: [1e-6, index + 1],
-        fill: '#D2B362',
-      },
-      timing: { duration: 1000, ease: easeExpInOut },
-    };
-  }
+  onEnter = () => ({
+    node: {
+      opacity: [1e-6, 0.4],
+    },
+    circle: {
+      r: [this.props.scale.bandwidth() / 2],
+      strokeWidth: [this.props.index + 1],
+      fill: '#D2B362',
+    },
+    timing: { duration: 1000, ease: easeExpInOut },
+  })
 
   onUpdate() {
     const { scale, index, data: { x } } = this.props;
@@ -66,7 +62,7 @@ class Circle extends Component {
         opacity: [0.4],
       },
       circle: {
-        r: [scale.bandwidth() / 2],
+        r: [this.props.scale.bandwidth() / 2],
         cx: [scale(x) + (scale.bandwidth() / 2)],
         strokeWidth: [index + 1],
         fill: ['#634A8F'],
@@ -75,20 +71,16 @@ class Circle extends Component {
     };
   }
 
-  onExit() {
-    const { lazyRemove } = this.props;
-
-    return {
-      node: {
-        opacity: [1e-6],
-      },
-      circle: {
-        fill: '#426F85',
-      },
-      timing: { duration: 1000, ease: easeExpInOut },
-      events: { end: lazyRemove },
-    };
-  }
+  onExit = () => ({
+    node: {
+      opacity: [1e-6],
+    },
+    circle: {
+      fill: '#426F85',
+    },
+    timing: { duration: 1000, ease: easeExpInOut },
+    events: { end: this.props.remove },
+  })
 
   render() {
     return (

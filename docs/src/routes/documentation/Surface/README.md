@@ -1,3 +1,0 @@
-## Surface
-
-Basic SVG container
