@@ -63,10 +63,7 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
     render() {
       const { props, WrappedComponent, state } = this;
       const childProps = Object.assign({}, props);
-
-      Object.keys(propTypes).forEach((prop) => {
-        delete childProps[prop];
-      });
+      delete childProps.className;
 
       return React.createElement(
         component,

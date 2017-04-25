@@ -10,6 +10,7 @@ export const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
   node: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   removeUDID: PropTypes.func.isRequired,
   lazyRemoveUDID: PropTypes.func.isRequired,
 };
@@ -35,10 +36,7 @@ function withTransitions(Component) {
     componentDidUpdate(prev) {
       const { props } = this;
 
-      if (
-        prev.node !== props.node ||
-        prev.type !== props.type
-      ) {
+      if (prev.data !== props.data) {
         switch (props.type) {
           case ENTER:
             this.invokeMethodIfExists('onEnter');
