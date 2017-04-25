@@ -92,7 +92,7 @@ class Bar extends Component {
       name: PropTypes.string.isRequired,
     }).isRequired,
     scale: PropTypes.func.isRequired,
-    lazyRemove: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
   }
 
   state = {
@@ -103,17 +103,16 @@ class Bar extends Component {
   }
 
   onEnter = () => ({
-    opacity: [1e-6, 0.5],
-    x: [1e-6, this.props.scale(this.props.data.name)],
-    fill: 'green',
-    width: [1e-6, this.props.scale.bandwidth()],
+    opacity: [0.5],
+    x: [this.props.scale(this.props.data.name)],
+    width: [this.props.scale.bandwidth()],
     timing: { duration: 1500 },
   })
 
   onUpdate = () => ({
     opacity: [0.5],
     x: [this.props.scale(this.props.data.name)],
-    fill: ['blue'],
+    fill: 'blue',
     width: [this.props.scale.bandwidth()],
     timing: { duration: 1000 },
   })
@@ -123,15 +122,25 @@ class Bar extends Component {
     x: [this.props.scale.range()[1]],
     fill: 'red',
     timing: { duration: 1000 },
-    events: { end: this.props.lazyRemove },
+    events: { end: this.props.remove },
   })
 
   render() {
+    const { x, ...rest } = this.state;
+
     return (
-      <rect
-        height={dims[1]}
-        {...this.state}
-      />
+      <g transform={`translate(${x},0)`}>
+        <rect
+          height={dims[1]}
+          {...rest}
+        />
+        <text
+          x="0"
+          y="20"
+          fill="white"
+          transform="rotate(90 5,20)"
+        >{`x: ${x}`}</text>
+      </g>
     );
   }
 }
@@ -159,7 +168,7 @@ class Example1 extends Component {
 
   getData = () => {
     const items = shuffle(data).slice(0, Math.ceil(Math.random() * data.length));
-    return items.map((item) => ({ ...item }));
+    return items.map((item) => item);
   }
 
   render() {
