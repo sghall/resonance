@@ -7,17 +7,8 @@ import withTransitions from '../core/withTransitions';
 import keyAccessor from '../core/defaultKeyAccessor';
 
 export const propTypes = {
-  /**
-   * The continuous D3 scale to use to render ticks.
-   */
   scale: PropTypes.func.isRequired,
-  /**
-   * The CSS class name of the container component.
-   */
   className: PropTypes.string,
-  /**
-   * The number of ticks to render (approximate)
-   */
   tickCount: PropTypes.number,
 };
 
@@ -41,6 +32,7 @@ export default function createTickGroup(tickComponent, component) {
     state = {
       nodes: [],
       udids: {},
+      removed: {},
       prevScale: () => {},
       currScale: () => {},
     }
@@ -56,35 +48,40 @@ export default function createTickGroup(tickComponent, component) {
     }
 
     WrappedComponent = null;
-    removed = new Map();
 
     updateTicks(prev, next) {
       const { tickCount, scale } = next;
       const ticks = scale.ticks ? scale.ticks(tickCount) : [];
 
-      this.setState((state) => {
+      this.setState((prevState) => {
         const mapped = ticks.map((tick) => ({ val: tick }));
-        const update = dataUpdate(mapped, state, this.removed, keyAccessor);
+        const update = dataUpdate(mapped, prevState, keyAccessor);
         return { ...update, prevScale: prev.scale, currScale: scale };
       });
     }
 
     removeUDID(udid) {
-      this.removed.set(udid, true);
-      this.updateTicks(this.props, this.props);
+      this.setState((prevState, props) => {
+        const nextState = Object.assign({}, prevState, {
+          removed: Object.assign({}, prevState.removed, { [udid]: true }),
+        });
+
+        return dataUpdate(props.data, nextState, keyAccessor);
+      });
     }
 
     lazyRemoveUDID(udid) {
-      this.removed.set(udid, true);
+      this.setState((prevState) => ({
+        removed: Object.assign({}, prevState.removed, { [udid]: true }),
+      }));
     }
 
     render() {
       const { props, WrappedComponent, state } = this;
       const childProps = Object.assign({}, props);
-
-      Object.keys(propTypes).forEach((prop) => {
-        delete childProps[prop];
-      });
+      delete childProps.scale;
+      delete childProps.className;
+      delete childProps.tickCount;
 
       return React.createElement(
         component,
@@ -99,6 +96,7 @@ export default function createTickGroup(tickComponent, component) {
               udid={udid}
               type={type}
               node={node}
+              data={props.scale}
               index={index}
               prevScale={state.prevScale}
               currScale={state.currScale}
