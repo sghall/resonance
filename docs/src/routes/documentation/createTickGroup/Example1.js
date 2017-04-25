@@ -1,7 +1,7 @@
 // @flow weak
 
 import React from 'react';
-import Surface from 'resonance/Surface';
+import Surface from 'docs/src/components/Surface';
 
 /**
  * A simple example of `Surface` component.
