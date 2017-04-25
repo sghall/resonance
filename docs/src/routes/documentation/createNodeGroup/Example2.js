@@ -105,7 +105,7 @@ class Circle extends Component {
       r: 1e-6,
       cx: this.props.scale(this.props.data.name) + (this.props.scale.bandwidth() / 2),
       strokeWidth: 1e-6,
-      fill: '#D2B362',
+      fill: 'green',
     },
   }
 
@@ -116,8 +116,8 @@ class Circle extends Component {
     circle: {
       r: [1e-6, this.props.scale.bandwidth() / 2],
       cx: this.props.scale(this.props.data.name) + (this.props.scale.bandwidth() / 2),
-      strokeWidth: [1e-6, this.props.index + 1],
-      fill: '#D2B362',
+      strokeWidth: [1e-6, (this.props.index + 1) * 2],
+      fill: 'green',
     },
     timing: { duration: 1000, ease: easeExpInOut },
   })
@@ -132,8 +132,8 @@ class Circle extends Component {
       circle: {
         r: [this.props.scale.bandwidth() / 2],
         cx: [scale(name) + (scale.bandwidth() / 2)],
-        strokeWidth: [index + 1],
-        fill: ['#634A8F'],
+        strokeWidth: [(index + 1) * 2],
+        fill: 'blue',
       },
       timing: { duration: 1000, ease: easeExpInOut },
     };
@@ -144,7 +144,7 @@ class Circle extends Component {
       opacity: [1e-6],
     },
     circle: {
-      fill: '#426F85',
+      fill: 'red',
     },
     timing: { duration: 1000, ease: easeExpInOut },
     events: { end: this.props.lazyRemove },
@@ -154,7 +154,7 @@ class Circle extends Component {
     return (
       <g {...this.state.node}>
         <circle
-          stroke="tomato"
+          stroke="grey"
           cy={dims[1] / 2}
           {...this.state.circle}
         />
