@@ -91,6 +91,7 @@ class Bar extends Component {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
+    index: PropTypes.number.isRequired,
     scale: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
   }
@@ -106,7 +107,7 @@ class Bar extends Component {
     opacity: [0.5],
     x: [this.props.scale(this.props.data.name)],
     width: [this.props.scale.bandwidth()],
-    timing: { duration: 1500 },
+    timing: { duration: 200 * this.props.index, delay: 1000 },
   })
 
   onUpdate = () => ({
@@ -162,13 +163,8 @@ class Example1 extends Component {
 
   update() {
     this.setState({
-      data: this.getData(),
+      data: shuffle(data).slice(0, Math.ceil(Math.random() * data.length)),
     });
-  }
-
-  getData = () => {
-    const items = shuffle(data).slice(0, Math.ceil(Math.random() * data.length));
-    return items.map((item) => item);
   }
 
   render() {

@@ -181,13 +181,8 @@ class Example2 extends Component {
 
   update() {
     this.setState({
-      data: this.getData(),
+      data: shuffle(data).slice(0, Math.ceil(Math.random() * data.length)),
     });
-  }
-
-  getData = () => {
-    const items = shuffle(data).slice(0, Math.ceil(Math.random() * data.length));
-    return items.map((item) => ({ ...item }));
   }
 
   render() {
