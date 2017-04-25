@@ -94,7 +94,7 @@ class Circle extends Component {
     }).isRequired,
     scale: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    lazyRemove: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
   }
 
   state = {
@@ -111,12 +111,12 @@ class Circle extends Component {
 
   onEnter = () => ({
     node: {
-      opacity: [1e-6, 0.4],
+      opacity: [0.4],
     },
     circle: {
-      r: [1e-6, this.props.scale.bandwidth() / 2],
+      r: [this.props.scale.bandwidth() / 2],
       cx: this.props.scale(this.props.data.name) + (this.props.scale.bandwidth() / 2),
-      strokeWidth: [1e-6, (this.props.index + 1) * 2],
+      strokeWidth: [(this.props.index + 1) * 2],
       fill: 'green',
     },
     timing: { duration: 1000, ease: easeExpInOut },
@@ -147,7 +147,7 @@ class Circle extends Component {
       fill: 'red',
     },
     timing: { duration: 1000, ease: easeExpInOut },
-    events: { end: this.props.lazyRemove },
+    events: { end: this.props.remove },
   })
 
   render() {
