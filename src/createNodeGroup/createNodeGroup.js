@@ -6,13 +6,7 @@ import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 
 export const propTypes = {
-  /**
-   * An array of data objects.
-   */
   data: PropTypes.array.isRequired,
-  /**
-   * The CSS class name of the container component.
-   */
   className: PropTypes.string,
 };
 
