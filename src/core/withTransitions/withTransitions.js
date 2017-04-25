@@ -10,7 +10,10 @@ export const propTypes = {
   type: PropTypes.string.isRequired,
   udid: PropTypes.string.isRequired,
   node: PropTypes.object.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.oneOfType([
+    PropTypes.array, // NodeGroup data
+    PropTypes.func,  // TickGroup scale
+  ]),
   removeUDID: PropTypes.func.isRequired,
   lazyRemoveUDID: PropTypes.func.isRequired,
 };
