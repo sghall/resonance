@@ -12,6 +12,7 @@ import withTransitions from './withTransitions';
 const props = {
   type: ENTER,
   udid: 'unique_id',
+  data: [{ x: 10, y: 20 }],
   node: { x: 10, y: 20 },
   index: 0,
   removeUDID: () => {},
@@ -127,7 +128,7 @@ describe('withTransitions', () => {
     const spy = sinon.spy(Node.prototype, 'onUpdate');
 
     const wrapper = mount(<NodeWithTransitions {...props} />);
-    wrapper.setProps({ ...props, type: UPDATE });
+    wrapper.setProps({ ...props, type: UPDATE, data: [] });
 
     const callCount = Node.prototype.onUpdate.callCount;
     spy.restore();
