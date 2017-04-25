@@ -1,6 +1,6 @@
 // @flow weak
 
-import { jsdom } from 'jsdom';
+import { jsdom } from 'jsdom/lib/old-api.js';
 
 /**
  * Bootstrap the DOM environment in node
