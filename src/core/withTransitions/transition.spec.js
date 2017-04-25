@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 
 import React, { Component } from 'react';
-import { assert } from 'chai';
+import { expect, assert } from 'chai';
 import createMount from 'test/utils/createMount';
 import transition from './transition';
 import stop from './stop';
@@ -40,6 +40,7 @@ class Test extends Component {
         x: [5, 1000],
         y: [5, 2000],
       },
+      tween: () => {}, // Custom tween
       timing: { duration: DURATION },
       events: {
         interrupt: this.onInterrupt.bind(this),
@@ -48,13 +49,13 @@ class Test extends Component {
       },
     });
 
-    transition.call(this, {
+    transition.call(this, [{  // Array
       path: {
         opacity: [1e-6, 0.8],
         fill: 'tomato',
       },
       timing: { duration: DURATION, delay: DELAY },
-    });
+    }]);
   }
 
   componentWillUnmount() {
@@ -98,6 +99,18 @@ describe('transition', () => {
 
   after(() => {
     mount.cleanUp();
+  });
+
+  it('should throw if not run against a React component', () => {
+    expect(() => {
+      transition.call({}, {
+        path: {
+          opacity: [1e-6, 0.8],
+          fill: 'tomato',
+        },
+        timing: { duration: DURATION, delay: DELAY },
+      });
+    }).to.throw('Transitions must be run against a React component');
   });
 
   it('should change values over time', (done) => {

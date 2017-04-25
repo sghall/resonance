@@ -17,7 +17,7 @@ function scheduleTransitions(config = {}) {
   const transitions = { ...config };
 
   if (!this || !this.isReactComponent) {
-    throw new Error('transitions must be run against a React Component');
+    throw new Error('Transitions must be run against a React component');
   }
 
   const events = transitions.events || {};
