@@ -11,7 +11,7 @@ import Bar from './Bar';
 
 // Exports a component that will take a data prop and render a wrapped Bar component for each object in the array.
 // Each Bar is wrapped in a withTransitions HOC that allows you to transition it's state.
-// The Bar components will be wrapped in a 'g' outer element.  This could also be a custom component.
+// A 'g' element will be the container component.  This could also be a custom component or 'div', 'span', etc.
 // The keyAccessor should return a string key and is used to determine which bars are entering, updating and exiting.
 
 export default createNodeGroup(Bar, 'g', (data) => data.name);
@@ -32,8 +32,6 @@ export default createNodeGroup(Bar, 'g', (data) => data.name);
 
 import BarGroup from './BarGroup';
 
-// The BarGroup will render a wrapped Bar component for each transitioning data object.
-
 class Parent extends Component {
 
   ...
@@ -41,11 +39,12 @@ class Parent extends Component {
   render() {
     return (
       ....
-	    <BarGroup
-	      data={this.props.data}
-	      otherProp1={otherProp1}
-	      otherProp2={otherProp2}
-	    />
+        <BarGroup
+          data={this.props.data}  // Render the BarGroup with a data prop (updates Bars if next.data !== prev.data)
+          className="bar-group"   // Optional classname for container component defaults to 'node-group'
+          otherProp1={otherProp1} // All other props passed down to the Bar component
+          otherProp2={otherProp2}
+        />
       ....
     );
   }
