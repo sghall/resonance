@@ -11,7 +11,7 @@
 >the quality or state of being resonant
 
 Make your app resonate with your users!  Add some animation!
-[Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group)
+[Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
 
 ## Installation
 
@@ -29,7 +29,7 @@ Resonance handles much of the heavy lifting for:
 * Animating anything! HTML, SVG, React-Native components...
 * Transitioning numbers, strings, colors, SVG transforms...
 * Setting transition durations and delays
-* Transition interrupts
+* Handling transition interrupts
 * Hooks for transition events (start, interrupt, end)
 * Custom tween functions
 * Specifying ease functions
@@ -110,7 +110,7 @@ export default MyComponent;
 ```
 
 Inside your node component you just implement **onEnter**, **onUpdate** and **onExit** methods.
-The methods should return a transition object that describes how to transform the component state (explained in more detail below).
+The methods should return a transition object that describes how to transform the component state (explained in more detail [in the docs](https://sghall.github.io/resonance/#/documentation/create-node-group)).
 The methods are called after all the nodes have updated so the latest props are available.
 Your node component receives the data, index, any other props rendered to the NodeGroup and a remove function.
 
