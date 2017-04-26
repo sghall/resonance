@@ -11,6 +11,8 @@
 Make your React app resonate with your users!  Add some animation!
 [Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
 
+This is an experimental library and so it shouldn't be used in production.  
+
 ## Installation
 
 Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
