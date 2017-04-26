@@ -53,5 +53,35 @@ onExit = () => ({
 })
 ```
 
+### `Interpolators`
 
+Interpolators are inferred from what you specify in your transition object.
 
+You can name the keys that are transitioning whatever you want, but if you use the key "transform" it will indicate that you want to use D3's SVG transform interpolator.
+Beyond that, the value will determine the interpolator.  This is, essentailly, how D3 picks interpolators.
+
+The logic is as follows:
+1. If the value is a function, it will be used as a custom tween function.
+2. The key and value are passed to the function below:
+
+```js
+import {
+  interpolateRgb,
+  interpolateNumber,
+  interpolateString,
+  interpolateTransformSvg,
+} from 'd3-interpolate';
+import { color } from 'd3-color';
+
+export function getInterpolator(key, value) {
+  if (key === 'transform') {
+    return interpolateTransformSvg;
+  } else if (typeof value === 'number') {
+    return interpolateNumber;
+  } else if (value instanceof color || color(value) !== null) {
+    return interpolateRgb;
+  }
+
+  return interpolateString;
+}
+```
