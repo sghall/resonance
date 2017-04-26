@@ -56,7 +56,7 @@ class Bar extends PureComponent {
     },
     {
       x: [this.props.xScale(this.props.data.name)],
-      timing: { duration: 2000, ease: easeBounce },
+      timing: { duration: 2000, ease: easeExpInOut },
     },
     {
       width: [this.props.xScale.bandwidth()],
@@ -65,7 +65,7 @@ class Bar extends PureComponent {
     {
       height: [this.props.yScale(this.props.data.value)],
       timing: { delay: 2000, duration: 500 },
-      events: { // events!!!
+      events: { // Events!!
         end: () => {
           this.setState({ fill: 'steelblue' });
         },
@@ -93,9 +93,15 @@ class Bar extends PureComponent {
         <text
           x="0"
           y="20"
-          fill="black"
+          fill="grey"
           transform="rotate(90 5,20)"
         >{`x: ${x}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="grey"
+          transform="rotate(90 5,20)"
+        >{`name: ${this.props.data.name}`}</text>
       </g>
     );
   }

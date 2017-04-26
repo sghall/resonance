@@ -140,7 +140,7 @@ class Bar extends PureComponent {
     {
       height: [this.props.yScale(this.props.data.value)],
       timing: { delay: 2000, duration: 500 },
-      events: {
+      events: { // Events!!
         end: () => {
           this.setState({ fill: 'steelblue' });
         },
