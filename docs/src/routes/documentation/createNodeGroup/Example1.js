@@ -7,6 +7,7 @@ import createNodeGroup from 'resonance/createNodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
+import { easePoly } from 'd3-ease';
 
 const view = [1000, 250];      // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
@@ -92,8 +93,8 @@ class Bar extends Component {
       name: PropTypes.string.isRequired,
     }).isRequired,
     index: PropTypes.number.isRequired,
-    scale: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired,
+    scale: PropTypes.func.isRequired,  // prop passed down from NodeGroup
+    remove: PropTypes.func.isRequired, // function passed down to each node
   }
 
   state = {
@@ -115,7 +116,7 @@ class Bar extends Component {
     x: [this.props.scale(this.props.data.name)],
     fill: 'blue',
     width: [this.props.scale.bandwidth()],
-    timing: { duration: 1000 },
+    timing: { duration: 1000, ease: easePoly },
   })
 
   onExit = () => ({

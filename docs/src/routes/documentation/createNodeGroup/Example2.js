@@ -5,12 +5,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import createNodeGroup from 'resonance/createNodeGroup';
 import Surface from 'docs/src/components/Surface';
-import { easeExpInOut } from 'd3-ease';
-import { scaleBand } from 'd3-scale';
-import { shuffle } from 'd3-array';
+import { scaleBand, scaleLinear } from 'd3-scale';
+import { shuffle, max } from 'd3-array';
+import { easeBounce, easePoly } from 'd3-ease';
 
-const view = [1000, 350];      // [width, height]
-const trbl = [50, 20, 50, 20]; // [top, right, bottom, left] margins
+const view = [1000, 250];      // [width, height]
+const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
@@ -85,85 +85,95 @@ const data = [
 ];
 
 // **************************************************
-//  Circle Component
+//  Bar Component
 // **************************************************
-class Circle extends Component {
+class Bar extends Component {
   static propTypes = {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
     }).isRequired,
-    scale: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
+    xScale: PropTypes.func.isRequired,
+    yScale: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
   }
 
   state = {
-    node: {
-      opacity: 1e-6,
-    },
-    circle: {
-      r: 1e-6,
-      cx: this.props.scale(this.props.data.name) + (this.props.scale.bandwidth() / 2),
-      strokeWidth: 1e-6,
-      fill: 'green',
-    },
+    opacity: 1e-6,
+    x: 0,
+    fill: 'green',
+    width: this.props.xScale.bandwidth(),
+    height: 0,
   }
 
-  onEnter = () => ({
-    node: {
-      opacity: [0.4],
+  onEnter = () => ([  // An array!!
+    {
+      opacity: [0.6],
+      width: [this.props.xScale.bandwidth()],
+      height: [this.props.yScale(this.props.data.value)],
+      timing: { duration: 1000 },
     },
-    circle: {
-      r: [this.props.scale.bandwidth() / 2],
-      cx: this.props.scale(this.props.data.name) + (this.props.scale.bandwidth() / 2),
-      strokeWidth: [(this.props.index + 1) * 2],
-      fill: 'green',
+    {
+      x: [this.props.xScale(this.props.data.name)],
+      timing: { duration: 100 * this.props.index, ease: easePoly },
     },
-    timing: { duration: 1000, ease: easeExpInOut },
-  })
+  ])
 
-  onUpdate() {
-    const { scale, index, data: { name } } = this.props;
-
-    return {
-      node: {
-        opacity: [0.4],
+  onUpdate = () => ([  // An array!!
+    {
+      opacity: [0.6],
+      fill: ['blue', 'grey'],
+      timing: { duration: 2000 },
+    },
+    {
+      x: [this.props.xScale(this.props.data.name)],
+      timing: { duration: 2000, ease: easeBounce },
+    },
+    {
+      width: [this.props.xScale.bandwidth()],
+      timing: { duration: 500 },
+    },
+    {
+      height: [this.props.yScale(this.props.data.value)],
+      timing: { delay: 2000, duration: 500 },
+      events: {
+        end: () => {
+          this.setState({ fill: 'steelblue' });
+        },
       },
-      circle: {
-        r: [this.props.scale.bandwidth() / 2],
-        cx: [scale(name) + (scale.bandwidth() / 2)],
-        strokeWidth: [(index + 1) * 2],
-        fill: 'blue',
-      },
-      timing: { duration: 1000, ease: easeExpInOut },
-    };
-  }
+    },
+  ])
 
   onExit = () => ({
-    node: {
-      opacity: [1e-6],
-    },
-    circle: {
-      fill: 'red',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
+    opacity: [1e-6],
+    fill: 'red',
+    timing: { duration: 1000 },
     events: { end: this.props.remove },
   })
 
   render() {
+    const { x, height, ...rest } = this.state;
+
     return (
-      <g {...this.state.node}>
-        <circle
-          stroke="grey"
-          cy={dims[1] / 2}
-          {...this.state.circle}
+      <g transform={`translate(${x},0)`}>
+        <rect
+          y={height}
+          height={dims[1] - height}
+          {...rest}
         />
+        <text
+          x="0"
+          y="20"
+          fill="black"
+          transform="rotate(90 5,20)"
+        >{`x: ${x}`}</text>
       </g>
     );
   }
 }
 
-const CircleGroup = createNodeGroup(Circle, 'g', (d) => d.name);
+const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
 
 // **************************************************
 //  Example
@@ -171,7 +181,6 @@ const CircleGroup = createNodeGroup(Circle, 'g', (d) => d.name);
 class Example2 extends Component {
   constructor(props) {
     super(props);
-
     (this:any).update = this.update.bind(this);
   }
 
@@ -186,10 +195,14 @@ class Example2 extends Component {
   }
 
   render() {
-    const scale = scaleBand()
+    const xScale = scaleBand()
       .rangeRound([0, dims[0]])
       .domain(this.state.data.map((d) => d.name))
       .padding(0.1);
+
+    const yScale = scaleLinear()
+      .rangeRound([dims[1], 0])
+      .domain([0, max(this.state.data.map((d) => d.value))]);
 
     return (
       <div>
@@ -197,12 +210,13 @@ class Example2 extends Component {
           Update
         </button>
         <span style={{ margin: 5 }}>
-          Circle Count: {this.state.data.length}
+          Bar Count: {this.state.data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <CircleGroup
+          <BarGroup
             data={this.state.data}
-            scale={scale}
+            xScale={xScale}
+            yScale={yScale}
           />
         </Surface>
       </div>

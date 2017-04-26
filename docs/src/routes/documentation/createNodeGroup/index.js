@@ -16,22 +16,24 @@ const NodeGroupDocs = (props) => {
   return (
     <div>
       <Title render={(previousTitle) => `createNodeGroup - ${previousTitle}`} />
-      <MarkdownElement text={docContext('./createNodeGroup/README.md')} />
+      <MarkdownElement text={docContext('./createNodeGroup/README1.md')} />
       <CodeExample
         code={docContext('./createNodeGroup/Example1')}
         title="Example 1: Simple Bars"
       >
         <Example1 />
       </CodeExample>
+      <MarkdownElement text={docContext('./createNodeGroup/README2.md')} />
       <CodeExample
         code={docContext('./createNodeGroup/Example2')}
-        title="Example 2: SVG Circles"
+        title="Example 2: Passing Arrays of Transition Objects"
       >
         <Example2 />
       </CodeExample>
+      <MarkdownElement text={docContext('./createNodeGroup/README3.md')} />
       <CodeExample
         code={docContext('./createNodeGroup/Example3')}
-        title="Example 3: Passing Arrays of Transition Objects"
+        title="Example 3: SVG Circles"
       >
         <Example3 />
       </CodeExample>
