@@ -2,7 +2,7 @@
   "name": "resonance",
   "private": true,
   "version": "0.6.0",
-  "description": "Data-driven transitions in React",
+  "description": "Expressive Animated Transitions in React",
   "main": "index.js",
   "repository": "git+https://github.com/sghall/resonance.git",
   "keywords": [
@@ -14,7 +14,6 @@
     "animation",
     "transitions",
     "interpolation",
-    "data visualization"
   ],
   "author": "Steven Hall",
   "license": "MIT",
