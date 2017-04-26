@@ -4,6 +4,7 @@
 import Home from './Home';
 import AppFrame from '../components/AppFrame';
 import createNodeGroupDocs from './documentation/createNodeGroup';
+import createTickGroupDocs from './documentation/createTickGroup';
 import store, { injectReducer } from '../store';
 
 const docContext = require.context('!raw-loader!./documentation', true);
@@ -31,6 +32,12 @@ const routes = {
           docContext,
           srcContext,
           component: createNodeGroupDocs,
+        },
+        {
+          path: '/documentation/create-tick-group',
+          docContext,
+          srcContext,
+          component: createTickGroupDocs,
         },
       ],
     },

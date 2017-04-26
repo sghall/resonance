@@ -86,6 +86,11 @@ class AppNavDrawer extends Component {
                 value="/documentation/create-node-group"
                 href="#/documentation/create-node-group"
               />,
+              <ListItem
+                primaryText="createTickGroup"
+                value="/documentation/create-tick-group"
+                href="#/documentation/create-tick-group"
+              />,
             ]}
           />
           <ListItem

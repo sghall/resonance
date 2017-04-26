@@ -5,19 +5,17 @@ import PropTypes from 'prop-types';
 import Title from 'react-title-component';
 // import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
-import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 
 // import Example1 from './Example1';
 // import Example2 from './Example2';
 
 const TickGroupDocs = (props) => {
-  const { route: { docContext, srcContext } } = props;
+  const { route: { docContext } } = props;
 
   return (
     <div>
       <Title render={(previousTitle) => `createTickGroup - ${previousTitle}`} />
       <MarkdownElement text={docContext('./createTickGroup/README.md')} />
-      <PropTypeDescription code={srcContext('./createTickGroup/createTickGroup')} />
     </div>
   );
 };

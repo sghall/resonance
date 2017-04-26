@@ -16,11 +16,11 @@ Factory that returns a NodeGroup component.
 
 #### Returns:
 
-A NodeGroup component that will render wrapped node components for each array item.
+A NodeGroup component that will render wrapped node components for each item in the data prop.
 
 ```js
 // BarGroup.js
-
+import createNodeGroup from 'resonance/createNodeGroup';
 import Bar from './Bar';
 
 // Exports a component that will take a data prop and render a Bar component for each object in a data array.
@@ -38,7 +38,7 @@ export default createNodeGroup(Bar, 'g', (data) => data.name);
 
 * `data` *(array)*: Array of objects.  Each object will be rendered into a wrapped node component.
 
-* `className` *(string)*: Class for the container component. (Optional)
+* `className` *(string)*: Class for the container component. Defaults to 'node-group'. `(Optional)`
 
 
 ```js

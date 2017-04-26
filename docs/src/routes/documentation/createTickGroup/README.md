@@ -1,48 +1,52 @@
 [Checkout the project on Github](https://github.com/sghall/resonance)
 
-## createNodeGroup  
+## createTickGroup  
 
-Factory that returns a NodeGroup component. 
+Factory that returns a TickGroup component. 
 
-### `createNodeGroup(nodeComponent, wrapperComponent, keyAccessor)`
+This is a more specialized factory than **createNodeGroup**. It's designed for animated data visualizations but could have other applications.
+The usage of this factory is largely the same as **createNodeGroup** except it treats a [D3 scale](https://github.com/d3/d3-scale) as immutable instead of a data array.
+When the scale changes it calls the scale.ticks function.  Right now it works only with continuous scales.
+More documentation and examples will be added in future releases. 
+
+### `createTickGroup(tickComponent, wrapperComponent)`
 
 #### Arguments:
 
-* `nodeComponent` *(Component)*: Component that will be used to render each object in the data array.
+* `tickComponent` *(Component)*: Component that will be used to render each tick returned from the provided scale.
 
-* `wrapperComponent` *(Component)*: Component that will be used to wrap the nodes. Can be a custom component.
+* `wrapperComponent` *(Component)*: Component that will be used to wrap the ticks. Can be a custom component.
 
-* `keyAccessor` *(Function)*: Function that returns a string key given a data object.
 
 #### Returns:
 
-A NodeGroup component that will render wrapped node components for each array item.
+A TickGroup component that will render wrapped tick components.
 
 ```js
-// BarGroup.js
+// TickGroup.js
+import createTickGroup from 'resonance/createTickGroup';
+import Tick from './Tick';
 
-import Bar from './Bar';
-
-// Exports a component that will take a data prop and render a Bar component for each object in a data array.
-// Each Bar will be wrapped in a withTransitions HOC that allows you to transition its state.
+// Exports a component that will take a scale prop and render a Tick component for each tick.
+// Each Tick will be wrapped in a withTransitions HOC that allows you to transition its state.
 // A 'g' element will be the wrapper component.  This could also be a custom component or 'div', 'span', etc.
-// The keyAccessor should return a string key when given a data object.
-// The string key is used to determine which bars are entering, updating and exiting.
 
-export default createNodeGroup(Bar, 'g', (data) => data.name);
+export default createTickGroup(Tick, 'g');
 ```
 
-### `NodeGroup` - Component
+### `TickGroup` - Component
 
 #### Props:
 
-* `data` *(array)*: Array of objects.  Each object will be rendered into a wrapped node component.
+* `scale` *(function)*: Continuous D3 scale. Each tick will be rendered into a wrapped tick component.
 
-* `className` *(string)*: Class for the container component. (Optional)
+* `tickCount` *(number)*: Approximate count of ticks to be shown. Defaults to 10. `(Optional)`
+
+* `className` *(string)*: Class for the container component. Defaults to 'tick-group'. `(Optional)`
 
 
 ```js
-import BarGroup from './BarGroup'; // NodeGroup created above
+import TickGroup from './TickGroup'; // TickGroup created above
 
 class MyComponent extends Component {
 
@@ -51,10 +55,11 @@ class MyComponent extends Component {
   render() {
     return (
       ....
-        <BarGroup
-          data={this.props.data}  // Render the BarGroup with a data prop (updates Bars if next.data !== prev.data)
-          className="bar-group"   // Optional classname for container component defaults to 'node-group'
-          otherProp1={otherProp1} // All other props passed down to the Bar component
+        <TickGroup
+          scale={this.props.scale} // Render the TickGroup with a scale prop (updates Ticks if next.scale !== prev.scale)
+          tickCount={5}            // Optional count of ticks to render. Defaults t0 10
+          className="my-ticks"     // Optional classname for container component. Defaults to 'tick-group'
+          otherProp1={otherProp1}  // All other props passed down to the Tick component
           otherProp2={otherProp2}
         />
       ....
@@ -65,76 +70,5 @@ class MyComponent extends Component {
 export default MyComponent;
 ```
 
-Inside your node component you just implement **onEnter**, **onUpdate** and **onExit** methods.
-The methods should return a transition object that describes how to transform the component state (explained in more detail below).
-The methods are called after all the nodes have updated so the latest props are available.
-Your node component receives the data, index, any other props rendered to the NodeGroup and a remove function.
 
-Here's the Bar component from the first example below:
-```js
-class Bar extends PureComponent {
-  static propTypes = {
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    scale: PropTypes.func.isRequired,  // prop passed down from NodeGroup
-    remove: PropTypes.func.isRequired, // function passed down to each node
-  }
 
-  state = {
-    opacity: 1e-6,
-    x: 0,
-    fill: 'green',
-    width: 1e-6,
-  }
-
-  onEnter = () => ({
-    opacity: [0.5],
-    x: [this.props.scale(this.props.data.name)],
-    width: [this.props.scale.bandwidth()],
-    timing: { duration: 200 * this.props.index, delay: 1000 },
-  })
-
-  onUpdate = () => ({
-    opacity: [0.5],
-    x: [this.props.scale(this.props.data.name)],
-    fill: 'blue',
-    width: [this.props.scale.bandwidth()],
-    timing: { duration: 1000, ease: easePoly },
-  })
-
-  onExit = () => ({
-    opacity: [1e-6],
-    x: [this.props.scale.range()[1]],
-    fill: 'red',
-    timing: { duration: 1000 },
-    events: { end: this.props.remove },
-  })
-
-  render() {
-    const { x, ...rest } = this.state;
-
-    return (
-      <g transform={`translate(${x},0)`}>
-        <rect
-          height={dims[1]}
-          {...rest}
-        />
-        <text
-          x="0"
-          y="20"
-          fill="white"
-          transform="rotate(90 5,20)"
-        >{`x: ${x}`}</text>
-        <text
-          x="0"
-          y="5"
-          fill="white"
-          transform="rotate(90 5,20)"
-        >{`name: ${this.props.data.name}`}</text>
-      </g>
-    );
-  }
-}
-```
