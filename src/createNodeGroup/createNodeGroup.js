@@ -10,7 +10,7 @@ export const propTypes = {
   className: PropTypes.string,
 };
 
-export default function createNodeGroup(nodeComponent, component, keyAccessor) {
+export default function createNodeGroup(nodeComponent, containerComponent, keyAccessor) {
   return class NodeGroup extends PureComponent {
     static propTypes = propTypes;
 
@@ -60,7 +60,7 @@ export default function createNodeGroup(nodeComponent, component, keyAccessor) {
       delete childProps.className;
 
       return React.createElement(
-        component,
+        containerComponent,
         { className: props.className },
         state.nodes.map((node, index) => {
           const udid = keyAccessor(node);
