@@ -45,7 +45,6 @@ export default function createNodeGroup(nodeComponent, wrapperComponent, keyAcce
       this.setState((prevState, props) => {
         const index0 = prevState.nodes.findIndex((d) => keyAccessor(d) === udid);
         const index1 = props.data.findIndex((d) => keyAccessor(d) === udid);
-        console.log(index0, index1);
 
         if (index0 >= 0 && index1 === -1) {
           const udids = Object.assign({}, prevState.udids);
