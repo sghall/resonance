@@ -64,18 +64,19 @@ export default function createTickGroup(tickComponent, wrapperComponent) {
     }
 
     removeUDID(udid) {
-      this.setState((prevState) => {
-        const index = prevState.nodes.findIndex((d) => keyAccessor(d) === udid);
+      this.setState((prevState, props) => {
+        const index0 = prevState.nodes.findIndex((d) => keyAccessor(d) === udid);
+        const index1 = props.data.findIndex((d) => keyAccessor(d) === udid);
 
-        if (index >= 0) {
+        if (index0 >= 0 && index1 === -1) {
           const udids = Object.assign({}, prevState.udids);
           delete udids[udid];
 
           return {
             udids,
             nodes: [
-              ...prevState.nodes.slice(0, index),
-              ...prevState.nodes.slice(index + 1),
+              ...prevState.nodes.slice(0, index0),
+              ...prevState.nodes.slice(index0 + 1),
             ],
           };
         }
