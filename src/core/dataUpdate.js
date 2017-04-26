@@ -3,7 +3,7 @@
 import composeNode from './defaultComposeNode';
 import { ENTER, UPDATE, EXIT } from './types';
 
-const nodeUpdate = (data, state, keyAccessor) => {
+const dataUpdate = (data, state, keyAccessor) => {
   const { nodes = [], udids = [], removed = {} } = state;
   const nextNodes = [];
   const nextUdids = {};
@@ -38,4 +38,4 @@ const nodeUpdate = (data, state, keyAccessor) => {
   };
 };
 
-export default nodeUpdate;
+export default dataUpdate;
