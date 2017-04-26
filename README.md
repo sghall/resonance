@@ -42,7 +42,7 @@ Resonance handles much of the heavy lifting for:
 
 
 ## createNodeGroup
-[Docs/examples for createNodeGroup](https://sghall.github.io/resonance/#/documentation/create-node-group)
+[Docs/Examples for createNodeGroup](https://sghall.github.io/resonance/#/documentation/create-node-group)
 
 Factory that returns a NodeGroup component. 
 
@@ -182,7 +182,7 @@ class Bar extends PureComponent {
 ```
 
 ## createTickGroup  
-[Docs/examples for createTickGroup](https://sghall.github.io/resonance/#/documentation/create-tick-group)
+[Docs/Examples for createTickGroup](https://sghall.github.io/resonance/#/documentation/create-tick-group)
 
 Factory that returns a TickGroup component. 
 

@@ -2,7 +2,7 @@
 
 ## Opening an Issue
 
-If you think you have found a bug, or have a new feature idea, please start by making sure it hasn't already been reported. You can search through existing issues and PRs to see if someone has reported one similar to yours.
+Thanks for contributing! If you think you have found a bug, or have a new feature idea, please make sure it hasn't already been reported. You can search through existing issues and PRs to see if someone has reported one similar to yours.
 
 Next, create a new issue that briefly explains the problem, and provides a bit of background as to the circumstances that triggered it, and steps to reproduce it.
 
@@ -13,12 +13,6 @@ For code issues please include:
 * A code example or link to a repo, gist or running site.
 
 For visual or layout problems, images or animated gifs can help explain your issue.
-
-### Issue Guidelines
-
-Please begin the title with '[ComponentName]' where appropriate, and use a succint description. "doesn't work" doesn't help others find similar issues.
-
-Please don't group multiple topics into one issue, but instead each should be its own issue.
 
 ## Submitting a Pull Request
 
