@@ -73,7 +73,7 @@ Your node component receives the data, index, any other props rendered to the No
 
 Here's the Bar component from the first example below:
 ```js
-class Bar extends Component {
+class Bar extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -128,6 +128,12 @@ class Bar extends Component {
           fill="white"
           transform="rotate(90 5,20)"
         >{`x: ${x}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="white"
+          transform="rotate(90 5,20)"
+        >{`name: ${this.props.data.name}`}</text>
       </g>
     );
   }

@@ -36,7 +36,7 @@ render() {
 
 Here's the complete circle component from the example below:
 ```js
-class Circle extends Component {
+class Circle extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,

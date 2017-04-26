@@ -167,12 +167,12 @@ class Example3 extends PureComponent {
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.ceil(Math.random() * data.length)),
+    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.ceil(Math.random() * data.length)),
+      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
     });
   }
 

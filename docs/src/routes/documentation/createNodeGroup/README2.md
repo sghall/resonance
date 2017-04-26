@@ -15,7 +15,7 @@ Just pass a function to be called in the events section of your transition objec
 
 Here's the Bar component from the next example below:
 ```js
-class Bar extends Component {
+class Bar extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -65,7 +65,7 @@ class Bar extends Component {
     {
       height: [this.props.yScale(this.props.data.value)],
       timing: { delay: 2000, duration: 500 },
-      events: { // events!!
+      events: { // events!!!
         end: () => {
           this.setState({ fill: 'steelblue' });
         },
