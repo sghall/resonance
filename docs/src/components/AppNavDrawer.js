@@ -94,7 +94,7 @@ class AppNavDrawer extends Component {
             ]}
           />
           <ListItem
-            primaryText="Examples"
+            primaryText="Redux Examples"
             primaryTogglesNestedList
             nestedItems={[
               <ListItem
