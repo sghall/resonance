@@ -4,7 +4,7 @@ import { now as timeNow } from 'd3-timer';
 import once from 'lodash.once';
 import tween from './tween';
 import schedule from './schedule';
-import { newId, easeCubicInOut } from './helpers';
+import { newId, easeCubicInOut } from '../helpers';
 
 const preset = {
   time: null,

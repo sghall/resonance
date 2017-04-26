@@ -3,7 +3,7 @@
 
 import { assert } from 'chai';
 import schedule from './schedule';
-import { newId, easeCubicInOut } from './helpers';
+import { newId, easeCubicInOut } from '../helpers';
 
 const preset = {
   time: null,

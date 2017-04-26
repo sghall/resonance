@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import keyAccessor from '../core/defaultKeyAccessor';
+import { getDisplayName } from '../core/helpers';
 
 export const propTypes = {
   scale: PropTypes.func.isRequired,
@@ -20,6 +21,8 @@ export default function createTickGroup(tickComponent, wrapperComponent) {
       className: 'tick-group',
       tickCount: 10,
     };
+
+    static displayName = `TickGroup(${getDisplayName(tickComponent)})`
 
     constructor(props) {
       super(props);

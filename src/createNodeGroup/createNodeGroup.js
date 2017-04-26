@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
+import { getDisplayName } from '../core/helpers';
 
 export const propTypes = {
   data: PropTypes.array.isRequired,
@@ -17,6 +18,8 @@ export default function createNodeGroup(nodeComponent, wrapperComponent, keyAcce
     static defaultProps = {
       className: 'node-group',
     };
+
+    static displayName = `NodeGroup(${getDisplayName(nodeComponent)})`
 
     constructor(props) {
       super(props);

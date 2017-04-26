@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import transition from './transition';
 import stop from './stop';
-import { getDisplayName } from './helpers';
+import { getDisplayName } from '../helpers';
 import { ENTER, UPDATE, EXIT } from '../types';
 
 export const propTypes = {
