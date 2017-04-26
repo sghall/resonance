@@ -1,7 +1,7 @@
 {
   "name": "resonance",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Expressive Animated Transitions in React",
   "main": "index.js",
   "repository": "git+https://github.com/sghall/resonance.git",
