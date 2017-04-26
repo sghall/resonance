@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint react/no-multi-comp: "off" */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import createNodeGroup from 'resonance/createNodeGroup';
 import Surface from 'docs/src/components/Surface';
@@ -87,7 +87,7 @@ const data = [
 // **************************************************
 //  Circle Component
 // **************************************************
-class Circle extends Component {
+class Circle extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -159,7 +159,7 @@ const CircleGroup = createNodeGroup(Circle, 'g', (d) => d.name);
 // **************************************************
 //  Example
 // **************************************************
-class Example3 extends Component {
+class Example3 extends PureComponent {
   constructor(props) {
     super(props);
 

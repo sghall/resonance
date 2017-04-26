@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint react/no-multi-comp: 'off' */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import createNodeGroup from 'resonance/createNodeGroup';
 import Surface from 'docs/src/components/Surface';
@@ -87,7 +87,7 @@ const data = [
 // **************************************************
 //  Bar Component
 // **************************************************
-class Bar extends Component {
+class Bar extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -142,6 +142,12 @@ class Bar extends Component {
           fill="white"
           transform="rotate(90 5,20)"
         >{`x: ${x}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="white"
+          transform="rotate(90 5,20)"
+        >{`name: ${this.props.data.name}`}</text>
       </g>
     );
   }
@@ -152,7 +158,7 @@ const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
 // **************************************************
 //  Example
 // **************************************************
-class Example1 extends Component {
+class Example1 extends PureComponent {
   constructor(props) {
     super(props);
     (this:any).update = this.update.bind(this);
