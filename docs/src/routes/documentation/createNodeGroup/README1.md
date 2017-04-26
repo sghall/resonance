@@ -16,7 +16,7 @@ Factory that returns a NodeGroup component.
 
 #### Returns:
 
-A NodeGroup component that will render wrapped node components for each array item provided in its data prop.
+A NodeGroup component that will render wrapped node components for each array item.
 
 ```js
 // BarGroup.js
@@ -45,7 +45,7 @@ export default createNodeGroup(Bar, 'g', (data) => data.name);
 ```js
 import BarGroup from './BarGroup'; // NodeGroup created above
 
-class Parent extends Component {
+class MyComponent extends Component {
 
   ...
 
@@ -63,11 +63,11 @@ class Parent extends Component {
   }
 }
 
-export default Parent;
+export default MyComponent;
 ```
 
-Inside your node component you just implement onEnter, onUpdate and onExit methods.
-The methods should return a transition object that describes how to transform the component state.
+Inside your node component you just implement **onEnter**, **onUpdate** and **onExit** methods.
+The methods should return a transition object that describes how to transform the component state (explained in more detail below).
 The methods are called after all the nodes have updated so the latest props are available.
 Your node component receives the data, index, any other props rendered to the NodeGroup and a remove function.
 

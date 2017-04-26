@@ -37,6 +37,7 @@ const NodeGroupDocs = (props) => {
       >
         <Example3 />
       </CodeExample>
+      <MarkdownElement text={docContext('./createNodeGroup/README4.md')} />
     </div>
   );
 };
