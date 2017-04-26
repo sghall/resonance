@@ -1,3 +1,20 @@
+### `Removing Items from Transitions`
+
+Your node component receives a remove function that simply needs to be invoked (no parameters) to ensure the node is removed. The API tracks closely with how [D3](https://github.com/d3/d3-selection) works.
+This provides a lot of control and helps with quickly debugging transitions.
+For example, it's much easier to make sure your nodes "recover" correctly if they are interrupted on an exit transition.
+Just comment out the remove line and run your transitions.
+Nodes that would have been removed are now "updating" and you can simulate what would happen if a transition were interrupted just before they left the document.
+
+Example of scheduling the remove function: 
+```js
+onExit = () => ({
+  opacity: [1e-6],
+  fill: 'red',
+  timing: { duration: 1000 },
+  events: { end: this.props.remove },
+})
+```
 
 ### `Transition Objects`
 
@@ -62,7 +79,7 @@ Beyond that, the value will determine the interpolator.  This is, essentailly, h
 
 The logic is as follows:
 1. If the value is a function, it will be used as a custom tween function.
-2. The key and value are passed to the function below:
+2. Then the key and value are passed to the function below:
 
 ```js
 import {

@@ -12,7 +12,7 @@ export const propTypes = {
   tickCount: PropTypes.number,
 };
 
-export default function createTickGroup(tickComponent, containerComponent) {
+export default function createTickGroup(tickComponent, wrapperComponent) {
   return class TickGroup extends PureComponent {
     static propTypes = propTypes;
 
@@ -84,7 +84,7 @@ export default function createTickGroup(tickComponent, containerComponent) {
       delete childProps.tickCount;
 
       return React.createElement(
-        containerComponent,
+        wrapperComponent,
         { className: props.className },
         state.nodes.map((node, index) => {
           const udid = keyAccessor(node);

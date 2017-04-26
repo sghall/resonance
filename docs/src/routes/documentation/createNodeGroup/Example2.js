@@ -7,8 +7,11 @@ import createNodeGroup from 'resonance/createNodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { shuffle, max } from 'd3-array';
-import { easeBounce, easePoly } from 'd3-ease';
+import { easeExpInOut, easePoly } from 'd3-ease';
 
+// **************************************************
+//  SVG Layout
+// **************************************************
 const view = [1000, 250];      // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
@@ -128,7 +131,7 @@ class Bar extends PureComponent {
     },
     {
       x: [this.props.xScale(this.props.data.name)],
-      timing: { duration: 2000, ease: easeBounce },
+      timing: { duration: 2000, ease: easeExpInOut },
     },
     {
       width: [this.props.xScale.bandwidth()],
@@ -165,9 +168,15 @@ class Bar extends PureComponent {
         <text
           x="0"
           y="20"
-          fill="black"
+          fill="grey"
           transform="rotate(90 5,20)"
         >{`x: ${x}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="grey"
+          transform="rotate(90 5,20)"
+        >{`name: ${this.props.data.name}`}</text>
       </g>
     );
   }
@@ -178,19 +187,19 @@ const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
 // **************************************************
 //  Example
 // **************************************************
-class Example2 extends PureComponent {
+class Example extends PureComponent {
   constructor(props) {
     super(props);
     (this:any).update = this.update.bind(this);
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length * 0.7) - (5 + 1))) + 5),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length * 0.7) - (5 + 1))) + 5),
     });
   }
 
@@ -224,4 +233,4 @@ class Example2 extends PureComponent {
   }
 }
 
-export default Example2;
+export default Example;

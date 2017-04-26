@@ -1,4 +1,4 @@
-You can do far more complex things.  First, you can pass an array of transition objects.
+You can do far more complex things, however.  First, you can pass an array of transition objects.
 Each key in the state can have its own independent timing parameters (easing function, duration, delay) and its own event handlers.
 
 The default timing parameters are:
@@ -10,7 +10,7 @@ const defaultTiming = {
   ease: easeCubicInOut,
 }; 
 ```
-You have the same events you have on transitions in D3: start, interrupt and end.
+You have the same transition event hooks that you have on transitions in D3: **start**, **interrupt** and **end**.
 Just pass a function to be called in the events section of your transition object.
 
 Here's the Bar component from the next example below:

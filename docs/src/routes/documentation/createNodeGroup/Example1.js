@@ -9,6 +9,9 @@ import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
 import { easePoly } from 'd3-ease';
 
+// **************************************************
+//  SVG Layout
+// **************************************************
 const view = [1000, 250];      // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
@@ -158,7 +161,7 @@ const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
 // **************************************************
 //  Example
 // **************************************************
-class Example1 extends PureComponent {
+class Example extends PureComponent {
   constructor(props) {
     super(props);
     (this:any).update = this.update.bind(this);
@@ -199,4 +202,4 @@ class Example1 extends PureComponent {
   }
 }
 
-export default Example1;
+export default Example;

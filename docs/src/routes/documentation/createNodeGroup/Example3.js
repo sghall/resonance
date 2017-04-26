@@ -9,8 +9,11 @@ import { easeExpInOut } from 'd3-ease';
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
 
-const view = [1000, 350];      // [width, height]
-const trbl = [50, 20, 50, 20]; // [top, right, bottom, left] margins
+// **************************************************
+//  SVG Layout
+// **************************************************
+const view = [1000, 350];       // [width, height]
+const trbl = [200, 20, 50, 20]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
@@ -98,33 +101,44 @@ class Circle extends PureComponent {
   }
 
   state = {
-    opacity: 1e-6,
+    g: {
+      opacity: 1e-6,
+      transform: 'translate(0,0)',
+    },
     circle: {
       r: 1e-6,
-      cx: this.props.scale(this.props.data.name) + (this.props.scale.bandwidth() / 2),
       strokeWidth: 1e-6,
       fill: 'green',
     },
   }
 
-  onEnter = () => ({
-    opacity: [0.4],
-    circle: {
-      r: [this.props.scale.bandwidth() / 2],
-      strokeWidth: [(this.props.index + 1) * 2],
-      fill: 'green',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
-  })
+  onEnter() {
+    const { data: { name }, scale } = this.props;
+
+    return {
+      g: {
+        opacity: [0.4],
+        transform: [`translate(${scale(name) + (scale.bandwidth() / 2)},0)`],
+      },
+      circle: {
+        r: [this.props.scale.bandwidth() / 2],
+        strokeWidth: [(this.props.index + 1) * 2],
+        fill: 'green',
+      },
+      timing: { duration: 1000, ease: easeExpInOut },
+    };
+  }
 
   onUpdate() {
     const { scale, index, data: { name } } = this.props;
 
     return {
-      opacity: [0.4],
+      g: {
+        opacity: [0.4],
+        transform: [`translate(${scale(name) + (scale.bandwidth() / 2)},0)`],
+      },
       circle: {
         r: [this.props.scale.bandwidth() / 2],
-        cx: [scale(name) + (scale.bandwidth() / 2)],
         strokeWidth: [(index + 1) * 2],
         fill: 'blue',
       },
@@ -133,7 +147,9 @@ class Circle extends PureComponent {
   }
 
   onExit = () => ({
-    opacity: [1e-6],
+    g: {
+      opacity: [1e-6],
+    },
     circle: {
       fill: 'red',
     },
@@ -143,23 +159,47 @@ class Circle extends PureComponent {
 
   render() {
     return (
-      <g opacity={this.state.opacity}>
+      <g {...this.state.g}>
         <circle
           stroke="grey"
           cy={dims[1] / 2}
           {...this.state.circle}
         />
+        <text
+          x="0"
+          y="20"
+          fill="#333"
+          transform="rotate(-45 5,20)"
+        >{`x: ${this.state.g.transform}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="#333"
+          transform="rotate(-45 5,20)"
+        >{`name: ${this.props.data.name}`}</text>
       </g>
     );
   }
 }
 
-const CircleGroup = createNodeGroup(Circle, 'g', (d) => d.name);
+const Wrapper = (props) => { // Custom component wrapper
+  return (
+    <g>
+      {props.children}
+    </g>
+  );
+};
+
+Wrapper.propTypes = {
+  children: PropTypes.any,
+};
+
+const CircleGroup = createNodeGroup(Circle, Wrapper, (d) => d.name);
 
 // **************************************************
 //  Example
 // **************************************************
-class Example3 extends PureComponent {
+class Example extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -201,4 +241,4 @@ class Example3 extends PureComponent {
   }
 }
 
-export default Example3;
+export default Example;

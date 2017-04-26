@@ -4,13 +4,13 @@
 
 Factory that returns a NodeGroup component. 
 
-### `createNodeGroup(nodeComponent, containerComponent, keyAccessor)`
+### `createNodeGroup(nodeComponent, wrapperComponent, keyAccessor)`
 
 #### Arguments:
 
 * `nodeComponent` *(Component)*: Component that will be used to render each object in the data array.
 
-* `containerComponent` *(Component)*: Component that will be used as the container for the nodes. Can be a custom component.
+* `wrapperComponent` *(Component)*: Component that will be used to wrap the nodes. Can be a custom component.
 
 * `keyAccessor` *(Function)*: Function that returns a string key given a data object.
 
@@ -23,14 +23,13 @@ A NodeGroup component that will render wrapped node components for each array it
 
 import Bar from './Bar';
 
-// Exports a component that will take a data prop and render a wrapped Bar component for each object in the data array.
-// Each Bar is wrapped in a withTransitions HOC that allows you to transition its state.
-// A 'g' element will be the container component.  This could also be a custom component or 'div', 'span', etc.
+// Exports a component that will take a data prop and render a Bar component for each object in a data array.
+// Each Bar will be wrapped in a withTransitions HOC that allows you to transition its state.
+// A 'g' element will be the wrapper component.  This could also be a custom component or 'div', 'span', etc.
 // The keyAccessor should return a string key when given a data object.
 // The string key is used to determine which bars are entering, updating and exiting.
 
 export default createNodeGroup(Bar, 'g', (data) => data.name);
-
 ```
 
 ### `NodeGroup` - Component
