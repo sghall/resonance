@@ -1931,7 +1931,6 @@ function createNodeGroup(nodeComponent, wrapperComponent, keyAccessor) {
           var index1 = props.data.findIndex(function (d) {
             return keyAccessor(d) === udid;
           });
-          console.log(index0, index1);
 
           if (index0 >= 0 && index1 === -1) {
             var udids = (0, _simpleAssign2.default)({}, prevState.udids);
