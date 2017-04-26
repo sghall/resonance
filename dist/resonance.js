@@ -1924,18 +1924,22 @@ function createNodeGroup(nodeComponent, wrapperComponent, keyAccessor) {
     }, {
       key: 'removeUDID',
       value: function removeUDID(udid) {
-        this.setState(function (prevState) {
-          var index = prevState.nodes.findIndex(function (d) {
+        this.setState(function (prevState, props) {
+          var index0 = prevState.nodes.findIndex(function (d) {
             return keyAccessor(d) === udid;
           });
+          var index1 = props.data.findIndex(function (d) {
+            return keyAccessor(d) === udid;
+          });
+          console.log(index0, index1);
 
-          if (index >= 0) {
+          if (index0 >= 0 && index1 === -1) {
             var udids = (0, _simpleAssign2.default)({}, prevState.udids);
             delete udids[udid];
 
             return {
               udids: udids,
-              nodes: [].concat(_toConsumableArray(prevState.nodes.slice(0, index)), _toConsumableArray(prevState.nodes.slice(index + 1)))
+              nodes: [].concat(_toConsumableArray(prevState.nodes.slice(0, index0)), _toConsumableArray(prevState.nodes.slice(index0 + 1)))
             };
           }
 
@@ -2106,18 +2110,21 @@ function createTickGroup(tickComponent, wrapperComponent) {
     }, {
       key: 'removeUDID',
       value: function removeUDID(udid) {
-        this.setState(function (prevState) {
-          var index = prevState.nodes.findIndex(function (d) {
+        this.setState(function (prevState, props) {
+          var index0 = prevState.nodes.findIndex(function (d) {
+            return (0, _defaultKeyAccessor2.default)(d) === udid;
+          });
+          var index1 = props.data.findIndex(function (d) {
             return (0, _defaultKeyAccessor2.default)(d) === udid;
           });
 
-          if (index >= 0) {
+          if (index0 >= 0 && index1 === -1) {
             var udids = (0, _simpleAssign2.default)({}, prevState.udids);
             delete udids[udid];
 
             return {
               udids: udids,
-              nodes: [].concat(_toConsumableArray(prevState.nodes.slice(0, index)), _toConsumableArray(prevState.nodes.slice(index + 1)))
+              nodes: [].concat(_toConsumableArray(prevState.nodes.slice(0, index0)), _toConsumableArray(prevState.nodes.slice(index0 + 1)))
             };
           }
 
