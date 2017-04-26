@@ -10,7 +10,8 @@
 ## res·o·nance
 >the quality or state of being resonant
 
-Make your app resonate with your users.  Add some animation!
+Make your app resonate with your users!  Add some animation!
+[Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group)
 
 ## Installation
 
