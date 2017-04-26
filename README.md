@@ -1,4 +1,5 @@
-## Resonance | Expressive Animated Transitions in React
+## res·o·nance
+>the quality or state of being resonant
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
@@ -6,10 +7,6 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/sghall/resonance.svg)](https://greenkeeper.io/)
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.min.js.svg?label=minified)
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.js.svg?compression=gzip)
-
-## res·o·nance
->the quality or state of being resonant
-
 
 Make your app resonate with your users!  Add some animation!
 [Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
