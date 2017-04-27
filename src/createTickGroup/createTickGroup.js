@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import keyAccessor from '../core/defaultKeyAccessor';
-import { getDisplayName } from '../core/helpers';
+import { getDisplayName, getRemoveUDID } from '../core/helpers';
 
 export const propTypes = {
   scale: PropTypes.func.isRequired,
@@ -63,27 +63,7 @@ export default function createTickGroup(tickComponent, wrapperComponent) {
       });
     }
 
-    removeUDID(udid) {
-      this.setState((prevState, props) => {
-        const index0 = prevState.nodes.findIndex((d) => keyAccessor(d) === udid);
-        const index1 = props.data.findIndex((d) => keyAccessor(d) === udid);
-
-        if (index0 >= 0 && index1 === -1) {
-          const udids = Object.assign({}, prevState.udids);
-          delete udids[udid];
-
-          return {
-            udids,
-            nodes: [
-              ...prevState.nodes.slice(0, index0),
-              ...prevState.nodes.slice(index0 + 1),
-            ],
-          };
-        }
-
-        return prevState;
-      });
-    }
+    removeUDID = getRemoveUDID.call(this, keyAccessor);
 
     lazyRemoveUDID(udid) {
       this.setState((prevState) => ({
