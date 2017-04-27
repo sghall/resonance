@@ -3,14 +3,8 @@
 
 import { assert } from 'chai';
 import schedule from './schedule';
-import { newId, easeCubicInOut } from '../helpers';
-
-const preset = {
-  time: null,
-  delay: 0,
-  duration: 250,
-  ease: easeCubicInOut,
-};
+import { newId } from '../helpers';
+import { preset } from './transition';
 
 describe('schedule', () => {
   it('should add a TRANSITION_SCHEDULES property to node ', () => {

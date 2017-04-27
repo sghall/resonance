@@ -4,9 +4,14 @@ import { now as timeNow } from 'd3-timer';
 import once from 'lodash.once';
 import tween from './tween';
 import schedule from './schedule';
-import { newId, easeCubicInOut } from '../helpers';
+import { newId } from '../helpers';
 
-const preset = {
+// from https://github.com/d3/d3-ease/blob/master/src/cubic.js
+function easeCubicInOut(t) {
+  return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2; // eslint-disable-line
+}
+
+export const preset = {
   time: null,
   delay: 0,
   duration: 250,
