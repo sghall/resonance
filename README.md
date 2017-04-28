@@ -8,7 +8,8 @@
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.js.svg?compression=gzip)
 
 Animated state transitions that update with your data. 
-This library uses [d3-timer](https://github.com/d3/d3-timer) and a sophisticated scheduling mechanism to efficiently manage thousands of state tweens.  You can apply high-performance state animations using an appraochable, easy to implement syntax.
+This library uses [d3-timer](https://github.com/d3/d3-timer) and a sophisticated scheduling mechanism to efficiently manage thousands of state tweens.
+You can apply high-performance state animations using an appraochable, easy to implement syntax.
 [Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
 
 ## Installation
@@ -41,7 +42,9 @@ npm install resonance
 
 ## SVG Chart Examples
 
-You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.  You can view the [example code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) here for the chart examples.
+You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.
+This library is great for creating abstact animated data visualizations in React.
+You can view the [example code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) here for the chart examples.
 Each example is a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
 You can run these examples locally by following the direction above.
 
