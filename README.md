@@ -128,7 +128,8 @@ export default MyComponent;
 ```
 
 Inside your node component you just implement **onEnter**, **onUpdate** and **onExit** methods.
-The methods should return a transition object that describes how to transform the component state (explained in more detail [in the docs](https://sghall.github.io/resonance/#/documentation/create-node-group)).
+The methods return either a single object or an array of objects that describe how to transform the component state.
+Passing arrays allows you to specifiy **independent timing for transitions on each key** in your state (explained in more detail [in the docs](https://sghall.github.io/resonance/#/documentation/create-node-group)).
 The methods are called after all the nodes have updated so the latest props are available.
 Your node component receives the data, index, any other props rendered to the NodeGroup and a remove function.
 
@@ -200,6 +201,53 @@ class Bar extends PureComponent {
   }
 }
 ```
+
+You can do far more complex things, however.  First, you can pass an array of transition objects.
+**Each key in the state can have its own independent timing parameters (easing function, duration, delay) and its own event handlers.**
+
+The default timing parameters are:
+
+```js
+const defaultTiming = {
+  delay: 0,
+  duration: 250,
+  ease: easeCubicInOut,
+}; 
+```
+
+Just override what you need to in your transition object:
+
+```js
+import { easeExpInOut } from 'd3-ease';
+
+onUpdate = () => ([  // An array!!
+  {
+    opacity: [0.6],
+    fill: ['blue', 'grey'],
+    timing: { duration: 2000 }, // specify duration for fill and opacity
+  },
+  {
+    x: [this.props.xScale(this.props.data.name)],
+    timing: { duration: 2000, ease: easeExpInOut }, // duration and d3-ease function for x
+  },
+  {
+    width: [this.props.xScale.bandwidth()],
+    timing: { duration: 500 }, // separate timing for width
+  },
+  {
+    height: [this.props.yScale(this.props.data.value)],
+    timing: { delay: 2000, duration: 500 }, // add delay and duration for height
+    events: { //Events!! When this transition has finished set the fill to 'steelblue';
+      end: () => {
+        this.setState({ fill: 'steelblue' });
+      },
+    },
+  },
+])
+```
+
+You have the same transition event hooks that you have on transitions in D3: **start**, **interrupt** and **end**.
+Just pass a function to be called in the events section of your transition object.
 
 ## createTickGroup  
 [Docs/Examples for createTickGroup](https://sghall.github.io/resonance/#/documentation/create-tick-group)

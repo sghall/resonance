@@ -1,6 +1,7 @@
 
 Inside your node component you just implement **onEnter**, **onUpdate** and **onExit** methods.
-The methods return either a single object or an array of objects that describe how to transform the component state.  Passing arrays allows you to specifiy **independent timing for transitions on each key** in your state (explained in more detail in the second example).
+The methods return either a single object or an array of objects that describe how to transform the component state.
+Passing arrays allows you to specifiy **independent timing for transitions on each key** in your state (explained in more detail in the second example).
 The methods are called after all the nodes have updated so the latest props are available.
 Your node component receives the data, index, any other props rendered to the NodeGroup and a remove function.
 
