@@ -1,4 +1,4 @@
-## Resonance
+## Resonance | Data-driven transitions in React
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
@@ -41,7 +41,7 @@ npm install resonance
 
 ## SVG Chart Examples
 
-You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.  You can view the [example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) here for the chart examples. Each example is built like a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
+You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.  You can view the [example code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) here for the chart examples. Each example is built like a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
 
 <a href="https://sghall.github.io/resonance/#/examples/webpack-sunburst">
   <img src="https://cloud.githubusercontent.com/assets/4615775/25240281/45acec66-25a7-11e7-9e6a-83012473b748.png" height="150px"/>

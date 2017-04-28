@@ -2,7 +2,7 @@
   "name": "resonance-docs",
   "private": true,
   "version": "0.7.2",
-  "description": "Documentation site for Resonance",
+  "description": "Data-driven transitions in React",
   "repository": {
     "type": "git",
     "url": "https://github.com/sghall/resonance.git"
