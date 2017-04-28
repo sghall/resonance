@@ -1,6 +1,5 @@
 // @flow weak
 
-import composeNode from './defaultComposeNode';
 import { ENTER, UPDATE, EXIT } from './types';
 
 const dataUpdate = (data, state, keyAccessor) => {
@@ -17,7 +16,7 @@ const dataUpdate = (data, state, keyAccessor) => {
       type = UPDATE;
     }
 
-    nextNodes.push(composeNode(data[i], type, udid));
+    nextNodes.push(data[i]);
     nextUdids[udid] = type;
   }
 
@@ -26,7 +25,7 @@ const dataUpdate = (data, state, keyAccessor) => {
     const udid = keyAccessor(node);
 
     if (!nextUdids[udid] && !removed[udid]) {
-      nextNodes.push(composeNode(node, EXIT, udid));
+      nextNodes.push(node);
       nextUdids[udid] = EXIT;
     }
   }

@@ -4,8 +4,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
-import keyAccessor from '../core/defaultKeyAccessor';
 import { getDisplayName, getRemoveUDID } from '../core/helpers';
+
+const keyAccessor = (d, i) => `tick-${i}`;
 
 export const propTypes = {
   scale: PropTypes.func.isRequired,
