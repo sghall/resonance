@@ -8,7 +8,7 @@
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.js.svg?compression=gzip)
 
 Animated state transitions in React made easy. 
-This library uses [d3-timer](https://github.com/d3/d3-timer) to create high-performance state animations using an approchable, easy to implement syntax.
+This library uses [d3-timer](https://github.com/d3/d3-timer) and a sophisticated scheduling mechanism to efficiently manage thousands of state tweens.  Allowing you to create high-performance state animations using an approchable, easy to implement syntax.
 [Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
 
 ## Installation
