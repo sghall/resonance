@@ -249,6 +249,8 @@ onUpdate = () => ([  // An array!!
 You have the same transition event hooks that you have on transitions in D3: **start**, **interrupt** and **end**.
 Just pass a function to be called in the events section of your transition object.
 
+See the [live examples and documentation](https://sghall.github.io/resonance/#/documentation/create-node-group) for more.
+
 ## createTickGroup  
 [Docs/Examples for createTickGroup](https://sghall.github.io/resonance/#/documentation/create-tick-group)
 
@@ -257,7 +259,7 @@ Factory that returns a TickGroup component.
 This is a more specialized factory than **createNodeGroup**. It's designed for animated data visualizations but could have other applications.
 The usage of this factory is largely the same as **createNodeGroup** except it treats a [D3 scale](https://github.com/d3/d3-scale) as immutable instead of a data array.
 When the scale changes it calls the scale.ticks function.  Right now it works only with continuous scales.
-More documentation and examples will be added in future releases. 
+More documentation and examples will be added in future releases.
 
 ### `createTickGroup(tickComponent, wrapperComponent)`
 
