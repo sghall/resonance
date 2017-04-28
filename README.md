@@ -8,7 +8,7 @@
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.min.js.svg?label=minified)
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.js.svg?compression=gzip)
 
-Make your React app resonate with your users!  Add some animation!
+Create complex and performant animated state transitions in React quickly and easily.
 [Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
 
 ## Installation
@@ -33,13 +33,33 @@ Resonance handles much of the heavy lifting for:
 * Specifying ease functions
 * Stopping transitions on component unmount
 
-## Examples
+## Run documentation/Examples locally 
 
 **To run the documentation/examples site in this repo locally:**
  - clone the repo and cd into the directory 
  - npm install && cd docs && npm install && npm start
  - go to http://localhost:3000/
 
+## SVG Chart Examples
+
+[Example Code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) - Each example is built like a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
+Resonance does not depend on redux but it is built with this type architecture in mind.
+
+<a href="https://sghall.github.io/resonance/#/examples/webpack-sunburst">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/25240281/45acec66-25a7-11e7-9e6a-83012473b748.png" height="150px"/>
+</a>
+<a href="https://sghall.github.io/resonance/#/examples/alluvial-chart">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/24084023/d736ddde-0c9f-11e7-8646-b953dd368c84.jpg" height="150px"/>
+</a>
+<a href="https://sghall.github.io/resonance/#/examples/states-by-age">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/24084025/d7397e86-0c9f-11e7-90b6-9a99f056f4c9.jpg" height="150px"/>
+</a>
+<a href="https://sghall.github.io/resonance/#/examples/packed-by-age">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/24084024/d7371ace-0c9f-11e7-8616-3941fd62aa55.jpg" height="150px"/>
+</a>
+<a href="https://sghall.github.io/resonance/#/examples/stacked-area">
+  <img src="https://cloud.githubusercontent.com/assets/4615775/24084030/de9ec4e2-0c9f-11e7-85d8-3be0bbc5c7d0.jpg" height="150px"/>
+</a>
 
 ## createNodeGroup
 [Docs/Examples for createNodeGroup](https://sghall.github.io/resonance/#/documentation/create-node-group)
