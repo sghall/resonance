@@ -2,7 +2,7 @@
 
 ## createNodeGroup  
 
-Factory that returns a NodeGroup component. 
+Factory that returns a NodeGroup component.
 
 ### `createNodeGroup(nodeComponent, wrapperComponent, keyAccessor)`
 

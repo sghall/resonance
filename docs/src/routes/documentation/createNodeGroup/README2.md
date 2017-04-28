@@ -1,6 +1,6 @@
 
 Inside your node component you just implement **onEnter**, **onUpdate** and **onExit** methods.
-The methods return either a single object or an array of objects that describes how to transform the component state (explained in more detail below).
+The methods return either a single object or an array of objects that describe how to transform the component state.  Passing arrays allows you to specifiy **independent timing for transitions on each key** in your state (explained in more detail in the second example).
 The methods are called after all the nodes have updated so the latest props are available.
 Your node component receives the data, index, any other props rendered to the NodeGroup and a remove function.
 
@@ -85,100 +85,37 @@ const defaultTiming = {
   ease: easeCubicInOut,
 }; 
 ```
-You have the same transition event hooks that you have on transitions in D3: **start**, **interrupt** and **end**.
-Just pass a function to be called in the events section of your transition object.
 
-Here's the Bar component from the next example below:
+Just override what you need to in your transition object:
+
 ```js
-class Bar extends PureComponent {
-  static propTypes = {
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired,
-  }
+import { easeExpInOut } from 'd3-ease';
 
-  state = {
-    opacity: 1e-6,
-    x: 0,
-    fill: 'green',
-    width: this.props.xScale.bandwidth(),
-    height: 0,
-  }
-
-  onEnter = () => ([  // An array!!
-    {
-      opacity: [0.6],
-      width: [this.props.xScale.bandwidth()],
-      height: [this.props.yScale(this.props.data.value)],
-      timing: { duration: 1000 },
-    },
-    {
-      x: [this.props.xScale(this.props.data.name)],
-      timing: { duration: 100 * this.props.index, ease: easePoly },
-    },
-  ])
-
-  onUpdate = () => ([  // An array!!
-    {
-      opacity: [0.6],
-      fill: ['blue', 'grey'],
-      timing: { duration: 2000 },
-    },
-    {
-      x: [this.props.xScale(this.props.data.name)],
-      timing: { duration: 2000, ease: easeExpInOut },
-    },
-    {
-      width: [this.props.xScale.bandwidth()],
-      timing: { duration: 500 },
-    },
-    {
-      height: [this.props.yScale(this.props.data.value)],
-      timing: { delay: 2000, duration: 500 },
-      events: { // Events!!
-        end: () => {
-          this.setState({ fill: 'steelblue' });
-        },
+onUpdate = () => ([  // An array!!
+  {
+    opacity: [0.6],
+    fill: ['blue', 'grey'],
+    timing: { duration: 2000 }, // specify duration for fill and opacity
+  },
+  {
+    x: [this.props.xScale(this.props.data.name)],
+    timing: { duration: 2000, ease: easeExpInOut }, // duration and d3-ease function for x
+  },
+  {
+    width: [this.props.xScale.bandwidth()],
+    timing: { duration: 500 }, // separate timing for width
+  },
+  {
+    height: [this.props.yScale(this.props.data.value)],
+    timing: { delay: 2000, duration: 500 }, // add delay and duration for height
+    events: { //Events!! When this transition has finished set the fill to 'steelblue';
+      end: () => {
+        this.setState({ fill: 'steelblue' });
       },
     },
-  ])
-
-  onExit = () => ({
-    opacity: [1e-6],
-    fill: 'red',
-    timing: { duration: 1000 },
-    events: { end: this.props.remove },
-  })
-
-  render() {
-    const { x, height, ...rest } = this.state;
-
-    return (
-      <g transform={`translate(${x},0)`}>
-        <rect
-          y={height}
-          height={dims[1] - height}
-          {...rest}
-        />
-        <text
-          x="0"
-          y="20"
-          fill="grey"
-          transform="rotate(90 5,20)"
-        >{`x: ${x}`}</text>
-        <text
-          x="0"
-          y="5"
-          fill="grey"
-          transform="rotate(90 5,20)"
-        >{`name: ${this.props.data.name}`}</text>
-      </g>
-    );
-  }
-}
+  },
+])
 ```
+
+You have the same transition event hooks that you have on transitions in D3: **start**, **interrupt** and **end**.
+Just pass a function to be called in the events section of your transition object.

@@ -1,3 +1,98 @@
+Here's the complete circle component from the example above:
+```js
+class Circle extends PureComponent {
+  static propTypes = {
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    scale: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+    remove: PropTypes.func.isRequired,
+  }
+
+  state = {
+    g: {
+      opacity: 1e-6,
+      transform: 'translate(0,0)',
+    },
+    circle: {
+      r: 1e-6,
+      strokeWidth: 1e-6,
+      fill: 'green',
+    },
+  }
+
+  onEnter() {
+    const { data: { name }, scale } = this.props;
+
+    return {
+      g: {
+        opacity: [0.4],
+        transform: [`translate(${scale(name) + (scale.bandwidth() / 2)},0)`],
+      },
+      circle: {
+        r: [this.props.scale.bandwidth() / 2],
+        strokeWidth: [(this.props.index + 1) * 2],
+        fill: 'green',
+      },
+      timing: { duration: 1000, ease: easeExpInOut },
+    };
+  }
+
+  onUpdate() {
+    const { scale, index, data: { name } } = this.props;
+
+    return {
+      g: {
+        opacity: [0.4],
+        transform: [`translate(${scale(name) + (scale.bandwidth() / 2)},0)`],
+      },
+      circle: {
+        r: [this.props.scale.bandwidth() / 2],
+        strokeWidth: [(index + 1) * 2],
+        fill: 'blue',
+      },
+      timing: { duration: 1000, ease: easeExpInOut },
+    };
+  }
+
+  onExit = () => ({
+    g: {
+      opacity: [1e-6],
+    },
+    circle: {
+      fill: 'red',
+    },
+    timing: { duration: 1000, ease: easeExpInOut },
+    events: { end: this.props.remove },
+  })
+
+  render() {
+    return (
+      <g {...this.state.g}>
+        <circle
+          stroke="grey"
+          cy={dims[1] / 2}
+          {...this.state.circle}
+        />
+        <text
+          x="0"
+          y="20"
+          fill="#333"
+          transform="rotate(-45 5,20)"
+        >{`x: ${this.state.g.transform}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="#333"
+          transform="rotate(-45 5,20)"
+        >{`name: ${this.props.data.name}`}</text>
+      </g>
+    );
+  }
+}
+```
+
 ### `Removing Items from Transitions`
 
 Your node component receives a remove function that simply needs to be invoked (no parameters) to ensure the node is removed. The API tracks closely with how [D3](https://github.com/d3/d3-selection) works.
