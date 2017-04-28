@@ -42,7 +42,7 @@ npm install resonance
 ## SVG Chart Examples
 
 You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.  You can view the [example code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) here for the chart examples.
-Each example is built a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
+Each example is a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
 You can run these examples locally by following the direction above.
 
 <a href="https://sghall.github.io/resonance/#/examples/webpack-sunburst">
