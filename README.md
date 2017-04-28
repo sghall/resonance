@@ -21,8 +21,7 @@ npm install resonance
 
 ## Why would I need this?
 
-Resonance handles much of the heavy lifting for:
-
+**Resonance handles much of the heavy lifting for...**
 * Creating expressive custom transitions easily
 * Animating anything! HTML, SVG, React-Native components...
 * Transitioning numbers, strings, colors, SVG transforms...
