@@ -8,7 +8,7 @@
 
 Animated state transitions that update with your data. 
 This library uses [d3-timer](https://github.com/d3/d3-timer) and a sophisticated scheduling mechanism to efficiently manage thousands of state tweens.
-You can apply high-performance state animations using an appraochable, easy to implement syntax.
+You can apply high-performance state animations using an approachable, easy to implement syntax.
 [Get Started](https://sghall.github.io/resonance/#/documentation/create-node-group).
 
 ## Installation
