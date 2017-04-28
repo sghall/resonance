@@ -1,7 +1,7 @@
 {
   "name": "resonance",
   "private": true,
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Data-driven transitions in React",
   "main": "index.js",
   "repository": "git+https://github.com/sghall/resonance.git",
