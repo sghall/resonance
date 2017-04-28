@@ -6,7 +6,7 @@ import dataUpdate from '../core/dataUpdate';
 import withTransitions from '../core/withTransitions';
 import { getDisplayName, getRemoveUDID } from '../core/helpers';
 
-const keyAccessor = (d, i) => `tick-${i}`;
+const keyAccessor = (d) => `tick-${d.val}`;
 
 export const propTypes = {
   scale: PropTypes.func.isRequired,
