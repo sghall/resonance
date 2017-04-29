@@ -86,13 +86,11 @@ export default class Transition extends Component {
     }));
 
     // Get the new items with their keys and data
-    const newItems = data.map((d, i) => {
-      return {
-        key: getKey(d, i),
-        data: d,
-        progress: 0,
-      };
-    });
+    const newItems = data.map((d, i) => ({
+      key: getKey(d, i),
+      data: d,
+      progress: 0,
+    }));
 
     // Find items that are entering
     newItems.filter(
@@ -137,34 +135,33 @@ export default class Transition extends Component {
     // give each item it's new origin/destination states
     // with corresponding interpolators
     this.items = mergeItems(currentItems, newItems).map((item) => {
-      // Reset the progress on the item
-      const progress = 0;
+      const { key, data, state, entering, leaving } = item; // eslint-disable-line no-shadow
 
       let originState;
       let destState;
-      let interpolators;
 
-      if (item.leaving) {
-        destState = leave(item.data, item.key);
-        originState = item.state;
-        interpolators = makeInterpolators(originState, destState);
-      } else if (item.entering) {
-        destState = item.state || update(item.data, item.key);
-        originState = enter(item.data, item.key) || destState;
-        interpolators = makeInterpolators(originState, destState);
+      if (leaving) {
+        originState = state;
+        destState = leave(data, key);
+      } else if (entering) {
+        originState = enter(data, key) || destState;
+        destState = state || update(data, key);
       } else {
-        const previous = currentItems.find((d) => d.key === item.key);
-        destState = update(item.data, item.key);
+        const previous = currentItems.find((d) => d.key === key);
         originState = previous.state;
-        interpolators = makeInterpolators(originState, destState);
+        destState = update(data, key);
       }
 
       return {
-        ...item,
-        progress,
+        key,
+        data,
+        state,
+        entering,
+        leaving,
+        progress: 0,
         originState,
         destState,
-        interpolators,
+        interpolators: makeInterpolators(originState, destState),
       };
     });
 
