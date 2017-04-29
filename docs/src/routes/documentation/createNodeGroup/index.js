@@ -6,6 +6,7 @@ import Title from 'react-title-component';
 import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 
+import Example0 from './Example0';
 import Example1 from './Example1';
 import Example2 from './Example2';
 import Example3 from './Example3';
@@ -17,6 +18,12 @@ const NodeGroupDocs = (props) => {
     <div>
       <Title render={(previousTitle) => `createNodeGroup - ${previousTitle}`} />
       <MarkdownElement text={docContext('./createNodeGroup/README1.md')} />
+      <CodeExample
+        code={docContext('./createNodeGroup/Example0')}
+        title="Example 0: Simple Bars"
+      >
+        <Example0 />
+      </CodeExample>
       <CodeExample
         code={docContext('./createNodeGroup/Example1')}
         title="Example 1: Simple Bars"
