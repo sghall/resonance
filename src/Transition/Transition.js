@@ -109,7 +109,7 @@ export default class Transition extends Component {
         (destItem) => destItem.key === originItem.key,
       ),
     ).forEach((item) => {
-      item.entering = true; // eslint-disable-line no-param-reassign
+      item.leaving = true; // eslint-disable-line no-param-reassign
     });
 
     // Used to make all the interpolators from origin to destination states
