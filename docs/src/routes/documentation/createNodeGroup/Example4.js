@@ -2,8 +2,7 @@
 /* eslint react/no-multi-comp: "off" */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import createNodeGroup from 'resonance/createNodeGroup';
+import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { easeExpInOut } from 'd3-ease';
 import { scaleBand } from 'd3-scale';
@@ -88,115 +87,6 @@ const data = [
 ];
 
 // **************************************************
-//  Circle Component
-// **************************************************
-class Circle extends PureComponent {
-  static propTypes = {
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    scale: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
-    remove: PropTypes.func.isRequired,
-  }
-
-  state = {
-    g: {
-      opacity: 1e-6,
-      transform: 'translate(0,0)',
-    },
-    circle: {
-      r: 1e-6,
-      strokeWidth: 1e-6,
-      fill: 'green',
-    },
-  }
-
-  onEnter() {
-    const { data: { name }, scale } = this.props;
-
-    return {
-      g: {
-        opacity: [0.4],
-        transform: [`translate(${scale(name) + (scale.bandwidth() / 2)},0)`],
-      },
-      circle: {
-        r: [this.props.scale.bandwidth() / 2],
-        strokeWidth: [(this.props.index + 1) * 2],
-        fill: 'green',
-      },
-      timing: { duration: 1000, ease: easeExpInOut },
-    };
-  }
-
-  onUpdate() {
-    const { scale, index, data: { name } } = this.props;
-
-    return {
-      g: {
-        opacity: [0.4],
-        transform: [`translate(${scale(name) + (scale.bandwidth() / 2)},0)`],
-      },
-      circle: {
-        r: [this.props.scale.bandwidth() / 2],
-        strokeWidth: [(index + 1) * 2],
-        fill: 'blue',
-      },
-      timing: { duration: 1000, ease: easeExpInOut },
-    };
-  }
-
-  onExit = () => ({
-    g: {
-      opacity: [1e-6],
-    },
-    circle: {
-      fill: 'red',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
-    events: { end: this.props.remove },
-  })
-
-  render() {
-    return (
-      <g {...this.state.g}>
-        <circle
-          stroke="grey"
-          cy={dims[1] / 2}
-          {...this.state.circle}
-        />
-        <text
-          x="0"
-          y="20"
-          fill="#333"
-          transform="rotate(-45 5,20)"
-        >{`x: ${this.state.g.transform}`}</text>
-        <text
-          x="0"
-          y="5"
-          fill="#333"
-          transform="rotate(-45 5,20)"
-        >{`name: ${this.props.data.name}`}</text>
-      </g>
-    );
-  }
-}
-
-const Wrapper = (props) => { // Custom component wrapper
-  return (
-    <g>
-      {props.children}
-    </g>
-  );
-};
-
-Wrapper.propTypes = {
-  children: PropTypes.any,
-};
-
-const CircleGroup = createNodeGroup(Circle, Wrapper, (d) => d.name);
-
-// **************************************************
 //  Example
 // **************************************************
 class Example extends PureComponent {
@@ -231,9 +121,82 @@ class Example extends PureComponent {
           Circle Count: {this.state.data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <CircleGroup
+          <NodeGroup
             data={this.state.data}
-            scale={scale}
+            keyAccessor={(d) => d.name}
+
+            start={() => ({
+              g: {
+                opacity: 1e-6,
+                transform: 'translate(0,0)',
+              },
+              circle: {
+                r: 1e-6,
+                strokeWidth: 1e-6,
+                fill: 'green',
+              },
+            })}
+
+            enter={(node, index) => ({
+              g: {
+                opacity: [0.4],
+                transform: [`translate(${scale(node.name) + (scale.bandwidth() / 2)},0)`],
+              },
+              circle: {
+                r: [scale.bandwidth() / 2],
+                strokeWidth: [(index + 1) * 2],
+                fill: 'green',
+              },
+              timing: { duration: 1000, ease: easeExpInOut },
+            })}
+
+            update={(node, index) => ({
+              g: {
+                opacity: [0.4],
+                transform: [`translate(${scale(node.name) + (scale.bandwidth() / 2)},0)`],
+              },
+              circle: {
+                r: [scale.bandwidth() / 2],
+                strokeWidth: [(index + 1) * 2],
+                fill: 'blue',
+              },
+              timing: { duration: 1000, ease: easeExpInOut },
+            })}
+
+            leave={(node, index, remove) => ({
+              g: {
+                opacity: [1e-6],
+              },
+              circle: {
+                fill: 'red',
+              },
+              timing: { duration: 1000, ease: easeExpInOut },
+              events: { end: remove },
+            })}
+
+            render={(node, state) => {
+              return (
+                <g {...state.g}>
+                  <circle
+                    stroke="grey"
+                    cy={dims[1] / 2}
+                    {...state.circle}
+                  />
+                  <text
+                    x="0"
+                    y="20"
+                    fill="#333"
+                    transform="rotate(-45 5,20)"
+                  >{`x: ${state.g.transform}`}</text>
+                  <text
+                    x="0"
+                    y="5"
+                    fill="#333"
+                    transform="rotate(-45 5,20)"
+                  >{`name: ${node.name}`}</text>
+                </g>
+              );
+            }}
           />
         </Surface>
       </div>
