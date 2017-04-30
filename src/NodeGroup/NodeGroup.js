@@ -56,6 +56,7 @@ export default class NodeGroup extends PureComponent {
 
   render() {
     const { props: {
+      data,
       start,
       enter,
       update,
@@ -76,6 +77,8 @@ export default class NodeGroup extends PureComponent {
         return (
           <Node
             key={udid}
+
+            data={data}
 
             udid={udid}
             type={type}
