@@ -13,11 +13,14 @@ export const propTypes = {
     PropTypes.array, // NodeGroup data
     PropTypes.func,  // TickGroup scale
   ]),
-  getInitialState: PropTypes.func.isRequired,
-  onEnter: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  onExit: PropTypes.func.isRequired,
-  renderData: PropTypes.func.isRequired,
+  start: PropTypes.func.isRequired,
+
+  enter: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
+  leave: PropTypes.func.isRequired,
+
+  render: PropTypes.func.isRequired,
+
   removeUDID: PropTypes.func.isRequired,
   lazyRemoveUDID: PropTypes.func.isRequired,
 };
@@ -33,11 +36,11 @@ export default class Node extends PureComponent {
     (this:any).lazyRemove = this.lazyRemove.bind(this);
   }
 
-  state = this.props.getInitialState(this.props.node);
+  state = this.props.start(this.props.node);
 
   componentDidMount() {
-    const { node, onEnter } = this.props;
-    transition.call(this, onEnter(node, this.remove, this.lazyRemove));
+    const { node, enter } = this.props;
+    transition.call(this, enter(node, this.remove, this.lazyRemove));
   }
 
   componentWillReceiveProps(next) {
@@ -48,19 +51,19 @@ export default class Node extends PureComponent {
         case ENTER:
           transition.call(
             this,
-            next.onEnter(next.node, this.remove, this.lazyRemove),
+            next.enter(next.node, this.remove, this.lazyRemove),
           );
           break;
         case UPDATE:
           transition.call(
             this,
-            next.onUpdate(next.node, this.remove, this.lazyRemove),
+            next.update(next.node, this.remove, this.lazyRemove),
           );
           break;
         case EXIT:
           transition.call(
             this,
-            next.onExit(next.node, this.remove, this.lazyRemove),
+            next.leave(next.node, this.remove, this.lazyRemove),
           );
           break;
         default:
@@ -116,8 +119,8 @@ export default class Node extends PureComponent {
   // }
 
   render() {
-    const { state, props: { udid, node, renderData } } = this;
+    const { state, props: { udid, node, render } } = this;
 
-    return renderData(udid, node, state);
+    return render(udid, node, state);
   }
 }
