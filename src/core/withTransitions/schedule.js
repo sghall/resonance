@@ -65,7 +65,7 @@ function create(node, id:number, config) {
         s.state = ENDED;
         s.timer.stop();
         if (s.events.interrupt && typeof s.events.interrupt === 'function') {
-          s.events.interrupt();
+          s.events.interrupt.call(this);
         }
         delete schedules[sid];
       } else if (+sid < id) {
@@ -89,7 +89,7 @@ function create(node, id:number, config) {
 
     transition.state = STARTING;
     if (transition.events.start && typeof transition.events.start === 'function') {
-      transition.events.start();
+      transition.events.start.call(node);
     }
 
     if (transition.state !== STARTING) { // interrupted
@@ -130,7 +130,7 @@ function create(node, id:number, config) {
 
     if (transition.state === ENDING) {
       if (transition.events.end && typeof transition.events.end === 'function') {
-        transition.events.end();
+        transition.events.end.call(node);
       }
       stop();
     }
