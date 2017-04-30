@@ -3,7 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import createNodeGroup from 'resonance/createNodeGroup';
+import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { shuffle, max } from 'd3-array';
@@ -182,7 +182,7 @@ class Bar extends PureComponent {
   }
 }
 
-const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
+// const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
 
 // **************************************************
 //  Example
@@ -222,10 +222,88 @@ class Example extends PureComponent {
           Bar Count: {this.state.data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <BarGroup
+          <NodeGroup
             data={this.state.data}
-            xScale={xScale}
-            yScale={yScale}
+            keyAccessor={(d) => d.name}
+
+            start={() => ({
+              opacity: 1e-6,
+              x: 0,
+              fill: 'green',
+              width: xScale.bandwidth(),
+              height: 0,
+            })}
+
+            enter={(node, index) => ([  // An array!!
+              {
+                opacity: [0.6],
+                width: [xScale.bandwidth()],
+                height: [yScale(node.value)],
+                timing: { duration: 1000 },
+              },
+              {
+                x: [xScale(node.name)],
+                timing: { duration: 100 * index, ease: easePoly },
+              },
+            ])}
+
+            update={(node) => ([  // An array!!
+              {
+                opacity: [0.6],
+                fill: ['blue', 'grey'],
+                timing: { duration: 2000 },
+              },
+              {
+                x: [xScale(node.name)],
+                timing: { duration: 2000, ease: easeExpInOut },
+              },
+              {
+                width: [xScale.bandwidth()],
+                timing: { duration: 500 },
+              },
+              {
+                height: [yScale(node.value)],
+                timing: { delay: 2000, duration: 500 },
+                events: { // Events!!
+                  end() {
+                    this.setState({ fill: 'steelblue' });
+                  },
+                },
+              },
+            ])}
+
+            leave={(node, index, remove) => ({
+              opacity: [1e-6],
+              fill: 'red',
+              timing: { duration: 1000 },
+              events: { end: remove },
+            })}
+
+            render={(node, state) => {
+              const { x, height, ...rest } = state;
+
+              return (
+                <g transform={`translate(${x},0)`}>
+                  <rect
+                    y={height}
+                    height={dims[1] - height}
+                    {...rest}
+                  />
+                  <text
+                    x="0"
+                    y="20"
+                    fill="grey"
+                    transform="rotate(90 5,20)"
+                  >{`x: ${x}`}</text>
+                  <text
+                    x="0"
+                    y="5"
+                    fill="grey"
+                    transform="rotate(90 5,20)"
+                  >{`name: ${node.name}`}</text>
+                </g>
+              );
+            }}
           />
         </Surface>
       </div>
