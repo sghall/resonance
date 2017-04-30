@@ -2,8 +2,7 @@
 /* eslint react/no-multi-comp: 'off' */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import createNodeGroup from 'resonance/createNodeGroup';
+import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
@@ -88,79 +87,6 @@ const data = [
 ];
 
 // **************************************************
-//  Bar Component
-// **************************************************
-class Bar extends PureComponent {
-  static propTypes = {
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    scale: PropTypes.func.isRequired,  // prop passed down from NodeGroup
-    remove: PropTypes.func.isRequired, // function passed down to each node
-  }
-
-  state = {
-    opacity: 1e-6,
-    x: this.props.scale(this.props.data.name),
-    fill: 'green',
-    width: this.props.scale.bandwidth(),
-  }
-
-  onEnter = () => ({
-    opacity: [0.5],
-    x: [this.props.scale(this.props.data.name)],
-    fill: ['blue'],
-    width: [this.props.scale.bandwidth()],
-    timing: { duration: 1500 },
-  })
-
-  onUpdate = () => ({
-    opacity: [0.5],
-    x: [this.props.scale(this.props.data.name)],
-    fill: ['blue'],
-    width: [this.props.scale.bandwidth()],
-    timing: { duration: 1500 },
-  })
-
-  onExit = () => ({
-    opacity: [1e-6],
-    x: [this.props.scale.range()[1]],
-    fill: ['red'],
-    width: [this.props.scale.bandwidth()],
-    timing: { duration: 1500 },
-    events: { end: this.props.remove },
-  })
-
-  render() {
-    const { x, ...rest } = this.state;
-
-    return (
-      <g transform={`translate(${x},0)`}>
-        <rect
-          height={dims[1]}
-          {...rest}
-        />
-        <text
-          x="0"
-          y="20"
-          fill="white"
-          transform="rotate(90 5,20)"
-        >{`x: ${x}`}</text>
-        <text
-          x="0"
-          y="5"
-          fill="white"
-          transform="rotate(90 5,20)"
-        >{`name: ${this.props.data.name}`}</text>
-      </g>
-    );
-  }
-}
-
-const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
-
-// **************************************************
 //  Example
 // **************************************************
 class Example extends PureComponent {
@@ -170,12 +96,12 @@ class Example extends PureComponent {
   }
 
   state = {
-    data: shuffle(data).slice(0, 15),
+    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, 15),
+      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
     });
   }
 
@@ -194,9 +120,63 @@ class Example extends PureComponent {
           Bar Count: {this.state.data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <BarGroup
+          <NodeGroup
             data={this.state.data}
-            scale={scale}
+            keyAccessor={(d) => d.name}
+
+            start={() => ({
+              opacity: 1e-6,
+              x: 1e-6,
+              fill: 'green',
+              width: scale.bandwidth(),
+            })}
+
+            enter={(node, index) => ({
+              opacity: [0.5],
+              x: [scale(node.name)],
+              timing: { duration: 200 * index, delay: 1000 },
+            })}
+
+            update={(node) => ({
+              opacity: [0.5],
+              x: [scale(node.name)],
+              fill: 'blue',
+              width: [scale.bandwidth()],
+              timing: { duration: 1000, ease: easePoly },
+            })}
+
+            leave={(node, index, remove) => ({
+              opacity: [1e-6],
+              x: [scale.range()[1]],
+              fill: 'red',
+              timing: { duration: 1000 },
+              events: { end: remove },
+            })}
+
+            render={(node, state) => {
+              const { x, ...rest } = state;
+
+              return (
+                <g transform={`translate(${x},0)`}>
+                  <rect
+                    height={dims[1]}
+                    {...rest}
+                  />
+                  <text
+                    x="0"
+                    y="20"
+                    fill="white"
+                    transform="rotate(90 5,20)"
+                  >{`x: ${x}`}</text>
+                  <text
+                    x="0"
+                    y="5"
+                    fill="white"
+                    transform="rotate(90 5,20)"
+                  >{`name: ${node.name}`}</text>
+                </g>
+              );
+            }}
           />
         </Surface>
       </div>

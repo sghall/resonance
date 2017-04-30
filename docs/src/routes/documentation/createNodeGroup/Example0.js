@@ -85,6 +85,7 @@ const data = [
   },
 ];
 
+
 class Example extends PureComponent {
   constructor(props) {
     super(props);
