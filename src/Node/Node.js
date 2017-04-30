@@ -1,9 +1,9 @@
 // @flow weak
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
-import transition from './transition';
-import stop from './stop';
-import { ENTER, UPDATE, EXIT } from '../types';
+import transition from '../core/transition';
+import stop from '../core/stop';
+import { ENTER, UPDATE, EXIT } from '../core/types';
 
 export const propTypes = {
   type: PropTypes.string.isRequired,
@@ -119,8 +119,8 @@ export default class Node extends PureComponent {
   // }
 
   render() {
-    const { state, props: { udid, node, render } } = this;
+    const { state, props: { node, render } } = this;
 
-    return render(udid, node, state);
+    return render(node, state);
   }
 }
