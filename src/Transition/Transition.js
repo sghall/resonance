@@ -4,9 +4,8 @@
 import React, { Component } from 'react';
 import now from 'performance-now';
 import RAF from 'raf';
-import { interpolate } from 'd3-interpolate';
 import * as Easing from 'd3-ease';
-import { dedupe, mergeItems } from './helpers';
+import { dedupe, mergeItems, makeInterpolators } from './helpers';
 
 const msPerFrame = 1000 / 60;
 
@@ -111,25 +110,7 @@ export default class Transition extends Component {
     });
 
     // Used to make all the interpolators from origin to destination states
-    const makeInterpolators = (originState, destState) => {
-      // Make sure we interpolate new and old keys
-      const allKeys = dedupe(Object.keys(originState), Object.keys(destState));
-      const interpolators = {};
 
-      allKeys.forEach((key) => {
-        if (ignore.indexOf(key) > -1) {
-          interpolators[key] = null;
-          return;
-        }
-        if (originState[key] === destState[key]) {
-          interpolators[key] = null;
-          return;
-        }
-        interpolators[key] = interpolate(originState[key], destState[key]);
-      });
-
-      return interpolators;
-    };
 
     // Merge all of the items together and
     // give each item it's new origin/destination states
@@ -161,7 +142,7 @@ export default class Transition extends Component {
         progress: 0,
         originState,
         destState,
-        interpolators: makeInterpolators(originState, destState),
+        interpolators: makeInterpolators(originState, destState, ignore),
       };
     });
 

@@ -1,4 +1,5 @@
 // @flow weak
+import { interpolate } from 'd3-interpolate';
 
 export function dedupe(...arrs) {
   const allItems = arrs.reduce((a, b) => a.concat(b), []);
@@ -91,3 +92,23 @@ export function mergeItems(prev, next) {
     return -1;
   });
 }
+
+export const makeInterpolators = (originState, destState, ignore) => {
+  // Make sure we interpolate new and old keys
+  const allKeys = dedupe(Object.keys(originState), Object.keys(destState));
+  const interpolators = {};
+
+  allKeys.forEach((key) => {
+    if (ignore.indexOf(key) > -1) {
+      interpolators[key] = null;
+      return;
+    }
+    if (originState[key] === destState[key]) {
+      interpolators[key] = null;
+      return;
+    }
+    interpolators[key] = interpolate(originState[key], destState[key]);
+  });
+
+  return interpolators;
+};
