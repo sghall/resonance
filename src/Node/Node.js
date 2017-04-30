@@ -17,6 +17,7 @@ export const propTypes = {
   onEnter: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onExit: PropTypes.func.isRequired,
+  renderData: PropTypes.func.isRequired,
   removeUDID: PropTypes.func.isRequired,
   lazyRemoveUDID: PropTypes.func.isRequired,
 };
@@ -27,7 +28,7 @@ export default class Node extends PureComponent {
   constructor(props) {
     super(props);
 
-    (this:any).getNodeRef = this.getNodeRef.bind(this);
+    // (this:any).getNodeRef = this.getNodeRef.bind(this);
     (this:any).remove = this.remove.bind(this);
     (this:any).lazyRemove = this.lazyRemove.bind(this);
   }
@@ -36,7 +37,7 @@ export default class Node extends PureComponent {
 
   componentDidMount() {
     const { node, onEnter } = this.props;
-    transition.call(this, onEnter(node));
+    transition.call(this, onEnter(node, this.remove, this.lazyRemove));
   }
 
   componentWillReceiveProps(next) {
@@ -45,13 +46,22 @@ export default class Node extends PureComponent {
     if (next.data !== props.data) {
       switch (next.type) {
         case ENTER:
-          transition.call(this, next.onEnter(next.node, this.remove));
+          transition.call(
+            this,
+            next.onEnter(next.node, this.remove, this.lazyRemove),
+          );
           break;
         case UPDATE:
-          transition.call(this, next.onUpdate(next.node, this.remove));
+          transition.call(
+            this,
+            next.onUpdate(next.node, this.remove, this.lazyRemove),
+          );
           break;
         case EXIT:
-          transition.call(this, next.onExit(next.node, this.remove));
+          transition.call(
+            this,
+            next.onExit(next.node, this.remove, this.lazyRemove),
+          );
           break;
         default:
           break;
@@ -63,7 +73,7 @@ export default class Node extends PureComponent {
     stop.call(this);
   }
 
-  node = null; // ref for wrapped component
+  // node = null; // ref for wrapped component
 
   // invokeMethodIfExists(method) {
   //   const { node } = this;
@@ -82,26 +92,32 @@ export default class Node extends PureComponent {
     lazyRemoveUDID(udid);
   }
 
-  getNodeRef(d) {
-    this.node = d;
-  }
+  // getNodeRef(d) {
+  //   this.node = d;
+  // }
+
+  // render() {
+  //   const props = Object.assign({}, this.props);
+
+  //   Object.keys(propTypes).forEach((p) => {
+  //     delete props[p];
+  //   });
+
+  //   return (
+  //     <Component
+  //       ref={this.getNodeRef}
+  //       type={this.props.type}
+  //       data={this.props.node}
+  //       remove={this.remove}
+  //       lazyRemove={this.lazyRemove}
+  //       {...props}
+  //     />
+  //   );
+  // }
 
   render() {
-    const props = Object.assign({}, this.props);
+    const { state, props: { udid, node, renderData } } = this;
 
-    Object.keys(propTypes).forEach((p) => {
-      delete props[p];
-    });
-
-    return (
-      <Component
-        ref={this.getNodeRef}
-        type={this.props.type}
-        data={this.props.node}
-        remove={this.remove}
-        lazyRemove={this.lazyRemove}
-        {...props}
-      />
-    );
+    return renderData(udid, node, state);
   }
 }
