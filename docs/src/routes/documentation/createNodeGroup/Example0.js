@@ -2,13 +2,10 @@
 /* eslint react/no-multi-comp: 'off' */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import createNodeGroup from 'resonance/createNodeGroup';
-import Transition from 'resonance/Transition';
+import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
-import { easePoly } from 'd3-ease';
 
 // **************************************************
 //  SVG Layout
@@ -88,83 +85,6 @@ const data = [
   },
 ];
 
-// **************************************************
-//  Bar Component
-// **************************************************
-// class Bar extends PureComponent {
-//   static propTypes = {
-//     data: PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//     }).isRequired,
-//     index: PropTypes.number.isRequired,
-//     scale: PropTypes.func.isRequired,  // prop passed down from NodeGroup
-//     remove: PropTypes.func.isRequired, // function passed down to each node
-//   }
-
-//   state = {
-//     opacity: 1e-6,
-//     x: 0,
-//     fill: 'green',
-//     width: 1e-6,
-//   }
-
-//   onEnter = () => ({
-//     opacity: [0.5],
-//     x: [this.props.scale(this.props.data.name)],
-//     width: [this.props.scale.bandwidth()],
-//     timing: { duration: 200 * this.props.index, delay: 1000 },
-//   })
-
-//   onUpdate = () => ({
-//     opacity: [0.5],
-//     x: [this.props.scale(this.props.data.name)],
-//     fill: 'blue',
-//     width: [this.props.scale.bandwidth()],
-//     timing: { duration: 1000, ease: easePoly },
-//   })
-
-//   onExit = () => ({
-//     opacity: [1e-6],
-//     x: [this.props.scale.range()[1]],
-//     fill: 'red',
-//     timing: { duration: 1000 },
-//     events: { end: this.props.remove },
-//   })
-
-//   render() {
-//     const { x, ...rest } = this.state;
-
-//     return (
-//       <g transform={`translate(${x},0)`}>
-//         <rect
-//           height={dims[1]}
-//           {...rest}
-//         />
-//         <text
-//           x="0"
-//           y="20"
-//           fill="white"
-//           transform="rotate(90 5,20)"
-//         >{`x: ${x}`}</text>
-//         <text
-//           x="0"
-//           y="5"
-//           fill="white"
-//           transform="rotate(90 5,20)"
-//         >{`name: ${this.props.data.name}`}</text>
-//       </g>
-//     );
-//   }
-// }
-
-// const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
-
-// **************************************************
-//  Example
-// **************************************************
-// const items = _.filter(items, (d, i) => i > Math.random() * 10)
-
-
 class Example extends PureComponent {
   constructor(props) {
     super(props);
@@ -197,65 +117,64 @@ class Example extends PureComponent {
           Bar Count: {this.state.data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <Transition
+          <NodeGroup
             data={this.state.data}
+            keyAccessor={(d) => d.name}
 
-            getKey={(d) => d.name}
-
-            enter={(item) => ({
+            start={() => ({
               opacity: 1e-6,
-              x: scale(item.name),
+              x: 1e-6,
               fill: 'green',
               width: scale.bandwidth(),
             })}
 
-            update={(item) => ({
-              opacity: 0.5,
-              x: scale(item.name),
+            enter={(node) => ({
+              opacity: [0.5],
+              x: [scale(node.name)],
+              timing: { duration: 1500 },
+            })}
+
+            update={(node) => ({
+              opacity: [0.5],
+              x: [scale(node.name)],
               fill: 'blue',
-              width: scale.bandwidth(),
+              width: [scale.bandwidth()],
+              timing: { duration: 1500 },
             })}
 
-            leave={(/* item */) => ({
-              opacity: 1e-6,
-              x: scale.range()[1],
+            leave={(node, index, remove) => ({
+              opacity: [1e-6],
+              x: [scale.range()[1]],
               fill: 'red',
-              width: scale.bandwidth(),
+              timing: { duration: 1500 },
+              events: { end: remove },
             })}
 
-            duration={1500}
-            easing="easeQuadIn"
-          >
-            {(items) => ( // the child function is passed an array of itemStates
-              <g>
-                {items.map((item) => {
-                  const { key, state: { x, ...rest } } = item;
-                  // console.log(item);
+            render={(node, state) => {
+              const { x, ...rest } = state;
 
-                  return (
-                    <g key={key} transform={`translate(${x},0)`}>
-                      <rect
-                        height={dims[1]}
-                        {...rest}
-                      />
-                      <text
-                        x="0"
-                        y="20"
-                        fill="white"
-                        transform="rotate(90 5,20)"
-                      >{`x: ${x}`}</text>
-                      <text
-                        x="0"
-                        y="5"
-                        fill="white"
-                        transform="rotate(90 5,20)"
-                      >{`name: ${item.data.name}`}</text>
-                    </g>
-                  );
-                })}
-              </g>
-            )}
-          </Transition>
+              return (
+                <g transform={`translate(${x},0)`}>
+                  <rect
+                    height={dims[1]}
+                    {...rest}
+                  />
+                  <text
+                    x="0"
+                    y="20"
+                    fill="white"
+                    transform="rotate(90 5,20)"
+                  >{`x: ${x}`}</text>
+                  <text
+                    x="0"
+                    y="5"
+                    fill="white"
+                    transform="rotate(90 5,20)"
+                  >{`name: ${node.name}`}</text>
+                </g>
+              );
+            }}
+          />
         </Surface>
       </div>
     );
