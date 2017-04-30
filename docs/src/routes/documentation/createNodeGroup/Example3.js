@@ -202,7 +202,7 @@ class Example extends PureComponent {
                     y="5"
                     fill="grey"
                     transform="rotate(90 5,20)"
-                  >{`name: ${node.name}`}</text>
+                  >{`name: ${node.name}, value: ${node.value}`}</text>
                 </g>
               );
             }}
