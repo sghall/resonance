@@ -1,13 +1,12 @@
 // @flow weak
-/* eslint react/no-multi-comp: "off" */
+/* eslint react/no-multi-comp: 'off' */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import createNodeGroup from 'resonance/createNodeGroup';
+import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
-import { scaleBand, scaleLinear } from 'd3-scale';
-import { shuffle, max } from 'd3-array';
-import { easeExpInOut, easePoly } from 'd3-ease';
+import { scaleBand } from 'd3-scale';
+import { shuffle } from 'd3-array';
+import { easePoly } from 'd3-ease';
 
 // **************************************************
 //  SVG Layout
@@ -88,103 +87,6 @@ const data = [
 ];
 
 // **************************************************
-//  Bar Component
-// **************************************************
-class Bar extends PureComponent {
-  static propTypes = {
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired,
-  }
-
-  state = {
-    opacity: 1e-6,
-    x: 0,
-    fill: 'green',
-    width: this.props.xScale.bandwidth(),
-    height: 0,
-  }
-
-  onEnter = () => ([  // An array!!
-    {
-      opacity: [0.6],
-      width: [this.props.xScale.bandwidth()],
-      height: [this.props.yScale(this.props.data.value)],
-      timing: { duration: 1000 },
-    },
-    {
-      x: [this.props.xScale(this.props.data.name)],
-      timing: { duration: 100 * this.props.index, ease: easePoly },
-    },
-  ])
-
-  onUpdate = () => ([  // An array!!
-    {
-      opacity: [0.6],
-      fill: ['blue', 'grey'],
-      timing: { duration: 2000 },
-    },
-    {
-      x: [this.props.xScale(this.props.data.name)],
-      timing: { duration: 2000, ease: easeExpInOut },
-    },
-    {
-      width: [this.props.xScale.bandwidth()],
-      timing: { duration: 500 },
-    },
-    {
-      height: [this.props.yScale(this.props.data.value)],
-      timing: { delay: 2000, duration: 500 },
-      events: { // Events!!
-        end: () => {
-          this.setState({ fill: 'steelblue' });
-        },
-      },
-    },
-  ])
-
-  onExit = () => ({
-    opacity: [1e-6],
-    fill: 'red',
-    timing: { duration: 1000 },
-    events: { end: this.props.remove },
-  })
-
-  render() {
-    const { x, height, ...rest } = this.state;
-
-    return (
-      <g transform={`translate(${x},0)`}>
-        <rect
-          y={height}
-          height={dims[1] - height}
-          {...rest}
-        />
-        <text
-          x="0"
-          y="20"
-          fill="grey"
-          transform="rotate(90 5,20)"
-        >{`x: ${x}`}</text>
-        <text
-          x="0"
-          y="5"
-          fill="grey"
-          transform="rotate(90 5,20)"
-        >{`name: ${this.props.data.name}`}</text>
-      </g>
-    );
-  }
-}
-
-const BarGroup = createNodeGroup(Bar, 'g', (d) => d.name);
-
-// **************************************************
 //  Example
 // **************************************************
 class Example extends PureComponent {
@@ -194,24 +96,20 @@ class Example extends PureComponent {
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length * 0.7) - (5 + 1))) + 5),
+    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length * 0.7) - (5 + 1))) + 5),
+      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
     });
   }
 
   render() {
-    const xScale = scaleBand()
+    const scale = scaleBand()
       .rangeRound([0, dims[0]])
       .domain(this.state.data.map((d) => d.name))
       .padding(0.1);
-
-    const yScale = scaleLinear()
-      .rangeRound([dims[1], 0])
-      .domain([0, max(this.state.data.map((d) => d.value))]);
 
     return (
       <div>
@@ -222,10 +120,63 @@ class Example extends PureComponent {
           Bar Count: {this.state.data.length}
         </span>
         <Surface view={view} trbl={trbl}>
-          <BarGroup
+          <NodeGroup
             data={this.state.data}
-            xScale={xScale}
-            yScale={yScale}
+            keyAccessor={(d) => d.name}
+
+            start={() => ({
+              opacity: 1e-6,
+              x: 1e-6,
+              fill: 'green',
+              width: scale.bandwidth(),
+            })}
+
+            enter={(node, index) => ({
+              opacity: [0.5],
+              x: [scale(node.name)],
+              timing: { duration: 200 * index, delay: 1000 },
+            })}
+
+            update={(node) => ({
+              opacity: [0.5],
+              x: [scale(node.name)],
+              fill: 'blue',
+              width: [scale.bandwidth()],
+              timing: { duration: 1000, ease: easePoly },
+            })}
+
+            leave={(node, index, remove) => ({
+              opacity: [1e-6],
+              x: [scale.range()[1]],
+              fill: 'red',
+              timing: { duration: 1000 },
+              events: { end: remove },
+            })}
+
+            render={(node, state) => {
+              const { x, ...rest } = state;
+
+              return (
+                <g transform={`translate(${x},0)`}>
+                  <rect
+                    height={dims[1]}
+                    {...rest}
+                  />
+                  <text
+                    x="0"
+                    y="20"
+                    fill="white"
+                    transform="rotate(90 5,20)"
+                  >{`x: ${x}`}</text>
+                  <text
+                    x="0"
+                    y="5"
+                    fill="white"
+                    transform="rotate(90 5,20)"
+                  >{`name: ${node.name}`}</text>
+                </g>
+              );
+            }}
           />
         </Surface>
       </div>

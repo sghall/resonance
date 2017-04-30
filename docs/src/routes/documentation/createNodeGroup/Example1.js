@@ -6,7 +6,6 @@ import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
-import { easePoly } from 'd3-ease';
 
 // **************************************************
 //  SVG Layout
@@ -86,22 +85,21 @@ const data = [
   },
 ];
 
-// **************************************************
-//  Example
-// **************************************************
+
 class Example extends PureComponent {
   constructor(props) {
     super(props);
+
     (this:any).update = this.update.bind(this);
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+    data: shuffle(data).slice(0, 15),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+      data: shuffle(data).slice(0, 15),
     });
   }
 
@@ -131,10 +129,10 @@ class Example extends PureComponent {
               width: scale.bandwidth(),
             })}
 
-            enter={(node, index) => ({
+            enter={(node) => ({
               opacity: [0.5],
               x: [scale(node.name)],
-              timing: { duration: 200 * index, delay: 1000 },
+              timing: { duration: 1500 },
             })}
 
             update={(node) => ({
@@ -142,14 +140,14 @@ class Example extends PureComponent {
               x: [scale(node.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
-              timing: { duration: 1000, ease: easePoly },
+              timing: { duration: 1500 },
             })}
 
             leave={(node, index, remove) => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
               fill: 'red',
-              timing: { duration: 1000 },
+              timing: { duration: 1500 },
               events: { end: remove },
             })}
 
