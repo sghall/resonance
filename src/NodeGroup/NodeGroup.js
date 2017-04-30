@@ -55,15 +55,22 @@ export default class NodeGroup extends PureComponent {
   }
 
   render() {
-    const { props, state } = this;
-    const childProps = Object.assign({}, props);
-    delete childProps.className;
+    const { props: {
+      start,
+      enter,
+      update,
+      leave,
+      render,
+      component,
+      className,
+      keyAccessor,
+    }, state } = this;
 
     return React.createElement(
-      props.component,
-      { className: props.className },
+      component,
+      { className },
       state.nodes.map((node, index) => {
-        const udid = props.keyAccessor(node);
+        const udid = keyAccessor(node);
         const type = state.udids[udid];
 
         return (
@@ -75,17 +82,16 @@ export default class NodeGroup extends PureComponent {
             node={node}
             index={index}
 
-            start={props.start}
+            start={start}
 
-            enter={props.enter}
-            update={props.update}
-            leave={props.leave}
+            enter={enter}
+            update={update}
+            leave={leave}
 
-            render={props.render}
+            render={render}
 
             removeUDID={this.removeUDID}
             lazyRemoveUDID={this.lazyRemoveUDID}
-            {...childProps}
           />
         );
       }),

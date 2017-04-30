@@ -6,13 +6,16 @@ import stop from '../core/stop';
 import { ENTER, UPDATE, EXIT } from '../core/types';
 
 export const propTypes = {
-  type: PropTypes.string.isRequired,
-  udid: PropTypes.string.isRequired,
-  node: PropTypes.object.isRequired,
   data: PropTypes.oneOfType([
     PropTypes.array, // NodeGroup data
     PropTypes.func,  // TickGroup scale
   ]),
+
+  type: PropTypes.string.isRequired,
+  udid: PropTypes.string.isRequired,
+  node: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+
   start: PropTypes.func.isRequired,
 
   enter: PropTypes.func.isRequired,
@@ -36,34 +39,36 @@ export default class Node extends PureComponent {
     (this:any).lazyRemove = this.lazyRemove.bind(this);
   }
 
-  state = this.props.start(this.props.node);
+  state = this.props.start(this.props.node, this.props.index);
 
   componentDidMount() {
-    const { node, enter } = this.props;
-    transition.call(this, enter(node, this.remove, this.lazyRemove));
+    const { node, index, enter } = this.props;
+    transition.call(this, enter(node, index, this.remove, this.lazyRemove));
   }
 
   componentWillReceiveProps(next) {
     const { props } = this;
 
     if (next.data !== props.data) {
-      switch (next.type) {
+      const { type, node, index, enter, update, leave } = next;
+
+      switch (type) {
         case ENTER:
           transition.call(
             this,
-            next.enter(next.node, this.remove, this.lazyRemove),
+            enter(node, index, this.remove, this.lazyRemove),
           );
           break;
         case UPDATE:
           transition.call(
             this,
-            next.update(next.node, this.remove, this.lazyRemove),
+            update(node, index, this.remove, this.lazyRemove),
           );
           break;
         case EXIT:
           transition.call(
             this,
-            next.leave(next.node, this.remove, this.lazyRemove),
+            leave(node, index, this.remove, this.lazyRemove),
           );
           break;
         default:
@@ -119,8 +124,8 @@ export default class Node extends PureComponent {
   // }
 
   render() {
-    const { state, props: { node, render } } = this;
+    const { state, props: { node, index, render } } = this;
 
-    return render(node, state);
+    return render(node, state, index);
   }
 }
