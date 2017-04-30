@@ -7,17 +7,10 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
-import { utcFormat } from 'd3-time-format';
-import palette from 'docs/src/utils/palette';
 import { updateData, changeLayout, changeTension, makeGetSelectedData } from '../module';
-import { VIEW, TRBL } from '../module/constants';
-import PathGroup from './PathGroup';
-import TickGroup from './TickGroup';
 import description from '../description.md';
-
-const dateFormat = utcFormat('%-d/%-m/%Y');
+import AlluvialChart from './AlluvialChart';
 
 export class Example extends Component {
   constructor(props) {
@@ -114,41 +107,12 @@ export class Example extends Component {
             </div>
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
-                <Surface view={VIEW} trbl={TRBL}>
-                  <g>
-                    {xScale.ticks(4).map((d) => {
-                      const date = dateFormat(d);
-                      return (
-                        <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
-                          <line
-                            style={{ pointerEvents: 'none' }}
-                            x1={0} y1={0}
-                            x2={0} y2={yScale.range()[0]}
-                            opacity={0.2}
-                            stroke={palette.textColor}
-                          />
-                          <text
-                            fontSize="8px"
-                            textAnchor="middle"
-                            fill={palette.textColor}
-                            x={0} y={-10}
-                          >{date}</text>
-                        </g>
-                      );
-                    })}
-                  </g>
-                  <TickGroup
-                    scale={yScale}
-                    xScale={xScale}
-                    duration={duration}
-                  />
-                  <PathGroup
-                    data={paths}
-                    xScale={xScale}
-                    yScale={yScale}
-                    duration={duration}
-                  />
-                </Surface>
+                <AlluvialChart
+                  data={paths}
+                  xScale={xScale}
+                  yScale={yScale}
+                  duration={duration}
+                />
               </div>
             </div>
           </div>
