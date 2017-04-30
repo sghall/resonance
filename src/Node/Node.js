@@ -1,8 +1,8 @@
 // @flow weak
 import React, { PureComponent } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
-import transition from '../core/transition';
-import stop from '../core/stop';
+import transition from '../core/withTransitions/transition';
+import stop from '../core/withTransitions/stop';
 import { ENTER, UPDATE, EXIT } from '../core/types';
 
 export const propTypes = {
@@ -34,7 +34,6 @@ export default class Node extends PureComponent {
   constructor(props) {
     super(props);
 
-    // (this:any).getNodeRef = this.getNodeRef.bind(this);
     (this:any).remove = this.remove.bind(this);
     (this:any).lazyRemove = this.lazyRemove.bind(this);
   }
@@ -56,13 +55,13 @@ export default class Node extends PureComponent {
         case ENTER:
           transition.call(
             this,
-            enter(node, index, this.remove, this.lazyRemove),
+            enter(node, index),
           );
           break;
         case UPDATE:
           transition.call(
             this,
-            update(node, index, this.remove, this.lazyRemove),
+            update(node, index),
           );
           break;
         case EXIT:
@@ -81,15 +80,6 @@ export default class Node extends PureComponent {
     stop.call(this);
   }
 
-  // node = null; // ref for wrapped component
-
-  // invokeMethodIfExists(method) {
-  //   const { node } = this;
-  //   if (node && node[method]) {
-  //     transition.call(node, node[method]());
-  //   }
-  // }
-
   remove() {
     const { removeUDID, udid } = this.props;
     removeUDID(udid);
@@ -99,29 +89,6 @@ export default class Node extends PureComponent {
     const { lazyRemoveUDID, udid } = this.props;
     lazyRemoveUDID(udid);
   }
-
-  // getNodeRef(d) {
-  //   this.node = d;
-  // }
-
-  // render() {
-  //   const props = Object.assign({}, this.props);
-
-  //   Object.keys(propTypes).forEach((p) => {
-  //     delete props[p];
-  //   });
-
-  //   return (
-  //     <Component
-  //       ref={this.getNodeRef}
-  //       type={this.props.type}
-  //       data={this.props.node}
-  //       remove={this.remove}
-  //       lazyRemove={this.lazyRemove}
-  //       {...props}
-  //     />
-  //   );
-  // }
 
   render() {
     const { state, props: { node, index, render } } = this;
