@@ -102,31 +102,33 @@ class Bar extends PureComponent {
 
   state = {
     opacity: 1e-6,
-    x: 0,
+    x: this.props.scale(this.props.data.name),
     fill: 'green',
-    width: 1e-6,
+    width: this.props.scale.bandwidth(),
   }
 
   onEnter = () => ({
     opacity: [0.5],
     x: [this.props.scale(this.props.data.name)],
+    fill: ['blue'],
     width: [this.props.scale.bandwidth()],
-    timing: { duration: 200 * this.props.index, delay: 1000 },
+    timing: { duration: 1500 },
   })
 
   onUpdate = () => ({
     opacity: [0.5],
     x: [this.props.scale(this.props.data.name)],
-    fill: 'blue',
+    fill: ['blue'],
     width: [this.props.scale.bandwidth()],
-    timing: { duration: 1000, ease: easePoly },
+    timing: { duration: 1500 },
   })
 
   onExit = () => ({
     opacity: [1e-6],
     x: [this.props.scale.range()[1]],
-    fill: 'red',
-    timing: { duration: 1000 },
+    fill: ['red'],
+    width: [this.props.scale.bandwidth()],
+    timing: { duration: 1500 },
     events: { end: this.props.remove },
   })
 
@@ -168,12 +170,12 @@ class Example extends PureComponent {
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+    data: shuffle(data).slice(0, 15),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+      data: shuffle(data).slice(0, 15),
     });
   }
 
