@@ -1,12 +1,12 @@
 // @flow weak
 
 import React from 'react';
+import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import palette from 'docs/src/utils/palette';
 import PropTypes from 'prop-types';
 import { utcFormat } from 'd3-time-format';
 import { VIEW, TRBL } from '../module/constants';
-import PathGroup from './PathGroup';
 import TickGroup from './TickGroup';
 
 const dateFormat = utcFormat('%-d/%-m/%Y');
@@ -44,11 +44,37 @@ const AlluvialChart = (props) => {
         xScale={xScale}
         duration={duration}
       />
-      <PathGroup
+      <NodeGroup
         data={data}
-        xScale={xScale}
-        yScale={yScale}
-        duration={duration}
+        keyAccessor={(d) => d.name}
+
+        start={(node) => ({
+          opacity: 1e-6,
+          d: node.path,
+        })}
+
+        enter={() => ({
+          opacity: [0.5],
+          timing: { duration },
+        })}
+
+        update={(node) => ({
+          opacity: [0.5],
+          d: [node.path],
+          timing: { duration },
+        })}
+
+        leave={(node, index, remove) => ({
+          opacity: [1e-6],
+          timing: { duration },
+          events: { end: remove },
+        })}
+
+        render={(node, state) => {
+          return (
+            <path fill={node.fill} {...state} />
+          );
+        }}
       />
     </Surface>
   );
