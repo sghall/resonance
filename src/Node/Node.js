@@ -5,31 +5,29 @@ import transition from '../core/withTransitions/transition';
 import stop from '../core/withTransitions/stop';
 import { ENTER, UPDATE, EXIT } from '../core/types';
 
-export const propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.array, // NodeGroup data
-    PropTypes.func,  // TickGroup scale
-  ]),
-
-  type: PropTypes.string.isRequired,
-  udid: PropTypes.string.isRequired,
-  node: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-
-  start: PropTypes.func.isRequired,
-
-  enter: PropTypes.func.isRequired,
-  update: PropTypes.func.isRequired,
-  leave: PropTypes.func.isRequired,
-
-  render: PropTypes.func.isRequired,
-
-  removeUDID: PropTypes.func.isRequired,
-  lazyRemoveUDID: PropTypes.func.isRequired,
-};
-
 export default class Node extends PureComponent {
-  static propTypes = propTypes;
+  static propTypes = {
+    data: PropTypes.oneOfType([
+      PropTypes.array, // NodeGroup data
+      PropTypes.func,  // TickGroup scale
+    ]),
+
+    type: PropTypes.string.isRequired,
+    udid: PropTypes.string.isRequired,
+    node: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+
+    start: PropTypes.func.isRequired,
+
+    enter: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
+    leave: PropTypes.func.isRequired,
+
+    render: PropTypes.func.isRequired,
+
+    removeUDID: PropTypes.func.isRequired,
+    lazyRemoveUDID: PropTypes.func.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -42,7 +40,7 @@ export default class Node extends PureComponent {
 
   componentDidMount() {
     const { node, index, enter } = this.props;
-    transition.call(this, enter(node, index, this.remove, this.lazyRemove));
+    transition.call(this, enter(node, index));
   }
 
   componentWillReceiveProps(next) {
