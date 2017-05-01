@@ -113,6 +113,8 @@ export default class TickGroup extends PureComponent {
 
             render={render}
 
+            prevScale={state.prevScale}
+            currScale={state.currScale}
             removeUDID={this.removeUDID}
             lazyRemoveUDID={this.lazyRemoveUDID}
           />
