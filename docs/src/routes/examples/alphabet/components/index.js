@@ -2,14 +2,15 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import NodeGroup from 'resonance/NodeGroup';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import { shuffle } from 'd3-array';
 import { interval } from 'd3-timer';
+import { easePoly, easeBounce } from 'd3-ease';
 import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { VIEW, TRBL, ALPHABET, BASE_DURATION } from '../module/constants';
-import TextGroup from './TextGroup';
 import { dataUpdate, makeGetSelectedData, dims } from '../module';
 import description from '../description.md';
 
@@ -49,9 +50,51 @@ export class Example extends Component {
                     x1={0} y1={dims[1] / 2}
                     x2={dims[0]} y2={dims[1] / 2}
                   />
-                  <TextGroup
+                  <NodeGroup
                     data={this.props.data}
-                    className="text-group"
+                    keyAccessor={(d) => d.letter}
+
+                    start={(node) => ({
+                      x: node.xValue,
+                      y: 0,
+                      fill: '#3C564B',
+                      opacity: 1e-6,
+                    })}
+
+                    enter={(node) => ({
+                      x: node.xValue,
+                      y: [0, dims[1] / 2],
+                      fill: '#3C564B',
+                      opacity: [1e-6, 1],
+                      timing: { duration: BASE_DURATION, ease: easePoly },
+                    })}
+
+                    update={(node) => ({
+                      x: [node.xValue],
+                      y: [dims[1] / 2],
+                      fill: '#A5937C',
+                      opacity: [1],
+                      timing: { duration: BASE_DURATION, ease: easeBounce },
+                    })}
+
+                    leave={(node, index, remove, lazyRemove) => ({
+                      x: [node.xValue],
+                      y: [dims[1]],
+                      fill: '#A5937C',
+                      opacity: [1e-6],
+                      timing: { duration: BASE_DURATION / 2, ease: easePoly },
+                      events: { end: lazyRemove },
+                    })}
+
+                    render={(node, state) => {
+                      return (
+                        <text
+                          dy="-.35em"
+                          style={{ font: 'bold 30px monospace' }}
+                          {...state}
+                        >{node.letter}</text>
+                      );
+                    }}
                   />
                 </Surface>
               </div>
