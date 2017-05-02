@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
-import Node from '../Node';
+import Tick from '../Tick';
 import { getRemoveUDID } from '../core/helpers';
 
 const keyAccessor = (d) => `tick-${d.val}`;
@@ -21,7 +21,6 @@ export const propTypes = {
 
   component: PropTypes.any,
   className: PropTypes.string,
-  keyAccessor: PropTypes.func.isRequired,
 };
 
 export default class TickGroup extends PureComponent {
@@ -95,10 +94,10 @@ export default class TickGroup extends PureComponent {
         const type = state.udids[udid];
 
         return (
-          <Node
+          <Tick
             key={udid}
 
-            data={scale}
+            scale={scale}
 
             udid={udid}
             type={type}
