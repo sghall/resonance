@@ -7,9 +7,11 @@ import Surface from 'docs/src/components/Surface';
 import palette from 'docs/src/utils/palette';
 import PropTypes from 'prop-types';
 import { utcFormat } from 'd3-time-format';
-import { VIEW, TRBL } from '../module/constants';
+import { format } from 'd3-format';
+import { VIEW, TRBL, DIMS } from '../module/constants';
 
 const dateFormat = utcFormat('%-d/%-m/%Y');
+const numberFormat = format(',');
 
 const AlluvialChart = (props) => {
   const { data, xScale, yScale, duration } = props;
@@ -69,9 +71,23 @@ const AlluvialChart = (props) => {
           events: { end: lazyRemove },
         })}
 
-        render={(node, state) => {
+        render={(tick, state) => {
           return (
-            <path fill={node.fill} {...state} />
+            <g {...state}>
+              <line
+                x1={0} y1={0}
+                x2={DIMS[0]} y2={0}
+                stroke={palette.textColor}
+                opacity={0.2}
+              />
+              <text
+                fontSize={'8px'}
+                textAnchor="end"
+                dy=".35em"
+                fill={palette.textColor}
+                x={-10} y={0}
+              >{numberFormat(tick.val)}</text>
+            </g>
           );
         }}
       />
@@ -84,15 +100,14 @@ const AlluvialChart = (props) => {
           d: node.path,
         })}
 
-        enter={(node) => ({
+        enter={() => ({
           opacity: [1e-6, 1],
-          transform: [node.path],
           timing: { duration },
         })}
 
         update={(node) => ({
           opacity: [1],
-          transform: [node.path],
+          d: [node.path],
           timing: { duration },
         })}
 
