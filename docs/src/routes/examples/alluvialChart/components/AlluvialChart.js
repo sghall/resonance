@@ -50,7 +50,7 @@ const AlluvialChart = (props) => {
         })}
 
         enter={(tick, index, cached) => ({
-          opacity: [1e-6, 1],
+          opacity: [1e-6, 0.7],
           transform: [
             `translate(0,${cached(tick.val)})`,
             `translate(0,${yScale(tick.val)})`,
@@ -59,7 +59,7 @@ const AlluvialChart = (props) => {
         })}
 
         update={(tick) => ({
-          opacity: [1],
+          opacity: [0.7],
           transform: [`translate(0,${yScale(tick.val)})`],
           timing: { duration },
         })}
@@ -101,12 +101,12 @@ const AlluvialChart = (props) => {
         })}
 
         enter={() => ({
-          opacity: [1e-6, 1],
+          opacity: [1e-6, 0.7],
           timing: { duration },
         })}
 
         update={(node) => ({
-          opacity: [1],
+          opacity: [0.7],
           d: [node.path],
           timing: { duration },
         })}
