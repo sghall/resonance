@@ -41,29 +41,29 @@ export default class Tick extends PureComponent {
     transition.call(this, enter(node, index, cache));
   }
 
-  componentDidUpdate(prev) {
+  componentWillReceiveProps(next) {
     const { props } = this;
 
-    if (prev.scale !== props.scale) {
-      const { type, node, index, cache } = props;
+    if (next.scale !== props.scale) {
+      const { type, node, index, cache } = next;
 
       switch (type) {
         case ENTER:
           transition.call(
             this,
-            props.enter(node, index, cache),
+            next.enter(node, index, cache),
           );
           break;
         case UPDATE:
           transition.call(
             this,
-            props.update(node, index, cache),
+            next.update(node, index, cache),
           );
           break;
         case EXIT:
           transition.call(
             this,
-            props.leave(node, index, cache, this.remove, this.lazyRemove),
+            next.leave(node, index, cache, this.remove, this.lazyRemove),
           );
           break;
         default:
