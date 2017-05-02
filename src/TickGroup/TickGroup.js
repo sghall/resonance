@@ -40,9 +40,8 @@ export default class TickGroup extends PureComponent {
   state = {
     nodes: [],
     udids: {},
+    cache: null,
     removed: {},
-    prevScale: () => {},
-    currScale: () => {},
   }
 
   componentDidMount() {
@@ -62,7 +61,7 @@ export default class TickGroup extends PureComponent {
     this.setState((prevState) => {
       const mapped = ticks.map((tick) => ({ val: tick }));
       const update = dataUpdate(mapped, prevState, keyAccessor);
-      return { ...update, prevScale: prev.scale, currScale: scale };
+      return { ...update, cache: prev.scale };
     });
   }
 
@@ -98,6 +97,7 @@ export default class TickGroup extends PureComponent {
             key={udid}
 
             scale={scale}
+            cache={state.cache}
 
             udid={udid}
             type={type}
@@ -112,8 +112,6 @@ export default class TickGroup extends PureComponent {
 
             render={render}
 
-            prevScale={state.prevScale}
-            currScale={state.currScale}
             removeUDID={this.removeUDID}
             lazyRemoveUDID={this.lazyRemoveUDID}
           />

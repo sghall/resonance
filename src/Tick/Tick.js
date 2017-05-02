@@ -5,9 +5,10 @@ import transition from '../core/withTransitions/transition';
 import stop from '../core/withTransitions/stop';
 import { ENTER, UPDATE, EXIT } from '../core/types';
 
-export default class Node extends PureComponent {
+export default class Tick extends PureComponent {
   static propTypes = {
     scale: PropTypes.func.isRequired,
+    cache: PropTypes.func.isRequired,
 
     type: PropTypes.string.isRequired,
     udid: PropTypes.string.isRequired,
@@ -22,8 +23,6 @@ export default class Node extends PureComponent {
 
     render: PropTypes.func.isRequired,
 
-    prevScale: PropTypes.func.isRequired,
-    currScale: PropTypes.func.isRequired,
     removeUDID: PropTypes.func.isRequired,
     lazyRemoveUDID: PropTypes.func.isRequired,
   };
@@ -38,33 +37,33 @@ export default class Node extends PureComponent {
   state = this.props.start(this.props.node, this.props.index);
 
   componentDidMount() {
-    const { node, index, enter } = this.props;
-    transition.call(this, enter(node, index));
+    const { node, index, enter, cache } = this.props;
+    transition.call(this, enter(node, index, cache));
   }
 
-  componentWillReceiveProps(next) {
+  componentDidUpdate(prev) {
     const { props } = this;
 
-    if (next.scale !== props.scale) {
-      const { type, node, index, enter, update, leave } = next;
+    if (prev.scale !== props.scale) {
+      const { type, node, index, cache } = props;
 
       switch (type) {
         case ENTER:
           transition.call(
             this,
-            enter(node, index),
+            props.enter(node, index, cache),
           );
           break;
         case UPDATE:
           transition.call(
             this,
-            update(node, index),
+            props.update(node, index, cache),
           );
           break;
         case EXIT:
           transition.call(
             this,
-            leave(node, index, this.remove, this.lazyRemove),
+            props.leave(node, index, cache, this.remove, this.lazyRemove),
           );
           break;
         default:
@@ -88,8 +87,8 @@ export default class Node extends PureComponent {
   }
 
   render() {
-    const { props: { node, index, render, prevScale, currScale } } = this;
-    const state = Object.assign({}, this.state, prevScale, currScale);
+    const { props: { node, index, render }, state } = this;
+
     return render(node, state, index);
   }
 }
