@@ -10,7 +10,7 @@ import { format } from 'd3-format';
 import { easePoly, easeExp } from 'd3-ease';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 
-const percentFormat = format('.2%');
+const percentFormat = format('.1%');
 
 const AlluvialChart = (props) => {
   const { data, xScale, yScale, duration } = props;

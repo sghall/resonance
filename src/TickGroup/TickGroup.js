@@ -27,6 +27,9 @@ export default class TickGroup extends PureComponent {
   static propTypes = propTypes;
 
   static defaultProps = {
+    enter: () => null,
+    update: () => null,
+    leave: () => null,
     component: 'g',
     className: 'tick-group',
   };

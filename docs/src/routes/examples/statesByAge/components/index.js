@@ -6,35 +6,26 @@ import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
-import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
-import { VIEW, TRBL, AGES } from '../module/constants';
-import BarGroup from './BarGroup';
-import TickGroup from './TickGroup';
+import { AGES } from '../module/constants';
 import description from '../description.md';
 import BarChart from './BarChart';
 
 export class Example extends Component {
-  constructor(props) {
-    super(props);
-
-    (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).setShowTop = this.setShowTop.bind(this);
-  }
 
   state = {
     duration: 1000,
     showTop: this.props.showTop,
   }
 
-  setDuration(e, value) {
+  setDuration = (e, value) => {
     this.setState({
       duration: Math.floor(value * 10000),
     });
   }
 
-  setShowTop(e, value) {
+  setShowTop = (e, value) => {
     this.setState({
       showTop: value,
     });
@@ -95,14 +86,12 @@ export class Example extends Component {
                 </Table>
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
-                <Surface view={VIEW} trbl={TRBL}>
-                  <BarChart
-                    data={data}
-                    xScale={xScale}
-                    yScale={yScale}
-                    duration={duration}
-                  />
-                </Surface>
+                <BarChart
+                  data={data}
+                  xScale={xScale}
+                  yScale={yScale}
+                  duration={duration}
+                />
               </div>
             </div>
           </div>
