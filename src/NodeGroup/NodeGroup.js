@@ -26,6 +26,9 @@ export default class NodeGroup extends PureComponent {
   static propTypes = propTypes;
 
   static defaultProps = {
+    enter: () => null,
+    update: () => null,
+    leave: () => null,
     component: 'g',
     className: 'node-group',
   };

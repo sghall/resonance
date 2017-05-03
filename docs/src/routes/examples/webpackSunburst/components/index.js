@@ -12,7 +12,7 @@ import Paper from 'material-ui/Paper';
 import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import formatBytes from 'docs/src/utils/formatBytes';
-import ArcGroup from './ArcGroup';
+import Sunburst from './Sunburst';
 import { getNodes, getScales, updateScales, changeDataSet } from '../module';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 import { x, y, getScaleInterpolators } from '../module/scales';
@@ -22,14 +22,6 @@ const percentFormat = format('.2%');
 // const arcKeyAccessor = (d) => d.filePath;
 
 export class Example extends Component {
-  constructor(props) {
-    super(props);
-
-    (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).changeDataSet = this.changeDataSet.bind(this);
-    (this:any).setActiveNode = this.setActiveNode.bind(this);
-    (this:any).setActivePath = this.setActivePath.bind(this);
-  }
 
   state = {
     duration: 750,
@@ -84,17 +76,18 @@ export class Example extends Component {
     }
   }
 
-  changeDataSet(e, d) {
+  changeDataSet = (e, d) => {
     const { dispatch } = this.props;
     dispatch(changeDataSet(d));
   }
 
-  setActiveNode(node) {
+  setActiveNode = (node) => {
+    console.log(node);
     const { dispatch } = this.props;
     dispatch(updateScales(node));
   }
 
-  setActivePath(path, size) {
+  setActivePath = (path, size) => {
     // avoid flickering during transition
     if (!this.transition) {
       this.setState({
@@ -104,7 +97,7 @@ export class Example extends Component {
     }
   }
 
-  setDuration(e, value) {
+  setDuration = (e, value) => {
     this.setState({
       duration: Math.floor(value * 10000),
     });
@@ -159,13 +152,13 @@ export class Example extends Component {
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <text fill="rgba(0,0,0,0.5)" x={-DIMS[0] / 2} y={(-DIMS[1] / 3) - 10} textAnchor="middle" fontSize="20px">{`${percentage}`}</text>
                     <text fill="rgba(0,0,0,0.5)" x={-DIMS[0] / 2} y={(-DIMS[1] / 3) + 10} textAnchor="middle" fontSize="10px">{`${formatBytes(activeSize)}`}</text>
-                    <ArcGroup
+                    <Sunburst
                       data={nodes}
                       path={path}
                       duration={duration}
-                      setActiveNode={this.setActiveNode}
                       activePath={activePath}
                       setActivePath={this.setActivePath}
+                      setActiveNode={this.setActiveNode}
                     />
                   </g>
                 </Surface>
