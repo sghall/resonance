@@ -13,6 +13,7 @@ import { VIEW, TRBL, AGES } from '../module/constants';
 import BarGroup from './BarGroup';
 import TickGroup from './TickGroup';
 import description from '../description.md';
+import BarChart from './BarChart';
 
 export class Example extends Component {
   constructor(props) {
@@ -95,12 +96,7 @@ export class Example extends Component {
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <TickGroup
-                    scale={xScale}
-                    tickCount={8}
-                    duration={duration}
-                  />
-                  <BarGroup
+                  <BarChart
                     data={data}
                     xScale={xScale}
                     yScale={yScale}
