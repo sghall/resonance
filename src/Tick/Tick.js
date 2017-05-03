@@ -87,8 +87,8 @@ export default class Tick extends PureComponent {
   }
 
   render() {
-    const { props: { node, index, render }, state } = this;
+    const { state, props: { node, index, render, type } } = this;
 
-    return render(node, state, index);
+    return render(node, state, index, type);
   }
 }

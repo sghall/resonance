@@ -89,8 +89,8 @@ export default class Node extends PureComponent {
   }
 
   render() {
-    const { state, props: { node, index, render } } = this;
+    const { state, props: { node, index, render, type } } = this;
 
-    return render(node, state, index);
+    return render(node, state, index, type);
   }
 }
