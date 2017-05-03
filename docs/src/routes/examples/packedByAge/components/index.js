@@ -6,33 +6,26 @@ import { connect } from 'react-redux';
 import { Table, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
-import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import { updateSortOrder, updateTopCount, makeGetSelectedData } from '../module';
-import { VIEW, TRBL, AGES } from '../module/constants';
-import CircleGroup from './CircleGroup';
+import { AGES } from '../module/constants';
 import description from '../description.md';
+import Chart from './Chart';
 
 export class Example extends Component {
-  constructor(props) {
-    super(props);
-
-    (this:any).setShowTop = this.setShowTop.bind(this);
-    (this:any).setDuration = this.setDuration.bind(this);
-  }
 
   state = {
-    duration: 500,
+    duration: 1000,
     showTop: this.props.showTop,
   }
 
-  setShowTop(e, value) {
+  setShowTop = (e, value) => {
     this.setState({
       showTop: value,
     });
   }
 
-  setDuration(e, value) {
+  setDuration = (e, value) => {
     this.setState({
       duration: Math.floor(value * 10000),
     });
@@ -92,13 +85,11 @@ export class Example extends Component {
                 </Table>
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
-                <Surface view={VIEW} trbl={TRBL}>
-                  <CircleGroup
-                    data={data}
-                    sortKey={sortKey}
-                    duration={duration}
-                  />
-                </Surface>
+                <Chart
+                  data={data}
+                  sortKey={sortKey}
+                  duration={duration}
+                />
               </div>
             </div>
           </div>
