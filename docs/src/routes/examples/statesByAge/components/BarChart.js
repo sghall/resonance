@@ -12,7 +12,7 @@ import { VIEW, TRBL, DIMS } from '../module/constants';
 
 const percentFormat = format('.1%');
 
-const AlluvialChart = (props) => {
+const BarChart = (props) => {
   const { data, xScale, yScale, duration } = props;
 
   return (
@@ -145,11 +145,11 @@ const AlluvialChart = (props) => {
   );
 };
 
-AlluvialChart.propTypes = {
+BarChart.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
   duration: PropTypes.number.isRequired,
 };
 
-export default AlluvialChart;
+export default BarChart;
