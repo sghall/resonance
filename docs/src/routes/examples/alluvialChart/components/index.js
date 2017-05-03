@@ -13,34 +13,26 @@ import description from '../description.md';
 import AlluvialChart from './AlluvialChart';
 
 export class Example extends Component {
-  constructor(props) {
-    super(props);
-
-    (this:any).setTension = this.setTension.bind(this);
-    (this:any).setDuration = this.setDuration.bind(this);
-    (this:any).changeLayout = this.changeLayout.bind(this);
-    (this:any).changeTension = this.changeTension.bind(this);
-  }
 
   state = {
     duration: 1000,
     tension: this.props.tension,
   }
 
-  setTension(e, tension) {
+  setTension = (e, tension) => {
     this.setState({ tension });
   }
 
-  setDuration(e, duration) {
+  setDuration = (e, duration) => {
     this.setState({ duration });
   }
 
-  changeLayout(e, d) {
+  changeLayout = (e, d) => {
     const { dispatch } = this.props;
     dispatch(changeLayout(d));
   }
 
-  changeTension() {
+  changeTension = () => {
     const { props, state } = this;
     props.dispatch(changeTension(state.tension));
   }
