@@ -6,16 +6,11 @@ import { connect } from 'react-redux';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Slider from 'material-ui/Slider';
 import Paper from 'material-ui/Paper';
-import Surface from 'docs/src/components/Surface';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
-import palette from 'docs/src/utils/palette';
 import { changeOffset, toggleFilter, makeGetSelectedData } from '../module';
-import { VIEW, TRBL } from '../module/constants';
-import PathGroup from './PathGroup';
-import TickGroup from './TickGroup';
-import XAxis from './XAxis';
 import Legend from './Legend';
 import description from '../description.md';
+import StackedChart from './StackedChart';
 
 export class Example extends Component {
   constructor(props) {
@@ -100,30 +95,13 @@ export class Example extends Component {
                 />
               </div>
               <div className="col-md-8 col-sm-9" style={{ padding: 0 }}>
-                <Surface view={VIEW} trbl={TRBL}>
-                  <defs>
-                    <pattern id="hatch" patternUnits="userSpaceOnUse" width="4" height="4">
-                      <path
-                        d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2"
-                        style={{ stroke: palette.textColor, strokeWidth: 2, opacity: 0.5 }}
-                      />
-                    </pattern>
-                  </defs>
-                  <PathGroup
-                    data={paths}
-                    xScale={xScale}
-                    yScale={yScale}
-                    duration={duration}
-                    activeSeries={activeSeries}
-                  />
-                  <TickGroup
-                    scale={yScale}
-                    xScale={xScale}
-                    offset={offset}
-                    duration={duration}
-                  />
-                  <XAxis xScale={xScale} yScale={yScale} />
-                </Surface>
+                <StackedChart
+                  data={paths}
+                  xScale={xScale}
+                  yScale={yScale}
+                  duration={duration}
+                  activeSeries={activeSeries}
+                />
               </div>
             </div>
           </div>
