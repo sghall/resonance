@@ -82,13 +82,11 @@ export class Example extends Component {
   }
 
   setActiveNode = (node) => {
-    console.log(node);
     const { dispatch } = this.props;
     dispatch(updateScales(node));
   }
 
   setActivePath = (path, size) => {
-    // avoid flickering during transition
     if (!this.transition) {
       this.setState({
         activeSize: size || this.props.size,
