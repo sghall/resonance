@@ -17,27 +17,21 @@ const Sunburst = (props) => {
       keyAccessor={(d) => d.filePath}
 
       start={(node) => ({
-        path: {
-          opacity: 1e-6,
-          d: path(node),
-        },
+        opacity: 1e-6,
+        d: path(node),
       })}
 
       update={(node) => {
         if (node.noTransition) {
           return {
-            path: {
-              opacity: 0.6,
-              d: path(node), // returns string value
-            },
+            opacity: 0.6,
+            d: path(node), // returns string value
           };
         }
 
         return {
-          path: {
-            opacity: node.angle === 0 ? [1e-6] : 0.6,
-            d: arcTween(node),  // returns custom tween
-          },
+          opacity: node.angle === 0 ? [1e-6] : 0.6,
+          d: arcTween(node),  // returns custom tween
           timing: { duration, ease: easeLinear },
         };
       }}
@@ -49,7 +43,7 @@ const Sunburst = (props) => {
       render={(node, state) => (
         <Arc
           node={node}
-          {...state.path}
+          {...state}
           activePath={activePath}
           setActivePath={setActivePath}
           setActiveNode={setActiveNode}
