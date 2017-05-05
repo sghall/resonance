@@ -16,7 +16,18 @@ export class Example extends Component {
 
   state = {
     duration: 1000,
+    message: 'Wait for it',
     showTop: this.props.showTop,
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setMessage('');
+    }, this.state.duration * 2);
+  }
+
+  setMessage = (message) => {
+    this.setState({ message });
   }
 
   setShowTop = (e, value) => {
@@ -33,7 +44,7 @@ export class Example extends Component {
 
   render() {
     const { sortKey, data, dispatch } = this.props;
-    const { duration, showTop } = this.state;
+    const { duration, showTop, message } = this.state;
 
     return (
       <Paper style={{ padding: 20 }}>
@@ -85,6 +96,7 @@ export class Example extends Component {
                 </Table>
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
+                <h3 style={{ opacity: message ? 1 : 0 }}>{this.state.message}...</h3>
                 <Chart
                   data={data}
                   sortKey={sortKey}

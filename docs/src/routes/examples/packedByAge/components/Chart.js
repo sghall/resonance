@@ -15,7 +15,7 @@ const getFill = ({ name, depth }, sortKey) => {
   const age = name.slice(5);
 
   if (age === sortKey) {
-    return 'black';
+    return 'red';
   }
 
   return depth === 2 ? colors(age) : 'rgba(127,127,127,0.5)';
