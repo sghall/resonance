@@ -19,7 +19,6 @@ import { x, y, getScaleInterpolators } from '../module/scales';
 import description from '../description.md';
 
 const percentFormat = format('.2%');
-// const arcKeyAccessor = (d) => d.filePath;
 
 export class Example extends Component {
 
