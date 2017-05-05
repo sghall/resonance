@@ -1,5 +1,4 @@
 // @flow weak
-/* eslint no-nested-ternary:"off" */
 
 import React from 'react';
 import NodeGroup from 'resonance/NodeGroup';
@@ -17,7 +16,7 @@ const Sunburst = (props) => {
       keyAccessor={(d) => d.filePath}
 
       start={(node) => ({
-        opacity: 1e-6,
+        opacity: 0.6,
         d: path(node),
       })}
 
