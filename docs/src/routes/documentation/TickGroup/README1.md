@@ -83,7 +83,7 @@ export function getInterpolator(key, value) {
 
 ### `Removing Ticks`
 
-Because you can pass arrays of objects describing state transitions, all with independent duration, events and delays it's impossible to automatically remove the node.
+Because you can pass arrays of objects describing state transitions, all with independent duration, events and delays it's impossible to automatically remove the tick.
 You have to specify that.
 You are passed a remove function in your **leave** function that simply needs to be invoked (no parameters) to release the node at the end of the transition.
 The API tracks closely with how [D3](https://github.com/d3/d3-selection) works.
