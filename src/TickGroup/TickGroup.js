@@ -1,4 +1,5 @@
 // @flow weak
+/* eslint max-len: "off" */
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -9,17 +10,41 @@ import { getRemoveUDID } from '../core/helpers';
 const keyAccessor = (d) => `tick-${d.val}`;
 
 export const propTypes = {
+  /**
+   * A contunous D3 scale. The scale prop is treated as immutable so the ticks will only update if prev.scale !== next.scale.
+   */
   scale: PropTypes.func.isRequired,
-
+  /**
+   * Approximate numbe of ticks to be rendered.
+   */
+  tickCount: PropTypes.number,
+  /**
+   * A function that returns the starting state.  The function is passed the data and index.
+   */
   start: PropTypes.func.isRequired,
-
+  /**
+   * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
+   */
   enter: PropTypes.func,
+  /**
+   * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data and index.
+   */
   update: PropTypes.func,
+  /**
+   * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the data, index and remove function to be called when you want to remove the node.
+   */
   leave: PropTypes.func,
-
+  /**
+   * Function that is used to render the current state of each tick.  Passed the tick, state, index, and type (ENTER, UPDATE or LEAVE).
+   */
   render: PropTypes.func.isRequired,
-
+  /**
+   * The wrapper component for the ticks. Can be a custom component or 'div', 'span', etc.
+   */
   component: PropTypes.any,
+  /**
+   * String class name for the wrapper component.
+   */
   className: PropTypes.string,
 };
 
@@ -27,10 +52,11 @@ export default class TickGroup extends PureComponent {
   static propTypes = propTypes;
 
   static defaultProps = {
-    enter: () => null,
-    update: () => null,
-    leave: () => null,
+    enter: () => {},
+    update: () => {},
+    leave: () => {},
     component: 'g',
+    tickCount: 10,
     className: 'tick-group',
   };
 
