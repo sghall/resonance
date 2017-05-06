@@ -43,7 +43,7 @@ const NodeGroupDocs = (props) => {
       <MarkdownElement text={docContext('./NodeGroup/README3.md')} />
       <CodeExample
         code={docContext('./NodeGroup/Example4')}
-        title="Example 4: SVG Circles"
+        title="Example 4: Using namespaces in state"
       >
         <Example4 />
       </CodeExample>

@@ -129,6 +129,7 @@ class Example extends PureComponent {
               x: 1e-6,
               fill: 'green',
               width: scale.bandwidth(),
+              transform: 'scale(1)', // set it initially otherwise D3 can't interpolate
             })}
 
             enter={(node, index) => ({
@@ -142,6 +143,7 @@ class Example extends PureComponent {
               x: [scale(node.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
+              transform: ['scale(1)'],
               timing: { duration: 1000, ease: easePoly },
             })}
 
@@ -149,15 +151,16 @@ class Example extends PureComponent {
               opacity: [1e-6],
               x: [scale.range()[1]],
               fill: 'red',
-              timing: { duration: 1000 },
+              transform: ['scale(0.5)'],
+              timing: { duration: 2000 },
               events: { end: remove },
             })}
 
             render={(node, state) => {
-              const { x, ...rest } = state;
+              const { x, opacity, ...rest } = state;
 
               return (
-                <g transform={`translate(${x},0)`}>
+                <g opacity={opacity} transform={`translate(${x},0)`}>
                   <rect
                     height={dims[1]}
                     {...rest}
