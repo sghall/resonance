@@ -1,6 +1,6 @@
 [Checkout the project on Github](https://github.com/sghall/resonance)
 
-## createNodeGroup  
+## NodeGroup  
 
 Factory that returns a NodeGroup component.
 

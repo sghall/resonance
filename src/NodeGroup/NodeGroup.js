@@ -1,4 +1,5 @@
 // @flow weak
+/* eslint max-len: "off" */
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -7,18 +8,41 @@ import Node from '../Node';
 import { getRemoveUDID } from '../core/helpers';
 
 export const propTypes = {
+  /**
+   * An array of data objects.
+   */
   data: PropTypes.array.isRequired,
-
+  /**
+   * A function that returns the starting state.  The function is passed the data and index.
+   */
   start: PropTypes.func.isRequired,
-
+  /**
+   * A function that returns an object or array of objects describing how the state should transform on enter.  The function is passed the data and index.
+   */
   enter: PropTypes.func,
+  /**
+   * A function that returns an object or array of objects describing how the state should transform on update.  The function is passed the data and index.
+   */
   update: PropTypes.func,
+  /**
+   * A function that returns an object or array of objects describing how the state should transform on leave.  The function is passed the data, index and remove function to be called when you want to remove the node.
+   */
   leave: PropTypes.func,
-
+  /**
+   * Function that is used to render the current state of each node.  Passed the data, state, index, and type (ENTER, UPDATE or LEAVE).
+   */
   render: PropTypes.func.isRequired,
-
+  /**
+   * The wrapper component for the nodes. Can be a custom component or 'div', 'span', etc.
+   */
   component: PropTypes.any,
+  /**
+   * String class name for the wrapper component.
+   */
   className: PropTypes.string,
+  /**
+   * Function that returns a string key given a data object.  Used to track which nodes are entering, updating and leaving.
+   */
   keyAccessor: PropTypes.func.isRequired,
 };
 
@@ -26,9 +50,9 @@ export default class NodeGroup extends PureComponent {
   static propTypes = propTypes;
 
   static defaultProps = {
-    enter: () => null,
-    update: () => null,
-    leave: () => null,
+    enter: () => {},
+    update: () => {},
+    leave: () => {},
     component: 'g',
     className: 'node-group',
   };

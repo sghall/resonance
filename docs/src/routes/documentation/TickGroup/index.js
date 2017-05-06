@@ -14,8 +14,8 @@ const TickGroupDocs = (props) => {
 
   return (
     <div>
-      <Title render={(previousTitle) => `createTickGroup - ${previousTitle}`} />
-      <MarkdownElement text={docContext('./createTickGroup/README.md')} />
+      <Title render={(previousTitle) => `TickGroup - ${previousTitle}`} />
+      <MarkdownElement text={docContext('./TickGroup/README.md')} />
     </div>
   );
 };

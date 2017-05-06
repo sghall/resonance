@@ -23,6 +23,14 @@
   text-align: left;
 }
 
+.propTypeDescription table th:first-child {
+  width: 20%
+}
+
+.propTypeDescription table th:last-child {
+  width: 40%
+}
+
 .propTypeDescription table td {
   color: #266d90;
   font-size: 95%;
