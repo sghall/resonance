@@ -1,7 +1,6 @@
 ### `Transition Objects`
 
 The NodeGroup in Resonance is different than other transition group components ([react-transition-group](https://github.com/reactjs/react-transition-group), [react-motion](https://github.com/chenglou/react-motion), etc) because you use objects to express how you want your state to transition as the node enters, updates and leaves.
-
 You can return a single object or an array of objects in your **enter**, **update** and **leave** functions.
 Each object can specify its own timing and events idependently.
 
@@ -24,7 +23,7 @@ Example transition objects:
 update={(node) => ([  // An array!!
   {
     opacity: [0.6],
-    fill: ['blue', 'grey'], // take the fill from blue to grey
+    fill: ['blue', 'grey'], // take the fill from blue to grey when it updates
     timing: { duration: 2000 },
   },
   {

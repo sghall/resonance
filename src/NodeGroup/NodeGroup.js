@@ -9,7 +9,7 @@ import { getRemoveUDID } from '../core/helpers';
 
 export const propTypes = {
   /**
-   * An array of data objects.
+   * An array of data objects.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
    */
   data: PropTypes.array.isRequired,
   /**
