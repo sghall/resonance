@@ -3,8 +3,8 @@
 
 import Home from './Home';
 import AppFrame from '../components/AppFrame';
-import createNodeGroupDocs from './documentation/createNodeGroup';
-import createTickGroupDocs from './documentation/createTickGroup';
+import createNodeGroupDocs from './documentation/NodeGroup';
+import createTickGroupDocs from './documentation/TickGroup';
 import store, { injectReducer } from '../store';
 
 const docContext = require.context('!raw-loader!./documentation', true);
@@ -23,18 +23,18 @@ const routes = {
       path: 'documentation',
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/documentation/surface');
+          replace('/documentation/node-group');
         },
       },
       childRoutes: [
         {
-          path: '/documentation/create-node-group',
+          path: '/documentation/node-group',
           docContext,
           srcContext,
           component: createNodeGroupDocs,
         },
         {
-          path: '/documentation/create-tick-group',
+          path: '/documentation/tick-group',
           docContext,
           srcContext,
           component: createTickGroupDocs,
