@@ -1,8 +1,7 @@
 // @flow weak
 import React, { PureComponent } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
-import transition from '../core/withTransitions/transition';
-import stop from '../core/withTransitions/stop';
+import { transition, stop } from '../core/transition';
 import { ENTER, UPDATE, EXIT } from '../core/types';
 
 export default class Node extends PureComponent {
