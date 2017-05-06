@@ -22,10 +22,10 @@ Example transition objects:
 ```js
 start={(tick) => ({
   opacity: 1e-6,
-  transform: `translate(${xScale(tick.val)},0)`,
+  transform: `translate(${xScale(tick.val)},0)`, // note that tick is an object with a single 'val' prop
 })}
 
-enter={(tick, index, cached) => ({
+enter={(tick, index, cached) => ({ // Note 'cached' is a cached version of the previous scale.  Useful for animating ticks.
   opacity: [1e-6, 1],
   transform: [
     `translate(${cached(tick.val)},0)`,
@@ -93,9 +93,9 @@ For example, it's much easier to make sure your nodes "recover" correctly if the
 Just comment out the remove line and run your transitions.
 Nodes that would have been removed are now "updating" and you can simulate what would happen if a transition were interrupted just before they left the document.
 
-**Example usage of remove function for a node:** 
+**Example usage of remove function for a tick:** 
 ```js
-leave={(node, index, remove) => ({
+leave={(tick, index, remove) => ({
   opacity: [1e-6],
   fill: 'red',
   timing: { duration: 1000 },

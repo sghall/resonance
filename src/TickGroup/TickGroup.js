@@ -11,7 +11,7 @@ const keyAccessor = (d) => `tick-${d.val}`;
 
 export const propTypes = {
   /**
-   * A contunous D3 scale. The scale prop is treated as immutable so the ticks will only update if prev.scale !== next.scale.
+   * A [contunous D3 scale](https://github.com/d3/d3-scale#continuous-scales) (i.e. has a "ticks" function). The scale prop is treated as immutable so the ticks will only update if prev.scale !== next.scale.
    */
   scale: PropTypes.func.isRequired,
   /**
@@ -19,19 +19,19 @@ export const propTypes = {
    */
   tickCount: PropTypes.number,
   /**
-   * A function that returns the starting state.  The function is passed the data and index.
+   * A function that returns the starting state.   The function is passed the tick (the tick is pass as an object i.g. { val: 10.5 }) and index.
    */
   start: PropTypes.func.isRequired,
   /**
-   * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
+   * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the tick (the tick is pass as an object i.g. { val: 10.5 }) and index.
    */
   enter: PropTypes.func,
   /**
-   * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data and index.
+   * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the tick (the tick is pass as an object i.g. { val: 10.5 }) and index.
    */
   update: PropTypes.func,
   /**
-   * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the data, index and remove function to be called when you want to remove the node.
+   * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the tick (the tick is pass as an object i.g. { val: 10.5 }), index and remove function to be called when you want to remove the node.
    */
   leave: PropTypes.func,
   /**
