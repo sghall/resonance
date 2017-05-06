@@ -145,7 +145,7 @@ export class Example extends Component {
             <div className="row">
               <div className="col-md-12 col-sm-12" style={{ padding: 0 }}>
                 <Surface view={VIEW} trbl={TRBL}>
-                  <text fill="rgba(0,0,0,0.5)" y={15} fontSize="10px">{activePath}</text>
+                  <text fill="rgba(0,0,0,0.5)" y={35} fontSize="10px">{activePath}</text>
                   <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
                     <text fill="rgba(0,0,0,0.5)" x={-DIMS[0] / 2} y={(-DIMS[1] / 3) - 10} textAnchor="middle" fontSize="20px">{`${percentage}`}</text>
                     <text fill="rgba(0,0,0,0.5)" x={-DIMS[0] / 2} y={(-DIMS[1] / 3) + 10} textAnchor="middle" fontSize="10px">{`${formatBytes(activeSize)}`}</text>
