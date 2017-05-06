@@ -18,6 +18,7 @@ const NodeGroupDocs = (props) => {
   return (
     <div>
       <Title render={(previousTitle) => `NodeGroup - ${previousTitle}`} />
+      <MarkdownElement text={docContext('./NodeGroup/README0.md')} />
       <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
       <MarkdownElement text={docContext('./NodeGroup/README1.md')} />
       <CodeExample

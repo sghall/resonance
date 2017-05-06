@@ -17,15 +17,15 @@ export const propTypes = {
    */
   start: PropTypes.func.isRequired,
   /**
-   * A function that returns an object or array of objects describing how the state should transform on enter.  The function is passed the data and index.
+   * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
    */
   enter: PropTypes.func,
   /**
-   * A function that returns an object or array of objects describing how the state should transform on update.  The function is passed the data and index.
+   * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data and index.
    */
   update: PropTypes.func,
   /**
-   * A function that returns an object or array of objects describing how the state should transform on leave.  The function is passed the data, index and remove function to be called when you want to remove the node.
+   * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the data, index and remove function to be called when you want to remove the node.
    */
   leave: PropTypes.func,
   /**
