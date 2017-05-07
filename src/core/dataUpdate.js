@@ -1,6 +1,6 @@
 // @flow weak
 
-import { ENTER, UPDATE, EXIT } from './types';
+import { ENTER, UPDATE, LEAVE } from './types';
 
 const dataUpdate = (data, state, keyAccessor) => {
   const { nodes = [], udids = [], removed = {} } = state;
@@ -26,7 +26,7 @@ const dataUpdate = (data, state, keyAccessor) => {
 
     if (!nextUdids[udid] && !removed[udid]) {
       nextNodes.push(node);
-      nextUdids[udid] = EXIT;
+      nextUdids[udid] = LEAVE;
     }
   }
 

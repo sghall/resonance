@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { transition, stop } from '../core/transition';
-import { ENTER, UPDATE, EXIT } from '../core/types';
+import { ENTER, UPDATE, LEAVE } from '../core/types';
 
 export default class Node extends PureComponent {
   static propTypes = {
@@ -61,7 +61,7 @@ export default class Node extends PureComponent {
             update(node, index),
           );
           break;
-        case EXIT:
+        case LEAVE:
           transition.call(
             this,
             leave(node, index, this.remove, this.lazyRemove),

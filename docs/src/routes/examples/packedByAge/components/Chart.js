@@ -84,7 +84,7 @@ const Chart = (props) => {
           return (
             <g
               {...state.node}
-              style={{ pointerEvents: type === 'EXIT' ? 'none' : 'all' }}
+              style={{ pointerEvents: type === 'LEAVE' ? 'none' : 'all' }}
             >
               <title>{name}</title>
               <circle
