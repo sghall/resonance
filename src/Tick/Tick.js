@@ -10,7 +10,7 @@ export default class Tick extends PureComponent {
     cache: PropTypes.func.isRequired,
 
     type: PropTypes.string.isRequired,
-    udid: PropTypes.string.isRequired,
+    dkey: PropTypes.string.isRequired,
     node: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
 
@@ -29,14 +29,14 @@ export default class Tick extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { udid, removeKey, lazyRemoveKey } = this.props;
+    const { dkey, removeKey, lazyRemoveKey } = this.props;
 
     (this:any).remove = () => {
-      removeKey(udid);
+      removeKey(dkey);
     };
 
     (this:any).remove.lazy = () => {
-      lazyRemoveKey(udid);
+      lazyRemoveKey(dkey);
     };
   }
 

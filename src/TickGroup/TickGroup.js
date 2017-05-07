@@ -59,7 +59,7 @@ export default class TickGroup extends PureComponent {
 
   state = {
     nodes: [],
-    udids: {},
+    dkeys: {},
     cache: null,
     removed: {},
   }
@@ -85,20 +85,20 @@ export default class TickGroup extends PureComponent {
     });
   }
 
-  removeKey = (udid) => {
+  removeKey = (dkey) => {
     this.setState((prevState, props) => {
       const index0 = prevState.nodes
-        .findIndex((d) => keyAccessor(d) === udid);
+        .findIndex((d) => keyAccessor(d) === dkey);
 
       const index1 = props.scale.ticks ? props.scale.ticks(props.tickCount) : []
-        .findIndex((d) => keyAccessor(d) === udid);
+        .findIndex((d) => keyAccessor(d) === dkey);
 
       if (index0 >= 0 && index1 === -1) {
-        const udids = Object.assign({}, prevState.udids);
-        delete udids[udid];
+        const dkeys = Object.assign({}, prevState.dkeys);
+        delete dkeys[dkey];
 
         return {
-          udids,
+          dkeys,
           nodes: [
             ...prevState.nodes.slice(0, index0),
             ...prevState.nodes.slice(index0 + 1),
@@ -110,9 +110,9 @@ export default class TickGroup extends PureComponent {
     });
   }
 
-  lazyRemoveKey = (udid) => {
+  lazyRemoveKey = (dkey) => {
     this.setState((prevState) => ({
-      removed: Object.assign({}, prevState.removed, { [udid]: true }),
+      removed: Object.assign({}, prevState.removed, { [dkey]: true }),
     }));
   }
 
@@ -132,17 +132,17 @@ export default class TickGroup extends PureComponent {
       component,
       { className },
       state.nodes.map((node, index) => {
-        const udid = keyAccessor(node);
-        const type = state.udids[udid];
+        const dkey = keyAccessor(node);
+        const type = state.dkeys[dkey];
 
         return (
           <Tick
-            key={udid}
+            key={dkey}
 
             scale={scale}
             cache={state.cache}
 
-            udid={udid}
+            dkey={dkey}
             type={type}
             node={node}
             index={index}

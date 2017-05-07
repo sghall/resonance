@@ -3,36 +3,36 @@
 import { ENTER, UPDATE, LEAVE } from './types';
 
 const dataUpdate = (data, state, keyAccessor) => {
-  const { nodes = [], udids = [], removed = {} } = state;
+  const { nodes = [], dkeys = [], removed = {} } = state;
   const nextNodes = [];
   const nextUdids = {};
 
   for (let i = 0, len0 = data.length; i < len0; i++) {
-    const udid = keyAccessor(data[i]);
+    const dkey = keyAccessor(data[i]);
 
     let type = ENTER;
 
-    if (udids[udid] && !removed[udid]) {
+    if (dkeys[dkey] && !removed[dkey]) {
       type = UPDATE;
     }
 
     nextNodes.push(data[i]);
-    nextUdids[udid] = type;
+    nextUdids[dkey] = type;
   }
 
   for (let j = 0, len1 = nodes.length; j < len1; j++) {
     const node = nodes[j];
-    const udid = keyAccessor(node);
+    const dkey = keyAccessor(node);
 
-    if (!nextUdids[udid] && !removed[udid]) {
+    if (!nextUdids[dkey] && !removed[dkey]) {
       nextNodes.push(node);
-      nextUdids[udid] = LEAVE;
+      nextUdids[dkey] = LEAVE;
     }
   }
 
   return {
     nodes: nextNodes,
-    udids: nextUdids,
+    dkeys: nextUdids,
     removed: {},
   };
 };

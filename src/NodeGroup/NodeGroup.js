@@ -64,20 +64,20 @@ export default class NodeGroup extends PureComponent {
     }
   }
 
-  removeKey = (udid) => {
+  removeKey = (dkey) => {
     this.setState((prevState, props) => {
       const index0 = prevState.nodes
-        .findIndex((d) => props.keyAccessor(d) === udid);
+        .findIndex((d) => props.keyAccessor(d) === dkey);
 
       const index1 = props.data
-        .findIndex((d) => props.keyAccessor(d) === udid);
+        .findIndex((d) => props.keyAccessor(d) === dkey);
 
       if (index0 >= 0 && index1 === -1) {
-        const udids = Object.assign({}, prevState.udids);
-        delete udids[udid];
+        const dkeys = Object.assign({}, prevState.dkeys);
+        delete dkeys[dkey];
 
         return {
-          udids,
+          dkeys,
           nodes: [
             ...prevState.nodes.slice(0, index0),
             ...prevState.nodes.slice(index0 + 1),
@@ -89,9 +89,9 @@ export default class NodeGroup extends PureComponent {
     });
   }
 
-  lazyRemoveKey = (udid) => {
+  lazyRemoveKey = (dkey) => {
     this.setState((prevState) => ({
-      removed: Object.assign({}, prevState.removed, { [udid]: true }),
+      removed: Object.assign({}, prevState.removed, { [dkey]: true }),
     }));
   }
 
@@ -112,16 +112,16 @@ export default class NodeGroup extends PureComponent {
       component,
       { className },
       state.nodes.map((node, index) => {
-        const udid = keyAccessor(node);
-        const type = state.udids[udid];
+        const dkey = keyAccessor(node);
+        const type = state.dkeys[dkey];
 
         return (
           <Node
-            key={udid}
+            key={dkey}
 
             data={data}
 
-            udid={udid}
+            dkey={dkey}
             type={type}
             node={node}
             index={index}

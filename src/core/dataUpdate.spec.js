@@ -11,7 +11,7 @@ describe('dataUpdate', () => {
   let update;
 
   before(() => {
-    state = { udids: {}, nodes: [], removed: {} };
+    state = { dkeys: {}, nodes: [], removed: {} };
     update = [1, 2, 3, 4, 5].map((d) => ({ x: d, y: d }));
   });
 
@@ -20,9 +20,9 @@ describe('dataUpdate', () => {
     assert.isObject(res, 'should be true');
   });
 
-  it('should return an object with a udids prop that is an object', () => {
+  it('should return an object with a dkeys prop that is an object', () => {
     const res = dataUpdate({ data: update }, state, keyAccessor);
-    assert.isObject(res.udids, 'should be true');
+    assert.isObject(res.dkeys, 'should be true');
   });
 
   it('should return an object with a nodes prop that is an array', () => {
