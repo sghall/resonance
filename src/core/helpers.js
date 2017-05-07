@@ -6,10 +6,6 @@ export function newId() {
   return ++id;
 }
 
-export function getDisplayName(Component) {
-  return Component.displayName || Component.name || 'Component';
-}
-
 export function getRemoveUDID(keyAccessor) {
   const removeUDID = (udid) => {
     this.setState((prevState, props) => {

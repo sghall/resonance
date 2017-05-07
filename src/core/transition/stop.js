@@ -1,9 +1,10 @@
 // @flow weak
 
 export default function stop() {
-  if (this.TRANSITION_SCHEDULES) {
-    Object.keys(this.TRANSITION_SCHEDULES).forEach((s) => {
-      this.TRANSITION_SCHEDULES[s].timer.stop();
+  const ts = this.TRANSITION_SCHEDULES;
+  if (ts) {
+    Object.keys(ts).forEach((s) => {
+      ts[s].timer.stop();
     });
   }
 }
