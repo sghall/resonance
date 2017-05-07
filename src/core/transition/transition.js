@@ -35,7 +35,11 @@ function scheduleTransitions(config = {}) {
 
   // each event handler should be called only once
   Object.keys(events).forEach((d) => {
-    events[d] = once(events[d]);
+    if (typeof events[d] !== 'function') {
+      throw new Error('Event handlers must be a function');
+    } else {
+      events[d] = once(events[d]);
+    }
   });
 
   const timing = transitions.timing || {};
