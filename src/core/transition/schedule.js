@@ -3,14 +3,19 @@
 // Apapted from https://github.com/d3/d3-transition/blob/master/src/transition/schedule.js
 
 import { timer, timeout } from 'd3-timer';
-import { CREATED, SCHEDULED, STARTING, STARTED, RUNNING, ENDING, ENDED } from './phases';
+
+const CREATED = 0;
+const SCHEDULED = 1;
+const STARTING = 2;
+const STARTED = 3;
+const RUNNING = 4;
+const ENDING = 5;
+const ENDED = 6;
 
 export default function (node, stateKey:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
 
-  if (!schedules) {
-    node.TRANSITION_SCHEDULES = {}; // eslint-disable-line no-param-reassign
-  } else if (id in schedules) {
+  if (id in schedules) {
     return;
   }
 
