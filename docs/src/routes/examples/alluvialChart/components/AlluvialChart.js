@@ -64,11 +64,11 @@ const AlluvialChart = (props) => {
           timing: { duration },
         })}
 
-        leave={(tick, index, cached, remove, lazyRemove) => ({
+        leave={(tick, index, cached, remove) => ({
           opacity: [1e-6],
           transform: [`translate(0,${yScale(tick.val)})`],
           timing: { duration },
-          events: { end: lazyRemove },
+          events: { end: remove.lazy },
         })}
 
         render={(tick, state) => {
@@ -111,10 +111,10 @@ const AlluvialChart = (props) => {
           timing: { duration },
         })}
 
-        leave={(node, index, remove, lazyRemove) => ({
+        leave={(node, index, remove) => ({
           opacity: [1e-6],
           timing: { duration },
-          events: { end: lazyRemove },
+          events: { end: remove.lazy },
         })}
 
         render={(node, state) => {

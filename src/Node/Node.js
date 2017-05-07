@@ -31,8 +31,15 @@ export default class Node extends PureComponent {
   constructor(props) {
     super(props);
 
-    (this:any).remove = this.remove.bind(this);
-    (this:any).lazyRemove = this.lazyRemove.bind(this);
+    const { udid, removeUDID, lazyRemoveUDID } = this.props;
+
+    (this:any).remove = () => {
+      removeUDID(udid);
+    };
+
+    (this:any).remove.lazy = () => {
+      lazyRemoveUDID(udid);
+    };
   }
 
   state = this.props.start(this.props.node, this.props.index);
@@ -64,7 +71,7 @@ export default class Node extends PureComponent {
         case LEAVE:
           transition.call(
             this,
-            leave(node, index, this.remove, this.lazyRemove),
+            leave(node, index, this.remove),
           );
           break;
         default:
@@ -78,16 +85,6 @@ export default class Node extends PureComponent {
   }
 
   TRANSITION_SCHEDULES = {};
-
-  remove() {
-    const { removeUDID, udid } = this.props;
-    removeUDID(udid);
-  }
-
-  lazyRemove() {
-    const { lazyRemoveUDID, udid } = this.props;
-    lazyRemoveUDID(udid);
-  }
 
   render() {
     const { state, props: { node, index, render, type } } = this;

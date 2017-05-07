@@ -20,17 +20,14 @@ For each key you want to transition you can send four different types of values 
 
 Example transition objects:
 ```js
-start={(tick) => ({
+start={(tick, index, prevScale) => ({  // Note: prevScale is a cached copy of the last scale
   opacity: 1e-6,
-  transform: `translate(${xScale(tick.val)},0)`, // note that tick is an object with a single 'val' prop
+  transform: `translate(${prevScale(tick.val)},0)`,
 })}
 
-enter={(tick, index, cached) => ({ // Note 'cached' is a cached version of the previous scale.  Useful for animating ticks.
-  opacity: [1e-6, 1],
-  transform: [
-    `translate(${cached(tick.val)},0)`,
-    `translate(${xScale(tick.val)},0)`,
-  ],
+enter={(tick) => ({
+  opacity: [1],
+  transform: [`translate(${xScale(tick.val)},0)`],
   timing: { duration, ease: easeExp },
 })}
 
@@ -40,11 +37,11 @@ update={(tick) => ({
   timing: { duration, ease: easeExp },
 })}
 
-leave={(tick, index, cached, remove, lazyRemove) => ({
+leave={(tick, index, prevScale, remove) => ({
   opacity: [1e-6],
   transform: [`translate(${xScale(tick.val)},0)`],
   timing: { duration, ease: easeExp },
-  events: { end: lazyRemove },
+  events: { end: remove },
 })}
 ```
 

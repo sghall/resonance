@@ -25,9 +25,12 @@ const BarChart = (props) => {
           transform: `translate(${prevScale(tick.val)},0)`,
         })}
 
-        enter={(tick) => ({
-          opacity: [1],
-          transform: [`translate(${xScale(tick.val)},0)`],
+        enter={(tick, index, prevScale) => ({
+          opacity: [1e-6, 1],
+          transform: [
+            `translate(${prevScale(tick.val)},0)`,
+            `translate(${xScale(tick.val)},0)`,
+          ],
           timing: { duration, ease: easeExp },
         })}
 
@@ -101,13 +104,13 @@ const BarChart = (props) => {
           timing: { duration, ease: easePoly },
         })}
 
-        leave={(node, index, remove, lazyRemove) => ({
+        leave={(node, index, remove) => ({
           node: {
             opacity: [1e-6],
             transform: ['translate(0,500)'],
           },
           timing: { duration, ease: easePoly },
-          events: { end: lazyRemove },
+          events: { end: remove.lazy },
         })}
 
         render={(node, state) => {

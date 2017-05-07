@@ -77,13 +77,13 @@ export class Example extends Component {
                       timing: { duration: BASE_DURATION, ease: easeBounce },
                     })}
 
-                    leave={(node, index, remove, lazyRemove) => ({
+                    leave={(node, index, remove) => ({
                       x: [node.xValue],
                       y: [dims[1]],
                       fill: '#A5937C',
                       opacity: [1e-6],
                       timing: { duration: BASE_DURATION / 2, ease: easePoly },
-                      events: { end: lazyRemove },
+                      events: { end: remove.lazy },
                     })}
 
                     render={(node, state) => {

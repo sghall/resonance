@@ -69,13 +69,13 @@ const Chart = (props) => {
           },
         ])}
 
-        leave={(node, index, remove, lazyRemove) => ({
+        leave={(node, index, remove) => ({
           node: {
             opacity: [1e-6],
           },
           circle: { fill: 'rgba(0,0,0,0.3)' },
           timing: { duration },
-          events: { end: lazyRemove },
+          events: { end: remove.lazy },
         })}
 
         render={(node, state, index, type) => {

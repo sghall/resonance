@@ -29,8 +29,15 @@ export default class Tick extends PureComponent {
   constructor(props) {
     super(props);
 
-    (this:any).remove = this.remove.bind(this);
-    (this:any).lazyRemove = this.lazyRemove.bind(this);
+    const { udid, removeUDID, lazyRemoveUDID } = this.props;
+
+    (this:any).remove = () => {
+      removeUDID(udid);
+    };
+
+    (this:any).remove.lazy = () => {
+      lazyRemoveUDID(udid);
+    };
   }
 
   state = this.props.start(this.props.node, this.props.index, this.props.cache);
@@ -62,7 +69,7 @@ export default class Tick extends PureComponent {
         case LEAVE:
           transition.call(
             this,
-            next.leave(node, index, cache, this.remove, this.lazyRemove),
+            next.leave(node, index, cache, this.remove),
           );
           break;
         default:
@@ -76,16 +83,6 @@ export default class Tick extends PureComponent {
   }
 
   TRANSITION_SCHEDULES = {};
-
-  remove() {
-    const { removeUDID, udid } = this.props;
-    removeUDID(udid);
-  }
-
-  lazyRemove() {
-    const { lazyRemoveUDID, udid } = this.props;
-    lazyRemoveUDID(udid);
-  }
 
   render() {
     const { state, props: { node, index, render, type } } = this;

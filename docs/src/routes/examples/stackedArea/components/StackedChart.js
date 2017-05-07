@@ -49,11 +49,11 @@ const StackedChart = (props) => {
           timing: { duration, ease: easePoly },
         })}
 
-        leave={(tick, index, cached, remove, lazyRemove) => ({
+        leave={(tick, index, cached, remove) => ({
           opacity: [1e-6],
           transform: [`translate(0,${yScale(tick.val)})`],
           timing: { duration, ease: easePoly },
-          events: { end: lazyRemove },
+          events: { end: remove.lazy },
         })}
 
         render={(tick, state) => {
@@ -97,11 +97,11 @@ const StackedChart = (props) => {
           timing: { duration, ease: easePoly },
         })}
 
-        leave={(node, index, remove, lazyRemove) => ({
+        leave={(node, index, remove) => ({
           opacity: [1e-6],
           d: [node.path],
           timing: { duration, ease: easePoly },
-          events: { end: lazyRemove },
+          events: { end: remove.lazy },
         })}
 
         render={(node, state) => {
