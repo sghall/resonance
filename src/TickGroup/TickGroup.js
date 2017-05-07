@@ -85,7 +85,7 @@ export default class TickGroup extends PureComponent {
     });
   }
 
-  removeUDID = (udid) => {
+  removeKey = (udid) => {
     this.setState((prevState, props) => {
       const index0 = prevState.nodes
         .findIndex((d) => keyAccessor(d) === udid);
@@ -110,7 +110,7 @@ export default class TickGroup extends PureComponent {
     });
   }
 
-  lazyRemoveUDID = (udid) => {
+  lazyRemoveKey = (udid) => {
     this.setState((prevState) => ({
       removed: Object.assign({}, prevState.removed, { [udid]: true }),
     }));
@@ -155,8 +155,8 @@ export default class TickGroup extends PureComponent {
 
             render={render}
 
-            removeUDID={this.removeUDID}
-            lazyRemoveUDID={this.lazyRemoveUDID}
+            removeKey={this.removeKey}
+            lazyRemoveKey={this.lazyRemoveKey}
           />
         );
       }),

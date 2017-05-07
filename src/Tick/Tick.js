@@ -22,21 +22,21 @@ export default class Tick extends PureComponent {
 
     render: PropTypes.func.isRequired,
 
-    removeUDID: PropTypes.func.isRequired,
-    lazyRemoveUDID: PropTypes.func.isRequired,
+    removeKey: PropTypes.func.isRequired,
+    lazyRemoveKey: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
 
-    const { udid, removeUDID, lazyRemoveUDID } = this.props;
+    const { udid, removeKey, lazyRemoveKey } = this.props;
 
     (this:any).remove = () => {
-      removeUDID(udid);
+      removeKey(udid);
     };
 
     (this:any).remove.lazy = () => {
-      lazyRemoveUDID(udid);
+      lazyRemoveKey(udid);
     };
   }
 
