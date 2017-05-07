@@ -77,6 +77,8 @@ export default class Node extends PureComponent {
     stop.call(this);
   }
 
+  TRANSITION_SCHEDULES = {};
+
   remove() {
     const { removeUDID, udid } = this.props;
     removeUDID(udid);

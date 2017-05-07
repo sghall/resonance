@@ -33,7 +33,7 @@ export default class Tick extends PureComponent {
     (this:any).lazyRemove = this.lazyRemove.bind(this);
   }
 
-  state = this.props.start(this.props.node, this.props.index);
+  state = this.props.start(this.props.node, this.props.index, this.props.cache);
 
   componentDidMount() {
     const { node, index, enter, cache } = this.props;
@@ -74,6 +74,8 @@ export default class Tick extends PureComponent {
   componentWillUnmount() {
     stop.call(this);
   }
+
+  TRANSITION_SCHEDULES = {};
 
   remove() {
     const { removeUDID, udid } = this.props;

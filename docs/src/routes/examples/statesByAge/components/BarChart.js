@@ -20,17 +20,14 @@ const BarChart = (props) => {
       <TickGroup
         scale={xScale}
 
-        start={(tick) => ({
+        start={(tick, index, prevScale) => ({
           opacity: 1e-6,
-          transform: `translate(${xScale(tick.val)},0)`,
+          transform: `translate(${prevScale(tick.val)},0)`,
         })}
 
-        enter={(tick, index, cached) => ({
-          opacity: [1e-6, 1],
-          transform: [
-            `translate(${cached(tick.val)},0)`,
-            `translate(${xScale(tick.val)},0)`,
-          ],
+        enter={(tick) => ({
+          opacity: [1],
+          transform: [`translate(${xScale(tick.val)},0)`],
           timing: { duration, ease: easeExp },
         })}
 
@@ -40,11 +37,11 @@ const BarChart = (props) => {
           timing: { duration, ease: easeExp },
         })}
 
-        leave={(tick, index, cached, remove, lazyRemove) => ({
+        leave={(tick, index, prevScale, remove) => ({
           opacity: [1e-6],
           transform: [`translate(${xScale(tick.val)},0)`],
           timing: { duration, ease: easeExp },
-          events: { end: lazyRemove },
+          events: { end: remove },
         })}
 
         render={(tick, state) => {

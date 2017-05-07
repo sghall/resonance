@@ -5,7 +5,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import Node from '../Node';
-import { getRemoveUDID } from '../core/helpers';
 
 export default class NodeGroup extends PureComponent {
   static propTypes = {
@@ -65,7 +64,30 @@ export default class NodeGroup extends PureComponent {
     }
   }
 
-  removeUDID = getRemoveUDID.call(this, this.props.keyAccessor);
+  removeUDID = (udid) => {
+    this.setState((prevState, props) => {
+      const index0 = prevState.nodes
+        .findIndex((d) => props.keyAccessor(d) === udid);
+
+      const index1 = props.data
+        .findIndex((d) => props.keyAccessor(d) === udid);
+
+      if (index0 >= 0 && index1 === -1) {
+        const udids = Object.assign({}, prevState.udids);
+        delete udids[udid];
+
+        return {
+          udids,
+          nodes: [
+            ...prevState.nodes.slice(0, index0),
+            ...prevState.nodes.slice(index0 + 1),
+          ],
+        };
+      }
+
+      return prevState;
+    });
+  }
 
   lazyRemoveUDID = (udid) => {
     this.setState((prevState) => ({

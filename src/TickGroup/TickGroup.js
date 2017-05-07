@@ -5,7 +5,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
 import Tick from '../Tick';
-import { getRemoveUDID } from '../core/helpers';
 
 const keyAccessor = (d) => `tick-${d.val}`;
 
@@ -86,7 +85,30 @@ export default class TickGroup extends PureComponent {
     });
   }
 
-  removeUDID = getRemoveUDID.call(this, keyAccessor);
+  removeUDID = (udid) => {
+    this.setState((prevState, props) => {
+      const index0 = prevState.nodes
+        .findIndex((d) => keyAccessor(d) === udid);
+
+      const index1 = props.scale.ticks ? props.scale.ticks(props.tickCount) : []
+        .findIndex((d) => keyAccessor(d) === udid);
+
+      if (index0 >= 0 && index1 === -1) {
+        const udids = Object.assign({}, prevState.udids);
+        delete udids[udid];
+
+        return {
+          udids,
+          nodes: [
+            ...prevState.nodes.slice(0, index0),
+            ...prevState.nodes.slice(index0 + 1),
+          ],
+        };
+      }
+
+      return prevState;
+    });
+  }
 
   lazyRemoveUDID = (udid) => {
     this.setState((prevState) => ({

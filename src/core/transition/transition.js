@@ -4,7 +4,12 @@ import { now as timeNow } from 'd3-timer';
 import once from 'lodash.once';
 import tween from './tween';
 import schedule from './schedule';
-import { newId } from '../helpers';
+
+let id = 0;
+
+function newId() {
+  return ++id;
+}
 
 // from https://github.com/d3/d3-ease/blob/master/src/cubic.js
 function easeCubicInOut(t) {
