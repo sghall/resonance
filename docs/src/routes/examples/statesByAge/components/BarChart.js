@@ -128,7 +128,7 @@ const BarChart = (props) => {
                 fill={palette.textColor}
                 fontSize={10}
                 y={yScale.bandwidth() / 2}
-              >{name}</text>
+              >{node.name}</text>
               <text
                 textAnchor="end"
                 dy="0.35em"
