@@ -84,6 +84,8 @@ export default class Tick extends PureComponent {
 
   TRANSITION_SCHEDULES = {};
 
+  remove = null;
+
   render() {
     const { state, props: { node, index, render, type } } = this;
 

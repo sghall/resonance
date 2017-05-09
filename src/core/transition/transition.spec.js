@@ -12,11 +12,6 @@ const DELAY = 500;
 
 class Test extends Component {
 
-  constructor(props) {
-    super(props);
-    this.TRANSITION_SCHEDULES = {};
-  }
-
   state = {
     line: {
       x1: 5,
@@ -66,6 +61,8 @@ class Test extends Component {
   componentWillUnmount() {
     stop.call(this);
   }
+
+  TRANSITION_SCHEDULES = {};
 
   onStart() {
     this.setState((prevState) => ({

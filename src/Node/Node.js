@@ -86,6 +86,8 @@ export default class Node extends PureComponent {
 
   TRANSITION_SCHEDULES = {};
 
+  remove = null;
+
   render() {
     const { state, props: { node, index, render, type } } = this;
 

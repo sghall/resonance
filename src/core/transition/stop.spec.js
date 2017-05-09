@@ -22,8 +22,6 @@ class Line extends Component {
         y1: 0,
       },
     };
-
-    this.TRANSITION_SCHEDULES = {};
   }
 
   componentDidMount() {
@@ -46,6 +44,8 @@ class Line extends Component {
   componentWillUnmount() {
     stop.call(this);
   }
+
+  TRANSITION_SCHEDULES = {};
 
   render() {
     return (

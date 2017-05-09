@@ -2,6 +2,7 @@
 
 .*/node_modules/fbjs/*
 .*/node_modules/react-event-listener/*
+.*/node_modules/babel-plugin-transform-react-remove-prop-types/*
 .*/scripts/*
 .*/docs/webpack.*
 
