@@ -1,5 +1,5 @@
 // @flow weak
-/* eslint react/no-multi-comp: "off" */
+/* eslint react/no-multi-comp: "off", max-len: "off" */
 
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
@@ -20,9 +20,9 @@ const dims = [ // Adjusted dimensions [width, height]
 ];
 
 // **************************************************
-//  Data
+//  Mock Data
 // **************************************************
-const data = [
+const mockData = [
   {
     name: 'Linktype',
     value: 45,
@@ -97,12 +97,12 @@ class Example extends PureComponent {
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+    data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length + 2) - (5 + 1))) + 5),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+      data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length + 2) - (5 + 1))) + 5),
     });
   }
 
@@ -137,10 +137,10 @@ class Example extends PureComponent {
               },
             })}
 
-            enter={(node, index) => ({
+            enter={(data, index) => ({
               g: {
                 opacity: [0.4],
-                transform: [`translate(${scale(node.name) + (scale.bandwidth() / 2)},0)`],
+                transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
               },
               circle: {
                 r: [scale.bandwidth() / 2],
@@ -150,10 +150,10 @@ class Example extends PureComponent {
               timing: { duration: 1000, ease: easeExpInOut },
             })}
 
-            update={(node, index) => ({
+            update={(data, index) => ({
               g: {
                 opacity: [0.4],
-                transform: [`translate(${scale(node.name) + (scale.bandwidth() / 2)},0)`],
+                transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
               },
               circle: {
                 r: [scale.bandwidth() / 2],
@@ -163,7 +163,7 @@ class Example extends PureComponent {
               timing: { duration: 1000, ease: easeExpInOut },
             })}
 
-            leave={(node, index, remove) => ({
+            leave={(data, index, remove) => ({
               g: {
                 opacity: [1e-6],
               },
@@ -174,7 +174,7 @@ class Example extends PureComponent {
               events: { end: remove },
             })}
 
-            render={(node, state) => {
+            render={(data, state) => {
               return (
                 <g {...state.g}>
                   <circle
@@ -193,7 +193,7 @@ class Example extends PureComponent {
                     y="5"
                     fill="#333"
                     transform="rotate(-45 5,20)"
-                  >{`name: ${node.name}`}</text>
+                  >{`name: ${data.name}`}</text>
                 </g>
               );
             }}
