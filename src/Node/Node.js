@@ -42,7 +42,7 @@ export default class Node extends PureComponent {
     };
   }
 
-  state = this.props.start(this.props.node, this.props.index);
+  state = this.props.start(this.props.node, this.props.index) || {};
 
   componentDidMount() {
     const { node, index, enter } = this.props;

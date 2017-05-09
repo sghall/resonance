@@ -13,9 +13,13 @@ export default class NodeGroup extends PureComponent {
      */
     data: PropTypes.array.isRequired,
     /**
+     * Function that returns a string key given a data object.  Used to track which nodes are entering, updating and leaving.
+     */
+    keyAccessor: PropTypes.func.isRequired,
+    /**
      * A function that returns the starting state.  The function is passed the data and index.
      */
-    start: PropTypes.func.isRequired,
+    start: PropTypes.func,
     /**
      * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
      */
@@ -31,7 +35,7 @@ export default class NodeGroup extends PureComponent {
     /**
      * Function that is used to render the current state of each node.  Passed the data, state, index, and type (ENTER, UPDATE or LEAVE).
      */
-    render: PropTypes.func.isRequired,
+    render: PropTypes.func,
     /**
      * The wrapper component for the nodes. Can be a custom component or 'div', 'span', etc.
      */
@@ -40,16 +44,14 @@ export default class NodeGroup extends PureComponent {
      * String class name for the wrapper component.
      */
     className: PropTypes.string,
-    /**
-     * Function that returns a string key given a data object.  Used to track which nodes are entering, updating and leaving.
-     */
-    keyAccessor: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    start: () => {},
     enter: () => {},
     update: () => {},
     leave: () => {},
+    render: () => null,
     component: 'g',
     className: 'node-group',
   };
