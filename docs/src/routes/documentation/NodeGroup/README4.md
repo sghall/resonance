@@ -16,10 +16,10 @@ Here's the complete NodeGroup component for the circles from the example above:
     },
   })}
 
-  enter={(node, index) => ({
+  enter={(data, index) => ({
     g: {
       opacity: [0.4],
-      transform: [`translate(${scale(node.name) + (scale.bandwidth() / 2)},0)`],
+      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
     },
     circle: {
       r: [scale.bandwidth() / 2],
@@ -29,10 +29,10 @@ Here's the complete NodeGroup component for the circles from the example above:
     timing: { duration: 1000, ease: easeExpInOut },
   })}
 
-  update={(node, index) => ({
+  update={(data, index) => ({
     g: {
       opacity: [0.4],
-      transform: [`translate(${scale(node.name) + (scale.bandwidth() / 2)},0)`],
+      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
     },
     circle: {
       r: [scale.bandwidth() / 2],
@@ -42,7 +42,7 @@ Here's the complete NodeGroup component for the circles from the example above:
     timing: { duration: 1000, ease: easeExpInOut },
   })}
 
-  leave={(node, index, remove) => ({
+  leave={(data, index, remove) => ({
     g: {
       opacity: [1e-6],
     },
@@ -53,7 +53,7 @@ Here's the complete NodeGroup component for the circles from the example above:
     events: { end: remove },
   })}
 
-  render={(node, state) => {
+  render={(data, state) => {
     return (
       <g {...state.g}>
         <circle
@@ -72,7 +72,7 @@ Here's the complete NodeGroup component for the circles from the example above:
           y="5"
           fill="#333"
           transform="rotate(-45 5,20)"
-        >{`name: ${node.name}`}</text>
+        >{`name: ${data.name}`}</text>
       </g>
     );
   }}
