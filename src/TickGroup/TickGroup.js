@@ -15,7 +15,7 @@ export default class TickGroup extends PureComponent {
      */
     scale: PropTypes.func.isRequired,
     /**
-     * Approximate numbe of ticks to be rendered.
+     * Approximate number of ticks to be rendered. This is passed directly through to the D3 scale ticks function.
      */
     tickCount: PropTypes.number,
     /**
