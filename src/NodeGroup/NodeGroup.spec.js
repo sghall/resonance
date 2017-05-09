@@ -45,7 +45,7 @@ describe('<NodeGroup />', () => {
     assert.strictEqual(instance.state.removed['key-1'], true, 'key should exist in map');
   });
 
-  it('should not pass props to Node components', () => {
+  it('should NOT pass other props to Node components', () => {
     const wrapper = shallow(
       <NodeGroup
         data={data}

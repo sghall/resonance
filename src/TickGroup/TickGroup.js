@@ -21,7 +21,7 @@ export default class TickGroup extends PureComponent {
     /**
      * A function that returns the starting state.   The function is passed the tick (the tick is pass as an object i.g. { val: 10.5 }) and index.
      */
-    start: PropTypes.func.isRequired,
+    start: PropTypes.func,
     /**
      * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the tick (the tick is pass as an object i.g. { val: 10.5 }) and index.
      */
@@ -37,7 +37,7 @@ export default class TickGroup extends PureComponent {
     /**
      * Function that is used to render the current state of each tick.  Passed the tick, state, index, and type (ENTER, UPDATE or LEAVE).
      */
-    render: PropTypes.func.isRequired,
+    render: PropTypes.func,
     /**
      * The wrapper component for the ticks. Can be a custom component or 'div', 'span', etc.
      */
@@ -49,9 +49,11 @@ export default class TickGroup extends PureComponent {
   };
 
   static defaultProps = {
+    start: () => {},
     enter: () => {},
     update: () => {},
     leave: () => {},
+    render: () => null,
     component: 'g',
     tickCount: 10,
     className: 'tick-group',
