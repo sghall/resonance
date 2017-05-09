@@ -12,6 +12,11 @@ const DELAY = 500;
 
 class Test extends Component {
 
+  constructor(props) {
+    super(props);
+    this.TRANSITION_SCHEDULES = {};
+  }
+
   state = {
     line: {
       x1: 5,

@@ -3,14 +3,12 @@
 
 import { assert } from 'chai';
 import schedule from './schedule';
-import { newId } from '../helpers';
-import { preset } from './transition';
+import { preset, newId } from './transition';
 
 describe('schedule', () => {
-  it('should add a TRANSITION_SCHEDULES property to node ', () => {
-    const node = { rect: {} };
-
-    schedule(node, 'rect', newId(), preset, []);
-    assert.isObject(node.TRANSITION_SCHEDULES, 'should be true');
+  it('should not have a return value', () => {
+    const node = { TRANSITION_SCHEDULES: {} };
+    const val = schedule(node, 'stateKey', newId(), preset, []);
+    assert.strictEqual(val, undefined, 'should be equal');
   });
 });

@@ -7,7 +7,7 @@ import schedule from './schedule';
 
 let id = 0;
 
-function newId() {
+export function newId() {
   return ++id;
 }
 

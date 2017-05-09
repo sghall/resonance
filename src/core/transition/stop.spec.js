@@ -11,41 +11,6 @@ import stop from './stop';
 const DURATION = 500;
 const DELAY = 50;
 
-// class Path extends Component {
-//   componentDidMount() {
-//     transition.call(this, {
-//       path: {
-//         transform: ['translate(0, 0)', 'translate(100, 0)'],
-//       },
-//       timing: {
-//         duration: DURATION,
-//         delay: DELAY,
-//       },
-//     });
-
-//     setTimeout(() => {
-//       stop.call(this);
-//     }, DELAY * 0.75);
-//   }
-
-//   componentWillUnmount() {
-//     stop.call(this);
-//   }
-
-//   path = null // ref set in render
-
-//   render() {
-//     return (
-//       <g>
-//         <path
-//           ref={(d) => { this.path = d; }}
-//           x={0} y={0}
-//         />
-//       </g>
-//     );
-//   }
-// }
-
 class Line extends Component {
 
   constructor(props) {
@@ -57,6 +22,8 @@ class Line extends Component {
         y1: 0,
       },
     };
+
+    this.TRANSITION_SCHEDULES = {};
   }
 
   componentDidMount() {
@@ -99,16 +66,6 @@ describe('stop', () => {
   after(() => {
     mount.cleanUp();
   });
-
-  // it('should stop all scheduled transitions ', (done) => {
-  //   const wrapper = mount(<Path />);
-  //   const path = wrapper.instance().path;
-
-  //   setTimeout(() => {
-  //     assert.strictEqual(path.getAttribute('transform'), 'translate(0, 0)', 'should be equal');
-  //     done();
-  //   }, DELAY + (DURATION * 1.1));
-  // });
 
   it('should stop all transitions in progress ', (done) => {
     const wrapper = mount(<Line />);
