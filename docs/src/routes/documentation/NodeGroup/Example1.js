@@ -19,9 +19,9 @@ const dims = [ // Adjusted dimensions [width, height]
 ];
 
 // **************************************************
-//  Data
+//  Mock Data
 // **************************************************
-const data = [
+const mockData = [
   {
     name: 'Linktype',
     value: 45,
@@ -87,19 +87,14 @@ const data = [
 
 
 class Example extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    (this:any).update = this.update.bind(this);
-  }
 
   state = {
-    data: shuffle(data).slice(0, 15),
+    data: shuffle(mockData).slice(0, 15),
   }
 
-  update() {
+  update = () => {
     this.setState({
-      data: shuffle(data).slice(0, 15),
+      data: shuffle(mockData).slice(0, 15),
     });
   }
 
@@ -129,21 +124,21 @@ class Example extends PureComponent {
               width: scale.bandwidth(),
             })}
 
-            enter={(node) => ({
+            enter={(data) => ({
               opacity: [0.5],
-              x: [scale(node.name)],
+              x: [scale(data.name)],
               timing: { duration: 1500 },
             })}
 
-            update={(node) => ({
+            update={(data) => ({
               opacity: [0.5],
-              x: [scale(node.name)],
+              x: [scale(data.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
               timing: { duration: 1500 },
             })}
 
-            leave={(node, index, remove) => ({
+            leave={(data, index, remove) => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
               fill: 'red',
@@ -151,7 +146,7 @@ class Example extends PureComponent {
               events: { end: remove },
             })}
 
-            render={(node, state) => {
+            render={(data, state) => {
               const { x, ...rest } = state;
 
               return (
@@ -171,7 +166,7 @@ class Example extends PureComponent {
                     y="5"
                     fill="white"
                     transform="rotate(90 5,20)"
-                  >{`name: ${node.name}`}</text>
+                  >{`name: ${data.name}`}</text>
                 </g>
               );
             }}

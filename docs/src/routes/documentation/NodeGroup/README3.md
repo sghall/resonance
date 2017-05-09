@@ -20,7 +20,7 @@ start={(/* node, index */) => ({
 The "g" and "circle" keys are objects.  You can specify transitions just like you did with the flat state within each object.
 This gives an incredible amount of flexibility to produce complex animations.
 
-What's also nice is you can then just spread your state in the render method:
+What's also nice is you can then just spread your state in the render function:
 ```js
 render={(node, state) => {
   return (

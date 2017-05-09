@@ -1,5 +1,5 @@
 // @flow weak
-/* eslint react/no-multi-comp: 'off' */
+/* eslint react/no-multi-comp: 'off', max-len: "off" */
 
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
@@ -20,9 +20,9 @@ const dims = [ // Adjusted dimensions [width, height]
 ];
 
 // **************************************************
-//  Data
+//  Mock Data
 // **************************************************
-const data = [
+const mockData = [
   {
     name: 'Linktype',
     value: 45,
@@ -90,18 +90,14 @@ const data = [
 //  Example
 // **************************************************
 class Example extends PureComponent {
-  constructor(props) {
-    super(props);
-    (this:any).update = this.update.bind(this);
-  }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+    data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length + 2) - (5 + 1))) + 5),
   }
 
-  update() {
+  update = () => {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length + 2) - (5 + 1))) + 5),
+      data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length + 2) - (5 + 1))) + 5),
     });
   }
 
@@ -129,34 +125,31 @@ class Example extends PureComponent {
               x: 1e-6,
               fill: 'green',
               width: scale.bandwidth(),
-              transform: 'scale(1)', // set it initially otherwise D3 can't interpolate
             })}
 
-            enter={(node, index) => ({
+            enter={(data, index) => ({
               opacity: [0.5],
-              x: [scale(node.name)],
+              x: [scale(data.name)],
               timing: { duration: 200 * index, delay: 1000 },
             })}
 
-            update={(node) => ({
+            update={(data) => ({
               opacity: [0.5],
-              x: [scale(node.name)],
+              x: [scale(data.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
-              transform: ['scale(1)'],
               timing: { duration: 1000, ease: easePoly },
             })}
 
-            leave={(node, index, remove) => ({
+            leave={(data, index, remove) => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
               fill: 'red',
-              transform: ['scale(0.5)'],
               timing: { duration: 2000 },
               events: { end: remove },
             })}
 
-            render={(node, state) => {
+            render={(data, state) => {
               const { x, opacity, ...rest } = state;
 
               return (
@@ -176,7 +169,7 @@ class Example extends PureComponent {
                     y="5"
                     fill="white"
                     transform="rotate(90 5,20)"
-                  >{`name: ${node.name}`}</text>
+                  >{`name: ${data.name}`}</text>
                 </g>
               );
             }}
