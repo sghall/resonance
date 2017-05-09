@@ -5,7 +5,7 @@ You can create "namespaces" that allow you to organize state in a way that makes
 
 **Example starting state:**
 ```js
-start={(/* node, index */) => ({
+start={(/* data, index */) => ({
   g: {
     opacity: 1e-6,
     transform: 'translate(0,0)',
@@ -22,7 +22,7 @@ This gives an incredible amount of flexibility to produce complex animations.
 
 What's also nice is you can then just spread your state in the render function:
 ```js
-render={(node, state) => {
+render={(data, state) => {
   return (
     <g {...state.g}>
       <circle
@@ -41,7 +41,7 @@ render={(node, state) => {
         y="5"
         fill="#333"
         transform="rotate(-45 5,20)"
-      >{`name: ${node.name}`}</text>
+      >{`name: ${data.name}`}</text>
     </g>
   );
 }}
