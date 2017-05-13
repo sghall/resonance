@@ -19,26 +19,6 @@ Resonance is available as an [npm package](https://www.npmjs.org/package/resonan
 npm install resonance
 ```
 
-## Why would I need this?
-
-**Resonance handles much of the heavy lifting for...**
-* Creating expressive custom transitions easily
-* Animating anything! HTML, SVG, React-Native components...
-* Transitioning numbers, strings, colors, SVG transforms...
-* Setting transition durations and delays
-* Handling transition interrupts
-* Hooks for transition events (start, interrupt, end)
-* Custom tween functions
-* Specifying ease functions
-* Stopping transitions on component unmount
-
-## Run documentation/examples locally 
-
-**To run the documentation/examples site in this repo locally:**
- - clone the repo and cd into the directory 
- - npm install && cd docs && npm install && npm start
- - go to http://localhost:3000/
-
 ## NodeGroup  
 
 The NodeGroup component allows you to create complex animated transitions.  You pass it an array of objects and a key accessor function and it will run your enter, update and leave transitions as the data updates.
@@ -124,6 +104,25 @@ Not only can you can have independent duration, delay and easing for entering, u
   }}
 />
 ```
+## Why would I need this?
+
+**Resonance handles much of the heavy lifting for...**
+* Creating expressive custom transitions easily
+* Animating anything! HTML, SVG, React-Native components...
+* Transitioning numbers, strings, colors, SVG transforms...
+* Setting transition durations and delays
+* Handling transition interrupts
+* Hooks for transition events (start, interrupt, end)
+* Custom tween functions
+* Specifying ease functions
+* Stopping transitions on component unmount
+
+## Run documentation/examples locally 
+
+**To run the documentation/examples site in this repo locally:**
+ - clone the repo and cd into the directory 
+ - npm install && cd docs && npm install && npm start
+ - go to http://localhost:3000/
 
 ## SVG Chart Examples
 
