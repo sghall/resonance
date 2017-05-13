@@ -39,6 +39,92 @@ npm install resonance
  - npm install && cd docs && npm install && npm start
  - go to http://localhost:3000/
 
+## NodeGroup  
+
+The NodeGroup component allows you to create complex animated transitions.  You pass it an array of objects and a key accessor function and it will run your enter, update and leave transitions as the data updates.
+The idea is similar to transition components like [react-transition-group](https://github.com/reactjs/react-transition-group) or [react-motion's TransitionMotion](https://github.com/chenglou/react-motion) but you use objects to express how you want your state to transition.
+Not only can you can have independent duration, delay and easing for entering, updating and leaving but each individual key in your state can define its own timing.
+
+```js
+<NodeGroup
+  data={this.state.data}
+  keyAccessor={(d) => d.name}
+
+  start={() => ({
+    g: {
+      opacity: 1e-6,
+      transform: 'translate(0,0)',
+    },
+    circle: {
+      r: 1e-6,
+      strokeWidth: 1e-6,
+      fill: 'green',
+    },
+  })}
+
+  enter={(data, index) => ({
+    g: {
+      opacity: [0.4],
+      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
+    },
+    circle: {
+      r: [scale.bandwidth() / 2],
+      strokeWidth: [(index + 1) * 2],
+      fill: 'green',
+    },
+    timing: { duration: 1000, ease: easeExpInOut },
+  })}
+
+  update={(data, index) => ({
+    g: {
+      opacity: [0.4],
+      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
+    },
+    circle: {
+      r: [scale.bandwidth() / 2],
+      strokeWidth: [(index + 1) * 2],
+      fill: 'blue',
+    },
+    timing: { duration: 1000, ease: easeExpInOut },
+  })}
+
+  leave={(data, index, remove) => ({
+    g: {
+      opacity: [1e-6],
+    },
+    circle: {
+      fill: 'red',
+    },
+    timing: { duration: 1000, ease: easeExpInOut },
+    events: { end: remove },
+  })}
+
+  render={(data, state) => {
+    return (
+      <g {...state.g}>
+        <circle
+          stroke="grey"
+          cy={dims[1] / 2}
+          {...state.circle}
+        />
+        <text
+          x="0"
+          y="20"
+          fill="#333"
+          transform="rotate(-45 5,20)"
+        >{`x: ${state.g.transform}`}</text>
+        <text
+          x="0"
+          y="5"
+          fill="#333"
+          transform="rotate(-45 5,20)"
+        >{`name: ${data.name}`}</text>
+      </g>
+    );
+  }}
+/>
+```
+
 ## SVG Chart Examples
 
 You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.
