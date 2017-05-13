@@ -25,6 +25,7 @@ The NodeGroup component allows you to create complex animated transitions.  You 
 The idea is similar to transition components like [react-transition-group](https://github.com/reactjs/react-transition-group) or [react-motion's TransitionMotion](https://github.com/chenglou/react-motion) but you use objects to express how you want your state to transition.
 Not only can you can have independent duration, delay and easing for entering, updating and leaving but each individual key in your state can define its own timing.
 
+[Documentation/Live Examples](https://sghall.github.io/resonance/#/documentation/node-group)
 ```js
 <NodeGroup
   data={this.state.data}
