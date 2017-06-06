@@ -89,20 +89,18 @@ class Example extends PureComponent {
       arcsCache: newArcs.reduce((m, n) => {
         return Object.assign(m, { [n.data.name]: n });
       }, {}),
-      arcsCount: 10,
     };
   }
 
   update = () => {
     this.setState((prevState) => {
-      const data = mockData.slice(0, prevState.arcsCount + 1).map((n) => {
+      const data = prevState.data.map((n) => {
         return { ...n, value: Math.random() };
       });
 
       return {
         data,
         arcs: getArc(data),
-        arcsCount: data.length,
       };
     });
   };
@@ -127,11 +125,8 @@ class Example extends PureComponent {
     return (
       <div>
         <button onClick={this.update}>
-          Randomize & Add Arc
+          Randomize
         </button>
-        <span style={{ margin: 5 }}>
-          Arcs Count: {arcs.length}
-        </span>
         <Surface view={view} trbl={trbl}>
           <g transform={`translate(${dims[0] / 2}, ${dims[1] / 2})`}>
             <NodeGroup
