@@ -11,6 +11,7 @@ import Example1 from './Example1';
 import Example2 from './Example2';
 import Example3 from './Example3';
 import Example4 from './Example4';
+import Example5 from './Example5';
 
 const NodeGroupDocs = (props) => {
   const { route: { docContext, srcContext } } = props;
@@ -21,6 +22,12 @@ const NodeGroupDocs = (props) => {
       <MarkdownElement text={docContext('./NodeGroup/README0.md')} />
       <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
       <MarkdownElement text={docContext('./NodeGroup/README1.md')} />
+      <CodeExample
+        code={docContext('./NodeGroup/Example5')}
+        title="Example 5: Pie Chart"
+      >
+        <Example5 />
+      </CodeExample>
       <CodeExample
         code={docContext('./NodeGroup/Example1')}
         title="Example 1: Simple Bars"
