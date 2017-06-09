@@ -56,13 +56,23 @@ const mockData = [
   },
 ];
 
+const radius = (dims[1] / 2) * 0.80;
+
 const pieLayout = pie()
   .value((d) => d.value)
   .sort(null);
 
-const arcPath = arc()
-  .innerRadius((dims[1] / 4))
-  .outerRadius((dims[1] / 2));
+const innerArcPath = arc()
+  .innerRadius(radius * 0.4)
+  .outerRadius(radius * 1.0);
+
+const outerArcPath = arc()
+  .innerRadius(radius * 1.2)
+  .outerRadius(radius * 1.2);
+
+function mid(d) {
+  return Math.PI > (d.startAngle + (d.endAngle - d.startAngle));
+}
 
 class Example extends PureComponent {
   constructor(props) {
@@ -125,13 +135,26 @@ class Example extends PureComponent {
               })}
 
               render={({ data: { name } }, state) => {
-                const { startAngle, endAngle } = state;
+                const p0 = innerArcPath.centroid(state);
+                const p1 = outerArcPath.centroid(state);
+                const p2 = [
+                  mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
+                  p1[1],
+                ];
 
                 return (
-                  <path
-                    fill={colors(name)}
-                    d={arcPath({ startAngle, endAngle })}
-                  />
+                  <g>
+                    <path
+                      fill={colors(name)}
+                      d={innerArcPath(state)}
+                    />
+                    <text transform={`translate(${p2[0]},${p2[1] - 20})`}>{mid(state) ? 'T' : 'F'}</text>
+                    <polyline
+                      fill="none"
+                      stroke="black"
+                      points={`${p0},${p1},${p2}`}
+                    />
+                  </g>
                 );
               }}
             />
