@@ -3,7 +3,6 @@
 
 import { scaleOrdinal } from 'd3-scale';
 import { arc, pie } from 'd3-shape';
-
 import Surface from 'docs/src/components/Surface';
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
