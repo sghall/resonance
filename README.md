@@ -31,6 +31,7 @@ Not only can you can have independent duration, delay and easing for entering, u
 ## Example Donut Chart
 
 You can produce an animated donut chart with labels like the one below...
+
 <a href="https://sghall.github.io/resonance/#/documentation/node-group">
   <img src="https://user-images.githubusercontent.com/4615775/26999680-7e327a18-4d54-11e7-8e86-7e4e548594ba.png" height="150px"/>
 </a>
