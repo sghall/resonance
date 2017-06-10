@@ -3,24 +3,12 @@
 
 import { scaleOrdinal } from 'd3-scale';
 import { arc, pie } from 'd3-shape';
-import { shuffle } from 'd3-array';
 import Surface from 'docs/src/components/Surface';
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
 
 const colors = scaleOrdinal()
-  .range([
-    '#a6cee3',
-    '#1f78b4',
-    '#b2df8a',
-    '#33a02c',
-    '#fb9a99',
-    '#e31a1c',
-    '#fdbf6f',
-    '#ff7f00',
-    '#cab2d6',
-    '#6a3d9a',
-  ]);
+  .range(['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a']);
 
 // **************************************************
 //  SVG Layout
@@ -104,7 +92,7 @@ class Example extends PureComponent {
     return (
       <div>
         <button onClick={this.update}>
-          Randomize
+          Update
         </button>
         <Surface view={view} trbl={trbl}>
           <g transform={`translate(${dims[0] / 2}, ${dims[1] / 2})`}>
@@ -119,7 +107,7 @@ class Example extends PureComponent {
 
               enter={({ endAngle }) => ({
                 endAngle: [endAngle],
-                timing: { duration: 500 },
+                timing: { duration: 2000 },
               })}
 
               update={({ startAngle, endAngle }) => ({
@@ -133,7 +121,6 @@ class Example extends PureComponent {
               }}
 
               render={({ data: { name } }, state) => {
-                const p0 = innerArcPath.centroid(state);
                 const p1 = outerArcPath.centroid(state);
                 const p2 = [
                   mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
@@ -154,7 +141,7 @@ class Example extends PureComponent {
                     <polyline
                       fill="none"
                       stroke="rgba(127,127,127,0.5)"
-                      points={`${p0},${p1},${p2}`}
+                      points={`${innerArcPath.centroid(state)},${p1},${p2}`}
                     />
                   </g>
                 );
