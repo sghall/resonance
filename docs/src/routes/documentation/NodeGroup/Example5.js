@@ -56,7 +56,7 @@ const mockData = [
   },
 ];
 
-const radius = (dims[1] / 2) * 0.80;
+const radius = (dims[1] / 2) * 0.70;
 
 const pieLayout = pie()
   .value((d) => d.value)
@@ -148,10 +148,17 @@ class Example extends PureComponent {
                       fill={colors(name)}
                       d={innerArcPath(state)}
                     />
-                    <text transform={`translate(${p2[0]},${p2[1] - 20})`}>{mid(state) ? 'T' : 'F'}</text>
+                    <text
+                      dy="4px"
+                      fontSize="12px"
+                      transform={`translate(${p2})`}
+                      textAnchor={mid(state) ? 'start' : 'end'}
+                    >
+                      {name}
+                    </text>
                     <polyline
                       fill="none"
-                      stroke="black"
+                      stroke="rgba(0,0,0,0.5)"
                       points={`${p0},${p1},${p2}`}
                     />
                   </g>
