@@ -3,6 +3,7 @@
 
 import { scaleOrdinal } from 'd3-scale';
 import { arc, pie } from 'd3-shape';
+import { shuffle } from 'd3-array';
 import Surface from 'docs/src/components/Surface';
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
@@ -127,12 +128,9 @@ class Example extends PureComponent {
                 timing: { duration: 500 },
               })}
 
-              leave={({ endAngle }, index, remove) => ({
-                startAngle: [endAngle],
-                endAngle: [endAngle],
-                timing: { duration: 500 },
-                events: { end: remove },
-              })}
+              leave={(data, index, remove) => {
+                remove();
+              }}
 
               render={({ data: { name } }, state) => {
                 const p0 = innerArcPath.centroid(state);
@@ -144,10 +142,7 @@ class Example extends PureComponent {
 
                 return (
                   <g>
-                    <path
-                      fill={colors(name)}
-                      d={innerArcPath(state)}
-                    />
+                    <path fill={colors(name)} d={innerArcPath(state)} />
                     <text
                       dy="4px"
                       fontSize="12px"
@@ -158,7 +153,7 @@ class Example extends PureComponent {
                     </text>
                     <polyline
                       fill="none"
-                      stroke="rgba(0,0,0,0.5)"
+                      stroke="rgba(127,127,127,0.5)"
                       points={`${p0},${p1},${p2}`}
                     />
                   </g>
