@@ -52,7 +52,7 @@ const pieLayout = pie()
   .sort(null);
 
 const innerArcPath = arc()
-  .innerRadius(radius * 0.4)
+  .innerRadius(radius * 0.7)
   .outerRadius(radius * 1.0);
 
 const outerArcPath = arc()
@@ -73,8 +73,14 @@ class Example extends PureComponent {
   }
 
   getArcs = () => {
-    const data = mockData.map(({ name }) => ({ name, value: Math.random() }));
+    const data = mockData
+      .map(({ name }) => ({ name, value: this.getRandom(10, 100) }));
+
     return pieLayout(data);
+  }
+
+  getRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - (min + 1))) + min;
   }
 
   update = (e) => {
@@ -135,9 +141,7 @@ class Example extends PureComponent {
                       fontSize="12px"
                       transform={`translate(${p2})`}
                       textAnchor={mid(state) ? 'start' : 'end'}
-                    >
-                      {name}
-                    </text>
+                    >{name}</text>
                     <polyline
                       fill="none"
                       stroke="rgba(127,127,127,0.5)"

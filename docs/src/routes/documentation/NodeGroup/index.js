@@ -24,7 +24,7 @@ const NodeGroupDocs = (props) => {
       <MarkdownElement text={docContext('./NodeGroup/README1.md')} />
       <CodeExample
         code={docContext('./NodeGroup/Example0')}
-        title="Example 0: Pie Chart"
+        title="Example 0: Donut Chart"
       >
         <Example0 />
       </CodeExample>
