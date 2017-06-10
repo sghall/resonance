@@ -26,6 +26,17 @@ The idea is similar to transition components like [react-transition-group](https
 Not only can you can have independent duration, delay and easing for entering, updating and leaving but each individual key in your state can define its own timing.
 
 [Documentation/Live Examples](https://sghall.github.io/resonance/#/documentation/node-group)
+
+
+## Example Donut Chart
+
+You can produce an animated donut chart with labels like the one below...
+<a href="https://sghall.github.io/resonance/#/documentation/node-group">
+  <img src="https://user-images.githubusercontent.com/4615775/26999680-7e327a18-4d54-11e7-8e86-7e4e548594ba.png" height="150px"/>
+</a>
+
+With a small amount of code like this...
+
 ```js
 <NodeGroup
   data={arcs}
@@ -77,6 +88,8 @@ Not only can you can have independent duration, delay and easing for entering, u
   }}
 />
 ```
+The full code for this donut chart example can be seen [here](https://sghall.github.io/resonance/#/documentation/node-group).
+
 ## Why would I need this?
 
 **Resonance handles much of the heavy lifting for...**
