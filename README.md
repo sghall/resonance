@@ -28,78 +28,50 @@ Not only can you can have independent duration, delay and easing for entering, u
 [Documentation/Live Examples](https://sghall.github.io/resonance/#/documentation/node-group)
 ```js
 <NodeGroup
-  data={this.state.data}
-  keyAccessor={(d) => d.name}
+  data={arcs}
+  keyAccessor={(d) => d.data.name}
 
-  start={() => ({
-    g: {
-      opacity: 1e-6,
-      transform: 'translate(0,0)',
-    },
-    circle: {
-      r: 1e-6,
-      strokeWidth: 1e-6,
-      fill: 'green',
-    },
+  start={({ startAngle }) => ({
+    startAngle,
+    endAngle: startAngle,
   })}
 
-  enter={(data, index) => ({
-    g: {
-      opacity: [0.4],
-      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
-    },
-    circle: {
-      r: [scale.bandwidth() / 2],
-      strokeWidth: [(index + 1) * 2],
-      fill: 'green',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
+  enter={({ endAngle }) => ({
+    endAngle: [endAngle],
+    timing: { duration: 2000 },
   })}
 
-  update={(data, index) => ({
-    g: {
-      opacity: [0.4],
-      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
-    },
-    circle: {
-      r: [scale.bandwidth() / 2],
-      strokeWidth: [(index + 1) * 2],
-      fill: 'blue',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
+  update={({ startAngle, endAngle }) => ({
+    startAngle: [startAngle],
+    endAngle: [endAngle],
+    timing: { duration: 500 },
   })}
 
-  leave={(data, index, remove) => ({
-    g: {
-      opacity: [1e-6],
-    },
-    circle: {
-      fill: 'red',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
-    events: { end: remove },
-  })}
+  leave={(data, index, remove) => {
+    remove();
+  }}
 
-  render={(data, state) => {
+  render={({ data: { name } }, state) => {
+    const p1 = outerArcPath.centroid(state);
+    const p2 = [
+      mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
+      p1[1],
+    ];
+
     return (
-      <g {...state.g}>
-        <circle
-          stroke="grey"
-          cy={dims[1] / 2}
-          {...state.circle}
+      <g>
+        <path fill={colors(name)} d={innerArcPath(state)} />
+        <text
+          dy="4px"
+          fontSize="12px"
+          transform={`translate(${p2})`}
+          textAnchor={mid(state) ? 'start' : 'end'}
+        >{name}</text>
+        <polyline
+          fill="none"
+          stroke="rgba(127,127,127,0.5)"
+          points={`${innerArcPath.centroid(state)},${p1},${p2}`}
         />
-        <text
-          x="0"
-          y="20"
-          fill="#333"
-          transform="rotate(-45 5,20)"
-        >{`x: ${state.g.transform}`}</text>
-        <text
-          x="0"
-          y="5"
-          fill="#333"
-          transform="rotate(-45 5,20)"
-        >{`name: ${data.name}`}</text>
       </g>
     );
   }}
