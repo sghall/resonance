@@ -15,22 +15,19 @@ describe('dataUpdate', () => {
     update = [1, 2, 3, 4, 5].map((d) => ({ x: d, y: d }));
   });
 
-  it('should return an object', () => {
+  it('should return an object with dkeys, nodes, and removed', () => {
     const res = dataUpdate({ data: update }, state, keyAccessor);
-    assert.isObject(res, 'should be true');
+    assert.exists(res.dkeys, 'should be true');
+    assert.exists(res.nodes, 'should be true');
+    assert.exists(res.removed, 'should be true');
   });
 
-  it('should return an object with a dkeys prop that is an object', () => {
-    const res = dataUpdate({ data: update }, state, keyAccessor);
-    assert.isObject(res.dkeys, 'should be true');
-  });
-
-  it('should return an object with a nodes prop that is an array', () => {
+  it('should return an object with a nodes key that is an array', () => {
     const res = dataUpdate({ data: update }, state, keyAccessor);
     assert.isArray(res.nodes, 'should be true');
   });
 
-  it('should clear the removed map before returning', () => {
+  it('should return an empty removed object', () => {
     state.removed.a = true;
     state.removed.b = true;
     assert.strictEqual(Object.keys(state.removed).length, 2, 'should be equal');
