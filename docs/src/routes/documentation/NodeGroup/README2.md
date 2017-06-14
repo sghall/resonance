@@ -118,3 +118,41 @@ leave={(data, index, remove) => {
   remove();
 }}
 ```
+
+### `Lazy Remove`
+
+You can also do something that you can’t do in D3. You can also “lazily” remove the item.
+If the number of nodes cycling in and out is relatively low then there’s really no need to remove them from the DOM immediately on leave.
+This is an unnecessary thrashing of the DOM. You have to remove the DOM node in D3 because that’s where the data is stored and queried from on the update.
+But if you turn down the opacity or move the item off the screen in the leave transition it really doesn’t matter if it stays in the DOM until the next update. You can do that by calling remove.lazy.
+I personally like to do remove in this way, but it depends on what you’re doing.
+
+If you look at the Redux chart examples in the repo, you’ll see this being used a lot. For example, in the bar chart example the bars are lazily removed on leave.
+
+```js
+leave={(node, index, remove) => ({
+  node: {
+    opacity: [1e-6],
+    transform: ['translate(0,500)'],
+  },
+  timing: { duration, ease: easePoly },
+  events: { end: remove.lazy }, // lazy remove!!
+})}
+```
+
+The difference is that the removal of the node is simply scheduled.
+On the next update if the key does not return it will leave the DOM.
+That means, importantly, that it could also go from leave to enter if the key returns in the next update.
+That will never happen if you call remove and not remove.lazy. You can manage the re-entry by specifying a start and end values in your enter function…
+
+```js
+enter={(node) => ({
+  node: {
+    opacity: [1e-6, 1],
+    transform: ['translate(0,500)', `translate(0,${node.yVal})`],
+  },
+  rect: { width: node.xVal, height: yScale.bandwidth() },
+  text: { x: node.xVal - 3 },
+  timing: { duration, ease: easePoly },
+})}
+```
