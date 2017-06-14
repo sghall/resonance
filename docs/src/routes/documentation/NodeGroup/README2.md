@@ -58,6 +58,8 @@ const defaultTming = {
 ```
 You can specify just the things you want to override on your timing key.
 
+The events are the same as those on D3 transitions. You can fire a function on transition start, end and interrupt.
+
 ### Interpolators
 
 Interpolators are inferred from what you specify in your transition object.
