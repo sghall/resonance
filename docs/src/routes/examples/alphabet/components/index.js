@@ -47,8 +47,10 @@ export class Example extends Component {
                 <Surface view={VIEW} trbl={TRBL}>
                   <line
                     stroke="grey"
-                    x1={0} y1={dims[1] / 2}
-                    x2={dims[0]} y2={dims[1] / 2}
+                    x1={0}
+                    y1={dims[1] / 2}
+                    x2={dims[0]}
+                    y2={dims[1] / 2}
                   />
                   <NodeGroup
                     data={this.props.data}

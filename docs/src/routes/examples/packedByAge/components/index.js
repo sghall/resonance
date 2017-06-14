@@ -59,7 +59,9 @@ export class Example extends Component {
               <div className="col-md-6 col-sm-6">
                 <h5>Show Top {showTop} States:</h5>
                 <Slider
-                  min={5} max={25} step={1}
+                  min={5}
+                  max={25}
+                  step={1}
                   value={showTop}
                   onChange={this.setShowTop}
                   onDragStop={() => dispatch(updateTopCount(showTop))}

@@ -72,7 +72,9 @@ export class Example extends Component {
                 <h5>Transition Duration: {(duration / 1000).toFixed(1)} Seconds</h5>
                 <Slider
                   sliderStyle={{ marginBottom: 20 }}
-                  min={0} max={10000} step={100}
+                  min={0}
+                  max={10000}
+                  step={100}
                   value={duration}
                   onChange={this.setDuration}
                 />
@@ -90,7 +92,9 @@ export class Example extends Component {
                 <h5>Tension Setting: {(tension).toFixed(2)}</h5>
                 <Slider
                   sliderStyle={{ marginBottom: 10 }}
-                  min={0} max={1} step={0.01}
+                  min={0}
+                  max={1}
+                  step={0.01}
                   value={tension}
                   onChange={this.setTension}
                   onDragStop={this.changeTension}

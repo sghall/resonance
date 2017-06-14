@@ -51,13 +51,16 @@ const BarChart = (props) => {
           return (
             <g {...state}>
               <line
-                x1={0} y1={0}
-                x2={0} y2={DIMS[1]}
+                x1={0}
+                y1={0}
+                x2={0}
+                y2={DIMS[1]}
                 stroke={palette.textColor}
                 opacity={0.2}
               />
               <text
-                x={0} y={-5}
+                x={0}
+                y={-5}
                 textAnchor="middle"
                 fill={palette.textColor}
                 fontSize="10px"

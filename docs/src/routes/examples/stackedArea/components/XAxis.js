@@ -28,8 +28,10 @@ class XAxis extends Component {
             <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
               <line
                 style={{ pointerEvents: 'none' }}
-                x1={0} y1={0}
-                x2={0} y2={yScale.range()[0]}
+                x1={0}
+                y1={0}
+                x2={0}
+                y2={yScale.range()[0]}
                 opacity={0.2}
                 stroke={palette.textColor}
               />
@@ -37,7 +39,8 @@ class XAxis extends Component {
                 fontSize="9px"
                 textAnchor="middle"
                 fill={palette.textColor}
-                x={0} y={-10}
+                x={0}
+                y={-10}
               >{date}</text>
             </g>
           );

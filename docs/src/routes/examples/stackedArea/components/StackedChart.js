@@ -60,8 +60,10 @@ const StackedChart = (props) => {
           return (
             <g {...state}>
               <line
-                x1={0} y1={0}
-                x2={DIMS[0]} y2={0}
+                x1={0}
+                y1={0}
+                x2={DIMS[0]}
+                y2={0}
                 stroke={palette.textColor}
                 opacity={0.2}
               />
@@ -70,7 +72,8 @@ const StackedChart = (props) => {
                 textAnchor="end"
                 dy=".35em"
                 fill={palette.textColor}
-                x={-10} y={0}
+                x={-10}
+                y={0}
               >{numberFormat(tick.val)}</text>
             </g>
           );
