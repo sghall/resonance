@@ -11,6 +11,8 @@ This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently mana
 You can apply high-performance state animations using an approachable, easy to implement syntax.
 [Get Started](https://sghall.github.io/resonance/#/documentation/node-group).
 
+[Intro Blog Post](http://www.delimited.io/blog/2017/6/14/d3-react-scheduling-state-transitions)
+
 ## Installation
 
 Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
@@ -94,8 +96,8 @@ The full code for this donut chart example can be seen [here](https://sghall.git
 ## Why would I need this?
 
 **Resonance handles much of the heavy lifting for...**
-* Creating expressive custom transitions easily
-* Animating anything! HTML, SVG, React-Native components...
+* Create custom transitions easily
+* Animate HTML, SVG, React-Native components...
 * Transitioning numbers, strings, colors, SVG transforms...
 * Setting transition durations and delays
 * Handling transition interrupts
@@ -113,7 +115,7 @@ The full code for this donut chart example can be seen [here](https://sghall.git
 
 ## SVG Chart Examples
 
-You can animate any component with Resonance, but it was developed by experimenting with animated SVG charts and redux.
+You can animate anything with Resonance, but it was developed by experimenting with animated SVG charts and redux.
 This library is great for creating abstact animated data visualizations in React.
 You can view the [example code](https://github.com/sghall/resonance/tree/master/docs/src/routes/examples) here for the chart examples.
 Each example is a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
