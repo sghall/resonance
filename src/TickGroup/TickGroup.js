@@ -92,7 +92,7 @@ export default class TickGroup extends PureComponent {
       const index0 = prevState.nodes
         .findIndex((d) => keyAccessor(d) === dkey);
 
-      const index1 = props.scale.ticks ? props.scale.ticks(props.tickCount) : []
+      const index1 = (props.scale.ticks ? props.scale.ticks(props.tickCount) : [])
         .findIndex((d) => keyAccessor(d) === dkey);
 
       if (index0 >= 0 && index1 === -1) {

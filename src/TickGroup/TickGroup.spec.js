@@ -11,6 +11,9 @@ import TickGroup from './TickGroup';
 const scale = () => {};
 scale.ticks = () => [1, 2, 3, 4, 5];
 
+const scale0 = () => {};
+scale0.ticks = () => [1, 2, 3, 4];
+
 describe('<TickGroup />', () => {
   it('should render a g element', () => {
     const wrapper = shallow(
@@ -25,6 +28,21 @@ describe('<TickGroup />', () => {
     );
 
     assert.strictEqual(wrapper.find(Tick).length, scale.ticks().length, 'should be equal');
+  });
+
+  it('should remove Tick when leave prop calls remove immediately', () => {
+    const wrapper = mount(
+      <TickGroup
+        scale={scale}
+        leave={(item, index, cache, remove) => {
+          remove();
+        }}
+      />,
+    );
+
+    wrapper.setProps({ scale: scale0 });
+
+    assert.strictEqual(wrapper.find(Tick).length, scale0.ticks().length, 'should be equal');
   });
 
   it('should add udid to removed map when calling lazyRemoveKey', () => {
