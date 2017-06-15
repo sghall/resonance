@@ -31,7 +31,23 @@ describe('<NodeGroup />', () => {
     assert.strictEqual(wrapper.find(Node).length, data.length, 'should be equal');
   });
 
-  it('should add udid to removed map when calling lazyRemoveKey', () => {
+  it('should remove Node  when leave prop calls remove immediately', () => {
+    const wrapper = mount(
+      <NodeGroup
+        data={data}
+        keyAccessor={(d) => d.val}
+        leave={(node, index, remove) => {
+          remove();
+        }}
+      />,
+    );
+
+    wrapper.setProps({ data: data.slice(1) });
+
+    assert.strictEqual(wrapper.find(Node).length, data.length - 1, 'should be equal');
+  });
+
+  it('should add dkey to removed map when calling lazyRemoveKey', () => {
     const wrapper = shallow(
       <NodeGroup
         data={data}
