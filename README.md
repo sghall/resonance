@@ -6,13 +6,11 @@
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.min.js.svg?label=minified)
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/dist/resonance.js.svg?compression=gzip)
 
-Animated state transitions that update with your data. 
+An experimental library for animated state transitions that update with your data. 
 This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently manage thousands of state tweens.
 You can apply high-performance state animations using an approachable, easy to implement syntax.
 
 [Get Started](https://sghall.github.io/resonance/#/documentation/node-group)
-
-[Intro Blog Post](http://www.delimited.io/blog/2017/6/14/d3-react-scheduling-state-transitions)
 
 ## Installation
 
