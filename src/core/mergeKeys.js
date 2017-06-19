@@ -2,7 +2,19 @@
 // Based on react-motion's mergeDiff (https://github.com/chenglou/react-motion)
 
 function mergeKeys(currNodeKeys, currKeyIndex, nextNodeKeys, nextKeyIndex) {
-  return currNodeKeys.concat(nextNodeKeys).sort((a, b) => {
+  const allKeys = [];
+
+  for (let i = 0; i < nextNodeKeys.length; i++) {
+    allKeys[i] = nextNodeKeys[i];
+  }
+
+  for (let i = 0; i < currNodeKeys.length; i++) {
+    if (nextKeyIndex[currNodeKeys[i]] === undefined) {
+      allKeys.push(currNodeKeys[i]);
+    }
+  }
+
+  return allKeys.sort((a, b) => {
     const nextOrderA = nextKeyIndex[a];
     const nextOrderB = nextKeyIndex[b];
     const currOrderA = currKeyIndex[a];

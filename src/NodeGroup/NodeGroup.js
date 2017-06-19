@@ -2,10 +2,8 @@
 /* eslint max-len: "off" */
 
 import React, { PureComponent } from 'react';
-import now from 'performance-now';
 import RAF from 'raf';
 import PropTypes from 'prop-types';
-import dataUpdate from '../core/dataUpdate';
 import mergeKeys from '../core/mergeKeys';
 import { transition } from '../core/transition';
 import Node from '../InternalNode';
@@ -49,6 +47,10 @@ export default class NodeGroup extends PureComponent {
      * String class name for the wrapper component.
      */
     className: PropTypes.string,
+    /**
+     * String class name for the wrapper component.
+     */
+    children: PropTypes.func,
   };
 
   static defaultProps = {
@@ -114,7 +116,7 @@ export default class NodeGroup extends PureComponent {
       nextKeyIndex[k] = i;
       nextNodeKeys.push(k);
 
-      if (!currKeyIndex[k]) {
+      if (currKeyIndex[k] === undefined) {
         const n = new Node(k, d, 'ENTER');
         this.nodeHash[k] = n;
       }
@@ -124,7 +126,7 @@ export default class NodeGroup extends PureComponent {
       const k = currNodeKeys[i];
       const n = this.nodeHash[k];
 
-      if (nextKeyIndex[k]) {
+      if (nextKeyIndex[k] !== undefined) {
         const d = data[nextKeyIndex[k]];
         n.update(d, 'UPDATE');
       } else {
@@ -155,8 +157,8 @@ export default class NodeGroup extends PureComponent {
       }
     }
 
-    console.log('nodeHash length:', Object.keys(this.nodeHash).length);
-    console.log('nodeKeys length:', this.nodeKeys.length);
+    // console.log('nodeHash length:', Object.keys(this.nodeHash).length);
+    // console.log('nodeKeys length:', this.nodeKeys.length);
 
     this.renderNodes();
     this.animate();
