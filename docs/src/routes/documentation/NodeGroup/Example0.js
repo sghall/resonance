@@ -113,44 +113,46 @@ class Example extends PureComponent {
 
               enter={({ endAngle }) => ({
                 endAngle: [endAngle],
-                timing: { duration: 2000 },
+                timing: { duration: 2000, delay: 5000 },
               })}
 
               update={({ startAngle, endAngle }) => ({
                 startAngle: [startAngle],
                 endAngle: [endAngle],
-                timing: { duration: 500 },
+                timing: { duration: 2000 },
               })}
-
-              leave={(data, index, remove) => {
-                remove();
-              }}
-
-              render={({ data: { name } }, state) => {
-                const p1 = outerArcPath.centroid(state);
-                const p2 = [
-                  mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
-                  p1[1],
-                ];
-
+            >
+              {(nodes) => {
                 return (
                   <g>
-                    <path fill={colors(name)} d={innerArcPath(state)} />
-                    <text
-                      dy="4px"
-                      fontSize="12px"
-                      transform={`translate(${p2})`}
-                      textAnchor={mid(state) ? 'start' : 'end'}
-                    >{name}</text>
-                    <polyline
-                      fill="none"
-                      stroke="rgba(127,127,127,0.5)"
-                      points={`${innerArcPath.centroid(state)},${p1},${p2}`}
-                    />
+                    {nodes.map(({ key, data, state }) => {
+                      const p1 = outerArcPath.centroid(state);
+                      const p2 = [
+                        mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
+                        p1[1],
+                      ];
+
+                      return (
+                        <g key={key}>
+                          <path fill={colors(data.data.name)} d={innerArcPath(state)} />
+                          <text
+                            dy="4px"
+                            fontSize="12px"
+                            transform={`translate(${p2})`}
+                            textAnchor={mid(state) ? 'start' : 'end'}
+                          >{data.data.name}</text>
+                          <polyline
+                            fill="none"
+                            stroke="rgba(127,127,127,0.5)"
+                            points={`${innerArcPath.centroid(state)},${p1},${p2}`}
+                          />
+                        </g>
+                      );
+                    })}
                   </g>
                 );
               }}
-            />
+            </NodeGroup>
           </g>
         </Surface>
       </div>
