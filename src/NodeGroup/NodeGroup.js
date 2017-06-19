@@ -61,7 +61,9 @@ export default class NodeGroup extends PureComponent {
     className: 'node-group',
   };
 
-  state = dataUpdate(this.props.data, {}, this.props.keyAccessor);
+  state = {
+    nodes: [],
+  }
 
   componentWillMount() {
     this.unmounting = false;
@@ -113,8 +115,7 @@ export default class NodeGroup extends PureComponent {
       nextNodeKeys.push(k);
 
       if (!currKeyIndex[k]) {
-        const s = start(d, i);
-        const n = new Node(s, d, 'ENTER');
+        const n = new Node(k, d, 'ENTER');
         this.nodeHash[k] = n;
       }
     }
@@ -157,7 +158,7 @@ export default class NodeGroup extends PureComponent {
     console.log('nodeHash length:', Object.keys(this.nodeHash).length);
     console.log('nodeKeys length:', this.nodeKeys.length);
 
-    this.renderProgress();
+    this.renderNodes();
     this.animate();
   }
 
@@ -175,9 +176,14 @@ export default class NodeGroup extends PureComponent {
         return;
       }
 
-      const needsAnimation = this.nodeKeys.reduce((d, item) => {
-        return d || item.progress < 1;
-      }, false);
+      // let k = this.nodeKeys.length;
+
+      // while (k) {
+      //   if (Object.keys(this.nodeHash[this.nodeKeys[k]]).length) {
+      //   }
+      // }
+
+      const needsAnimation = false;
 
       if (!needsAnimation) {
         this.animationID = null;
@@ -188,77 +194,39 @@ export default class NodeGroup extends PureComponent {
 
       this.wasAnimating = true;
 
-      const currentTime = now();
-      // const timeSinceLastFrame = currentTime - this.lastRenderTime;
-
-      this.renderProgress();
-      this.lastRenderTime = currentTime;
+      this.renderNodes();
       this.animationID = null;
       this.animate();
     });
   }
 
-  removeKey = (dkey) => {
-    this.setState((prevState, props) => {
-      const index0 = prevState.nodes
-        .findIndex((d) => props.keyAccessor(d) === dkey);
-
-      const index1 = props.data
-        .findIndex((d) => props.keyAccessor(d) === dkey);
-
-      if (index0 >= 0 && index1 === -1) {
-        const dkeys = Object.assign({}, prevState.dkeys);
-        delete dkeys[dkey];
-
-        return {
-          dkeys,
-          nodes: [
-            ...prevState.nodes.slice(0, index0),
-            ...prevState.nodes.slice(index0 + 1),
-          ],
-        };
-      }
-
-      return prevState;
-    });
-  }
-
-  lazyRemoveKey = (dkey) => {
-    this.setState((prevState) => ({
-      removed: Object.assign({}, prevState.removed, { [dkey]: true }),
-    }));
-  }
-
   nodeHash = {};
   nodeKeys = [];
 
-  renderProgress() {
-    const nodes = this.nodeHash;
+  renderNodes() {
+    const nodes = this.nodeKeys.map((key) => {
+      return this.nodeHash[key];
+    });
 
-    this.setState({ items: nodes });
+    console.log(nodes);
+
+    this.setState({ nodes });
   }
 
   render() {
-    const { props: {
-      component,
-      className,
-      keyAccessor,
-    }, state } = this;
+    const nodes = this.state.nodes.map((node, index) => {
+      return (
+        <g key={`${node.type}-${Math.random()}`} transform={`translate(-300,${(index * 20) - 200})`}>
+          <text fontSize="10px">{nodes}</text>
+          <text dy="10px" fontSize="10px">{node.type}</text>
+        </g>
+      );
+    });
 
-    return React.createElement(
-      component,
-      { className },
-      state.nodes.map((node, index) => {
-        const dkey = keyAccessor(node);
-        const type = state.dkeys[dkey];
-
-        return (
-          <g key={dkey} transform={`translate(-300,${index * 20})`}>
-            <text fontSize="10px">{dkey}</text>
-            <text dy="10px" fontSize="10px">{type}</text>
-          </g>
-        );
-      }),
+    return (
+      <g>
+        {nodes}
+      </g>
     );
   }
 }

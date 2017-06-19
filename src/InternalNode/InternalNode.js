@@ -9,10 +9,13 @@ function extend(obj, props) {
   return obj;
 }
 
-function InternalNode(state = {}, data, type) {
+function InternalNode(key, data, type) {
+  this.key = key;
   this.data = data;
   this.type = type;
-  this.state = state;
+
+  this.state = {};
+
   this.TRANSITION_SCHEDULES = {};
 }
 
