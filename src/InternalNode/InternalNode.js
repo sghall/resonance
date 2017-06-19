@@ -9,8 +9,10 @@ function extend(obj, props) {
   return obj;
 }
 
-export function InternalNode(initialState) {
-  this.state = initialState || {};
+function InternalNode(state = {}, data, type) {
+  this.data = data;
+  this.type = type;
+  this.state = state;
   this.TRANSITION_SCHEDULES = {};
 }
 
@@ -19,4 +21,12 @@ extend(InternalNode.prototype, {
     const s = this.state;
     extend(s, typeof state === 'function' ? state(s) : state);
   },
+  update(data, type) {
+    this.data = data;
+    this.type = type;
+
+    return this;
+  },
 });
+
+export default InternalNode;
