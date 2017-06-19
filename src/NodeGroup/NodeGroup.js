@@ -6,7 +6,8 @@ import now from 'performance-now';
 import RAF from 'raf';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
-import mergeNodes from '../core/mergeNodes';
+import mergeKeys from '../core/mergeKeys';
+import { transition } from '../core/transition';
 import Node from '../InternalNode';
 // import Node from '../Node';
 
@@ -86,7 +87,7 @@ export default class NodeGroup extends PureComponent {
   }
 
   updateNodes(props) {
-    const { data, start, keyAccessor } = props;
+    const { data, start, enter, update, leave, keyAccessor } = props;
     const noChanges = this.props.data === data;
 
     if (this.ranFirst && noChanges) {
@@ -95,8 +96,9 @@ export default class NodeGroup extends PureComponent {
 
     const currKeyIndex = {};
     const currNodeKeys = this.nodeKeys;
+    const currNodeKeysLength = this.nodeKeys.length;
 
-    for (let i = 0; i < currNodeKeys.length; i++) {
+    for (let i = 0; i < currNodeKeysLength; i++) {
       currKeyIndex[currNodeKeys[i]] = i;
     }
 
@@ -108,16 +110,16 @@ export default class NodeGroup extends PureComponent {
       const k = keyAccessor(d);
 
       nextKeyIndex[k] = i;
+      nextNodeKeys.push(k);
 
       if (!currKeyIndex[k]) {
         const s = start(d, i);
         const n = new Node(s, d, 'ENTER');
         this.nodeHash[k] = n;
-        nextNodeKeys.push(k);
       }
     }
 
-    for (let i = 0; i < currNodeKeys.length; i++) {
+    for (let i = 0; i < currNodeKeysLength; i++) {
       const k = currNodeKeys[i];
       const n = this.nodeHash[k];
 
@@ -130,12 +132,30 @@ export default class NodeGroup extends PureComponent {
       }
     }
 
-    this.nodeKeys = mergeNodes(
+    this.nodeKeys = mergeKeys(
       currNodeKeys,
       currKeyIndex,
       nextNodeKeys,
       nextKeyIndex,
     );
+
+    for (let i = 0; i < this.nodeKeys.length; i++) {
+      const k = this.nodeKeys[i];
+      const n = this.nodeHash[k];
+      const d = n.data;
+
+      if (n.type === 'ENTER') {
+        n.setState(start(d, i));
+        transition.call(n, enter(d, i));
+      } else if (n.type === 'LEAVE') {
+        transition.call(n, leave(d, i));
+      } else {
+        transition.call(n, update(d, i));
+      }
+    }
+
+    console.log('nodeHash length:', Object.keys(this.nodeHash).length);
+    console.log('nodeKeys length:', this.nodeKeys.length);
 
     this.renderProgress();
     this.animate();
@@ -220,12 +240,6 @@ export default class NodeGroup extends PureComponent {
 
   render() {
     const { props: {
-      // data,
-      // start,
-      // enter,
-      // update,
-      // leave,
-      // render,
       component,
       className,
       keyAccessor,
