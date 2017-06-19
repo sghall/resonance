@@ -2,13 +2,15 @@
 /* eslint max-len: "off" */
 
 import React, { PureComponent } from 'react';
-import RAF from 'raf';
+import { interval } from 'd3-timer';
 import PropTypes from 'prop-types';
 import mergeKeys from '../core/mergeKeys';
 import { transition } from '../core/transition';
 import Node from '../InternalNode';
 
-export default class NodeGroup extends PureComponent {
+const msPerFrame = 1000 / 60;
+
+class NodeGroup extends PureComponent {
   static propTypes = {
     /**
      * An array of data objects.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
@@ -67,10 +69,8 @@ export default class NodeGroup extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.unmounting = true;
-    if (this.animationID != null) {
-      RAF.cancel(this.animationID);
-      this.animationID = null;
+    if (this.interval) {
+      this.interval.stop();
     }
   }
 
@@ -141,14 +141,15 @@ export default class NodeGroup extends PureComponent {
       }
     }
 
-    // console.log('nodeHash length:', Object.keys(this.nodeHash).length);
-    // console.log('nodeKeys length:', this.nodeKeys.length);
+    if (this.interval) {
+      this.interval.stop();
+    }
 
+    this.interval = interval(this.animate, msPerFrame);
     this.renderNodes();
-    this.animate();
   }
 
-  animate() {
+  animate = () => {
     if (this.unmounting) {
       return;
     }
@@ -157,33 +158,25 @@ export default class NodeGroup extends PureComponent {
       return;
     }
 
-    this.animationID = RAF(() => {
-      if (this.unmounting) {
-        return;
+    let k = -1;
+    let pending = false;
+
+    while (k++ < this.nodeKeys.length - 1 && !pending) {
+      if (this.nodeHash[this.nodeKeys[k]].TRANSITION_SCHEDULES) {
+        pending = true;
       }
+    }
 
-      let k = -1;
-      let needsAnimation = false;
+    if (!pending) {
+      this.interval.stop();
+    }
 
-      while (k++ < this.nodeKeys.length - 1 && !needsAnimation) {
-        if (this.nodeHash[this.nodeKeys[k]].TRANSITION_SCHEDULES) {
-          needsAnimation = true;
-        }
-      }
-
-      if (!needsAnimation) {
-        this.animationID = null;
-        return;
-      }
-
-      this.renderNodes();
-      this.animationID = null;
-      this.animate();
-    });
+    this.renderNodes();
   }
 
   nodeHash = {};
   nodeKeys = [];
+  interval = null;
 
   renderNodes() {
     this.setState({
@@ -198,3 +191,6 @@ export default class NodeGroup extends PureComponent {
     return renderedChildren && React.Children.only(renderedChildren);
   }
 }
+
+export default NodeGroup;
+
