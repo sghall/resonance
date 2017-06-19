@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import mergeKeys from '../core/mergeKeys';
 import { transition } from '../core/transition';
 import Node from '../InternalNode';
-// import Node from '../Node';
 
 export default class NodeGroup extends PureComponent {
   static propTypes = {
@@ -36,19 +35,7 @@ export default class NodeGroup extends PureComponent {
      */
     leave: PropTypes.func,
     /**
-     * Function that is used to render the current state of each node.  Passed the data, state, index, and type (ENTER, UPDATE or LEAVE).
-     */
-    render: PropTypes.func,
-    /**
-     * The wrapper component for the nodes. Can be a custom component or 'div', 'span', etc.
-     */
-    component: PropTypes.any,
-    /**
-     * String class name for the wrapper component.
-     */
-    className: PropTypes.string,
-    /**
-     * String class name for the wrapper component.
+     * A function that renders the nodes.  The function is passed an array of nodes.
      */
     children: PropTypes.func,
   };
@@ -58,9 +45,6 @@ export default class NodeGroup extends PureComponent {
     enter: () => {},
     update: () => {},
     leave: () => {},
-    render: () => null,
-    component: 'g',
-    className: 'node-group',
   };
 
   state = {
@@ -208,16 +192,6 @@ export default class NodeGroup extends PureComponent {
       }),
     });
   }
-
-  // render() {
-  //   const nodes = this.state.nodes.map((node, index) => {
-  //     return (
-  //       <g key={`${node.type}-${Math.random()}`} transform={`translate(-300,${(index * 20) - 200})`}>
-  //         <text fontSize="10px">{nodes}</text>
-  //         <text dy="10px" fontSize="10px">{node.type}</text>
-  //       </g>
-  //     );
-  //   });
 
   render() {
     const renderedChildren = this.props.children(this.state.nodes);
