@@ -2,9 +2,13 @@
 /* eslint max-len: "off" */
 
 import React, { PureComponent } from 'react';
+import now from 'performance-now';
+import RAF from 'raf';
 import PropTypes from 'prop-types';
 import dataUpdate from '../core/dataUpdate';
-import Node from '../Node';
+import mergeNodes from '../core/mergeNodes';
+import Node from '../InternalNode';
+// import Node from '../Node';
 
 export default class NodeGroup extends PureComponent {
   static propTypes = {
@@ -58,12 +62,120 @@ export default class NodeGroup extends PureComponent {
 
   state = dataUpdate(this.props.data, {}, this.props.keyAccessor);
 
+  componentWillMount() {
+    this.unmounting = false;
+    this.animationID = null;
+    this.lastRenderTime = 0;
+  }
+
+  componentDidMount() {
+    this.updateNodes(this.props);
+    this.ranFirst = true;
+  }
+
   componentWillReceiveProps(next) {
-    if (this.props.data !== next.data) {
-      this.setState((prevState) => {
-        return dataUpdate(next.data, prevState, next.keyAccessor);
-      });
+    this.updateNodes(next);
+  }
+
+  componentWillUnmount() {
+    this.unmounting = true;
+    if (this.animationID != null) {
+      RAF.cancel(this.animationID);
+      this.animationID = null;
     }
+  }
+
+  updateNodes(props) {
+    const { data, start, keyAccessor } = props;
+    const noChanges = this.props.data === data;
+
+    if (this.ranFirst && noChanges) {
+      return;
+    }
+
+    const currKeyIndex = {};
+    const currNodeKeys = this.nodeKeys;
+
+    for (let i = 0; i < currNodeKeys.length; i++) {
+      currKeyIndex[currNodeKeys[i]] = i;
+    }
+
+    const nextKeyIndex = {};
+    const nextNodeKeys = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const d = data[i];
+      const k = keyAccessor(d);
+
+      nextKeyIndex[k] = i;
+
+      if (!currKeyIndex[k]) {
+        const s = start(d, i);
+        const n = new Node(s, d, 'ENTER');
+        this.nodeHash[k] = n;
+        nextNodeKeys.push(k);
+      }
+    }
+
+    for (let i = 0; i < currNodeKeys.length; i++) {
+      const k = currNodeKeys[i];
+      const n = this.nodeHash[k];
+
+      if (nextKeyIndex[k]) {
+        const d = data[nextKeyIndex[k]];
+        n.update(d, 'UPDATE');
+      } else {
+        const d = n.data;
+        n.update(d, 'LEAVE');
+      }
+    }
+
+    this.nodeKeys = mergeNodes(
+      currNodeKeys,
+      currKeyIndex,
+      nextNodeKeys,
+      nextKeyIndex,
+    );
+
+    this.renderProgress();
+    this.animate();
+  }
+
+  animate() {
+    if (this.unmounting) {
+      return;
+    }
+
+    if (this.animationID) {
+      return;
+    }
+
+    this.animationID = RAF(() => {
+      if (this.unmounting) {
+        return;
+      }
+
+      const needsAnimation = this.nodeKeys.reduce((d, item) => {
+        return d || item.progress < 1;
+      }, false);
+
+      if (!needsAnimation) {
+        this.animationID = null;
+        this.wasAnimating = false;
+
+        return;
+      }
+
+      this.wasAnimating = true;
+
+      const currentTime = now();
+      // const timeSinceLastFrame = currentTime - this.lastRenderTime;
+
+      this.renderProgress();
+      this.lastRenderTime = currentTime;
+      this.animationID = null;
+      this.animate();
+    });
   }
 
   removeKey = (dkey) => {
@@ -97,14 +209,23 @@ export default class NodeGroup extends PureComponent {
     }));
   }
 
+  nodeHash = {};
+  nodeKeys = [];
+
+  renderProgress() {
+    const nodes = this.nodeHash;
+
+    this.setState({ items: nodes });
+  }
+
   render() {
     const { props: {
-      data,
-      start,
-      enter,
-      update,
-      leave,
-      render,
+      // data,
+      // start,
+      // enter,
+      // update,
+      // leave,
+      // render,
       component,
       className,
       keyAccessor,
@@ -118,27 +239,10 @@ export default class NodeGroup extends PureComponent {
         const type = state.dkeys[dkey];
 
         return (
-          <Node
-            key={dkey}
-
-            data={data}
-
-            dkey={dkey}
-            type={type}
-            node={node}
-            index={index}
-
-            start={start}
-
-            enter={enter}
-            update={update}
-            leave={leave}
-
-            render={render}
-
-            removeKey={this.removeKey}
-            lazyRemoveKey={this.lazyRemoveKey}
-          />
+          <g key={dkey} transform={`translate(-300,${index * 20})`}>
+            <text fontSize="10px">{dkey}</text>
+            <text dy="10px" fontSize="10px">{type}</text>
+          </g>
         );
       }),
     );
