@@ -3,7 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import dataUpdate from '../core/dataUpdate';
+// import dataUpdate from '../core/dataUpdate';
 import Tick from '../Tick';
 
 const keyAccessor = (d) => `tick-${d.val}`;
@@ -77,14 +77,14 @@ export default class TickGroup extends PureComponent {
   }
 
   updateTicks(prev, next) {
-    const { tickCount, scale } = next;
-    const ticks = scale.ticks ? scale.ticks(tickCount) : [];
+    // const { tickCount, scale } = next;
+    // const ticks = scale.ticks ? scale.ticks(tickCount) : [];
 
-    this.setState((prevState) => {
-      const mapped = ticks.map((tick) => ({ val: tick }));
-      const update = dataUpdate(mapped, prevState, keyAccessor);
-      return { ...update, cache: prev.scale };
-    });
+    // this.setState((prevState) => {
+    //   const mapped = ticks.map((tick) => ({ val: tick }));
+    //   const update = dataUpdate(mapped, prevState, keyAccessor);
+    //   return { ...update, cache: prev.scale };
+    // });
   }
 
   removeKey = (dkey) => {
