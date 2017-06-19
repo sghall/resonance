@@ -26,10 +26,6 @@ export const preset = {
 function scheduleTransitions(config = {}) {
   const transitions = { ...config };
 
-  if (!this || !this.isReactComponent) {
-    throw new Error('Transitions must be run against a React component');
-  }
-
   const events = transitions.events || {};
   delete transitions.events;
 
