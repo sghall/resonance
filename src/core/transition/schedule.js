@@ -14,8 +14,9 @@ const ENDED = 6;
 
 export default function (node, stateKey:string, id:number, timing, tweens, events = {}) {
   const schedules = node.TRANSITION_SCHEDULES;
-
-  if (id in schedules) {
+  if (!schedules) {
+    node.TRANSITION_SCHEDULES = {}; // eslint-disable-line no-param-reassign
+  } else if (id in schedules) {
     return;
   }
 
@@ -144,6 +145,9 @@ function create(node, id:number, config) {
   function stop() {
     transition.state = ENDED;
     transition.timer.stop();
+
     delete schedules[id];
+    for (const i in schedules) return; // eslint-disable-line guard-for-in, no-restricted-syntax
+    delete node.TRANSITION_SCHEDULES; // eslint-disable-line no-param-reassign
   }
 }

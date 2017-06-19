@@ -13,10 +13,7 @@ function InternalNode(key, data, type) {
   this.key = key;
   this.data = data;
   this.type = type;
-
   this.state = {};
-
-  this.TRANSITION_SCHEDULES = {};
 }
 
 extend(InternalNode.prototype, {
