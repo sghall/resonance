@@ -176,23 +176,19 @@ export default class NodeGroup extends PureComponent {
         return;
       }
 
-      // let k = this.nodeKeys.length;
+      let k = -1;
+      let needsAnimation = false;
 
-      // while (k) {
-      //   if (Object.keys(this.nodeHash[this.nodeKeys[k]]).length) {
-      //   }
-      // }
-
-      const needsAnimation = false;
+      while (k++ < this.nodeKeys.length - 1 && !needsAnimation) {
+        if (this.nodeHash[this.nodeKeys[k]].TRANSITION_SCHEDULES) {
+          needsAnimation = true;
+        }
+      }
 
       if (!needsAnimation) {
         this.animationID = null;
-        this.wasAnimating = false;
-
         return;
       }
-
-      this.wasAnimating = true;
 
       this.renderNodes();
       this.animationID = null;
@@ -204,29 +200,25 @@ export default class NodeGroup extends PureComponent {
   nodeKeys = [];
 
   renderNodes() {
-    const nodes = this.nodeKeys.map((key) => {
-      return this.nodeHash[key];
+    this.setState({
+      nodes: this.nodeKeys.map((key) => {
+        return this.nodeHash[key];
+      }),
     });
-
-    console.log(nodes);
-
-    this.setState({ nodes });
   }
 
-  render() {
-    const nodes = this.state.nodes.map((node, index) => {
-      return (
-        <g key={`${node.type}-${Math.random()}`} transform={`translate(-300,${(index * 20) - 200})`}>
-          <text fontSize="10px">{nodes}</text>
-          <text dy="10px" fontSize="10px">{node.type}</text>
-        </g>
-      );
-    });
+  // render() {
+  //   const nodes = this.state.nodes.map((node, index) => {
+  //     return (
+  //       <g key={`${node.type}-${Math.random()}`} transform={`translate(-300,${(index * 20) - 200})`}>
+  //         <text fontSize="10px">{nodes}</text>
+  //         <text dy="10px" fontSize="10px">{node.type}</text>
+  //       </g>
+  //     );
+  //   });
 
-    return (
-      <g>
-        {nodes}
-      </g>
-    );
+  render() {
+    const renderedChildren = this.props.children(this.state.nodes);
+    return renderedChildren && React.Children.only(renderedChildren);
   }
 }
