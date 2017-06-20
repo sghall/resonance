@@ -4,7 +4,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 // import dataUpdate from '../core/dataUpdate';
-import Tick from '../Tick';
+// import Tick from '../Tick';
 
 const keyAccessor = (d) => `tick-${d.val}`;
 
@@ -138,7 +138,7 @@ export default class TickGroup extends PureComponent {
         const type = state.dkeys[dkey];
 
         return (
-          <Tick
+          <div
             key={dkey}
 
             scale={scale}
