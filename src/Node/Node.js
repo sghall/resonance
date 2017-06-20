@@ -1,5 +1,7 @@
 // @flow weak
 /* eslint guard-for-in: "off", no-restricted-syntax: "off" */
+// Node constructor used to manage transitions internally
+// Basically a modified preact component (https://github.com/developit/preact)
 
 function extend(obj, props) {
   for (const i in props) {
