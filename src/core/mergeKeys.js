@@ -1,7 +1,12 @@
 // @flow weak;
 // Based on react-motion's mergeDiff (https://github.com/chenglou/react-motion)
 
-function mergeKeys(currNodeKeys, currKeyIndex, nextNodeKeys, nextKeyIndex) {
+function mergeKeys(
+  currNodeKeys:Array<string>,
+  currKeyIndex:{},
+  nextNodeKeys:Array<string>,
+  nextKeyIndex:{},
+) {
   const allKeys = [];
 
   for (let i = 0; i < nextNodeKeys.length; i++) {
