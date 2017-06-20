@@ -34,21 +34,22 @@ const Sunburst = (props) => {
           timing: { duration, ease: easeLinear },
         };
       }}
-
-      leave={(node, index, remove) => {
-        remove();
-      }}
-
-      render={(node, state) => (
-        <Arc
-          node={node}
-          {...state}
-          activePath={activePath}
-          setActivePath={setActivePath}
-          setActiveNode={setActiveNode}
-        />
+    >
+      {(nodes) => (
+        <g>
+          {nodes.map(({ key, data: node, state }) => (
+            <Arc
+              key={key}
+              node={node}
+              {...state}
+              activePath={activePath}
+              setActivePath={setActivePath}
+              setActiveNode={setActiveNode}
+            />
+          ))}
+        </g>
       )}
-    />
+    </NodeGroup>
   );
 };
 

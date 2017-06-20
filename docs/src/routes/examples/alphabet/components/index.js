@@ -86,22 +86,18 @@ export class Example extends Component {
                       timing: { duration: BASE_DURATION / 2, ease: easePoly },
                     })}
                   >
-                    {(nodes) => {
-                      return (
-                        <g>
-                          {nodes.map(({ key, data: { letter }, state }) => {
-                            return (
-                              <text
-                                key={key}
-                                dy="-.35em"
-                                style={{ font: 'bold 30px monospace' }}
-                                {...state}
-                              >{letter}</text>
-                            );
-                          })}
-                        </g>
-                      );
-                    }}
+                    {(nodes) => (
+                      <g>
+                        {nodes.map(({ key, data: { letter }, state }) => (
+                          <text
+                            key={key}
+                            dy="-.35em"
+                            style={{ font: 'bold 30px monospace' }}
+                            {...state}
+                          >{letter}</text>
+                        ))}
+                      </g>
+                    )}
                   </NodeGroup>
                 </Surface>
               </div>
