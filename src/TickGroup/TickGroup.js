@@ -69,7 +69,7 @@ class TickGroup extends Component {
 
   componentWillReceiveProps(next) {
     if (next.scale !== this.props.scale) {
-      const { scale, tickCount, ...rest } = this.props;
+      const { scale, tickCount, ...rest } = next;
       const ticks = scale.ticks ? scale.ticks(tickCount) : [];
       this.updateNodes(rest, ticks.map((d) => ({ val: d })), tickKeyAccessor);
     }

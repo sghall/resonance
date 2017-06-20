@@ -21,47 +21,46 @@ class BarChart extends PureComponent {
   }
 
   state = {
-    xScale: this.props.xScale,
+    xScale0: this.props.xScale,
+    xScale1: this.props.xScale,
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(next) {
     this.setState(() => ({
-      xScale: this.props.xScale,
+      xScale0: this.props.xScale,
+      xScale1: next.xScale,
     }));
   }
 
   render() {
-    const { data, xScale, yScale, duration } = this.props;
+    const { data, yScale, duration } = this.props;
+    const { xScale0, xScale1 } = this.state;
 
     return (
       <Surface view={VIEW} trbl={TRBL}>
         <TickGroup
-          scale={xScale}
+          scale={this.props.xScale}
 
-          start={({ val }) => {
-            console.log(xScale.domain(), this.state.xScale.domain());
-
-            return {
-              opacity: 1e-6,
-              transform: `translate(${this.state.xScale(val)},0)`,
-            };
-          }}
+          start={({ val }) => ({
+            opacity: 1e-6,
+            transform: `translate(${xScale0(val)},0)`,
+          })}
 
           enter={({ val }) => ({
             opacity: [1],
-            transform: [`translate(${xScale(val)},0)`],
+            transform: [`translate(${xScale1(val)},0)`],
             timing: { duration, ease: easeExp },
           })}
 
           update={({ val }) => ({
             opacity: [1],
-            transform: [`translate(${xScale(val)},0)`],
+            transform: [`translate(${xScale1(val)},0)`],
             timing: { duration, ease: easeExp },
           })}
 
           leave={({ val }) => ({
             opacity: [1e-6],
-            transform: [`translate(${xScale(val)},0)`],
+            transform: [`translate(${xScale1(val)},0)`],
             timing: { duration, ease: easeExp },
           })}
         >
@@ -165,7 +164,7 @@ class BarChart extends PureComponent {
                         fontSize={10}
                         y={yScale.bandwidth() / 2}
                         {...state.text}
-                      >{percentFormat(xScale.invert(xVal))}</text>
+                      >{percentFormat(xScale1.invert(xVal))}</text>
                     </g>
                   );
                 })}
