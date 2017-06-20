@@ -9,9 +9,6 @@ import mergeKeys from '../core/mergeKeys';
 import { ENTER, UPDATE, LEAVE } from '../core/types';
 import { transition, stop } from '../core/transition';
 
-// let renderTime0;
-// let renderTime1;
-
 class NodeGroup extends Component {
   static propTypes = {
     /**
@@ -56,11 +53,15 @@ class NodeGroup extends Component {
   }
 
   componentDidMount() {
-    this.updateNodes(this.props);
+    const { data, keyAccessor, ...rest } = this.props;
+    this.updateNodes(rest, data, keyAccessor);
   }
 
   componentWillReceiveProps(next) {
-    this.updateNodes(next);
+    if (next.data !== this.props.data) {
+      const { data, keyAccessor, ...rest } = next;
+      this.updateNodes(rest, data, keyAccessor);
+    }
   }
 
   componentWillUnmount() {
@@ -75,13 +76,8 @@ class NodeGroup extends Component {
     });
   }
 
-  updateNodes(props) {
-    const { data, start, enter, update, leave, keyAccessor } = props;
-    const noChanges = this.props.data === data;
-
-    if (this.ranFirst && noChanges) {
-      return;
-    }
+  updateNodes(props, data, keyAccessor) {
+    const { start, enter, update, leave } = props;
 
     const currKeyIndex = {};
     const currNodeKeys = this.nodeKeys;
@@ -198,10 +194,6 @@ class NodeGroup extends Component {
   }
 
   render() {
-    // renderTime1 = performance.now();
-    // console.log(renderTime1 - renderTime0);
-    // renderTime0 = renderTime1;
-
     const renderedChildren = this.props.children(this.state.nodes);
     return renderedChildren && React.Children.only(renderedChildren);
   }
