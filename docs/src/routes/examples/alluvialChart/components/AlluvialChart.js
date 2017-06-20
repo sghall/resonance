@@ -1,6 +1,6 @@
 // @flow weak
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import TickGroup from 'resonance/TickGroup';
 import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
@@ -13,131 +13,152 @@ import { VIEW, TRBL, DIMS } from '../module/constants';
 const dateFormat = utcFormat('%-d/%-m/%Y');
 const numberFormat = format(',');
 
-const AlluvialChart = (props) => {
-  const { data, xScale, yScale, duration } = props;
+class AlluvialChart extends PureComponent {
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    xScale: PropTypes.func.isRequired,
+    yScale: PropTypes.func.isRequired,
+    duration: PropTypes.number.isRequired,
+  }
 
-  return (
-    <Surface view={VIEW} trbl={TRBL}>
-      <g>
-        {xScale.ticks(4).map((d) => {
-          const date = dateFormat(d);
+  state = {
+    yScale0: this.props.yScale,
+    yScale1: this.props.yScale,
+  }
 
-          return (
-            <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
-              <line
-                style={{ pointerEvents: 'none' }}
-                x1={0}
-                y1={0}
-                x2={0}
-                y2={yScale.range()[0]}
-                opacity={0.2}
-                stroke={palette.textColor}
-              />
-              <text
-                fontSize="8px"
-                textAnchor="middle"
-                fill={palette.textColor}
-                x={0}
-                y={-10}
-              >{date}</text>
+  componentWillReceiveProps(next) {
+    this.setState(() => ({
+      yScale0: this.props.yScale,
+      yScale1: next.yScale,
+    }));
+  }
+
+  render() {
+    const { data, xScale, duration } = this.props;
+    const { yScale0, yScale1 } = this.state;
+
+    return (
+      <Surface view={VIEW} trbl={TRBL}>
+        <g>
+          {xScale.ticks(4).map((d) => {
+            const date = dateFormat(d);
+
+            return (
+              <g opacity={0.6} key={date} transform={`translate(${xScale(d)})`}>
+                <line
+                  style={{ pointerEvents: 'none' }}
+                  x1={0}
+                  y1={0}
+                  x2={0}
+                  y2={yScale1.range()[0]}
+                  opacity={0.2}
+                  stroke={palette.textColor}
+                />
+                <text
+                  fontSize="8px"
+                  textAnchor="middle"
+                  fill={palette.textColor}
+                  x={0}
+                  y={-10}
+                >{date}</text>
+              </g>
+            );
+          })}
+        </g>
+        <TickGroup
+          scale={yScale1}
+
+          start={({ val }) => ({
+            opacity: 1e-6,
+            transform: `translate(0,${yScale0(val)})`,
+          })}
+
+          enter={({ val }) => ({
+            opacity: [1e-6, 0.7],
+            transform: [`translate(0,${yScale1(val)})`],
+            timing: { duration },
+          })}
+
+          update={({ val }) => ({
+            opacity: [0.7],
+            transform: [`translate(0,${yScale1(val)})`],
+            timing: { duration },
+          })}
+
+          leave={({ val }) => ({
+            opacity: [1e-6],
+            transform: [`translate(0,${yScale1(val)})`],
+            timing: { duration },
+          })}
+        >
+          {(nodes) => {
+            return (
+              <g>
+                {nodes.map(({ key, data: { val }, state }) => {
+                  return (
+                    <g key={key} {...state}>
+                      <line
+                        x1={0}
+                        y1={0}
+                        x2={DIMS[0]}
+                        y2={0}
+                        stroke={palette.textColor}
+                        opacity={0.2}
+                      />
+                      <text
+                        fontSize={'8px'}
+                        textAnchor="end"
+                        dy=".35em"
+                        fill={palette.textColor}
+                        x={-10}
+                        y={0}
+                      >{numberFormat(val)}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            );
+          }}
+        </TickGroup>
+        <NodeGroup
+          data={data}
+          keyAccessor={(d) => d.name}
+
+          start={({ path }) => ({
+            opacity: 1e-6,
+            d: path,
+          })}
+
+          enter={() => ({
+            opacity: [0.7],
+            timing: { duration },
+          })}
+
+          update={({ path }) => ({
+            opacity: [0.7],
+            d: [path],
+            timing: { duration },
+          })}
+
+          leave={() => ({
+            opacity: [1e-6],
+            timing: { duration },
+          })}
+        >
+          {(nodes) => (
+            <g>
+              {nodes.map(({ key, data: { fill }, state }) => {
+                return (
+                  <path key={key} fill={fill} {...state} />
+                );
+              })}
             </g>
-          );
-        })}
-      </g>
-      <TickGroup
-        scale={yScale}
+          )}
+        </NodeGroup>
+      </Surface>
+    );
+  }
+}
 
-        start={(tick) => ({
-          opacity: 1e-6,
-          transform: `translate(0,${yScale(tick.val)})`,
-        })}
-
-        enter={(tick, index, cached) => ({
-          opacity: [1e-6, 0.7],
-          transform: [
-            `translate(0,${cached(tick.val)})`,
-            `translate(0,${yScale(tick.val)})`,
-          ],
-          timing: { duration },
-        })}
-
-        update={(tick) => ({
-          opacity: [0.7],
-          transform: [`translate(0,${yScale(tick.val)})`],
-          timing: { duration },
-        })}
-
-        leave={(tick, index, cached, remove) => ({
-          opacity: [1e-6],
-          transform: [`translate(0,${yScale(tick.val)})`],
-          timing: { duration },
-          events: { end: remove.lazy },
-        })}
-
-        render={(tick, state) => {
-          return (
-            <g {...state}>
-              <line
-                x1={0}
-                y1={0}
-                x2={DIMS[0]}
-                y2={0}
-                stroke={palette.textColor}
-                opacity={0.2}
-              />
-              <text
-                fontSize={'8px'}
-                textAnchor="end"
-                dy=".35em"
-                fill={palette.textColor}
-                x={-10}
-                y={0}
-              >{numberFormat(tick.val)}</text>
-            </g>
-          );
-        }}
-      />
-      <NodeGroup
-        data={data}
-        keyAccessor={(d) => d.name}
-
-        start={(node) => ({
-          opacity: 1e-6,
-          d: node.path,
-        })}
-
-        enter={() => ({
-          opacity: [1e-6, 0.7],
-          timing: { duration },
-        })}
-
-        update={(node) => ({
-          opacity: [0.7],
-          d: [node.path],
-          timing: { duration },
-        })}
-
-        leave={(node, index, remove) => ({
-          opacity: [1e-6],
-          timing: { duration },
-          events: { end: remove.lazy },
-        })}
-
-        render={(node, state) => {
-          return (
-            <path fill={node.fill} {...state} />
-          );
-        }}
-      />
-    </Surface>
-  );
-};
-
-AlluvialChart.propTypes = {
-  data: PropTypes.array.isRequired,
-  xScale: PropTypes.func.isRequired,
-  yScale: PropTypes.func.isRequired,
-  duration: PropTypes.number.isRequired,
-};
 
 export default AlluvialChart;
