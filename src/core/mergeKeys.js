@@ -1,5 +1,6 @@
-// @flow weak;
-// Based on react-motion's mergeDiff (https://github.com/chenglou/react-motion)
+// @flow weak
+/* eslint no-continue: "off" */
+/* based on react-motion's mergeDiff (https://github.com/chenglou/react-motion) */
 
 function mergeKeys(
   currNodeKeys:Array<string>,
@@ -34,8 +35,9 @@ function mergeKeys(
         const pivot = nextNodeKeys[i];
 
         if (!currKeyIndex[pivot]) {
-          continue; // eslint-disable-line no-continue
+          continue;
         }
+
         if (
           nextOrderA < nextKeyIndex[pivot] &&
           currOrderB > currKeyIndex[pivot]
@@ -56,7 +58,7 @@ function mergeKeys(
       const pivot = nextNodeKeys[i];
 
       if (!currKeyIndex[pivot]) {
-        continue; // eslint-disable-line no-continue
+        continue;
       }
 
       if (
@@ -77,4 +79,3 @@ function mergeKeys(
 }
 
 export default mergeKeys;
-
