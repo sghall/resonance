@@ -3,6 +3,8 @@
 
 import { scaleOrdinal } from 'd3-scale';
 import { arc, pie } from 'd3-shape';
+import { shuffle } from 'd3-array';
+import sortBy from 'lodash/sortBy';
 import Surface from 'docs/src/components/Surface';
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
@@ -73,10 +75,11 @@ class Example extends PureComponent {
   }
 
   getArcs = () => {
-    const data = mockData
-      .map(({ name }) => ({ name, value: this.getRandom(10, 100) }));
+    const data = shuffle(mockData)
+      .map(({ name }) => ({ name, value: this.getRandom(10, 100) }))
+      .slice(0, this.getRandom(5, 10));
 
-    return pieLayout(data);
+    return pieLayout(sortBy(data, (d) => d.name));
   }
 
   getRandom = (min, max) => {
@@ -113,13 +116,13 @@ class Example extends PureComponent {
 
               enter={({ endAngle }) => ({
                 endAngle: [endAngle],
-                timing: { duration: 2000, delay: 5000 },
+                timing: { duration: 750, delay: 800 },
               })}
 
               update={({ startAngle, endAngle }) => ({
                 startAngle: [startAngle],
                 endAngle: [endAngle],
-                timing: { duration: 2000 },
+                timing: { duration: 750 },
               })}
             >
               {(nodes) => {

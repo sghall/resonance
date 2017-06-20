@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Title from 'react-title-component';
 import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import PropTypeDescription from 'docs/src/components/PropTypeDescription';

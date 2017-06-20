@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Title from 'react-title-component';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import spacing from 'material-ui/styles/spacing';
@@ -160,7 +159,6 @@ class AppFrame extends Component {
 
     return (
       <div>
-        <Title render="Resonance" />
         <AppBar
           onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
           title={title}
