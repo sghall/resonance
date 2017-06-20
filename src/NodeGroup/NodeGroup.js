@@ -1,16 +1,17 @@
 // @flow weak
 /* eslint max-len: "off" */
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { interval } from 'd3-timer';
 import PropTypes from 'prop-types';
 import Node from '../Node';
 import mergeKeys from '../core/mergeKeys';
+import { ENTER, UPDATE, LEAVE } from '../core/types';
 import { transition, stop } from '../core/transition';
 
 const msPerFrame = 1000 / 60;
 
-class NodeGroup extends PureComponent {
+class NodeGroup extends Component {
   static propTypes = {
     /**
      * An array of data objects.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
@@ -100,7 +101,7 @@ class NodeGroup extends PureComponent {
       nextNodeKeys.push(k);
 
       if (currKeyIndex[k] === undefined) {
-        const n = new Node(k, d, 'ENTER');
+        const n = new Node(k, d, ENTER);
         this.nodeHash[k] = n;
       }
     }
@@ -111,10 +112,10 @@ class NodeGroup extends PureComponent {
 
       if (nextKeyIndex[k] !== undefined) {
         const d = data[nextKeyIndex[k]];
-        n.update(d, 'UPDATE');
+        n.update(d, UPDATE);
       } else {
         const d = n.data;
-        n.update(d, 'LEAVE');
+        n.update(d, LEAVE);
       }
     }
 
@@ -130,10 +131,10 @@ class NodeGroup extends PureComponent {
       const n = this.nodeHash[k];
       const d = n.data;
 
-      if (n.type === 'ENTER') {
+      if (n.type === ENTER) {
         n.setState(start(d, i));
         transition.call(n, enter(d, i));
-      } else if (n.type === 'LEAVE') {
+      } else if (n.type === LEAVE) {
         transition.call(n, leave(d, i));
       } else {
         transition.call(n, update(d, i));
@@ -144,7 +145,7 @@ class NodeGroup extends PureComponent {
       this.interval.stop();
     }
 
-    this.interval = interval(this.animate, msPerFrame);
+    this.interval = interval(this.animate);
     this.renderNodes();
   }
 
@@ -153,12 +154,23 @@ class NodeGroup extends PureComponent {
       return;
     }
 
-    let k = -1;
     let pending = false;
 
-    while (k++ < this.nodeKeys.length - 1 && !pending) {
-      if (this.nodeHash[this.nodeKeys[k]].TRANSITION_SCHEDULES) {
+    const nextNodeKeys = [];
+    const length = this.nodeKeys.length;
+
+    for (let i = 0; i < length; i++) {
+      const k = this.nodeKeys[i];
+      const n = this.nodeHash[k];
+
+      if (n.TRANSITION_SCHEDULES) {
         pending = true;
+      }
+
+      if (n.type === LEAVE && !n.TRANSITION_SCHEDULES) {
+        delete this.nodeHash[k];
+      } else {
+        nextNodeKeys.push(k);
       }
     }
 
@@ -166,6 +178,7 @@ class NodeGroup extends PureComponent {
       this.interval.stop();
     }
 
+    this.nodeKeys = nextNodeKeys;
     this.renderNodes();
   }
 
