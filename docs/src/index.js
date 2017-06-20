@@ -1,7 +1,7 @@
 // @flow weak
 
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -16,7 +16,7 @@ window.Perf = require('react-addons-perf');
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-render(
+ReactDOM.render(
   <AppContainer errorReporter={({ error }) => { throw error; }}>
     <Provider store={store}>
       <App />
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default; // eslint-disable-line global-require
 
-    render(
+    ReactDOM.render(
       <AppContainer errorReporter={({ error }) => { throw error; }}>
         <Provider store={store}>
           <NextApp />
