@@ -54,7 +54,7 @@ const pieLayout = pie()
   .sort(null);
 
 const innerArcPath = arc()
-  .innerRadius(radius * 0.3)
+  .innerRadius(radius * 0.4)
   .outerRadius(radius * 1.0);
 
 const outerArcPath = arc()
@@ -136,7 +136,11 @@ class Example extends PureComponent {
                       ];
                       return (
                         <g key={key}>
-                          <path fill={colors(data.data.name)} d={innerArcPath(state)} />
+                          <path
+                            d={innerArcPath(state)}
+                            fill={colors(data.data.name)}
+                            opacity={0.9}
+                          />
                           <text
                             dy="4px"
                             fontSize="12px"
