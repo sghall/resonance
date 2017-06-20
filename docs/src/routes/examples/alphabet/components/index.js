@@ -56,48 +56,53 @@ export class Example extends Component {
                     data={this.props.data}
                     keyAccessor={(d) => d.letter}
 
-                    start={(node) => ({
-                      x: node.xValue,
+                    start={(data) => ({
+                      x: data.xValue,
                       y: 0,
                       fill: '#3C564B',
                       opacity: 1e-6,
                     })}
 
-                    enter={(node) => ({
-                      x: node.xValue,
+                    enter={() => ({
                       y: [0, dims[1] / 2],
                       fill: '#3C564B',
                       opacity: [1e-6, 1],
                       timing: { duration: BASE_DURATION, ease: easePoly },
                     })}
 
-                    update={(node) => ({
-                      x: [node.xValue],
+                    update={(data) => ({
+                      x: [data.xValue],
                       y: [dims[1] / 2],
                       fill: '#A5937C',
                       opacity: [1],
                       timing: { duration: BASE_DURATION, ease: easeBounce },
                     })}
 
-                    leave={(node, index, remove) => ({
-                      x: [node.xValue],
+                    leave={(data) => ({
+                      x: [data.xValue],
                       y: [dims[1]],
                       fill: '#A5937C',
                       opacity: [1e-6],
                       timing: { duration: BASE_DURATION / 2, ease: easePoly },
-                      events: { end: remove.lazy },
                     })}
-
-                    render={(node, state) => {
+                  >
+                    {(nodes) => {
                       return (
-                        <text
-                          dy="-.35em"
-                          style={{ font: 'bold 30px monospace' }}
-                          {...state}
-                        >{node.letter}</text>
+                        <g>
+                          {nodes.map(({ key, data: { letter }, state }) => {
+                            return (
+                              <text
+                                key={key}
+                                dy="-.35em"
+                                style={{ font: 'bold 30px monospace' }}
+                                {...state}
+                              >{letter}</text>
+                            );
+                          })}
+                        </g>
                       );
                     }}
-                  />
+                  </NodeGroup>
                 </Surface>
               </div>
             </div>
