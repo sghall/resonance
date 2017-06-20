@@ -132,38 +132,35 @@ class Example extends PureComponent {
               },
               circle: {
                 r: 1e-6,
-                strokeWidth: 1e-6,
                 fill: 'green',
               },
             })}
 
-            enter={(data, index) => ({
+            enter={(data) => ({
               g: {
                 opacity: [0.4],
                 transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
               },
               circle: {
                 r: [scale.bandwidth() / 2],
-                strokeWidth: [(index + 1) * 2],
                 fill: 'green',
               },
               timing: { duration: 1000, ease: easeExpInOut },
             })}
 
-            update={(data, index) => ({
+            update={(data) => ({
               g: {
                 opacity: [0.4],
                 transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
               },
               circle: {
                 r: [scale.bandwidth() / 2],
-                strokeWidth: [(index + 1) * 2],
                 fill: 'blue',
               },
               timing: { duration: 1000, ease: easeExpInOut },
             })}
 
-            leave={(data, index, remove) => ({
+            leave={() => ({
               g: {
                 opacity: [1e-6],
               },
@@ -171,33 +168,38 @@ class Example extends PureComponent {
                 fill: 'red',
               },
               timing: { duration: 1000, ease: easeExpInOut },
-              events: { end: remove },
             })}
-
-            render={(data, state) => {
+          >
+            {(nodes) => {
               return (
-                <g {...state.g}>
-                  <circle
-                    stroke="grey"
-                    cy={dims[1] / 2}
-                    {...state.circle}
-                  />
-                  <text
-                    x="0"
-                    y="20"
-                    fill="#333"
-                    transform="rotate(-45 5,20)"
-                  >{`x: ${state.g.transform}`}</text>
-                  <text
-                    x="0"
-                    y="5"
-                    fill="#333"
-                    transform="rotate(-45 5,20)"
-                  >{`name: ${data.name}`}</text>
+                <g>
+                  {nodes.map(({ key, data, state }) => {
+                    return (
+                      <g key={key} {...state.g}>
+                        <circle
+                          stroke="grey"
+                          cy={dims[1] / 2}
+                          {...state.circle}
+                        />
+                        <text
+                          x="0"
+                          y="20"
+                          fill="#333"
+                          transform="rotate(-45 5,20)"
+                        >{`x: ${state.g.transform}`}</text>
+                        <text
+                          x="0"
+                          y="5"
+                          fill="#333"
+                          transform="rotate(-45 5,20)"
+                        >{`name: ${data.name}`}</text>
+                      </g>
+                    );
+                  })}
                 </g>
               );
             }}
-          />
+          </NodeGroup>
         </Surface>
       </div>
     );
