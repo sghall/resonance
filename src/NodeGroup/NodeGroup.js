@@ -9,7 +9,8 @@ import mergeKeys from '../core/mergeKeys';
 import { ENTER, UPDATE, LEAVE } from '../core/types';
 import { transition, stop } from '../core/transition';
 
-const msPerFrame = 1000 / 60;
+// let renderTime0;
+// let renderTime1;
 
 class NodeGroup extends Component {
   static propTypes = {
@@ -141,11 +142,12 @@ class NodeGroup extends Component {
       }
     }
 
-    if (this.interval) {
-      this.interval.stop();
+    if (!this.interval) {
+      this.interval = interval(this.animate);
+    } else {
+      this.interval.restart(this.animate);
     }
 
-    this.interval = interval(this.animate);
     this.renderNodes();
   }
 
@@ -188,14 +190,18 @@ class NodeGroup extends Component {
   unmounting = false;
 
   renderNodes() {
-    this.setState({
+    this.setState(() => ({
       nodes: this.nodeKeys.map((key) => {
         return this.nodeHash[key];
       }),
-    });
+    }));
   }
 
   render() {
+    // renderTime1 = performance.now();
+    // console.log(renderTime1 - renderTime0);
+    // renderTime0 = renderTime1;
+
     const renderedChildren = this.props.children(this.state.nodes);
     return renderedChildren && React.Children.only(renderedChildren);
   }
