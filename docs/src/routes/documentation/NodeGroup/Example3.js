@@ -1,5 +1,5 @@
 // @flow weak
-/* eslint react/no-multi-comp: "off" */
+/* eslint react/no-multi-comp: "off", max-len: "off" */
 
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
@@ -22,7 +22,7 @@ const dims = [ // Adjusted dimensions [width, height]
 // **************************************************
 //  Data
 // **************************************************
-const data = [
+const mockData = [
   {
     name: 'Linktype',
     value: 45,
@@ -96,12 +96,12 @@ class Example extends PureComponent {
   }
 
   state = {
-    data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length * 0.7) - (5 + 1))) + 5),
+    data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length * 0.7) - (5 + 1))) + 5),
   }
 
   update() {
     this.setState({
-      data: shuffle(data).slice(0, Math.floor(Math.random() * ((data.length * 0.7) - (5 + 1))) + 5),
+      data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length * 0.7) - (5 + 1))) + 5),
     });
   }
 
@@ -174,39 +174,44 @@ class Example extends PureComponent {
               },
             ])}
 
-            leave={(node, index, remove) => ({
+            leave={() => ({
               opacity: [1e-6],
               fill: 'red',
               timing: { duration: 1000 },
-              events: { end: remove },
             })}
-
-            render={(node, state) => {
-              const { x, height, ...rest } = state;
-
+          >
+            {(nodes) => {
               return (
-                <g transform={`translate(${x},0)`}>
-                  <rect
-                    y={height}
-                    height={dims[1] - height}
-                    {...rest}
-                  />
-                  <text
-                    x="0"
-                    y="20"
-                    fill="grey"
-                    transform="rotate(90 5,20)"
-                  >{`x: ${x}`}</text>
-                  <text
-                    x="0"
-                    y="5"
-                    fill="grey"
-                    transform="rotate(90 5,20)"
-                  >{`name: ${node.name}, value: ${node.value}`}</text>
+                <g>
+                  {nodes.map(({ key, data, state }) => {
+                    const { x, height, ...rest } = state;
+
+                    return (
+                      <g key={key} transform={`translate(${x},0)`}>
+                        <rect
+                          y={height}
+                          height={dims[1] - height}
+                          {...rest}
+                        />
+                        <text
+                          x="0"
+                          y="20"
+                          fill="grey"
+                          transform="rotate(90 5,20)"
+                        >{`x: ${x}`}</text>
+                        <text
+                          x="0"
+                          y="5"
+                          fill="grey"
+                          transform="rotate(90 5,20)"
+                        >{`name: ${data.name}, value: ${data.value}`}</text>
+                      </g>
+                    );
+                  })}
                 </g>
               );
             }}
-          />
+          </NodeGroup>
         </Surface>
       </div>
     );

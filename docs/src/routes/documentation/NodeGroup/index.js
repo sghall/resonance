@@ -18,6 +18,12 @@ const NodeGroupDocs = (props) => {
   return (
     <div>
       <CodeExample
+        code={docContext('./NodeGroup/Example3')}
+        title="Example 3: Passing Arrays of Transition Objects"
+      >
+        <Example3 />
+      </CodeExample>
+      <CodeExample
         code={docContext('./NodeGroup/Example2')}
         title="Example 2: Bars w/ More Complex Timing"
       >
@@ -55,12 +61,6 @@ const NodeGroupDocs = (props) => {
 //         <Example0 />
 //       </CodeExample>
 //       <MarkdownElement text={docContext('./NodeGroup/README2.md')} />
-//       <CodeExample
-//         code={docContext('./NodeGroup/Example3')}
-//         title="Example 3: Passing Arrays of Transition Objects"
-//       >
-//         <Example3 />
-//       </CodeExample>
 //       <MarkdownElement text={docContext('./NodeGroup/README3.md')} />
 //       <CodeExample
 //         code={docContext('./NodeGroup/Example4')}
