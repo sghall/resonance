@@ -54,7 +54,7 @@ const pieLayout = pie()
   .sort(null);
 
 const innerArcPath = arc()
-  .innerRadius(radius * 0.7)
+  .innerRadius(radius * 0.3)
   .outerRadius(radius * 1.0);
 
 const outerArcPath = arc()
@@ -77,7 +77,7 @@ class Example extends PureComponent {
   getArcs = () => {
     const data = shuffle(mockData)
       .map(({ name }) => ({ name, value: this.getRandom(10, 100) }))
-      .slice(0, this.getRandom(5, 10));
+      .slice(0, this.getRandom(3, 10));
 
     return pieLayout(sortBy(data, (d) => d.name));
   }
@@ -116,13 +116,13 @@ class Example extends PureComponent {
 
               enter={({ endAngle }) => ({
                 endAngle: [endAngle],
-                timing: { duration: 750, delay: 800 },
+                timing: { duration: 1000, delay: 800 },
               })}
 
               update={({ startAngle, endAngle }) => ({
                 startAngle: [startAngle],
                 endAngle: [endAngle],
-                timing: { duration: 750 },
+                timing: { duration: 1000 },
               })}
             >
               {(nodes) => {
@@ -134,7 +134,6 @@ class Example extends PureComponent {
                         mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
                         p1[1],
                       ];
-
                       return (
                         <g key={key}>
                           <path fill={colors(data.data.name)} d={innerArcPath(state)} />
