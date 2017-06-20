@@ -1,14 +1,17 @@
 // @flow weak
 /* eslint max-len: "off" */
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import { interval } from 'd3-timer';
 import PropTypes from 'prop-types';
-// import dataUpdate from '../core/dataUpdate';
-// import Tick from '../Tick';
+import Node from '../Node';
+import mergeKeys from '../core/mergeKeys';
+import { ENTER, UPDATE, LEAVE } from '../core/types';
+import { transition, stop } from '../core/transition';
 
-const keyAccessor = (d) => `tick-${d.val}`;
+const tickKeyAccessor = (d) => `tick-${d.val}`;
 
-export default class TickGroup extends PureComponent {
+class TickGroup extends Component {
   static propTypes = {
     /**
      * A [contunous D3 scale](https://github.com/d3/d3-scale#continuous-scales) (i.e. has a "ticks" function). The scale prop is treated as immutable so the ticks will only update if prev.scale !== next.scale.
@@ -35,17 +38,9 @@ export default class TickGroup extends PureComponent {
      */
     leave: PropTypes.func,
     /**
-     * Function that is used to render the current state of each tick.  Passed the tick, state, index, and type (ENTER, UPDATE or LEAVE).
+     * A function that renders the nodes.  The function is passed an array of nodes.
      */
-    render: PropTypes.func,
-    /**
-     * The wrapper component for the ticks. Can be a custom component or 'div', 'span', etc.
-     */
-    component: PropTypes.any,
-    /**
-     * String class name for the wrapper component.
-     */
-    className: PropTypes.string,
+    children: PropTypes.func,
   };
 
   static defaultProps = {
@@ -53,10 +48,6 @@ export default class TickGroup extends PureComponent {
     enter: () => {},
     update: () => {},
     leave: () => {},
-    render: () => null,
-    component: 'g',
-    tickCount: 10,
-    className: 'tick-group',
   };
 
   state = {
@@ -66,102 +57,158 @@ export default class TickGroup extends PureComponent {
     removed: {},
   }
 
+  state = {
+    nodes: [],
+  }
+
   componentDidMount() {
-    this.updateTicks(this.props, this.props);
+    const { scale, tickCount, ...rest } = this.props;
+    const ticks = scale.ticks ? scale.ticks(tickCount) : [];
+    this.updateNodes(rest, ticks.map((d) => ({ val: d })), tickKeyAccessor);
   }
 
   componentWillReceiveProps(next) {
-    if (this.props.scale !== next.scale) {
-      this.updateTicks(this.props, next);
+    if (next.scale !== this.props.scale) {
+      const { scale, tickCount, ...rest } = this.props;
+      const ticks = scale.ticks ? scale.ticks(tickCount) : [];
+      this.updateNodes(rest, ticks.map((d) => ({ val: d })), tickKeyAccessor);
     }
   }
 
-  updateTicks(prev, next) {
-    // const { tickCount, scale } = next;
-    // const ticks = scale.ticks ? scale.ticks(tickCount) : [];
+  componentWillUnmount() {
+    this.unmounting = true;
 
-    // this.setState((prevState) => {
-    //   const mapped = ticks.map((tick) => ({ val: tick }));
-    //   const update = dataUpdate(mapped, prevState, keyAccessor);
-    //   return { ...update, cache: prev.scale };
-    // });
-  }
+    if (this.interval) {
+      this.interval.stop();
+    }
 
-  removeKey = (dkey) => {
-    this.setState((prevState, props) => {
-      const index0 = prevState.nodes
-        .findIndex((d) => keyAccessor(d) === dkey);
-
-      const index1 = (props.scale.ticks ? props.scale.ticks(props.tickCount) : [])
-        .findIndex((d) => keyAccessor(d) === dkey);
-
-      if (index0 >= 0 && index1 === -1) {
-        const dkeys = Object.assign({}, prevState.dkeys);
-        delete dkeys[dkey];
-
-        return {
-          dkeys,
-          nodes: [
-            ...prevState.nodes.slice(0, index0),
-            ...prevState.nodes.slice(index0 + 1),
-          ],
-        };
-      }
-
-      return prevState;
+    this.nodeKeys.forEach((key) => {
+      stop.call(this.nodeHash[key]);
     });
   }
 
-  lazyRemoveKey = (dkey) => {
-    this.setState((prevState) => ({
-      removed: Object.assign({}, prevState.removed, { [dkey]: true }),
+  updateNodes(props, data, keyAccessor) {
+    const { start, enter, update, leave } = props;
+
+    const currKeyIndex = {};
+    const currNodeKeys = this.nodeKeys;
+    const currNodeKeysLength = this.nodeKeys.length;
+
+    for (let i = 0; i < currNodeKeysLength; i++) {
+      currKeyIndex[currNodeKeys[i]] = i;
+    }
+
+    const nextKeyIndex = {};
+    const nextNodeKeys = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const d = data[i];
+      const k = keyAccessor(d);
+
+      nextKeyIndex[k] = i;
+      nextNodeKeys.push(k);
+
+      if (currKeyIndex[k] === undefined) {
+        const n = new Node(k, d, ENTER);
+        this.nodeHash[k] = n;
+      }
+    }
+
+    for (let i = 0; i < currNodeKeysLength; i++) {
+      const k = currNodeKeys[i];
+      const n = this.nodeHash[k];
+
+      if (nextKeyIndex[k] !== undefined) {
+        const d = data[nextKeyIndex[k]];
+        n.update(d, UPDATE);
+      } else {
+        const d = n.data;
+        n.update(d, LEAVE);
+      }
+    }
+
+    this.nodeKeys = mergeKeys(
+      currNodeKeys,
+      currKeyIndex,
+      nextNodeKeys,
+      nextKeyIndex,
+    );
+
+    for (let i = 0; i < this.nodeKeys.length; i++) {
+      const k = this.nodeKeys[i];
+      const n = this.nodeHash[k];
+      const d = n.data;
+
+      if (n.type === ENTER) {
+        n.setState(start(d, i));
+        transition.call(n, enter(d, i));
+      } else if (n.type === LEAVE) {
+        transition.call(n, leave(d, i));
+      } else {
+        transition.call(n, update(d, i));
+      }
+    }
+
+    if (!this.interval) {
+      this.interval = interval(this.animate);
+    } else {
+      this.interval.restart(this.animate);
+    }
+
+    this.renderNodes();
+  }
+
+  animate = () => {
+    if (this.unmounting) {
+      return;
+    }
+
+    let pending = false;
+
+    const nextNodeKeys = [];
+    const length = this.nodeKeys.length;
+
+    for (let i = 0; i < length; i++) {
+      const k = this.nodeKeys[i];
+      const n = this.nodeHash[k];
+
+      if (n.TRANSITION_SCHEDULES) {
+        pending = true;
+      }
+
+      if (n.type === LEAVE && !n.TRANSITION_SCHEDULES) {
+        delete this.nodeHash[k];
+      } else {
+        nextNodeKeys.push(k);
+      }
+    }
+
+    if (!pending) {
+      this.interval.stop();
+    }
+
+    this.nodeKeys = nextNodeKeys;
+    this.renderNodes();
+  }
+
+  nodeHash = {};
+  nodeKeys = [];
+  interval = null;
+  unmounting = false;
+
+  renderNodes() {
+    this.setState(() => ({
+      nodes: this.nodeKeys.map((key) => {
+        return this.nodeHash[key];
+      }),
     }));
   }
 
   render() {
-    const { props: {
-      scale,
-      start,
-      enter,
-      update,
-      leave,
-      render,
-      component,
-      className,
-    }, state } = this;
-
-    return React.createElement(
-      component,
-      { className },
-      state.nodes.map((node, index) => {
-        const dkey = keyAccessor(node);
-        const type = state.dkeys[dkey];
-
-        return (
-          <div
-            key={dkey}
-
-            scale={scale}
-            cache={state.cache}
-
-            dkey={dkey}
-            type={type}
-            node={node}
-            index={index}
-
-            start={start}
-
-            enter={enter}
-            update={update}
-            leave={leave}
-
-            render={render}
-
-            removeKey={this.removeKey}
-            lazyRemoveKey={this.lazyRemoveKey}
-          />
-        );
-      }),
-    );
+    const renderedChildren = this.props.children(this.state.nodes);
+    return renderedChildren && React.Children.only(renderedChildren);
   }
 }
+
+export default TickGroup;
+
