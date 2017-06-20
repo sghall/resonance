@@ -9,14 +9,14 @@ function extend(obj, props) {
   return obj;
 }
 
-function InternalNode(key, data, type) {
+function Node(key, data, type) {
   this.key = key;
   this.data = data;
   this.type = type;
   this.state = {};
 }
 
-extend(InternalNode.prototype, {
+extend(Node.prototype, {
   setState(state) {
     const s = this.state;
     extend(s, typeof state === 'function' ? state(s) : state);
@@ -29,4 +29,4 @@ extend(InternalNode.prototype, {
   },
 });
 
-export default InternalNode;
+export default Node;

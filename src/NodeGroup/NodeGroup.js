@@ -4,9 +4,9 @@
 import React, { PureComponent } from 'react';
 import { interval } from 'd3-timer';
 import PropTypes from 'prop-types';
+import Node from '../Node';
 import mergeKeys from '../core/mergeKeys';
 import { transition, stop } from '../core/transition';
-import Node from '../InternalNode';
 
 const msPerFrame = 1000 / 60;
 
@@ -189,4 +189,3 @@ class NodeGroup extends PureComponent {
 }
 
 export default NodeGroup;
-
