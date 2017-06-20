@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import { interval } from 'd3-timer';
 import PropTypes from 'prop-types';
 import mergeKeys from '../core/mergeKeys';
-import { transition } from '../core/transition';
+import { transition, stop } from '../core/transition';
 import Node from '../InternalNode';
 
 const msPerFrame = 1000 / 60;
@@ -53,15 +53,8 @@ class NodeGroup extends PureComponent {
     nodes: [],
   }
 
-  componentWillMount() {
-    this.unmounting = false;
-    this.animationID = null;
-    this.lastRenderTime = 0;
-  }
-
   componentDidMount() {
     this.updateNodes(this.props);
-    this.ranFirst = true;
   }
 
   componentWillReceiveProps(next) {
@@ -69,9 +62,15 @@ class NodeGroup extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.unmounting = true;
+
     if (this.interval) {
       this.interval.stop();
     }
+
+    this.nodeKeys.forEach((key) => {
+      stop.call(this.nodeHash[key]);
+    });
   }
 
   updateNodes(props) {
@@ -154,10 +153,6 @@ class NodeGroup extends PureComponent {
       return;
     }
 
-    if (this.animationID) {
-      return;
-    }
-
     let k = -1;
     let pending = false;
 
@@ -177,6 +172,7 @@ class NodeGroup extends PureComponent {
   nodeHash = {};
   nodeKeys = [];
   interval = null;
+  unmounting = false;
 
   renderNodes() {
     this.setState({
