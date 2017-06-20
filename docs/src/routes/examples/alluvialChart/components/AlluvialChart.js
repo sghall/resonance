@@ -91,34 +91,30 @@ class AlluvialChart extends PureComponent {
             timing: { duration },
           })}
         >
-          {(nodes) => {
-            return (
-              <g>
-                {nodes.map(({ key, data: { val }, state }) => {
-                  return (
-                    <g key={key} {...state}>
-                      <line
-                        x1={0}
-                        y1={0}
-                        x2={DIMS[0]}
-                        y2={0}
-                        stroke={palette.textColor}
-                        opacity={0.2}
-                      />
-                      <text
-                        fontSize={'8px'}
-                        textAnchor="end"
-                        dy=".35em"
-                        fill={palette.textColor}
-                        x={-10}
-                        y={0}
-                      >{numberFormat(val)}</text>
-                    </g>
-                  );
-                })}
-              </g>
-            );
-          }}
+          {(nodes) => (
+            <g>
+              {nodes.map(({ key, data: { val }, state }) => (
+                <g key={key} {...state}>
+                  <line
+                    x1={0}
+                    y1={0}
+                    x2={DIMS[0]}
+                    y2={0}
+                    stroke={palette.textColor}
+                    opacity={0.2}
+                  />
+                  <text
+                    fontSize={'8px'}
+                    textAnchor="end"
+                    dy=".35em"
+                    fill={palette.textColor}
+                    x={-10}
+                    y={0}
+                  >{numberFormat(val)}</text>
+                </g>
+              ))}
+            </g>
+          )}
         </TickGroup>
         <NodeGroup
           data={data}
