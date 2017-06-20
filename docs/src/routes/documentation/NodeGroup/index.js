@@ -18,6 +18,12 @@ const NodeGroupDocs = (props) => {
   return (
     <div>
       <CodeExample
+        code={docContext('./NodeGroup/Example2')}
+        title="Example 2: Bars w/ More Complex Timing"
+      >
+        <Example2 />
+      </CodeExample>
+      <CodeExample
         code={docContext('./NodeGroup/Example1')}
         title="Example 1: Simple Bars"
       >
@@ -47,12 +53,6 @@ const NodeGroupDocs = (props) => {
 //         title="Example 0: Donut Chart"
 //       >
 //         <Example0 />
-//       </CodeExample>
-//       <CodeExample
-//         code={docContext('./NodeGroup/Example2')}
-//         title="Example 2: Bars w/ More Complex Timing"
-//       >
-//         <Example2 />
 //       </CodeExample>
 //       <MarkdownElement text={docContext('./NodeGroup/README2.md')} />
 //       <CodeExample
