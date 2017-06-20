@@ -64,33 +64,29 @@ class BarChart extends PureComponent {
             timing: { duration, ease: easeExp },
           })}
         >
-          {(nodes) => {
-            return (
-              <g>
-                {nodes.map(({ key, data: { val }, state }) => {
-                  return (
-                    <g key={key} {...state}>
-                      <line
-                        x1={0}
-                        y1={0}
-                        x2={0}
-                        y2={DIMS[1]}
-                        stroke={palette.textColor}
-                        opacity={0.2}
-                      />
-                      <text
-                        x={0}
-                        y={-5}
-                        textAnchor="middle"
-                        fill={palette.textColor}
-                        fontSize="10px"
-                      >{percentFormat(val)}</text>
-                    </g>
-                  );
-                })}
-              </g>
-            );
-          }}
+          {(nodes) => (
+            <g>
+              {nodes.map(({ key, data: { val }, state }) => (
+                <g key={key} {...state}>
+                  <line
+                    x1={0}
+                    y1={0}
+                    x2={0}
+                    y2={DIMS[1]}
+                    stroke={palette.textColor}
+                    opacity={0.2}
+                  />
+                  <text
+                    x={0}
+                    y={-5}
+                    textAnchor="middle"
+                    fill={palette.textColor}
+                    fontSize="10px"
+                  >{percentFormat(val)}</text>
+                </g>
+              ))}
+            </g>
+          )}
         </TickGroup>
         <NodeGroup
           data={data}
@@ -138,39 +134,35 @@ class BarChart extends PureComponent {
             timing: { duration, ease: easePoly },
           })}
         >
-          {(nodes) => {
-            return (
-              <g>
-                {nodes.map(({ key, data: { name, xVal }, state }) => {
-                  return (
-                    <g key={key} {...state.node}>
-                      <rect
-                        fill={palette.primary1Color}
-                        opacity={0.4}
-                        {...state.rect}
-                      />
-                      <text
-                        dy="0.35em"
-                        x={-15}
-                        textAnchor="middle"
-                        fill={palette.textColor}
-                        fontSize={10}
-                        y={yScale.bandwidth() / 2}
-                      >{name}</text>
-                      <text
-                        textAnchor="end"
-                        dy="0.35em"
-                        fill="white"
-                        fontSize={10}
-                        y={yScale.bandwidth() / 2}
-                        {...state.text}
-                      >{percentFormat(xScale1.invert(xVal))}</text>
-                    </g>
-                  );
-                })}
-              </g>
-            );
-          }}
+          {(nodes) => (
+            <g>
+              {nodes.map(({ key, data: { name, xVal }, state }) => (
+                <g key={key} {...state.node}>
+                  <rect
+                    fill={palette.primary1Color}
+                    opacity={0.4}
+                    {...state.rect}
+                  />
+                  <text
+                    dy="0.35em"
+                    x={-15}
+                    textAnchor="middle"
+                    fill={palette.textColor}
+                    fontSize={10}
+                    y={yScale.bandwidth() / 2}
+                  >{name}</text>
+                  <text
+                    textAnchor="end"
+                    dy="0.35em"
+                    fill="white"
+                    fontSize={10}
+                    y={yScale.bandwidth() / 2}
+                    {...state.text}
+                  >{percentFormat(xScale1.invert(xVal))}</text>
+                </g>
+              ))}
+            </g>
+          )}
         </NodeGroup>
       </Surface>
     );
