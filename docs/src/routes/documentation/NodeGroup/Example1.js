@@ -138,39 +138,44 @@ class Example extends PureComponent {
               timing: { duration: 1500 },
             })}
 
-            leave={(data, index, remove) => ({
+            leave={() => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
               fill: 'red',
               timing: { duration: 1500 },
-              events: { end: remove },
             })}
-
-            render={(data, state) => {
-              const { x, ...rest } = state;
-
+          >
+            {(nodes) => {
               return (
-                <g transform={`translate(${x},0)`}>
-                  <rect
-                    height={dims[1]}
-                    {...rest}
-                  />
-                  <text
-                    x="0"
-                    y="20"
-                    fill="white"
-                    transform="rotate(90 5,20)"
-                  >{`x: ${x}`}</text>
-                  <text
-                    x="0"
-                    y="5"
-                    fill="white"
-                    transform="rotate(90 5,20)"
-                  >{`name: ${data.name}`}</text>
+                <g>
+                  {nodes.map(({ key, data, state }) => {
+                    const { x, ...rest } = state;
+
+                    return (
+                      <g key={key} transform={`translate(${x},0)`}>
+                        <rect
+                          height={dims[1]}
+                          {...rest}
+                        />
+                        <text
+                          x="0"
+                          y="20"
+                          fill="white"
+                          transform="rotate(90 5,20)"
+                        >{`x: ${x}`}</text>
+                        <text
+                          x="0"
+                          y="5"
+                          fill="white"
+                          transform="rotate(90 5,20)"
+                        >{`name: ${data.name}`}</text>
+                      </g>
+                    );
+                  })}
                 </g>
               );
             }}
-          />
+          </NodeGroup>
         </Surface>
       </div>
     );
