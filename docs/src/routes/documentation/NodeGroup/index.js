@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import PropTypeDescription from 'docs/src/components/PropTypeDescription';
-import Example0 from './Example0';
+import Example1 from './Example1';
 
 const NodeGroupDocs = (props) => {
   const { route: { docContext, srcContext } } = props;
@@ -14,16 +14,12 @@ const NodeGroupDocs = (props) => {
     <div>
       <MarkdownElement text={docContext('./NodeGroup/README0.md')} />
       <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
-      <MarkdownElement text={docContext('./NodeGroup/README1.md')} />
       <CodeExample
-        code={docContext('./NodeGroup/Example0')}
-        title="Example 0: Donut Chart"
+        code={docContext('./NodeGroup/Example1')}
+        title="Example 1: Donut Chart"
       >
-        <Example0 />
+        <Example1 />
       </CodeExample>
-      <MarkdownElement text={docContext('./NodeGroup/README2.md')} />
-      <MarkdownElement text={docContext('./NodeGroup/README3.md')} />
-      <MarkdownElement text={docContext('./NodeGroup/README4.md')} />
     </div>
   );
 };

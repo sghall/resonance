@@ -21,19 +21,19 @@ const Example = (props) => {
       </CodeExample>
       <CodeExample
         code={exampleContext('./Simple/Bars2')}
-        title="Example 1: Donut Chart"
+        title="Example 2: Bars w/ More Complex Timing"
       >
         <Bars2 />
       </CodeExample>
       <CodeExample
         code={exampleContext('./Simple/Bars3')}
-        title="Example 1: Donut Chart"
+        title="Example 3: Passing Arrays of Transitions"
       >
         <Bars3 />
       </CodeExample>
       <CodeExample
         code={exampleContext('./Simple/Circles')}
-        title="Example 1: Donut Chart"
+        title="Example 4: Namespacing State"
       >
         <Circles />
       </CodeExample>
