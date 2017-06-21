@@ -36,7 +36,7 @@ class TickGroup extends Component {
     /**
      * A function that renders the nodes.  The function is passed an array of nodes.
      */
-    children: PropTypes.func,
+    children: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
