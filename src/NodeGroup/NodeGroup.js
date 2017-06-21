@@ -129,12 +129,12 @@ class NodeGroup extends Component {
       const d = n.data;
 
       if (n.type === ENTER) {
-        n.setState(start(d, i));
-        transition.call(n, enter(d, i));
+        n.setState(start(d, nextKeyIndex[k]));
+        transition.call(n, enter(d, nextKeyIndex[k]));
       } else if (n.type === LEAVE) {
-        transition.call(n, leave(d, i));
+        transition.call(n, leave(d, currKeyIndex[k]));
       } else {
-        transition.call(n, update(d, i));
+        transition.call(n, update(d, nextKeyIndex[k]));
       }
     }
 
