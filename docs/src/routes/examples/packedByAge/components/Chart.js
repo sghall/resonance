@@ -47,10 +47,10 @@ const Chart = (props) => {
 
           return {
             node: {
-              opacity: [1e-6, 0.8],
+              opacity: [0.8],
               transform: `translate(${node.x},${node.y})`,
             },
-            circle: { fill: getFill(node, sortKey), r: [1e-6, node.r] },
+            circle: { fill: getFill(node, sortKey), r: [node.r] },
             timing: { duration: d0, delay: d1 },
           };
         }}
@@ -69,40 +69,40 @@ const Chart = (props) => {
           },
         ])}
 
-        leave={(node, index, remove) => ({
+        leave={() => ({
           node: {
             opacity: [1e-6],
           },
           circle: { fill: 'rgba(0,0,0,0.3)' },
           timing: { duration },
-          events: { end: remove.lazy },
         })}
-
-        render={(node, state, index, type) => {
-          const { name, depth, r } = node;
-
-          return (
-            <g
-              {...state.node}
-              style={{ pointerEvents: type === 'LEAVE' ? 'none' : 'all' }}
-            >
-              <title>{name}</title>
-              <circle
-                stroke="rgba(0,0,0,0.2)"
-                {...state.circle}
-              />
-              <text
-                fill="white"
-                dy="0.3em"
-                fontSize="10px"
-                textAnchor="middle"
+      >
+        {(nodes) => (
+          <g>
+            {nodes.map(({ key, data: { name, depth, r }, state, type }) => (
+              <g
+                key={key}
+                {...state.node}
+                style={{ pointerEvents: type === 'LEAVE' ? 'none' : 'all' }}
               >
-                {(depth === 2 && r > 10) ? name.slice(0, 2) : ''}
-              </text>
-            </g>
-          );
-        }}
-      />
+                <title>{name}</title>
+                <circle
+                  stroke="rgba(0,0,0,0.2)"
+                  {...state.circle}
+                />
+                <text
+                  fill="white"
+                  dy="0.3em"
+                  fontSize="10px"
+                  textAnchor="middle"
+                >
+                  {(depth === 2 && r > 10) ? name.slice(0, 2) : ''}
+                </text>
+              </g>
+            ))}
+          </g>
+        )}
+      </NodeGroup>
     </Surface>
   );
 };
