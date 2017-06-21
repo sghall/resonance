@@ -65,25 +65,22 @@ function mid(d) {
   return Math.PI > (d.startAngle + (d.endAngle - d.startAngle));
 }
 
-class DonutChart extends PureComponent {
-  constructor(props) {
-    super(props);
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - (min + 1))) + min;
+}
 
-    this.state = {
-      arcs: this.getArcs(),
-    };
-  }
+function getArcs() {
+  const data = shuffle(mockData)
+    .map(({ name }) => ({ name, value: getRandom(10, 100) }))
+    .slice(0, getRandom(3, 10));
 
-  getArcs = () => {
-    const data = shuffle(mockData)
-      .map(({ name }) => ({ name, value: this.getRandom(10, 100) }))
-      .slice(0, this.getRandom(3, 10));
+  return pieLayout(sortBy(data, (d) => d.name));
+}
 
-    return pieLayout(sortBy(data, (d) => d.name));
-  }
+class Example extends PureComponent {
 
-  getRandom = (min, max) => {
-    return Math.floor(Math.random() * (max - (min + 1))) + min;
+  state = {
+    arcs: getArcs(),
   }
 
   update = (e) => {
@@ -91,7 +88,7 @@ class DonutChart extends PureComponent {
     e.stopPropagation();
 
     this.setState(() => ({
-      arcs: this.getArcs(),
+      arcs: getArcs(),
     }));
   }
 
@@ -144,13 +141,13 @@ class DonutChart extends PureComponent {
                           <text
                             dy="4px"
                             fontSize="12px"
-                            transform={`translate(${p2})`}
+                            transform={`translate(${p2.toString()})`}
                             textAnchor={mid(state) ? 'start' : 'end'}
                           >{data.data.name}</text>
                           <polyline
                             fill="none"
                             stroke="rgba(127,127,127,0.5)"
-                            points={`${innerArcPath.centroid(state)},${p1},${p2}`}
+                            points={`${innerArcPath.centroid(state)},${p1},${p2.toString()}`}
                           />
                         </g>
                       );
@@ -166,4 +163,5 @@ class DonutChart extends PureComponent {
   }
 }
 
-export default DonutChart;
+export default Example;
+
