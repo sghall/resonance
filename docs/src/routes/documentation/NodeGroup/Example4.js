@@ -132,29 +132,32 @@ class Example extends PureComponent {
               },
               circle: {
                 r: 1e-6,
+                strokeWidth: 1e-6,
                 fill: 'green',
               },
             })}
 
-            enter={(data) => ({
+            enter={(data, index) => ({
               g: {
                 opacity: [0.4],
                 transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
               },
               circle: {
                 r: [scale.bandwidth() / 2],
+                strokeWidth: [(index + 1) * 2],
                 fill: 'green',
               },
               timing: { duration: 1000, ease: easeExpInOut },
             })}
 
-            update={(data) => ({
+            update={(data, index) => ({
               g: {
                 opacity: [0.4],
                 transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
               },
               circle: {
                 r: [scale.bandwidth() / 2],
+                strokeWidth: [(index + 1) * 2],
                 fill: 'blue',
               },
               timing: { duration: 1000, ease: easeExpInOut },
