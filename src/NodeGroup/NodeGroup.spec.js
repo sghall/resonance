@@ -1,124 +1,113 @@
 // @flow weak
 /* eslint-env mocha */
 
-import React from 'react';
+import React, { Component } from 'react';
 import sinon from 'sinon';
 import { assert } from 'chai';
 import { shallow, mount } from 'enzyme';
-import Node from '../Node';
 import NodeGroup from './NodeGroup';
+
+const msPerFrame = 1000 / 60;
 
 const data = [1, 2, 3, 4, 5].map((d) => ({ val: d }));
 
+class Node extends Component { // eslint-disable-line
+
+  render() {
+    return <line />;
+  }
+}
+
+const renderChildren = (nodes) => (
+  <g>
+    {nodes.map(({ key }) => (
+      <Node key={key} />
+    ))}
+  </g>
+);
+
 describe('<NodeGroup />', () => {
-  it('should render a g element', () => {
+  it('should render nodes wrapped in the outer element', () => {
     const wrapper = shallow(
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
-      />,
+      >
+        {renderChildren}
+      </NodeGroup>,
     );
-    assert.strictEqual(wrapper.is('g'), true, 'should be a g element');
+
+    assert.strictEqual(wrapper.is('g'), true, 'should be true');
   });
 
   it('should render a node for each data item', () => {
-    const wrapper = shallow(
-      <NodeGroup
-        data={data}
-        keyAccessor={(d) => d.val}
-      />,
-    );
-    assert.strictEqual(wrapper.find(Node).length, data.length, 'should be equal');
-  });
-
-  it('should remove Node  when leave prop calls remove immediately', () => {
     const wrapper = mount(
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
-        leave={(node, index, remove) => {
-          remove();
-        }}
-      />,
+      >
+        {renderChildren}
+      </NodeGroup>,
+    );
+
+    assert.strictEqual(wrapper.find(Node).length, data.length, 'should be equal');
+  });
+
+  it('should remove nodes that are not transitioning', (done) => {
+    const wrapper = mount(
+      <NodeGroup
+        data={data}
+        keyAccessor={(d) => d.val}
+      >
+        {renderChildren}
+      </NodeGroup>,
     );
 
     wrapper.setProps({ data: data.slice(1) });
 
-    assert.strictEqual(wrapper.find(Node).length, data.length - 1, 'should be equal');
+    setTimeout(() => {
+      assert.strictEqual(wrapper.find(Node).length, data.length - 1, 'should be equal');
+      done();
+    }, msPerFrame * 1);
   });
 
-  it('should add dkey to removed map when calling lazyRemoveKey', () => {
-    const wrapper = shallow(
-      <NodeGroup
-        data={data}
-        keyAccessor={(d) => d.val}
-      />,
-    );
-
-    const instance = wrapper.instance();
-
-    instance.lazyRemoveKey('key-1');
-    assert.strictEqual(instance.state.removed['key-1'], true, 'key should exist in map');
-  });
-
-  it('should NOT pass other props to Node components', () => {
-    const wrapper = shallow(
-      <NodeGroup
-        data={data}
-        keyAccessor={(d) => d.val}
-        test-prop="wu-tang"
-      />,
-    );
-
-    const nodes = wrapper.find(Node);
-
-    let count = 0;
-
-    nodes.forEach((n) => {
-      if (n.prop('test-prop') === undefined) count++;
-    });
-
-    assert.strictEqual(count, data.length, 'should be equal');
-  });
-
-  it('should call setState when given new data prop', () => {
+  it('should call updateNodes when given new data prop', () => {
     const wrapper = mount(
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
-      />,
+      >
+        {renderChildren}
+      </NodeGroup>,
     );
 
-    const spy = sinon.spy(NodeGroup.prototype, 'setState');
+    const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
 
     wrapper.setProps({ data: [{ val: 1 }, { val: 2 }] });
 
-    const callCount = NodeGroup.prototype.setState.callCount;
+    const callCount = NodeGroup.prototype.updateNodes.callCount;
     spy.restore();
 
     assert.strictEqual(callCount, 1, 'should have been called once');
   });
 
-  it('should not call setState when passed same data prop', () => {
+  it('should not call updateNodes when passed same data prop', () => {
     const wrapper = mount(
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
-      />,
+      >
+        {renderChildren}
+      </NodeGroup>,
     );
 
-    const spy = sinon.spy(NodeGroup.prototype, 'setState');
+    const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
 
     wrapper.setProps({ data });
 
-    const callCount = NodeGroup.prototype.setState.callCount;
+    const callCount = NodeGroup.prototype.updateNodes.callCount;
     spy.restore();
 
     assert.strictEqual(callCount, 0, 'should not have been called');
-  });
-
-  it('should add user classes', () => {
-    const wrapper = shallow(<NodeGroup data={data} keyAccessor={(d) => d.val} className="wu-tang" />);
-    assert.strictEqual(wrapper.hasClass('wu-tang'), true, 'should have the wu-tang class');
   });
 });

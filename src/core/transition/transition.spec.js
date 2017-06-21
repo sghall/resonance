@@ -103,17 +103,6 @@ describe('transition', () => {
     mount.cleanUp();
   });
 
-  it('should throw if not run against a React component', () => {
-    expect(() => {
-      transition.call({}, {
-        path: {
-          opacity: [1e-6, 0.8],
-          fill: 'tomato',
-        },
-        timing: { duration: DURATION, delay: DELAY },
-      });
-    }).to.throw('Transitions must be run against a React component');
-  });
 
   it('should change values over time', (done) => {
     const wrapper = mount(<Test />);
