@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 
 import React, { Component } from 'react';
-import { expect, assert } from 'chai';
+import { assert } from 'chai';
 import createMount from 'test/utils/createMount';
 import transition from './transition';
 import stop from './stop';
