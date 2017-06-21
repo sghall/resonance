@@ -71,8 +71,7 @@ function getRandom(min, max) {
 
 function getArcs() {
   const data = shuffle(mockData)
-    .map(({ name }) => ({ name, value: getRandom(10, 100) }))
-    .slice(0, getRandom(3, 10));
+    .map(({ name }) => ({ name, value: getRandom(10, 100) }));
 
   return pieLayout(sortBy(data, (d) => d.name));
 }

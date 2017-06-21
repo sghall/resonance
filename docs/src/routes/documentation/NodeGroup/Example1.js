@@ -1,21 +1,16 @@
 // @flow weak
 /* eslint react/no-multi-comp: 'off' */
 
-import { scaleOrdinal } from 'd3-scale';
-import { arc, pie } from 'd3-shape';
-import { shuffle } from 'd3-array';
-import sortBy from 'lodash/sortBy';
-import Surface from 'docs/src/components/Surface';
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
-
-const colors = scaleOrdinal()
-  .range(['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a']);
+import Surface from 'docs/src/components/Surface';
+import { scaleBand } from 'd3-scale';
+import { shuffle } from 'd3-array';
 
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 550];      // [width, height]
+const view = [1000, 250];      // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
@@ -23,140 +18,164 @@ const dims = [ // Adjusted dimensions [width, height]
   view[1] - trbl[0] - trbl[2],
 ];
 
+// **************************************************
+//  Mock Data
+// **************************************************
 const mockData = [
   {
     name: 'Linktype',
+    value: 45,
   }, {
     name: 'Quaxo',
+    value: 53,
   }, {
     name: 'Skynoodle',
+    value: 86,
   }, {
     name: 'Realmix',
+    value: 36,
   }, {
     name: 'Jetpulse',
+    value: 54,
   }, {
     name: 'Chatterbridge',
+    value: 91,
   }, {
     name: 'Riffpedia',
+    value: 67,
   }, {
     name: 'Layo',
+    value: 12,
   }, {
     name: 'Oyoba',
+    value: 69,
   }, {
     name: 'Ntags',
+    value: 17,
+  }, {
+    name: 'Brightbean',
+    value: 73,
+  }, {
+    name: 'Blogspan',
+    value: 25,
+  }, {
+    name: 'Twitterlist',
+    value: 73,
+  }, {
+    name: 'Rhycero',
+    value: 67,
+  }, {
+    name: 'Trunyx',
+    value: 52,
+  }, {
+    name: 'Browsecat',
+    value: 90,
+  }, {
+    name: 'Skinder',
+    value: 88,
+  }, {
+    name: 'Tagpad',
+    value: 83,
+  }, {
+    name: 'Gabcube',
+    value: 6,
+  }, {
+    name: 'Jabberstorm',
+    value: 19,
   },
 ];
 
-const radius = (dims[1] / 2) * 0.70;
-
-const pieLayout = pie()
-  .value((d) => d.value)
-  .sort(null);
-
-const innerArcPath = arc()
-  .innerRadius(radius * 0.4)
-  .outerRadius(radius * 1.0);
-
-const outerArcPath = arc()
-  .innerRadius(radius * 1.2)
-  .outerRadius(radius * 1.2);
-
-function mid(d) {
-  return Math.PI > (d.startAngle + (d.endAngle - d.startAngle));
-}
-
-function getRandom(min, max) {
-  return Math.floor(Math.random() * (max - (min + 1))) + min;
-}
-
-function getArcs() {
-  const data = shuffle(mockData)
-    .map(({ name }) => ({ name, value: getRandom(10, 100) }))
-    .slice(0, getRandom(3, 10));
-
-  return pieLayout(sortBy(data, (d) => d.name));
-}
 
 class Example extends PureComponent {
 
   state = {
-    arcs: getArcs(),
+    data: shuffle(mockData).slice(0, 15),
   }
 
-  update = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.setState(() => ({
-      arcs: getArcs(),
-    }));
+  update = () => {
+    this.setState({
+      data: shuffle(mockData).slice(0, 15),
+    });
   }
 
   render() {
-    const { arcs } = this.state;
+    const scale = scaleBand()
+      .rangeRound([0, dims[0]])
+      .domain(this.state.data.map((d) => d.name))
+      .padding(0.1);
 
     return (
       <div>
         <button onClick={this.update}>
           Update
         </button>
+        <span style={{ margin: 5 }}>
+          Bar Count: {this.state.data.length}
+        </span>
         <Surface view={view} trbl={trbl}>
-          <g transform={`translate(${dims[0] / 2}, ${dims[1] / 2})`}>
-            <NodeGroup
-              data={arcs}
-              keyAccessor={(d) => d.data.name}
+          <NodeGroup
+            data={this.state.data}
+            keyAccessor={(d) => d.name}
 
-              start={({ startAngle }) => ({
-                startAngle,
-                endAngle: startAngle,
-              })}
+            start={() => ({
+              opacity: 1e-6,
+              x: 1e-6,
+              fill: 'green',
+              width: scale.bandwidth(),
+            })}
 
-              enter={({ endAngle }) => ({
-                endAngle: [endAngle],
-                timing: { duration: 1000, delay: 800 },
-              })}
+            enter={(data) => ({
+              opacity: [0.5],
+              x: [scale(data.name)],
+              timing: { duration: 1500 },
+            })}
 
-              update={({ startAngle, endAngle }) => ({
-                startAngle: [startAngle],
-                endAngle: [endAngle],
-                timing: { duration: 1000 },
-              })}
-            >
-              {(nodes) => {
-                return (
-                  <g>
-                    {nodes.map(({ key, data, state }) => {
-                      const p1 = outerArcPath.centroid(state);
-                      const p2 = [
-                        mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
-                        p1[1],
-                      ];
-                      return (
-                        <g key={key}>
-                          <path
-                            d={innerArcPath(state)}
-                            fill={colors(data.data.name)}
-                            opacity={0.9}
-                          />
-                          <text
-                            dy="4px"
-                            fontSize="12px"
-                            transform={`translate(${p2.toString()})`}
-                            textAnchor={mid(state) ? 'start' : 'end'}
-                          >{data.data.name}</text>
-                          <polyline
-                            fill="none"
-                            stroke="rgba(127,127,127,0.5)"
-                            points={`${innerArcPath.centroid(state)},${p1},${p2.toString()}`}
-                          />
-                        </g>
-                      );
-                    })}
-                  </g>
-                );
-              }}
-            </NodeGroup>
-          </g>
+            update={(data) => ({
+              opacity: [0.5],
+              x: [scale(data.name)],
+              fill: 'blue',
+              width: [scale.bandwidth()],
+              timing: { duration: 1500 },
+            })}
+
+            leave={() => ({
+              opacity: [1e-6],
+              x: [scale.range()[1]],
+              fill: 'red',
+              timing: { duration: 1500 },
+            })}
+          >
+            {(nodes) => {
+              return (
+                <g>
+                  {nodes.map(({ key, data, state }) => {
+                    const { x, ...rest } = state;
+
+                    return (
+                      <g key={key} transform={`translate(${x},0)`}>
+                        <rect
+                          height={dims[1]}
+                          {...rest}
+                        />
+                        <text
+                          x="0"
+                          y="20"
+                          fill="white"
+                          transform="rotate(90 5,20)"
+                        >{`x: ${x}`}</text>
+                        <text
+                          x="0"
+                          y="5"
+                          fill="white"
+                          transform="rotate(90 5,20)"
+                        >{`name: ${data.name}`}</text>
+                      </g>
+                    );
+                  })}
+                </g>
+              );
+            }}
+          </NodeGroup>
         </Surface>
       </div>
     );
@@ -164,4 +183,5 @@ class Example extends PureComponent {
 }
 
 export default Example;
+
 

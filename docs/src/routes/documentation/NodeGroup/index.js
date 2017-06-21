@@ -16,7 +16,7 @@ const NodeGroupDocs = (props) => {
       <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
       <CodeExample
         code={docContext('./NodeGroup/Example1')}
-        title="Example 1: Donut Chart"
+        title="Example 1: Simple Bars"
       >
         <Example1 />
       </CodeExample>
