@@ -94,38 +94,54 @@ class AppNavDrawer extends Component {
             ]}
           />
           <ListItem
-            primaryText="Chart Examples"
+            primaryText="Examples"
+            primaryTogglesNestedList
+            nestedItems={[
+              <ListItem
+                primaryText="Simple"
+                value="/examples/simple"
+                href="#/examples/simple"
+              />,
+              <ListItem
+                primaryText="Pie Charts"
+                value="/examples/pie-charts"
+                href="#/examples/pie-charts"
+              />,
+            ]}
+          />
+          <ListItem
+            primaryText="Redux Examples"
             primaryTogglesNestedList
             nestedItems={[
               <ListItem
                 primaryText="Alphabet"
-                value="/examples/alphabet"
-                href="#/examples/alphabet"
+                value="/redux-examples/alphabet"
+                href="#/redux-examples/alphabet"
               />,
               <ListItem
                 primaryText="States Bar Chart"
-                value="/examples/states-by-age"
-                href="#/examples/states-by-age"
+                value="/redux-examples/states-by-age"
+                href="#/redux-examples/states-by-age"
               />,
               <ListItem
                 primaryText="States Circle Pack"
-                value="/examples/packed-by-age"
-                href="#/examples/packed-by-age"
+                value="/redux-examples/packed-by-age"
+                href="#/redux-examples/packed-by-age"
               />,
               <ListItem
                 primaryText="Stacked Area Chart"
-                value="/examples/stacked-area"
-                href="#/examples/stacked-area"
+                value="/redux-examples/stacked-area"
+                href="#/redux-examples/stacked-area"
               />,
               <ListItem
                 primaryText="Alluvial Chart"
-                value="/examples/alluvial-chart"
-                href="#/examples/alluvial-chart"
+                value="/redux-examples/alluvial-chart"
+                href="#/redux-examples/alluvial-chart"
               />,
               <ListItem
                 primaryText="Webpack Sunburst"
-                value="/examples/webpack-sunburst"
-                href="#/examples/webpack-sunburst"
+                value="/redux-examples/webpack-sunburst"
+                href="#/redux-examples/webpack-sunburst"
               />,
             ]}
           />

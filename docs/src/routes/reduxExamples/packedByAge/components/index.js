@@ -24,10 +24,17 @@ export class Example extends Component {
     setTimeout(() => {
       this.setMessage('');
     }, this.state.duration * 2);
+    this.mounted = true;
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   setMessage = (message) => {
-    this.setState({ message });
+    if (this.mounted) {
+      this.setState({ message });
+    }
   }
 
   setShowTop = (e, value) => {
@@ -41,6 +48,8 @@ export class Example extends Component {
       duration: Math.floor(value * 10000),
     });
   }
+
+  mounted = false;
 
   render() {
     const { sortKey, data, dispatch } = this.props;
@@ -98,7 +107,7 @@ export class Example extends Component {
                 </Table>
               </div>
               <div className="col-md-9 col-sm-9" style={{ padding: 0 }}>
-                <h3 style={{ opacity: message ? 1 : 0 }}>{this.state.message}...</h3>
+                <h5 style={{ opacity: message ? 1 : 0 }}>{this.state.message}...</h5>
                 <Chart
                   data={data}
                   sortKey={sortKey}

@@ -6,9 +6,12 @@ import AppFrame from '../components/AppFrame';
 import createNodeGroupDocs from './documentation/NodeGroup';
 import createTickGroupDocs from './documentation/TickGroup';
 import store, { injectReducer } from '../store';
+import Simple from './examples/Simple';
+import PieCharts from './examples/PieCharts';
 
 const docContext = require.context('!raw-loader!./documentation', true);
 const srcContext = require.context('!raw-loader!../../../src', true);
+const exampleContext = require.context('!raw-loader!./examples', true);
 
 const routes = {
   path: '/',
@@ -42,19 +45,39 @@ const routes = {
       ],
     },
     {
-      path: 'examples',
+      path: 'documentation',
       indexRoute: {
         onEnter(nextState, replace) {
-          replace('/examples/alphabet');
+          replace('/examples/pie-charts');
         },
       },
       childRoutes: [
-        require('./examples/alphabet').default(store, injectReducer),
-        require('./examples/statesByAge').default(store, injectReducer),
-        require('./examples/packedByAge').default(store, injectReducer),
-        require('./examples/stackedArea').default(store, injectReducer),
-        require('./examples/alluvialChart').default(store, injectReducer),
-        require('./examples/webpackSunburst').default(store, injectReducer),
+        {
+          path: '/examples/simple',
+          exampleContext,
+          component: Simple,
+        },
+        {
+          path: '/examples/pie-charts',
+          exampleContext,
+          component: PieCharts,
+        },
+      ],
+    },
+    {
+      path: 'redux-examples',
+      indexRoute: {
+        onEnter(nextState, replace) {
+          replace('/redux-examples/alphabet');
+        },
+      },
+      childRoutes: [
+        require('./reduxExamples/alphabet').default(store, injectReducer),
+        require('./reduxExamples/statesByAge').default(store, injectReducer),
+        require('./reduxExamples/packedByAge').default(store, injectReducer),
+        require('./reduxExamples/stackedArea').default(store, injectReducer),
+        require('./reduxExamples/alluvialChart').default(store, injectReducer),
+        require('./reduxExamples/webpackSunburst').default(store, injectReducer),
       ],
     },
   ],
