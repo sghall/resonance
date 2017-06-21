@@ -183,5 +183,3 @@ class Example extends PureComponent {
 }
 
 export default Example;
-
-
