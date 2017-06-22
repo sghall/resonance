@@ -6,7 +6,7 @@
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/fileSize/resonance.min.js?label=minified)
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/fileSize/resonance.min.js?compression=gzip)
 
-An experimental library for animated state transitions that update with your data. 
+React components for animated state transitions that update with your data. 
 This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently manage thousands of state tweens.
 You can apply high-performance state animations using an approachable, easy to implement syntax.
 
