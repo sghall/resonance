@@ -36,6 +36,7 @@ describe('<TickGroup />', () => {
     const wrapper = shallow(
       <TickGroup
         scale={scale}
+        start={() => ({})}
       >
         {renderChildren}
       </TickGroup>,
@@ -48,6 +49,7 @@ describe('<TickGroup />', () => {
     const wrapper = mount(
       <TickGroup
         scale={scale}
+        start={() => ({})}
       >
         {renderChildren}
       </TickGroup>,
@@ -60,7 +62,7 @@ describe('<TickGroup />', () => {
     const wrapper = mount(
       <TickGroup
         scale={scale}
-        keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </TickGroup>,
@@ -78,7 +80,7 @@ describe('<TickGroup />', () => {
     const wrapper = mount(
       <TickGroup
         scale={scale}
-        keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </TickGroup>,
@@ -98,7 +100,7 @@ describe('<TickGroup />', () => {
     const wrapper = mount(
       <TickGroup
         scale={scale}
-        keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </TickGroup>,

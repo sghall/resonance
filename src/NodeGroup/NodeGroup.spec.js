@@ -32,6 +32,7 @@ describe('<NodeGroup />', () => {
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </NodeGroup>,
@@ -45,6 +46,7 @@ describe('<NodeGroup />', () => {
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </NodeGroup>,
@@ -58,6 +60,7 @@ describe('<NodeGroup />', () => {
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </NodeGroup>,
@@ -76,6 +79,7 @@ describe('<NodeGroup />', () => {
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </NodeGroup>,
@@ -96,6 +100,7 @@ describe('<NodeGroup />', () => {
       <NodeGroup
         data={data}
         keyAccessor={(d) => d.val}
+        start={() => ({})}
       >
         {renderChildren}
       </NodeGroup>,
