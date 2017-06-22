@@ -71,7 +71,7 @@ describe('<TickGroup />', () => {
     setTimeout(() => {
       assert.strictEqual(wrapper.find(Node).length, scale0.ticks().length, 'should be equal');
       done();
-    }, msPerFrame * 1);
+    }, msPerFrame * 2);
   });
 
   it('should call updateTicks when given new data prop', () => {

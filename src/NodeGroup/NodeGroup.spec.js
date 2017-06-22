@@ -68,7 +68,7 @@ describe('<NodeGroup />', () => {
     setTimeout(() => {
       assert.strictEqual(wrapper.find(Node).length, data.length - 1, 'should be equal');
       done();
-    }, msPerFrame * 1);
+    }, msPerFrame * 2);
   });
 
   it('should call updateNodes when given new data prop', () => {
