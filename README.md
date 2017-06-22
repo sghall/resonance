@@ -27,7 +27,7 @@ The idea is similar to transition components like [react-transition-group](https
 Not only can you can have independent duration, delay and easing for entering, updating and leaving but each individual key in your state can define its own timing.
 
 <a href="https://sghall.github.io/resonance/#/documentation/node-group">
-  <img src="https://user-images.githubusercontent.com/4615775/27442707-cc3d9456-5725-11e7-9cf7-6698efb3c4e4.png" height="500px"/>
+  <img src="https://user-images.githubusercontent.com/4615775/27442985-a2fa10a0-5726-11e7-836d-0565cb73c2a5.png" height="500px"/>
 </a>
 
 ### Transitions
