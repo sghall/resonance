@@ -4,7 +4,7 @@ You return an object or an array of objects in your **enter**, **update** and **
 Instead of simply returning the next state these objects describe how to transform the state.
 This is far more powerful than just returning a state object.  By approaching it this way, you can describe really complex transformations and handle interrupts easily.
 
-If you're familiar with D3, this approach mimics d3.transition behavior.  In D3 your are really describing how the state should look on enter, update and exit and how to get there: set the value immediately or transition to it.
+If you're familiar with D3, this approach mimics selection/transition behavior.  In D3 your are really describing how the state should look on enter, update and exit and how to get there: set the value immediately or transition to it.
 D3 deals with the fact that transitions might be in-flight or the key is already at that value in the background without you having to worry about that.
 The NodeGroup takes the same approach but it's done in idiomatic React.
 
@@ -14,8 +14,8 @@ Timing and events are covered in more detail below.
 The rest of the keys in each object are assumed to be keys in your state.
 
 If you aren't transitioning anything then it wouldn't make sense to be using NodeGroup.
-That said, it's also convenient to be able to set a key to value when a node enters, updates or leaves without transitioning.
-To that end, you can send four different types of values to specify how you want to transform the state.
+That said, like in D3, it's also convenient to be able to set a key to value when a node enters, updates or leaves without transitioning.
+To that end, you can return four different types of values to specify how you want to transform the state.
 
 * `string or number`: Set the key to the value immediately with no transition.
 
@@ -64,8 +64,10 @@ See the interpolators section below.
 
 ## Timing
 
-If there's no timing key in your object you'll get the timing defaults:
+If there's no timing key in your object you'll get the timing defaults.
+You can specify just the things you want to override on your timing key. 
 
+Here's the timing defaults...
 ```js
 const defaultTiming = {
   delay: 0,
@@ -73,13 +75,13 @@ const defaultTiming = {
   ease: easeCubicInOut,
 };
 ```
-You can specify just the things you want to override on your timing key. Provide the function, like those from d3-ease, for the ease key.
+For the ease key, just provide the function.  You can use any easing function, like those from d3-ease...
 
 [List of ease functions exported from d3-ease](https://github.com/d3/d3-ease/blob/master/index.js)
 
 ## Passing an array of objects
 
-Each object can define its own timing and it will be applied to an transitions in the object.
+Each object can define its own timing and it will be applied to any transitions in the object.
 
 ```js
 import { easeQuadInOut } from 'd3-ease';
@@ -172,7 +174,7 @@ If you scroll up to the first example, this code is running and the results are 
 </NodeGroup>
 ```
 
-### Interpolators
+## Interpolators
 
 Interpolators are inferred from what you specify in your transition object.
 
@@ -209,9 +211,9 @@ export function getInterpolator(key, value) {
 
 You don't have to keep your state flat either.
 You can create "namespaces" that allow you to organize state in a way that makes sense for your component. In the example below, you can get sense of how this works.
-To see the full code and a live demo code to examples section.
+To see the full code and a live demo go to examples section of the docs site.
 
-What's also nice is you can then just spread your state in the render function:
+What's nice about this is you can then just spread your state in the render function:
 ```js
 ...
 
@@ -245,26 +247,11 @@ What's also nice is you can then just spread your state in the render function:
   })}
 
   update={(data, index) => ({
-    g: {
-      opacity: [0.4],
-      transform: [`translate(${scale(data.name) + (scale.bandwidth() / 2)},0)`],
-    },
-    circle: {
-      r: [scale.bandwidth() / 2],
-      strokeWidth: [(index + 1) * 2],
-      fill: 'blue',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
+    ...
   })}
 
   leave={() => ({
-    g: {
-      opacity: [1e-6],
-    },
-    circle: {
-      fill: 'red',
-    },
-    timing: { duration: 1000, ease: easeExpInOut },
+    ...
   })}
 >
   {(nodes) => {
@@ -272,11 +259,11 @@ What's also nice is you can then just spread your state in the render function:
       <g>
         {nodes.map(({ key, data, state }) => {
           return (
-            <g key={key} {...state.g}>
+            <g key={key} {...state.g}> // spread the g object
               <circle
                 stroke="grey"
                 cy={dims[1] / 2}
-                {...state.circle}
+                {...state.circle} // spread the circle object
               />
               <text
                 x="0"

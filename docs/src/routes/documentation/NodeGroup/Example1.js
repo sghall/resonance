@@ -174,7 +174,7 @@ class Example extends PureComponent {
                         y="20"
                         fill="white"
                         transform="rotate(90 5,20)"
-                      >{`x: ${x}`}</text>
+                      >{`x: ${Math.round(x)}`}</text>
                       <text
                         x="0"
                         y="5"
