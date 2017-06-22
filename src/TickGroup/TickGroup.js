@@ -18,29 +18,28 @@ class TickGroup extends Component {
      */
     tickCount: PropTypes.number,
     /**
-     * A function that returns the starting state.   The function is passed the tick (the tick is pass as an object e.g. { val: 10.5 }) and index.
+     * A function that returns the starting state object. The function is passed the tick (the tick is passed as an object with a "val" key e.g. { val: 10.5 }) and the index.
      */
-    start: PropTypes.func,
+    start: PropTypes.func.isRequired,
     /**
-     * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the tick (the tick is pass as an object e.g. { val: 10.5 }) and index.
+     * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the tick (the tick is passed as an object with a "val" key e.g. { val: 10.5 }) and index.
      */
     enter: PropTypes.func,
     /**
-     * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the tick (the tick is pass as an object e.g. { val: 10.5 }) and index.
+     * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the tick (the tick is passed as an object with a "val" key e.g. { val: 10.5 }) and index.
      */
     update: PropTypes.func,
     /**
-     * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the tick (the tick is pass as an object e.g. { val: 10.5 }) and index.
+     * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the tick (the tick is passed as an object with a "val" key e.g. { val: 10.5 }) and index.
      */
     leave: PropTypes.func,
     /**
-     * A function that renders the nodes.  The function is passed an array of nodes.
+     * A function that renders the ticks. It should accept an array of ticks as its only argument.  Each tick is an object with the key, data ({ val: 10.5 }), state and a type of 'ENTER', 'UPDATE' or 'LEAVE'.
      */
     children: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    start: () => {},
     enter: () => {},
     update: () => {},
     leave: () => {},

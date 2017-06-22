@@ -20,9 +20,9 @@ class NodeGroup extends Component {
      */
     keyAccessor: PropTypes.func.isRequired,
     /**
-     * A function that returns the starting state.  The function is passed the data and index.
+     * A function that returns the starting state.  The function is passed the data and index and must return an object.
      */
-    start: PropTypes.func,
+    start: PropTypes.func.isRequired,
     /**
      * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
      */
@@ -36,13 +36,12 @@ class NodeGroup extends Component {
      */
     leave: PropTypes.func,
     /**
-     * A function that renders the nodes.  The function is passed an array of nodes.
+     * A function that renders the nodes. It should accept an array of nodes as its only argument.  Each node is an object with the key, data, state and a type of 'ENTER', 'UPDATE' or 'LEAVE'.
      */
     children: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    start: () => {},
     enter: () => {},
     update: () => {},
     leave: () => {},
