@@ -53,14 +53,12 @@ class NodeGroup extends Component {
   }
 
   componentDidMount() {
-    const { data, keyAccessor, ...rest } = this.props;
-    this.updateNodes(rest, data, keyAccessor);
+    this.updateNodes(this.props);
   }
 
   componentWillReceiveProps(next) {
     if (next.data !== this.props.data) {
-      const { data, keyAccessor, ...rest } = next;
-      this.updateNodes(rest, data, keyAccessor);
+      this.updateNodes(next);
     }
   }
 
@@ -76,8 +74,8 @@ class NodeGroup extends Component {
     });
   }
 
-  updateNodes(props, data, keyAccessor) {
-    const { start, enter, update, leave } = props;
+  updateNodes(props) {
+    const { data, keyAccessor, start, enter, update, leave } = props;
 
     const currKeyIndex = {};
     const currNodeKeys = this.nodeKeys;
@@ -98,8 +96,7 @@ class NodeGroup extends Component {
       nextNodeKeys.push(k);
 
       if (currKeyIndex[k] === undefined) {
-        const n = new Node(k, d, ENTER);
-        this.nodeHash[k] = n;
+        this.nodeHash[k] = new Node(k, d, ENTER);
       }
     }
 
@@ -108,11 +105,10 @@ class NodeGroup extends Component {
       const n = this.nodeHash[k];
 
       if (nextKeyIndex[k] !== undefined) {
-        const d = data[nextKeyIndex[k]];
-        n.update(d, UPDATE);
+        n.updateData(data[nextKeyIndex[k]]);
+        n.updateType(UPDATE);
       } else {
-        const d = n.data;
-        n.update(d, LEAVE);
+        n.updateType(LEAVE);
       }
     }
 

@@ -23,8 +23,12 @@ extend(Node.prototype, {
     const s = this.state;
     extend(s, typeof state === 'function' ? state(s) : state);
   },
-  update(data, type) {
+  updateData(data) {
     this.data = data;
+
+    return this;
+  },
+  updateType(type) {
     this.type = type;
 
     return this;
