@@ -16,10 +16,11 @@ const NodeGroupDocs = (props) => {
       <PropTypeDescription code={srcContext('./NodeGroup/NodeGroup')} />
       <CodeExample
         code={docContext('./NodeGroup/Example1')}
-        title="Example 1: Simple Bars"
+        title="Example: Simple Bars"
       >
         <Example1 />
       </CodeExample>
+      <MarkdownElement text={docContext('./NodeGroup/README1.md')} />
     </div>
   );
 };

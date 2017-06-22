@@ -107,7 +107,7 @@ class PropTypeDescription extends Component {
   };
 
   static defaultProps = {
-    header: '### Properties',
+    header: '### Component Props',
   };
 
   render() {

@@ -2,8 +2,9 @@
 /* eslint react/no-multi-comp: 'off' */
 
 import React, { PureComponent } from 'react';
+import { easeQuadInOut } from 'd3-ease';
 import NodeGroup from 'resonance/NodeGroup';
-import Surface from 'docs/src/components/Surface';
+import Surface from 'docs/src/components/Surface'; // this just a responsive SVG
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
 
@@ -135,7 +136,19 @@ class Example extends PureComponent {
               x: [scale(data.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
-              timing: { duration: 1500 },
+              timing: { duration: 1500, ease: easeQuadInOut },
+              events: {
+                start() { // runs in the context of the node
+                  console.log('start!', this);
+                },
+                interrupt() { // runs in the context of the node
+                  console.log('interrupt!', this);
+                },
+                end() { // runs in the context of the node
+                  console.log('end!', this);
+                  this.setState({ fill: 'tomato' }); // the node has a setState method on it!
+                },
+              },
             })}
 
             leave={() => ({
@@ -145,36 +158,34 @@ class Example extends PureComponent {
               timing: { duration: 1500 },
             })}
           >
-            {(nodes) => {
-              return (
-                <g>
-                  {nodes.map(({ key, data, state }) => {
-                    const { x, ...rest } = state;
+            {(nodes) => (
+              <g>
+                {nodes.map(({ key, data, state }) => {
+                  const { x, ...rest } = state;
 
-                    return (
-                      <g key={key} transform={`translate(${x},0)`}>
-                        <rect
-                          height={dims[1]}
-                          {...rest}
-                        />
-                        <text
-                          x="0"
-                          y="20"
-                          fill="white"
-                          transform="rotate(90 5,20)"
-                        >{`x: ${x}`}</text>
-                        <text
-                          x="0"
-                          y="5"
-                          fill="white"
-                          transform="rotate(90 5,20)"
-                        >{`name: ${data.name}`}</text>
-                      </g>
-                    );
-                  })}
-                </g>
-              );
-            }}
+                  return (
+                    <g key={key} transform={`translate(${x},0)`}>
+                      <rect
+                        height={dims[1]}
+                        {...rest}
+                      />
+                      <text
+                        x="0"
+                        y="20"
+                        fill="white"
+                        transform="rotate(90 5,20)"
+                      >{`x: ${x}`}</text>
+                      <text
+                        x="0"
+                        y="5"
+                        fill="white"
+                        transform="rotate(90 5,20)"
+                      >{`name: ${data.name}`}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            )}
           </NodeGroup>
         </Surface>
       </div>
