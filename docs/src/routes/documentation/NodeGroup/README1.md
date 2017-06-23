@@ -15,7 +15,7 @@ The rest of the keys in each object are assumed to be keys in your state.
 
 If you aren't transitioning anything then it wouldn't make sense to be using NodeGroup.
 That said, like in D3, it's also convenient to be able to set a key to value when a node enters, updates or leaves without transitioning.
-To that end, you can return four different types of values to specify how you want to transform the state.
+To support this you can return four different types of values to specify how you want to transform the state.
 
 * `string or number`: Set the key to the value immediately with no transition.
 

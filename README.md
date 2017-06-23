@@ -27,7 +27,7 @@ The idea is similar to transition components like [react-transition-group](https
 Not only can you can have independent duration, delay and easing for entering, updating and leaving but each individual key in your state can define its own timing.
 
 <a href="https://sghall.github.io/resonance/#/documentation/node-group">
-  <img src="https://user-images.githubusercontent.com/4615775/27442985-a2fa10a0-5726-11e7-836d-0565cb73c2a5.png" height="500px"/>
+  <img src="https://user-images.githubusercontent.com/4615775/27489448-6ab3ed14-57ef-11e7-871e-a1fb621f2d96.png" height="500px"/>
 </a>
 
 ### Transitions
@@ -47,7 +47,7 @@ The rest of the keys in each object are assumed to be keys in your state.
 
 If you aren't transitioning anything then it wouldn't make sense to be using NodeGroup.
 That said, like in D3, it's also convenient to be able to set a key to value when a node enters, updates or leaves without transitioning.
-To that end, you can return four different types of values to specify how you want to transform the state.
+To support this you can return four different types of values to specify how you want to transform the state.
 
 * `string or number`: Set the key to the value immediately with no transition.
 
