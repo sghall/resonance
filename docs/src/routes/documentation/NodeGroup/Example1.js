@@ -136,19 +136,7 @@ class Example extends PureComponent {
               x: [scale(data.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
-              timing: { duration: 1500, ease: easeQuadInOut },
-              events: {
-                start() { // runs in the context of the node
-                  console.log('start!', this);
-                },
-                interrupt() { // runs in the context of the node
-                  console.log('interrupt!', this);
-                },
-                end() { // runs in the context of the node
-                  console.log('end!', this);
-                  this.setState({ fill: 'tomato' }); // the node has a setState method on it!
-                },
-              },
+              timing: { duration: 1500 },
             })}
 
             leave={() => ({

@@ -161,8 +161,6 @@ import { easeQuadInOut } from 'd3-ease';
 ## Events
 
 The events are the same as those on D3 transitions. You can fire a function on transition start, interrupt or end.
-If you go to the [docs site](https://sghall.github.io/resonance/#/documentation/node-group), this code is running and the results are being logged to the console.
-
 ```js
 <NodeGroup
   data={this.state.data}
