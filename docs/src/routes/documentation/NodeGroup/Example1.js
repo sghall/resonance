@@ -2,7 +2,6 @@
 /* eslint react/no-multi-comp: 'off' */
 
 import React, { PureComponent } from 'react';
-import { easeQuadInOut } from 'd3-ease';
 import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface'; // this just a responsive SVG
 import { scaleBand } from 'd3-scale';
