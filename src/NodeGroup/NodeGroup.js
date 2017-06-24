@@ -36,7 +36,7 @@ type Props = {
   /**
    * A function that renders the nodes. It should accept an array of nodes as its only argument.  Each node is an object with the key, data, state and a type of 'ENTER', 'UPDATE' or 'LEAVE'.
    */
-  children: (value: string) => void,
+  children: (nodes: Array<{}>) => {},
 };
 
 class NodeGroup extends Component<void, Props, void> {
