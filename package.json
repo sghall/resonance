@@ -39,7 +39,6 @@
     "flow": "flow"
   },
   "peerDependencies": {
-    "prop-types": "^15.5.7",
     "react": "^15.5.3"
   },
   "dependencies": {
@@ -57,7 +56,6 @@
     "babel-eslint": "^7.2.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-istanbul": "^4.1.1",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.4",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.23.0",

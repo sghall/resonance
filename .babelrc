@@ -13,10 +13,7 @@
       "sourceMaps": "both"
     },
     "production": {
-      "plugins": [
-        "transform-runtime",
-        "transform-react-remove-prop-types"
-      ]
+      "plugins": ["transform-runtime"]
     }
   }
 }

@@ -23,12 +23,6 @@ const baseConfig = {
         commonjs: ['./react'],
         amd: 'react',
       },
-      'prop-types': {
-        root: 'prop-types',
-        commonjs2: './prop-types',
-        commonjs: ['./prop-types'],
-        amd: 'prop-types',
-      },
     },
   ],
   module: {
