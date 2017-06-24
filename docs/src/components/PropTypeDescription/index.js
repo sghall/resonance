@@ -35,7 +35,7 @@ function generatePropType(type) {
       values = type.value.map((v) => v.value || v.name).join('<br>&nbsp;');
       return `${type.name}:<br>&nbsp;${values}<br>`;
     default:
-      return type.name;
+      return type.type || type.name;
   }
 }
 
@@ -128,6 +128,8 @@ class PropTypeDescription extends Component {
       let name = key;
 
       const prop = info.props[name];
+      prop.type = prop.type || prop.flowType;
+
       const desc = genDescription(prop.required, prop.description, prop.type) || '';
 
       let defaultValue = '';
