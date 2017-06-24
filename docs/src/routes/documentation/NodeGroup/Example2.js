@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { shuffle, range } from 'd3-array';
 import { easeBackOut, easeBackInOut } from 'd3-ease';
-import { NodeGroup } from 'resonance';
+import NodeGroup from 'resonance/NodeGroup';
 
 const count = 15;
 
