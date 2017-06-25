@@ -1,17 +1,18 @@
 // @flow weak
 /* eslint react/no-multi-comp: 'off' */
+// example from https://bl.ocks.org/mbostock/3885705
 
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface'; // this just a responsive SVG
-import { scaleBand } from 'd3-scale';
-import { shuffle } from 'd3-array';
+import { scaleLinear, scaleBand } from 'd3-scale';
+import { ascending, max } from 'd3-array';
 
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 250];      // [width, height]
-const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
+const view = [1000, 450];      // [width, height]
+const trbl = [10, 10, 30, 10]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
@@ -21,101 +22,73 @@ const dims = [ // Adjusted dimensions [width, height]
 // **************************************************
 //  Mock Data
 // **************************************************
-const mockData = [
-  {
-    name: 'Linktype',
-    value: 45,
-  }, {
-    name: 'Quaxo',
-    value: 53,
-  }, {
-    name: 'Skynoodle',
-    value: 86,
-  }, {
-    name: 'Realmix',
-    value: 36,
-  }, {
-    name: 'Jetpulse',
-    value: 54,
-  }, {
-    name: 'Chatterbridge',
-    value: 91,
-  }, {
-    name: 'Riffpedia',
-    value: 67,
-  }, {
-    name: 'Layo',
-    value: 12,
-  }, {
-    name: 'Oyoba',
-    value: 69,
-  }, {
-    name: 'Ntags',
-    value: 17,
-  }, {
-    name: 'Brightbean',
-    value: 73,
-  }, {
-    name: 'Blogspan',
-    value: 25,
-  }, {
-    name: 'Twitterlist',
-    value: 73,
-  }, {
-    name: 'Rhycero',
-    value: 67,
-  }, {
-    name: 'Trunyx',
-    value: 52,
-  }, {
-    name: 'Browsecat',
-    value: 90,
-  }, {
-    name: 'Skinder',
-    value: 88,
-  }, {
-    name: 'Tagpad',
-    value: 83,
-  }, {
-    name: 'Gabcube',
-    value: 6,
-  }, {
-    name: 'Jabberstorm',
-    value: 19,
-  },
+const letters = [
+  { letter: 'A', frequency: 0.08167 },
+  { letter: 'B', frequency: 0.01492 },
+  { letter: 'C', frequency: 0.02780 },
+  { letter: 'D', frequency: 0.04253 },
+  { letter: 'E', frequency: 0.12702 },
+  { letter: 'F', frequency: 0.02288 },
+  { letter: 'G', frequency: 0.02022 },
+  { letter: 'H', frequency: 0.06094 },
+  { letter: 'I', frequency: 0.06973 },
+  { letter: 'J', frequency: 0.00153 },
+  { letter: 'K', frequency: 0.00747 },
+  { letter: 'L', frequency: 0.04025 },
+  { letter: 'M', frequency: 0.02517 },
+  { letter: 'N', frequency: 0.06749 },
+  { letter: 'O', frequency: 0.07507 },
+  { letter: 'P', frequency: 0.01929 },
+  { letter: 'Q', frequency: 0.00098 },
+  { letter: 'R', frequency: 0.05987 },
+  { letter: 'S', frequency: 0.06333 },
+  { letter: 'T', frequency: 0.09056 },
+  { letter: 'U', frequency: 0.02758 },
+  { letter: 'V', frequency: 0.01037 },
+  { letter: 'W', frequency: 0.02465 },
+  { letter: 'X', frequency: 0.00150 },
+  { letter: 'Y', frequency: 0.01971 },
+  { letter: 'Z', frequency: 0.00074 },
 ];
 
+const y = scaleLinear()
+  .range([dims[1], 0])
+  .domain([0, max(letters, (d) => d.frequency)]);
 
 class Example extends PureComponent {
 
   state = {
-    data: shuffle(mockData).slice(0, 15),
+    sortAlpha: true,
   }
 
   update = () => {
-    this.setState({
-      data: shuffle(mockData).slice(0, 15),
-    });
+    this.setState((state) => ({
+      sortAlpha: !state.sortAlpha,
+    }));
   }
 
   render() {
+    const { sortAlpha } = this.state;
+
+    const sorted = letters.sort(sortAlpha ?
+      (a, b) => ascending(a.letter, b.letter) :
+      (a, b) => b.frequency - a.frequency,
+    ).slice(0);
+
     const scale = scaleBand()
       .rangeRound([0, dims[0]])
-      .domain(this.state.data.map((d) => d.name))
+      .domain(sorted.map((d) => d.letter))
       .padding(0.1);
 
     return (
       <div>
         <button onClick={this.update}>
-          Update
+          {`Sort ${sortAlpha ? 'Value' : 'Alpha'}`}
         </button>
-        <span style={{ margin: 5 }}>
-          Bar Count: {this.state.data.length}
-        </span>
         <Surface view={view} trbl={trbl}>
           <NodeGroup
-            data={this.state.data}
-            keyAccessor={(d) => d.name}
+            data={sorted}
+            keyAccessor={(d) => d.letter}
 
             start={() => ({
               opacity: 1e-6,
@@ -124,25 +97,25 @@ class Example extends PureComponent {
               width: scale.bandwidth(),
             })}
 
-            enter={(data) => ({
-              opacity: [0.5],
-              x: [scale(data.name)],
-              timing: { duration: 1500 },
+            enter={(d) => ({
+              opacity: [0.7],
+              x: [scale(d.letter)],
+              timing: { duration: 750 },
             })}
 
-            update={(data) => ({
-              opacity: [0.5],
-              x: [scale(data.name)],
-              fill: 'blue',
+            update={(d, i) => ({
+              opacity: [0.7],
+              x: [scale(d.letter)],
+              fill: ['steelblue'],
               width: [scale.bandwidth()],
-              timing: { duration: 1500 },
+              timing: { duration: 750, delay: i * 50 },
             })}
 
             leave={() => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
               fill: 'red',
-              timing: { duration: 1500 },
+              timing: { duration: 750 },
             })}
           >
             {(nodes) => (
@@ -153,21 +126,16 @@ class Example extends PureComponent {
                   return (
                     <g key={key} transform={`translate(${x},0)`}>
                       <rect
-                        height={dims[1]}
+                        height={dims[1] - y(data.frequency)}
+                        y={y(data.frequency)}
                         {...rest}
                       />
                       <text
-                        x="0"
-                        y="20"
-                        fill="white"
-                        transform="rotate(90 5,20)"
-                      >{`x: ${Math.round(x)}`}</text>
-                      <text
-                        x="0"
-                        y="5"
-                        fill="white"
-                        transform="rotate(90 5,20)"
-                      >{`name: ${data.name}`}</text>
+                        x={scale.bandwidth() / 2}
+                        y={dims[1] + 15}
+                        dx="-.35em"
+                        fill="#333"
+                      >{data.letter}</text>
                     </g>
                   );
                 })}
