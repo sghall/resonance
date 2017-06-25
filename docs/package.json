@@ -1,7 +1,7 @@
 {
   "name": "resonance-docs",
   "private": true,
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Data-driven transitions in React",
   "repository": {
     "type": "git",
