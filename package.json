@@ -92,7 +92,6 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "phantomjs-prebuilt": "^2.1.13",
-    "prop-types": "^15.5.7",
     "react": "^15.5.3",
     "react-addons-test-utils": "^15.4.0",
     "react-dom": "^15.5.3",
