@@ -93,7 +93,6 @@ class Example extends PureComponent {
             start={() => ({
               opacity: 1e-6,
               x: 1e-6,
-              fill: 'green',
               width: scale.bandwidth(),
             })}
 
@@ -106,7 +105,6 @@ class Example extends PureComponent {
             update={(d, i) => ({
               opacity: [0.7],
               x: [scale(d.letter)],
-              fill: ['steelblue'],
               width: [scale.bandwidth()],
               timing: { duration: 750, delay: i * 50 },
             })}
@@ -114,7 +112,6 @@ class Example extends PureComponent {
             leave={() => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
-              fill: 'red',
               timing: { duration: 750 },
             })}
           >
@@ -128,6 +125,7 @@ class Example extends PureComponent {
                       <rect
                         height={dims[1] - y(data.frequency)}
                         y={y(data.frequency)}
+                        fill="steelblue"
                         {...rest}
                       />
                       <text
