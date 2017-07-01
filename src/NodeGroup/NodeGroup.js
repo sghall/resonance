@@ -39,7 +39,7 @@ type Props = {
   children: (nodes: Array<{}>) => {},
 };
 
-class NodeGroup extends Component<void, Props, void> {
+class NodeGroup extends Component {
 
   static defaultProps = {
     enter: () => {},
