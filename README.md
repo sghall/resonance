@@ -30,6 +30,41 @@ Not only can you can have independent duration, delay and easing for entering, u
   <img src="https://user-images.githubusercontent.com/4615775/27489448-6ab3ed14-57ef-11e7-871e-a1fb621f2d96.png" height="500px"/>
 </a>
 
+### Usage
+
+A typical usage of NodeGroup looks like this...
+
+```js
+<NodeGroup
+  data={this.state.data} // array of data objects (required)
+  keyAccessor={(d) => d.name} // function to get the key of each object (required)
+
+  start={(data, index) => ({ // returns the starting state of node (required)
+    ...
+  })}
+
+  enter={(data, index) => ({ // how to transform node state on enter - runs immediately after start (optional)
+    ...
+  })}
+
+  update={(data, index) => ({ // how to transform node state on update - runs each time data updates and key remains (optional)
+    ...
+  })}
+
+  leave={(data, index) => ({ // how to transform node state on leave - run when data updates and key is gone (optional)
+    ...
+  })}
+>
+  {(nodes) => ( // the only child of NodeGroup should be a function to render the nodes (required)
+    ...
+      {nodes.map(({ key, data, state }) => {
+        ...
+      })}
+    ...
+  )}
+</NodeGroup>
+```
+
 ### Transitions
 
 You return an object or an array of objects in your **enter**, **update** and **leave** functions.
