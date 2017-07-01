@@ -4,7 +4,7 @@
 
 import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
-import Surface from 'docs/src/components/Surface'; // this just a responsive SVG
+import Surface from 'docs/src/components/Surface'; // this is just a responsive SVG
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { ascending, max } from 'd3-array';
 
@@ -125,7 +125,7 @@ class Example extends PureComponent {
                       <rect
                         height={dims[1] - y(data.frequency)}
                         y={y(data.frequency)}
-                        fill="steelblue"
+                        fill="#455a64"
                         {...rest}
                       />
                       <text
