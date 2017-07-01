@@ -112,7 +112,7 @@ class Example extends PureComponent {
 
               enter={({ endAngle }) => ({
                 endAngle: [endAngle],
-                timing: { duration: 1000, delay: 800 },
+                timing: { duration: 500, delay: 800 },
               })}
 
               update={({ startAngle, endAngle }) => ({

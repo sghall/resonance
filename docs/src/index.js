@@ -12,8 +12,6 @@ import store from './store';
 window.React = React;
 window.Perf = require('react-addons-perf');
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 ReactDOM.render(

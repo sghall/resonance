@@ -68,7 +68,7 @@ class AppFrame extends Component {
         margin: `${spacing.desktopGutter}px ${spacing.desktopGutter}px`,
       },
       footer: {
-        backgroundColor: grey900,
+        backgroundColor: '#455a64',
         textAlign: 'center',
       },
       a: {
