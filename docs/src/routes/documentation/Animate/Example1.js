@@ -51,7 +51,7 @@ class Example extends PureComponent {
             enter={() => ([
               {
                 opacity: [0.7],
-                timing: { duration: 2000 },
+                timing: { duration: 3000 },
               },
               {
                 d: interpolator,
