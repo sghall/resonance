@@ -73,21 +73,4 @@ describe('<Animate />', () => {
 
     assert.strictEqual(callCount, 0, 'should not have been called');
   });
-
-  it('should call leave function when passed data === undefined', () => {
-    const leave = sinon.spy();
-    const wrapper = mount(
-      <Animate
-        data={data}
-        start={() => ({})}
-        leave={leave}
-      >
-        {renderNode}
-      </Animate>,
-    );
-
-    wrapper.setProps({ data: undefined });
-
-    assert.strictEqual(leave.called, true, 'should have been called');
-  });
 });
