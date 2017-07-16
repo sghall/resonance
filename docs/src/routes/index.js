@@ -3,8 +3,9 @@
 
 import Home from './Home';
 import AppFrame from '../components/AppFrame';
-import createNodeGroupDocs from './documentation/NodeGroup';
-import createTickGroupDocs from './documentation/TickGroup';
+import AnimateDocs from './documentation/Animate';
+import NodeGroupDocs from './documentation/NodeGroup';
+import TickGroupDocs from './documentation/TickGroup';
 import store, { injectReducer } from '../store';
 import Simple from './examples/Simple';
 import PieCharts from './examples/PieCharts';
@@ -31,16 +32,22 @@ const routes = {
       },
       childRoutes: [
         {
+          path: '/documentation/animate',
+          docContext,
+          srcContext,
+          component: AnimateDocs,
+        },
+        {
           path: '/documentation/node-group',
           docContext,
           srcContext,
-          component: createNodeGroupDocs,
+          component: NodeGroupDocs,
         },
         {
           path: '/documentation/tick-group',
           docContext,
           srcContext,
-          component: createTickGroupDocs,
+          component: TickGroupDocs,
         },
       ],
     },

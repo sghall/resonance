@@ -82,6 +82,11 @@ class AppNavDrawer extends Component {
             primaryTogglesNestedList
             nestedItems={[
               <ListItem
+                primaryText="Animate"
+                value="/documentation/animate"
+                href="#/documentation/animate"
+              />,
+              <ListItem
                 primaryText="NodeGroup"
                 value="/documentation/node-group"
                 href="#/documentation/node-group"

@@ -6,15 +6,15 @@ import { transition, stop } from '../core/transition';
 
 type Props = {
   /**
-   * A data object.  The data prop is treated as immutable so the node will update if prev.data !== next.data.  If data === undefined the leave transition will run.
+   * Typically an object or array. The data prop is treated as immutable. If data === undefined the leave transition will run. Else the component will run the update transition if prev.data !== next.data.
    */
-  data?: {},
+  data?: any,
   /**
   * A function that returns the starting state.  The function is passed the data and must return an object.
   */
   start: (data: {}) => {} | Array<{}>,
   /**
-   * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data.
+   * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data.
    */
   enter?: (data: {}) => {} | Array<{}>,
   /**
@@ -26,7 +26,7 @@ type Props = {
    */
   leave?: (data: {}) => {} | Array<{}>,
   /**
-   * A function that renders the node. It should accept a single node as its only argument.  The node is an object with the data, state and a type of 'ENTER', 'UPDATE'.
+   * A function that renders the node.  The function is passed the data and state.
    */
   children: (nodes: Array<{}>) => {},
 };

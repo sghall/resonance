@@ -6,7 +6,7 @@ import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 import Example1 from './Example1';
-import Example2 from './Example2';
+// import Example2 from './Example2';
 
 const NodeGroupDocs = (props) => {
   const { route: { docContext, srcContext } } = props;
@@ -17,7 +17,7 @@ const NodeGroupDocs = (props) => {
       <PropTypeDescription code={srcContext('./Animate/Animate')} />
       <CodeExample
         code={docContext('./Animate/Example1')}
-        title="Example: Simple Bars"
+        title="Example: Using Flubber"
       >
         <Example1 />
       </CodeExample>
