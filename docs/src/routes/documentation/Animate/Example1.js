@@ -7,7 +7,7 @@ import { easeExpInOut } from 'd3-ease';
 import Animate from 'resonance/Animate';
 import { interpolate } from 'flubber';
 import Surface from 'docs/src/components/Surface'; // this is just a responsive SVG
-import statesJSON from './lower48.topo.json';
+import statesJSON from './states.json';
 
 // **************************************************
 //  SVG Layout
