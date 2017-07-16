@@ -5,11 +5,9 @@ import React, { Component } from 'react';
 import sinon from 'sinon';
 import { assert } from 'chai';
 import { shallow, mount } from 'enzyme';
-import NodeGroup from './NodeGroup';
+import Animate from './Animate';
 
-const msPerFrame = 1000 / 60;
-
-const data = [1, 2, 3, 4, 5].map((d) => ({ val: d }));
+const data = { x: 100, y: 200 };
 
 class Node extends Component { // eslint-disable-line
 
@@ -18,101 +16,78 @@ class Node extends Component { // eslint-disable-line
   }
 }
 
-const renderChildren = (nodes) => (
-  <g>
-    {nodes.map(({ key }) => (
-      <Node key={key} />
-    ))}
-  </g>
+const renderNode = () => (
+  <Node />
 );
 
-describe('<NodeGroup />', () => {
-  it('should render nodes wrapped in the outer element', () => {
+describe('<Animate />', () => {
+  it('should render node', () => {
     const wrapper = shallow(
-      <NodeGroup
+      <Animate
         data={data}
-        keyAccessor={(d) => d.val}
         start={() => ({})}
       >
-        {renderChildren}
-      </NodeGroup>,
+        {renderNode}
+      </Animate>,
     );
 
-    assert.strictEqual(wrapper.is('g'), true, 'should be true');
+    assert.strictEqual(wrapper.is('Node'), true, 'should be true');
   });
 
-  it('should render a node for each data item', () => {
+  it('should call update when given new data prop', () => {
     const wrapper = mount(
-      <NodeGroup
+      <Animate
         data={data}
-        keyAccessor={(d) => d.val}
         start={() => ({})}
       >
-        {renderChildren}
-      </NodeGroup>,
+        {renderNode}
+      </Animate>,
     );
 
-    assert.strictEqual(wrapper.find(Node).length, data.length, 'should be equal');
-  });
+    const spy = sinon.spy(Animate.prototype, 'update');
 
-  it('should remove nodes that are not transitioning', (done) => {
-    const wrapper = mount(
-      <NodeGroup
-        data={data}
-        keyAccessor={(d) => d.val}
-        start={() => ({})}
-      >
-        {renderChildren}
-      </NodeGroup>,
-    );
+    wrapper.setProps({ data: { x: 200, y: 400 } });
 
-    wrapper.setProps({ data: data.slice(1) });
-
-    setTimeout(() => {
-      assert.strictEqual(wrapper.find(Node).length, data.length - 1, 'should be equal');
-      done();
-    }, msPerFrame * 2);
-  });
-
-  it('should call updateNodes when given new data prop', () => {
-    const wrapper = mount(
-      <NodeGroup
-        data={data}
-        keyAccessor={(d) => d.val}
-        start={() => ({})}
-      >
-        {renderChildren}
-      </NodeGroup>,
-    );
-
-    const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
-
-    wrapper.setProps({ data: [{ val: 1 }, { val: 2 }] });
-
-    const callCount = NodeGroup.prototype.updateNodes.callCount;
+    const callCount = Animate.prototype.update.callCount;
     spy.restore();
 
     assert.strictEqual(callCount, 1, 'should have been called once');
   });
 
-  it('should not call updateNodes when passed same data prop', () => {
+  it('should not call update when passed same data prop', () => {
     const wrapper = mount(
-      <NodeGroup
+      <Animate
         data={data}
-        keyAccessor={(d) => d.val}
         start={() => ({})}
       >
-        {renderChildren}
-      </NodeGroup>,
+        {renderNode}
+      </Animate>,
     );
 
-    const spy = sinon.spy(NodeGroup.prototype, 'updateNodes');
+    const spy = sinon.spy(Animate.prototype, 'update');
 
     wrapper.setProps({ data });
 
-    const callCount = NodeGroup.prototype.updateNodes.callCount;
+    const callCount = Animate.prototype.update.callCount;
     spy.restore();
 
     assert.strictEqual(callCount, 0, 'should not have been called');
+  });
+
+  it('should call leave function when passed data === undefined', () => {
+    const leave = sinon.spy();
+    const wrapper = mount(
+      <Animate
+        data={data}
+        start={() => ({})}
+        leave={leave}
+      >
+        {renderNode}
+      </Animate>,
+    );
+
+    wrapper.setProps({ data: undefined });
+
+    assert.strictEqual(leave.called, true, 'should have been called');
   });
 });
