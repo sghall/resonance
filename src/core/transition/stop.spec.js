@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { assert } from 'chai';
-import createMount from 'test/utils/createMount';
+import createMount from '../../../test/utils/createMount';
 import transition from './transition';
 import stop from './stop';
 

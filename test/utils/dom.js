@@ -1,23 +1,21 @@
 // @flow weak
+const { JSDOM } = require('jsdom');
 
-import { jsdom } from 'jsdom/lib/old-api.js';
+function createDOM() {
+  const dom = new JSDOM('');
 
-/**
- * Bootstrap the DOM environment in node
- */
+  global.document = dom.document;
+  global.window = dom.window;
 
-const exposedProperties = ['window', 'navigator', 'document'];
+  Object.keys(dom.window).forEach((property) => {
+    if (typeof global[property] === 'undefined') {
+      global[property] = dom.window[property];
+    }
+  });
 
-global.document = jsdom('');
-global.window = document.defaultView;
+  global.navigator = {
+    userAgent: 'node.js',
+  };
+}
 
-Object.keys(document.defaultView).forEach((property) => {
-  if (typeof global[property] === 'undefined') {
-    exposedProperties.push(property);
-    global[property] = document.defaultView[property];
-  }
-});
-
-global.navigator = {
-  userAgent: 'node.js',
-};
+module.exports = createDOM;
