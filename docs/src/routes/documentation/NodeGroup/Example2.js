@@ -28,14 +28,16 @@ export default class Example extends Component {
   }
 
   updateWidth = () => {
-    this.setState(() => ({ width: this.div.offsetWidth || 200 }));
+    this.setState(() => ({ width: this.container.offsetWidth || 200 }));
   }
+
+  container = null
 
   render() {
     const { items, width } = this.state;
 
     return (
-      <div ref={(div) => { this.div = div; }}>
+      <div ref={(d) => { this.container = d; }}>
         <button onClick={() => this.setState({ items: getData() })}>
           Update
         </button>

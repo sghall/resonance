@@ -1,5 +1,5 @@
 // @flow weak
-// example from https://react-move.js.org/#/story/animate
+// example adpated from https://react-move.js.org/#/story/animate
 
 import React, { PureComponent } from 'react';
 import { range } from 'd3-array';

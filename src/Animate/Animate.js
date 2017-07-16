@@ -28,7 +28,7 @@ type Props = {
   /**
    * A function that renders the node.  The function is passed the data and state.
    */
-  children: (nodes: Array<{}>) => {},
+  children: (data: any, state: {}) => {},
 };
 
 class Animate extends Component {
@@ -39,11 +39,14 @@ class Animate extends Component {
     leave: () => {},
   };
 
-  state = this.props.start(this.props.data)
+  state = this.props.start(this.props.data || {})
 
   componentDidMount() {
     const { data, enter } = this.props;
-    transition.call(this, enter(data));
+
+    if (enter !== undefined) {
+      transition.call(this, enter(data || {}));
+    }
   }
 
   componentWillReceiveProps(next) {
@@ -62,9 +65,9 @@ class Animate extends Component {
     const { data, update, leave } = props;
 
     if (data === undefined) {
-      transition.call(this, leave(data));
+      transition.call(this, leave(data || {}));
     } else {
-      transition.call(this, update(data));
+      transition.call(this, update(data || {}));
     }
   }
 
