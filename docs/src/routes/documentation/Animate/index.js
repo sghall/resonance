@@ -17,7 +17,7 @@ const NodeGroupDocs = (props) => {
       <PropTypeDescription code={srcContext('./Animate/Animate')} />
       <CodeExample
         code={docContext('./Animate/Example1')}
-        title="Example: Using Flubber"
+        title="Example: Custom Tween Using Flubber"
       >
         <Example1 />
       </CodeExample>
@@ -27,6 +27,7 @@ const NodeGroupDocs = (props) => {
       >
         <Example2 />
       </CodeExample>
+      <MarkdownElement text={docContext('./Animate/README1.md')} />
     </div>
   );
 };
