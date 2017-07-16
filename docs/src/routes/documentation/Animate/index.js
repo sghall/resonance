@@ -6,7 +6,7 @@ import CodeExample from 'docs/src/components/CodeExample';
 import MarkdownElement from 'docs/src/components/MarkdownElement';
 import PropTypeDescription from 'docs/src/components/PropTypeDescription';
 import Example1 from './Example1';
-// import Example2 from './Example2';
+import Example2 from './Example2';
 
 const NodeGroupDocs = (props) => {
   const { route: { docContext, srcContext } } = props;
@@ -20,6 +20,12 @@ const NodeGroupDocs = (props) => {
         title="Example: Using Flubber"
       >
         <Example1 />
+      </CodeExample>
+      <CodeExample
+        code={docContext('./Animate/Example2')}
+        title="Example: HTML"
+      >
+        <Example2 />
       </CodeExample>
     </div>
   );

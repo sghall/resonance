@@ -1,20 +1,36 @@
 // @flow weak
+// example from https://react-move.js.org/#/story/animate
 
-import React, { Component } from 'react';
-import { shuffle, range } from 'd3-array';
-import { easeBackOut, easeBackInOut } from 'd3-ease';
-import NodeGroup from 'resonance/NodeGroup';
+import React, { PureComponent } from 'react';
+import { range } from 'd3-array';
+import { easeExpInOut } from 'd3-ease';
+import Animate from 'resonance/Animate';
 
-const count = 15;
-
-function getData() {
-  return shuffle(range(count).map((d) => ({ value: d }))).slice(0, count / 1.5);
+function getRandomColor() {
+  return range(6).reduce((m) => {
+    return `${m}${'0123456789ABCDEF'[Math.floor(Math.random() * 16)]}`;
+  }, '#');
 }
 
-export default class Example extends Component {
+function getItems() {
+  return range(5).map((d) => ({
+    key: `id-${d}`,
+    scale: Math.random() * 1,
+    color: getRandomColor(),
+    rotate: Math.random() > 0.5 ? 360 : 0,
+  }));
+}
+
+class Example extends PureComponent {
 
   state = {
-    items: getData(),
+    items: getItems(),
+  }
+
+  update = () => {
+    this.setState({
+      items: getItems(),
+    });
   }
 
   render() {
@@ -22,69 +38,57 @@ export default class Example extends Component {
 
     return (
       <div>
-        <button onClick={() => this.setState({ items: getData() })}>
+        <button onClick={this.update}>
           Update
         </button>
-        <NodeGroup
-          data={items}
-          keyAccessor={(d) => d.value}
+        <div style={{ height: '150px' }}>
+          {items.map((d) => (
+            <Animate
+              key={d.key}
 
-          start={() => ({
-            x: 50,
-            opacity: 0,
-            color: 'black',
-          })}
+              start={({ scale, color, rotate }) => ({
+                scale,
+                color,
+                rotate,
+              })}
 
-          enter={() => ([
-            {
-              x: [250],
-              color: ['green'],
-              timing: { delay: 500, duration: 500, ease: easeBackOut },
-            },
-            {
-              opacity: [1],
-              timing: { duration: 500 },
-            },
-          ])}
+              update={({ scale, color, rotate }) => ({
+                scale: [scale],
+                color: [color],
+                rotate: [rotate],
+                timing: { duration: 750, ease: easeExpInOut },
+              })}
 
-          update={() => ({
-            x: [250], // handle interrupt, if already at 250, nothing happens
-            opacity: 1, // make sure opacity set to 1 on interrupt
-            color: 'blue',
-            timing: { duration: 500, ease: easeBackOut },
-          })}
-
-          leave={() => ([
-            {
-              x: [450],
-              color: ['red', 'black'],
-              timing: { duration: 750, ease: easeBackInOut },
-            },
-            {
-              opacity: [0],
-              timing: { delay: 750, duration: 500 },
-            },
-          ])}
-        >
-          {(nodes) => (
-            <div style={{ margin: 10, height: count * 20, position: 'relative' }}>
-              {nodes.map(({ key, state: { x, opacity, color } }) => (
-                <div
-                  key={key}
-                  style={{
-                    position: 'absolute',
-                    transform: `translate(${x}px, ${key * 20}px)`,
-                    opacity,
-                    color,
-                  }}
-                >
-                  {key + 1} - {Math.round(x)}
-                </div>
-              ))}
-            </div>
-          )}
-        </NodeGroup>
+              data={d}
+            >
+              {(data, { scale, color, rotate }) => {
+                return (
+                  <div
+                    style={{
+                      float: 'left',
+                      width: '100px',
+                      height: '100px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 'bold',
+                      color: 'white',
+                      textAlign: 'center',
+                      borderRadius: `${(rotate / 360) * 100}px`,
+                      transform: `translate(${scale * 50}%, ${scale * 50}%) scale(${scale}) rotate(${rotate}deg)`,
+                      background: color,
+                    }}
+                  >
+                    {Math.round(scale * 100)}
+                  </div>
+                );
+              }}
+            </Animate>
+          ))}
+        </div>
       </div>
     );
   }
 }
+
+export default Example;
