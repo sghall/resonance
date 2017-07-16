@@ -34,7 +34,7 @@ class Animate extends Component {
     update: () => {},
   };
 
-  state = this.props.start(this.props.data || {})
+  state = this.props.start(this.props.data)
 
   componentDidMount() {
     const { data, enter } = this.props;
