@@ -3,7 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import { range } from 'd3-array';
-import { easeExpInOut } from 'd3-ease';
+import { easeExpInOut, easePoly } from 'd3-ease';
 import Animate from 'resonance/Animate';
 
 function getRandomColor() {
@@ -41,7 +41,7 @@ class Example extends PureComponent {
         <button onClick={this.update}>
           Update
         </button>
-        <div style={{ height: '150px' }}>
+        <div style={{ height: '200px' }}>
           {items.map((d) => (
             <Animate
               key={d.key}
@@ -52,12 +52,17 @@ class Example extends PureComponent {
                 rotate,
               })}
 
-              update={({ scale, color, rotate }) => ({
-                scale: [scale],
-                color: [color],
-                rotate: [rotate],
-                timing: { duration: 750, ease: easeExpInOut },
-              })}
+              update={({ scale, color, rotate }) => ([
+                {
+                  scale: [scale],
+                  color: [color],
+                  timing: { duration: 750, ease: easePoly },
+                },
+                {
+                  rotate: [rotate],
+                  timing: { duration: 1500, ease: easeExpInOut },
+                },
+              ])}
 
               data={d}
             >
