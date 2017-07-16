@@ -14,76 +14,92 @@ function getData() {
 export default class Example extends Component {
 
   state = {
+    width: null,
     items: getData(),
   }
 
+  componentDidMount() {
+    this.updateWidth();
+    window.addEventListener('resize', this.updateWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWidth);
+  }
+
+  updateWidth = () => {
+    this.setState(() => ({ width: this.div.offsetWidth || 200 }));
+  }
+
   render() {
-    const { items } = this.state;
+    const { items, width } = this.state;
 
     return (
-      <div>
+      <div ref={(div) => { this.div = div; }}>
         <button onClick={() => this.setState({ items: getData() })}>
           Update
         </button>
-        <NodeGroup
-          data={items}
-          keyAccessor={(d) => d.value}
+        {width === null ? null : (
+          <NodeGroup
+            data={items}
+            keyAccessor={(d) => d.value}
 
-          start={() => ({
-            x: 50,
-            opacity: 0,
-            color: 'black',
-          })}
+            start={() => ({
+              x: 0,
+              opacity: 0,
+              color: 'black',
+            })}
 
-          enter={() => ([
-            {
-              x: [250],
-              color: ['green'],
-              timing: { delay: 500, duration: 500, ease: easeBackOut },
-            },
-            {
-              opacity: [1],
-              timing: { duration: 500 },
-            },
-          ])}
+            enter={() => ([
+              {
+                x: [width * 0.4],
+                color: ['green'],
+                timing: { delay: 500, duration: 500, ease: easeBackOut },
+              },
+              {
+                opacity: [1],
+                timing: { duration: 500 },
+              },
+            ])}
 
-          update={() => ({
-            x: [250], // handle interrupt, if already at 250, nothing happens
-            opacity: 1, // make sure opacity set to 1 on interrupt
-            color: 'blue',
-            timing: { duration: 500, ease: easeBackOut },
-          })}
+            update={() => ({
+              x: [width * 0.4], // handle interrupt, if already at 250, nothing happens
+              opacity: 1,       // make sure opacity set to 1 on interrupt
+              color: 'blue',
+              timing: { duration: 500, ease: easeBackOut },
+            })}
 
-          leave={() => ([
-            {
-              x: [450],
-              color: ['red', 'black'],
-              timing: { duration: 750, ease: easeBackInOut },
-            },
-            {
-              opacity: [0],
-              timing: { delay: 750, duration: 500 },
-            },
-          ])}
-        >
-          {(nodes) => (
-            <div style={{ margin: 10, height: count * 20, position: 'relative' }}>
-              {nodes.map(({ key, state: { x, opacity, color } }) => (
-                <div
-                  key={key}
-                  style={{
-                    position: 'absolute',
-                    transform: `translate(${x}px, ${key * 20}px)`,
-                    opacity,
-                    color,
-                  }}
-                >
-                  {key + 1} - {Math.round(x)}
-                </div>
-              ))}
-            </div>
-          )}
-        </NodeGroup>
+            leave={() => ([
+              {
+                x: [width * 0.8],
+                color: ['red', 'black'],
+                timing: { duration: 750, ease: easeBackInOut },
+              },
+              {
+                opacity: [0],
+                timing: { delay: 750, duration: 500 },
+              },
+            ])}
+          >
+            {(nodes) => (
+              <div style={{ margin: 10, height: count * 20, position: 'relative' }}>
+                {nodes.map(({ key, state: { x, opacity, color } }) => (
+                  <div
+                    key={key}
+                    style={{
+                      position: 'absolute',
+                      transform: `translate(${x}px, ${key * 20}px)`,
+                      opacity,
+                      color,
+                    }}
+                  >
+                    {key + 1} - {Math.round(x)}
+                  </div>
+                ))}
+              </div>
+            )}
+          </NodeGroup>
+        )}
       </div>
     );
   }
