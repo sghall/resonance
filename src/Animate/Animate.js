@@ -2,14 +2,11 @@
 /* eslint max-len: "off" */
 
 import React, { Component } from 'react';
-import { interval } from 'd3-timer';
-import Node from '../Node';
-import { ENTER, UPDATE, LEAVE } from '../core/types';
 import { transition, stop } from '../core/transition';
 
 type Props = {
   /**
-   * A data object.  The data prop is treated as immutable so the node will update if prev.data !== next.data.
+   * A data object.  The data prop is treated as immutable so the node will update if prev.data !== next.data.  If data === undefined the leave transition will run.
    */
   data?: {},
   /**
@@ -42,88 +39,37 @@ class Animate extends Component {
     leave: () => {},
   };
 
-  state = {
-    node: {},
-  }
+  state = this.props.start(this.props.data)
 
   componentDidMount() {
-    this.updateNode(this.props);
+    const { data, enter } = this.props;
+    transition.call(this, enter(data));
   }
 
   componentWillReceiveProps(next) {
     if (next.data === undefined || next.data !== this.props.data) {
-      this.updateNode(next);
+      this.update(next);
     }
   }
 
   componentWillUnmount() {
-    this.unmounting = true;
-
-    if (this.interval) {
-      this.interval.stop();
-    }
-
-    this.nodeKeys.forEach((key) => {
-      stop.call(this.nodeHash[key]);
-    });
+    stop.call(this);
   }
 
   props: Props;
 
-  updateNode(props) {
-    const { data, start, enter, update, leave } = props;
+  update(props) {
+    const { data, update, leave } = props;
 
-    if (this.node === null) {
-      this.node = new Node(null, data, ENTER);
-      this.node.setState(start(data));
-      transition.call(this.node, enter(data));
-    } else if (data === undefined) {
-      this.node.updateType(LEAVE);
-      transition.call(this.node, leave(data));
+    if (data === undefined) {
+      transition.call(this, leave(data));
     } else {
-      this.node.updateType(UPDATE);
-      transition.call(this.node, update(data));
+      transition.call(this, update(data));
     }
-
-    if (!this.interval) {
-      this.interval = interval(this.animate);
-    } else {
-      this.interval.restart(this.animate);
-    }
-
-    this.renderNode();
-  }
-
-  animate = () => {
-    if (this.unmounting) {
-      return;
-    }
-
-    let pending = false;
-
-    if (this.node.TRANSITION_SCHEDULES) {
-      pending = true;
-    }
-
-    if (!pending) {
-      this.interval.stop();
-    }
-
-    this.renderNode();
-  }
-
-  node = null;
-  interval = null;
-  unmounting = false;
-
-  renderNode() {
-    this.setState(() => ({
-      node: this.node,
-    }));
   }
 
   render() {
-    const renderedChildren = this.props.children(this.state.node);
+    const renderedChildren = this.props.children(this.props.data, this.state);
     return renderedChildren && React.Children.only(renderedChildren);
   }
 }
