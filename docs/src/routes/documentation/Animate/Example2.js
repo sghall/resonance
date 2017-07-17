@@ -3,7 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import { range } from 'd3-array';
-import { easeExpInOut, easePoly } from 'd3-ease';
+import { easeExpInOut } from 'd3-ease';
 import Animate from 'resonance/Animate';
 
 function getRandomColor() {
