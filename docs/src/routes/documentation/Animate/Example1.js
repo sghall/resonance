@@ -49,7 +49,7 @@ class Example extends PureComponent {
     return (
       <div>
         <button onClick={toggleLoop}>
-          {loop ? 'stop' : 'start'}
+          {loop ? 'stop' : 'loop'}
         </button>
         <Surface view={view} trbl={trbl}>
           <Animate
