@@ -90,7 +90,7 @@
     "minimist": "^1.2.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "nyc": "^11.1.0",
+    "nyc": "11.0.1",
     "phantomjs-prebuilt": "^2.1.13",
     "react": "^15.5.3",
     "react-addons-test-utils": "^15.4.0",
