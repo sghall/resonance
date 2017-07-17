@@ -107,7 +107,7 @@ Here's the timing defaults...
 const defaultTiming = {
   delay: 0,
   duration: 250,
-  ease: easeCubicInOut,
+  ease: easeLinear,
 };
 ```
 For the ease key, just provide the function.  You can use any easing function, like those from d3-ease...

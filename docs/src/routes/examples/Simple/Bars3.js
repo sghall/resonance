@@ -11,8 +11,8 @@ import { easeExpInOut, easePoly } from 'd3-ease';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 250];      // [width, height]
-const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
+const view = [1000, 250];        // [width, height]
+const trbl = [10, 100, 10, 100]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
@@ -198,7 +198,7 @@ class Example extends PureComponent {
                           y="20"
                           fill="grey"
                           transform="rotate(90 5,20)"
-                        >{`x: ${x}`}</text>
+                        >{`x: ${Math.round(x)}`}</text>
                         <text
                           x="0"
                           y="5"

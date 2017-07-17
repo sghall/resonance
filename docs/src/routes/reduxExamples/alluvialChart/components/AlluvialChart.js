@@ -8,6 +8,7 @@ import palette from 'docs/src/utils/palette';
 import PropTypes from 'prop-types';
 import { utcFormat } from 'd3-time-format';
 import { format } from 'd3-format';
+import { easeExpInOut } from 'd3-ease';
 import { VIEW, TRBL, DIMS } from '../module/constants';
 
 const dateFormat = utcFormat('%-d/%-m/%Y');
@@ -76,19 +77,19 @@ class AlluvialChart extends PureComponent {
           enter={({ val }) => ({
             opacity: [1e-6, 0.7],
             transform: [`translate(0,${yScale1(val)})`],
-            timing: { duration },
+            timing: { duration, ease: easeExpInOut },
           })}
 
           update={({ val }) => ({
             opacity: [0.7],
             transform: [`translate(0,${yScale1(val)})`],
-            timing: { duration },
+            timing: { duration, ease: easeExpInOut },
           })}
 
           leave={({ val }) => ({
             opacity: [1e-6],
             transform: [`translate(0,${yScale1(val)})`],
-            timing: { duration },
+            timing: { duration, ease: easeExpInOut },
           })}
         >
           {(nodes) => (
@@ -127,18 +128,18 @@ class AlluvialChart extends PureComponent {
 
           enter={() => ({
             opacity: [0.7],
-            timing: { duration },
+            timing: { duration, ease: easeExpInOut },
           })}
 
           update={({ path }) => ({
             opacity: [0.7],
             d: [path],
-            timing: { duration },
+            timing: { duration, ease: easeExpInOut },
           })}
 
           leave={() => ({
             opacity: [1e-6],
-            timing: { duration },
+            timing: { duration, ease: easeExpInOut },
           })}
         >
           {(nodes) => (

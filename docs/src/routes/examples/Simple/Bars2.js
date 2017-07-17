@@ -6,13 +6,13 @@ import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import { scaleBand } from 'd3-scale';
 import { shuffle } from 'd3-array';
-import { easePoly } from 'd3-ease';
+import { easeExpInOut } from 'd3-ease';
 
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 250];      // [width, height]
-const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
+const view = [1000, 250];        // [width, height]
+const trbl = [10, 100, 10, 100]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],
@@ -138,7 +138,7 @@ class Example extends PureComponent {
               x: [scale(data.name)],
               fill: 'blue',
               width: [scale.bandwidth()],
-              timing: { duration: 1000, ease: easePoly },
+              timing: { duration: 1000, ease: easeExpInOut },
             })}
 
             leave={() => ({
@@ -165,7 +165,7 @@ class Example extends PureComponent {
                           y="20"
                           fill="white"
                           transform="rotate(90 5,20)"
-                        >{`x: ${x}`}</text>
+                        >{`x: ${Math.round(x)}`}</text>
                         <text
                           x="0"
                           y="5"

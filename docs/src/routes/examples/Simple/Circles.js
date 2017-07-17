@@ -11,8 +11,8 @@ import { shuffle } from 'd3-array';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 350];       // [width, height]
-const trbl = [200, 20, 50, 20]; // [top, right, bottom, left] margins
+const view = [1000, 250];        // [width, height]
+const trbl = [100, 100, 10, 100]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
   view[0] - trbl[1] - trbl[3],

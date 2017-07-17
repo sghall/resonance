@@ -5,7 +5,7 @@ import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface';
 import PropTypes from 'prop-types';
 import { scaleOrdinal } from 'd3-scale';
-import { easeExp } from 'd3-ease';
+import { easeExpInOut } from 'd3-ease';
 import { VIEW, TRBL, AGES, COLORS } from '../module/constants';
 
 const colors = scaleOrdinal()
@@ -51,7 +51,7 @@ const Chart = (props) => {
               transform: `translate(${node.x},${node.y})`,
             },
             circle: { fill: getFill(node, sortKey), r: [node.r] },
-            timing: { duration: d0, delay: d1 },
+            timing: { duration: d0, delay: d1, ease: easeExpInOut },
           };
         }}
 
@@ -65,7 +65,7 @@ const Chart = (props) => {
               opacity: [0.8],
               transform: [`translate(${node.x},${node.y})`],
             },
-            timing: { duration, delay: duration, ease: easeExp },
+            timing: { duration, delay: duration, ease: easeExpInOut },
           },
         ])}
 
@@ -74,7 +74,7 @@ const Chart = (props) => {
             opacity: [1e-6],
           },
           circle: { fill: 'rgba(0,0,0,0.3)' },
-          timing: { duration },
+          timing: { duration, ease: easeExpInOut },
         })}
       >
         {(nodes) => (

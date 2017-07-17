@@ -6,6 +6,7 @@ import React, { PureComponent } from 'react';
 import NodeGroup from 'resonance/NodeGroup';
 import Surface from 'docs/src/components/Surface'; // this is just a responsive SVG
 import { scaleLinear, scaleBand } from 'd3-scale';
+import { easeExpInOut } from 'd3-ease';
 import { ascending, max } from 'd3-array';
 
 // **************************************************
@@ -99,20 +100,20 @@ class Example extends PureComponent {
             enter={(d) => ({
               opacity: [0.7],
               x: [scale(d.letter)],
-              timing: { duration: 750 },
+              timing: { duration: 750, ease: easeExpInOut },
             })}
 
             update={(d, i) => ({
               opacity: [0.7],
               x: [scale(d.letter)],
               width: [scale.bandwidth()],
-              timing: { duration: 750, delay: i * 50 },
+              timing: { duration: 750, delay: i * 50, ease: easeExpInOut },
             })}
 
             leave={() => ({
               opacity: [1e-6],
               x: [scale.range()[1]],
-              timing: { duration: 750 },
+              timing: { duration: 750, ease: easeExpInOut },
             })}
           >
             {(nodes) => (
