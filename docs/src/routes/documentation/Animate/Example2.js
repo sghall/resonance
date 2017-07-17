@@ -52,17 +52,12 @@ class Example extends PureComponent {
                 rotate,
               })}
 
-              update={({ scale, color, rotate }) => ([
-                {
-                  scale: [scale],
-                  color: [color],
-                  timing: { duration: 750, ease: easePoly },
-                },
-                {
-                  rotate: [rotate],
-                  timing: { duration: 1500, ease: easeExpInOut },
-                },
-              ])}
+              update={({ scale, color, rotate }) => ({
+                scale: [scale],
+                color: [color],
+                rotate: [rotate],
+                timing: { duration: 500, ease: easeExpInOut },
+              })}
 
               data={d}
             >
