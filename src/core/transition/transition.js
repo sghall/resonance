@@ -11,16 +11,16 @@ export function newId() {
   return ++id;
 }
 
-// from https://github.com/d3/d3-ease/blob/master/src/cubic.js
-function easeCubicInOut(t) {
-  return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2; // eslint-disable-line
+// from https://github.com/d3/d3-ease/blob/master/src/linear.js
+function linear(t) {
+  return +t;
 }
 
 export const preset = {
   time: null,
   delay: 0,
   duration: 250,
-  ease: easeCubicInOut,
+  ease: linear,
 };
 
 function scheduleTransitions(config = {}) {
