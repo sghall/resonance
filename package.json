@@ -86,7 +86,7 @@
     "karma-mocha-reporter": "^2.2.3",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.3",
+    "karma-webpack": "^2.0.4",
     "minimist": "^1.2.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
@@ -98,8 +98,8 @@
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.6.1",
     "sinon": "^2.1.0",
-    "webpack": "^2.4.1",
-    "webpack-bundle-analyzer": "^2.4.0"
+    "webpack": "^3.3.0",
+    "webpack-bundle-analyzer": "^2.8.3"
   },
   "nyc": {
     "all": true,
