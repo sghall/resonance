@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackBaseConfig = require('./webpackBaseConfig');
 const dllManifest = require('./build/dll.manifest.json');
+const BundleInspector = require('bundle-inspector-webpack-plugin');
 
 module.exports = Object.assign({}, webpackBaseConfig, {
   cache: true,
@@ -65,5 +66,6 @@ module.exports = Object.assign({}, webpackBaseConfig, {
       manifest: dllManifest,
     }),
     new webpack.NamedModulesPlugin(),
+    new BundleInspector(),
   ]),
 });

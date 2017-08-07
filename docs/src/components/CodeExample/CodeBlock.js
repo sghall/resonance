@@ -24,7 +24,7 @@ const styles = {
   description: {
     background: '#ffffff',
     overflow: 'auto',
-    padding: '10px 20px 0',
+    padding: '0px 20px',
     marginTop: 0,
     marginBottom: 0,
   },
