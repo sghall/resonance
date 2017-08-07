@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const BundleInspector = require('bundle-inspector-webpack-plugin');
 
 const libraryName = 'resonance';
 
@@ -63,6 +64,7 @@ if (process.env.NODE_ENV === 'production') {
           screw_ie8: true,
         },
       }),
+      new BundleInspector(),
     ]),
   });
 } else {

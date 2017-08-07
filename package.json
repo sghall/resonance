@@ -63,6 +63,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.24.1",
+    "bundle-inspector-webpack-plugin": "^0.1.9",
     "chai": "^4.0.2",
     "coveralls": "^2.11.15",
     "cross-env": "^5.0.1",
@@ -98,8 +99,7 @@
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.6.1",
     "sinon": "^2.1.0",
-    "webpack": "^3.3.0",
-    "webpack-bundle-analyzer": "^2.8.3"
+    "webpack": "^3.3.0"
   },
   "nyc": {
     "all": true,
