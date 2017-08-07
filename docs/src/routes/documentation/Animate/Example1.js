@@ -18,7 +18,7 @@ const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 class Example extends PureComponent {
 
   state = {
-    loop: false,
+    loop: true,
     states: feature(statesJSON, statesJSON.objects.states)
       .features.map((d) => {
         return d.geometry.coordinates[0];
