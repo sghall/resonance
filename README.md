@@ -10,7 +10,7 @@ React components for animated state transitions that update with your data.
 This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently manage thousands of state tweens.
 You can apply high-performance state animations using an approachable, easy to implement syntax.
 
-[Get Started](https://sghall.github.io/resonance/#/documentation/node-group)
+##[Live Demos and Documentation](https://sghall.github.io/resonance/#/documentation/node-group)
 
 ## Installation
 
@@ -19,6 +19,19 @@ Resonance is available as an [npm package](https://www.npmjs.org/package/resonan
 ```sh
 npm install resonance
 ```
+
+## Why would I need this?
+
+**Resonance handles much of the heavy lifting for...**
+* Create custom transitions easily
+* Animate HTML, SVG, React-Native components...
+* Transitioning numbers, strings, colors, SVG transforms...
+* Setting transition durations and delays
+* Handling transition interrupts
+* Hooks for transition events (start, interrupt, end)
+* Custom tween functions
+* Specifying ease functions
+* Stopping transitions on component unmount
 
 ## NodeGroup  
 
@@ -352,18 +365,6 @@ What's nice about this is you can then just spread your state in the render func
 
 ...
 ```
-## Why would I need this?
-
-**Resonance handles much of the heavy lifting for...**
-* Create custom transitions easily
-* Animate HTML, SVG, React-Native components...
-* Transitioning numbers, strings, colors, SVG transforms...
-* Setting transition durations and delays
-* Handling transition interrupts
-* Hooks for transition events (start, interrupt, end)
-* Custom tween functions
-* Specifying ease functions
-* Stopping transitions on component unmount
 
 ## Run documentation/examples locally 
 
