@@ -80,7 +80,11 @@ export class Example extends Component {
                           key={age}
                           style={{ backgroundColor: color }}
                         >
-                          <TableRowColumn>{age}</TableRowColumn>
+                          <TableRowColumn
+                            style={{ cursor: pointer }}
+                          >
+                            {age}
+                          </TableRowColumn>
                         </TableRow>
                       );
                     })}
