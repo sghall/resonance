@@ -257,7 +257,7 @@ The events are the same as those on D3 transitions. You can fire a function on t
 Interpolators are inferred from what you specify in your transition object.
 
 With the exceptions of "events" and "timing" you can name the keys that are transitioning whatever you want, but if you use the key "transform" it indicates that you want to use D3's SVG transform interpolator.
-Beyond that, the value will determine the interpolator.  This is essentailly how D3 picks interpolators.
+Beyond that, the value will determine the interpolator.  This is essentially how D3 picks interpolators.
 
 The logic is as follows:
 1. If the value is a function, it will be used as a custom tween function.
@@ -376,7 +376,7 @@ What's nice about this is you can then just spread your state in the render func
 ## SVG Chart Examples
 
 You can animate anything with Resonance, but it was developed by experimenting with animated SVG charts and redux.
-This library is great for creating abstact animated data visualizations in React.
+This library is great for creating abstract animated data visualizations in React.
 You can view the [example code](https://github.com/sghall/resonance/tree/master/docs/src/routes/reduxExamples) here for the chart examples.
 Each example is a mini [redux](http://redux.js.org/) application with its actions and reducers defined in a small module.
 You can run these examples locally by following the direction above.
