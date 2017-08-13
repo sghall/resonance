@@ -12,7 +12,6 @@ const DURATION = 500;
 const DELAY = 50;
 
 class Line extends Component {
-
   constructor(props) {
     super(props);
 

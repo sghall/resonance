@@ -130,7 +130,7 @@ export const getNodes = createSelector(
       const angle = a1(d) - a0(d);
       const noTransition = d.angle === 0 && angle === 0; // Going from 0 to 0;
 
-      d.angle = angle;               // eslint-disable-line no-param-reassign
+      d.angle = angle; // eslint-disable-line no-param-reassign
       d.noTransition = noTransition; // eslint-disable-line no-param-reassign
     });
 

@@ -100,7 +100,6 @@ const styles = {
 };
 
 class PropTypeDescription extends Component {
-
   static propTypes = {
     code: PropTypes.string,
     header: PropTypes.string.isRequired,

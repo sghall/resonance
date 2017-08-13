@@ -11,7 +11,7 @@ import { easeExpInOut, easePoly } from 'd3-ease';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 250];        // [width, height]
+const view = [1000, 250]; // [width, height]
 const trbl = [10, 100, 10, 100]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
@@ -136,7 +136,7 @@ class Example extends PureComponent {
               height: 0,
             })}
 
-            enter={(node, index) => ([  // An array!!
+            enter={(node, index) => ([ // An array!!
               {
                 opacity: [0.6],
                 width: [xScale.bandwidth()],
@@ -149,7 +149,7 @@ class Example extends PureComponent {
               },
             ])}
 
-            update={(node) => ([  // An array!!
+            update={(node) => ([ // An array!!
               {
                 opacity: [0.6],
                 fill: ['blue', 'grey'],

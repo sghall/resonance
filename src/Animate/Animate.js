@@ -28,7 +28,6 @@ type Props = {
 };
 
 class Animate extends Component {
-
   static defaultProps = {
     enter: () => {},
     update: () => {},

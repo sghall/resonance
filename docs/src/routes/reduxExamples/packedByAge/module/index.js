@@ -7,8 +7,8 @@ import { AGES, VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
 import statesByAge from '../../data/statesByAge';
 
 export const dims = [
-  VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
-  VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
+  VIEW[0] - TRBL[1] - TRBL[3], // Usable dimensions width
+  VIEW[1] - TRBL[0] - TRBL[2], // Usable dimensions height
 ];
 
 // ********************************************************************
@@ -77,9 +77,9 @@ export const makeGetSelectedData = () => {
         showTop,
         sortKey,
         data: pack(
-        hierarchy(nodes)
-          .sum((d) => d.size)
-          .sort((a, b) => b.value - a.value),
+          hierarchy(nodes)
+            .sum((d) => d.size)
+            .sort((a, b) => b.value - a.value),
         ).descendants().map(({ data: { name }, x, y, r, depth }) => ({
           x, y, r, depth, name,
         })),

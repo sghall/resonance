@@ -13,7 +13,6 @@ import description from '../description.md';
 import Chart from './Chart';
 
 export class Example extends Component {
-
   state = {
     duration: 1000,
     message: 'Wait for it',

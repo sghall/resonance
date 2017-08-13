@@ -1,12 +1,12 @@
 // @flow weak
 export const EXAMPLE_STORE_KEY = 'states-by-age';
 
-export const VIEW = [500, 400];        // ViewBox: Width, Height
-export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
+export const VIEW = [500, 400]; // ViewBox: Width, Height
+export const TRBL = [30, 20, 10, 30]; // Margins: Top, Right, Bottom, Left
 
 export const DIMS = [
-  VIEW[0] - TRBL[1] - TRBL[3],  // Adjusted dimensions width
-  VIEW[1] - TRBL[0] - TRBL[2],  // Adjusted dimensions height
+  VIEW[0] - TRBL[1] - TRBL[3], // Adjusted dimensions width
+  VIEW[1] - TRBL[0] - TRBL[2], // Adjusted dimensions height
 ];
 
 export const AGES = [

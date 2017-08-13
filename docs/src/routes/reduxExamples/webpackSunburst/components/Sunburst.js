@@ -30,7 +30,7 @@ const Sunburst = (props) => {
 
         return {
           opacity: node.angle === 0 ? [1e-6] : 0.6,
-          d: arcTween(node),  // returns custom tween
+          d: arcTween(node), // returns custom tween
           timing: { duration, ease: easeLinear },
         };
       }}

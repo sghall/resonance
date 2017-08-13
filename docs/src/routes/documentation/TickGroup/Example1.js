@@ -11,7 +11,7 @@ import Surface from 'docs/src/components/Surface';
  */
 const color = 'rgba(0,0,0,0.3)';
 
-const view = [1000, 250];      // view [width, height] fed to SVG viewbox attribute
+const view = [1000, 250]; // view [width, height] fed to SVG viewbox attribute
 const trbl = [10, 10, 10, 100]; // Margins [top, right, bottom, left] for the SVG
 
 const dims = [ // The usable dimensions.

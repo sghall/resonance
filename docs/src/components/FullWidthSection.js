@@ -9,7 +9,6 @@ import withWidth, { SMALL, LARGE } from 'material-ui/utils/withWidth';
 const desktopGutter = spacing.desktopGutter;
 
 class FullWidthSection extends Component {
-
   static propTypes = {
     children: PropTypes.node,
     contentStyle: PropTypes.object,

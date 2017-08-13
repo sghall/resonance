@@ -40,7 +40,6 @@ type Props = {
 };
 
 class NodeGroup extends Component {
-
   static defaultProps = {
     enter: () => {},
     update: () => {},

@@ -38,7 +38,6 @@ type Props = {
 const tickKeyAccessor = (d) => `tick-${d.val}`;
 
 class TickGroup extends Component {
-
   static defaultProps = {
     enter: () => {},
     update: () => {},

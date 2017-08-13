@@ -15,7 +15,6 @@ import { dataUpdate, makeGetSelectedData, dims } from '../module';
 import description from '../description.md';
 
 export class Example extends Component {
-
   componentDidMount() {
     const { props: { dispatch } } = this;
 

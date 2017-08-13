@@ -11,7 +11,7 @@ import { easeExpInOut } from 'd3-ease';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 250];        // [width, height]
+const view = [1000, 250]; // [width, height]
 const trbl = [10, 100, 10, 100]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
@@ -90,7 +90,6 @@ const mockData = [
 //  Example
 // **************************************************
 class Example extends PureComponent {
-
   state = {
     data: shuffle(mockData).slice(0, Math.floor(Math.random() * ((mockData.length + 2) - (5 + 1))) + 5),
   }

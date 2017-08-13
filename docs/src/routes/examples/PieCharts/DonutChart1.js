@@ -16,7 +16,7 @@ const colors = scaleOrdinal()
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 550];      // [width, height]
+const view = [1000, 550]; // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
@@ -78,7 +78,6 @@ function getArcs() {
 }
 
 class Example extends PureComponent {
-
   state = {
     arcs: getArcs(),
   }

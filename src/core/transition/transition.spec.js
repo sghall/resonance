@@ -11,7 +11,6 @@ const DURATION = 500;
 const DELAY = 500;
 
 class Test extends Component {
-
   state = {
     line: {
       x1: 5,
@@ -49,7 +48,7 @@ class Test extends Component {
       },
     });
 
-    transition.call(this, [{  // Array
+    transition.call(this, [{ // Array
       path: {
         opacity: [1e-6, 0.8],
         fill: 'tomato',

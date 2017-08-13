@@ -12,7 +12,7 @@ import { ascending, max } from 'd3-array';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 450];      // [width, height]
+const view = [1000, 450]; // [width, height]
 const trbl = [10, 10, 30, 10]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
@@ -57,7 +57,6 @@ const y = scaleLinear()
   .domain([0, max(letters, (d) => d.frequency)]);
 
 class Example extends PureComponent {
-
   state = {
     sortAlpha: true,
   }

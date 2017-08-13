@@ -12,11 +12,10 @@ import statesJSON from './states.json';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 450];      // [width, height]
+const view = [1000, 450]; // [width, height]
 const trbl = [10, 10, 10, 10]; // [top, right, bottom, left] margins
 
 class Example extends PureComponent {
-
   state = {
     loop: true,
     states: feature(statesJSON, statesJSON.objects.states)

@@ -3,8 +3,8 @@ import { createSelector } from 'reselect';
 import { VIEW, TRBL, ALPHABET, EXAMPLE_STORE_KEY } from './constants';
 
 export const dims = [
-  VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
-  VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
+  VIEW[0] - TRBL[1] - TRBL[3], // Usable dimensions width
+  VIEW[1] - TRBL[0] - TRBL[2], // Usable dimensions height
 ];
 
 const space = dims[0] / 26;
@@ -47,7 +47,6 @@ export const makeGetSelectedData = () => {
 // ********************************************************************
 export default function reducer(state = ALPHABET, action) {
   switch (action.type) {
-
     case ALPHABET_DATA_UPDATE:
       return action.data;
 

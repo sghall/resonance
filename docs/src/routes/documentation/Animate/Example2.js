@@ -22,7 +22,6 @@ function getItems() {
 }
 
 class Example extends PureComponent {
-
   state = {
     items: getItems(),
   }

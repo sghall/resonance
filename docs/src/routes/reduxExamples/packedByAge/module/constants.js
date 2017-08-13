@@ -4,8 +4,8 @@ import { shuffle } from 'd3-array';
 
 export const EXAMPLE_STORE_KEY = 'packed-by-age';
 
-export const VIEW = [500, 400];        // ViewBox: Width, Height
-export const TRBL = [30, 20, 10, 30];  // Margins: Top, Right, Bottom, Left
+export const VIEW = [500, 400]; // ViewBox: Width, Height
+export const TRBL = [30, 20, 10, 30]; // Margins: Top, Right, Bottom, Left
 
 export const COLORS = shuffle([
   '#12291F',

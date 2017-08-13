@@ -12,7 +12,6 @@ function getData() {
 }
 
 export default class Example extends Component {
-
   state = {
     width: null,
     items: getData(),
@@ -66,7 +65,7 @@ export default class Example extends Component {
 
             update={() => ({
               x: [width * 0.4], // handle interrupt, if already at value, nothing happens
-              opacity: 1,       // make sure opacity set to 1 on interrupt
+              opacity: 1, // make sure opacity set to 1 on interrupt
               color: 'blue',
               timing: { duration: 500, ease: easeBackOut },
             })}

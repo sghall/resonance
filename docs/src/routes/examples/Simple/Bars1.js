@@ -11,7 +11,7 @@ import { shuffle } from 'd3-array';
 // **************************************************
 //  SVG Layout
 // **************************************************
-const view = [1000, 250];        // [width, height]
+const view = [1000, 250]; // [width, height]
 const trbl = [10, 100, 10, 100]; // [top, right, bottom, left] margins
 
 const dims = [ // Adjusted dimensions [width, height]
@@ -88,7 +88,6 @@ const mockData = [
 
 
 class Example extends PureComponent {
-
   state = {
     data: shuffle(mockData).slice(0, 15),
   }

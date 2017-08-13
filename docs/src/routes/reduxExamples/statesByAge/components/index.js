@@ -13,7 +13,6 @@ import description from '../description.md';
 import BarChart from './BarChart';
 
 export class Example extends Component {
-
   state = {
     duration: 1000,
     showTop: this.props.showTop,

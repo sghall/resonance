@@ -6,8 +6,8 @@ import { VIEW, TRBL, EXAMPLE_STORE_KEY } from './constants';
 import statesByAge from '../../data/statesByAge';
 
 export const dims = [
-  VIEW[0] - TRBL[1] - TRBL[3],  // Usable dimensions width
-  VIEW[1] - TRBL[0] - TRBL[2],  // Usable dimensions height
+  VIEW[0] - TRBL[1] - TRBL[3], // Usable dimensions width
+  VIEW[1] - TRBL[0] - TRBL[2], // Usable dimensions height
 ];
 
 // ********************************************************************

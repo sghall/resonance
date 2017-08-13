@@ -13,7 +13,6 @@ import description from '../description.md';
 import AlluvialChart from './AlluvialChart';
 
 export class Example extends Component {
-
   state = {
     duration: 1000,
     tension: this.props.tension,

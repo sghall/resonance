@@ -21,7 +21,6 @@ import description from '../description.md';
 const percentFormat = format('.2%');
 
 export class Example extends Component {
-
   state = {
     duration: 750,
     activeSize: this.props.size,
