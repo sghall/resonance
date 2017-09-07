@@ -10,4 +10,11 @@ React components for animated state transitions that update with your data.
 This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently manage thousands of state tweens.
 You can apply high-performance state animations using an approachable, easy to implement syntax.
 
-# [Resonance is now react-move 2.0!!](https://github.com/react-tools/react-move)
+Update: 
+## [Resonance is now react-move 2.0!!](https://github.com/react-tools/react-move)
+
+Work on this project will continue in the react-move repo.  To get the latest version:
+
+```
+npm install react-move
+```
