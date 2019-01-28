@@ -1,39 +1,40 @@
-// @flow weak
+import { AppContainer } from 'react-hot-loader'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './components/App'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import App from './App';
-import store from './store';
+const docs = (state = { dark: true }, action) => {
+  if (action.type === 'TOGGLE_THEME_SHADE') {
+    return Object.assign({}, state, { dark: !state.dark })
+  }
+  return state
+}
 
-// Helpers for debugging
-window.React = React;
-window.Perf = require('react-addons-perf');
+const store = createStore(docs)
+const rootEl = document.querySelector('#app')
 
-injectTapEventPlugin();
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer
+      errorReporter={({ error }) => {
+        throw error
+      }}
+    >
+      <Provider store={store}>
+        <Component />
+      </Provider>
+    </AppContainer>,
+    rootEl,
+  )
+}
 
-ReactDOM.render(
-  <AppContainer errorReporter={({ error }) => { throw error; }}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </AppContainer>,
-  document.getElementById('app'),
-);
+render(App)
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default; // eslint-disable-line global-require
-
-    ReactDOM.render(
-      <AppContainer errorReporter={({ error }) => { throw error; }}>
-        <Provider store={store}>
-          <NextApp />
-        </Provider>
-      </AppContainer>,
-      document.getElementById('app'),
-    );
-  });
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default // eslint-disable-line global-require
+    render(NextApp)
+  })
 }

@@ -1,4 +1,3 @@
-// @flow weak
 /* eslint-env mocha */
 
 /**
@@ -6,7 +5,7 @@
  * import the entire lib for coverage reporting
  */
 
-import { assert } from 'chai';
-import * as Resonance from './index';
+import { assert } from 'chai'
+import * as ReactMove from './index'
 
-describe('Resonance', () => it('should have exports', () => assert.ok(Resonance)));
+describe('React-Move', () => it('should have exports', () => assert.ok(ReactMove)))

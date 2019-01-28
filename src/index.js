@@ -1,5 +1,2 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
-
-export Animate from './Animate';
-export NodeGroup from './NodeGroup';
-export TickGroup from './TickGroup';
+export { default as createAnimate } from './createAnimate'
+export { default as createNodeGroup } from './createNodeGroup'
