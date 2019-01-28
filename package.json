@@ -5,7 +5,7 @@
   "description": "Data-driven transitions in React.",
   "main": "./index.js",
   "types": "./index.d.ts",
-  "repository": "git+https://github.com/react-tools/resonance.git",
+  "repository": "git+https://github.com/sghall/resonance.git",
   "keywords": [
     "resonance",
     "d3",
@@ -26,9 +26,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-tools/resonance/issues"
+    "url": "https://github.com/sghall/resonance/issues"
   },
-  "homepage": "https://github.com/react-tools/resonance#readme",
+  "homepage": "https://github.com/sghall/resonance#readme",
   "scripts": {
     "docs": "cd docs && npm install && npm run start",
     "prebuild": "npm run build:cln",
