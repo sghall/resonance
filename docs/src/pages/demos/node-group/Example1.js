@@ -113,27 +113,21 @@ class Example extends PureComponent {
               timing: { duration: 750, ease: easeExpInOut },
             })}
           >
-            {(nodes) => (
-              <g>
-                {nodes.map(({ key, data, state: { x, opacity } }) => (
-                  <g key={key} transform={`translate(${x},0)`}>
-                    <rect
-                      height={dims[1] - y(data.frequency)}
-                      y={y(data.frequency)}
-                      fill="#ff69b4"
-                      width={width}
-                      opacity={opacity}
-                    />
-                    <text
-                      x={scale.bandwidth() / 2}
-                      y={dims[1] + 15}
-                      dx="-.35em"
-                      fill="#dadada"
-                    >{data.letter}</text>
-                  </g>
-                ))}
-              </g>
-            )}
+            <g transform={s => `translate(${s.x},0)`}>
+              <rect
+                height={(s, d) => dims[1] - y(d.frequency)}
+                y={(s, d) => y(d.frequency)}
+                fill="#ff69b4"
+                width={width}
+                opacity={s => s.opacity}
+              />
+              <text
+                x={scale.bandwidth() / 2}
+                y={dims[1] + 15}
+                dx="-.35em"
+                fill="#dadada"
+              >{(s, d) => d.letter}</text>
+            </g>
           </NodeGroup>
         </Surface>
       </div>

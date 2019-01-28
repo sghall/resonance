@@ -23,8 +23,10 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
       enter: PropTypes.func,
       update: PropTypes.func,
       leave: PropTypes.func,
-      children: PropTypes.func.isRequired,
+      children: PropTypes.object.isRequired,
     }
+
+    ref = React.createRef()
 
     static defaultProps = {
       enter: () => {},
@@ -62,6 +64,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
   
           if (keyIndex[k] === undefined) {
             const node = new Node()
+            node.updaters = []
             node.key = k
             node.data = d
             node.type = ENTER
@@ -119,8 +122,52 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     componentDidMount() {
       this.startInterval()
     }
+
+    createChild(schema, node, parent) {
+      const { state, data } = node
+
+      const child = document.createElementNS('http://www.w3.org/2000/svg', schema.type)
+      parent.appendChild(child)
+
+      for (const prop in schema.props) {
+        if (prop === 'children') {
+          if (typeof schema.props.children === 'function') {
+            const value = schema.props.children(state, data)
+            child.innerText = value
+          } else {
+            React.Children.forEach(schema.props.children, c => {
+              this.createChild(c, node, child)
+            })
+          }
+        } else if (
+          typeof schema.props[prop] === 'string' ||
+          typeof schema.props[prop] === 'number'
+        ) {
+          child.setAttribute(prop, schema.props[prop])
+        } else if (typeof schema.props[prop] === 'function') {
+          const value = schema.props[prop]
+          child.setAttribute(prop, value(state, data))
+          node.updaters.push(function() {
+            child.setAttribute(prop, value(this.state, this.data))
+          })
+        }
+      }
+    }
   
     componentDidUpdate(prevProps) {
+      console.log(this.props.children)
+
+      const parent = this.ref.current
+
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild)
+      }
+
+      for (const node of this.state.nodes) {
+        this.createChild(this.props.children, node, parent)
+      }
+
+
       if (prevProps.data !== this.props.data && !this.unmounting) {
         this.startInterval()
       }
@@ -193,8 +240,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     unmounting = false
   
     render() {
-      const renderedChildren = this.props.children(this.state.nodes)
-      return renderedChildren && React.Children.only(renderedChildren)
+      return <g ref={this.ref} />
     }
   }
 }
