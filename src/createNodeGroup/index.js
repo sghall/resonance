@@ -155,16 +155,22 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     }
   
     componentDidUpdate(prevProps) {
-      console.log(this.props.children)
+      // console.log(this.props.children)
 
       const parent = this.ref.current
 
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild)
-      }
+      // while (parent.firstChild) {
+      //   parent.removeChild(parent.firstChild)
+      // }
 
       for (const node of this.state.nodes) {
-        this.createChild(this.props.children, node, parent)
+        if (node.type === ENTER && node.updaters.length === 0) {
+          this.createChild(this.props.children, node, parent)
+        } else {
+          node.updaters.forEach(updater => {
+            updater.call(node)
+          })
+        }
       }
 
 
