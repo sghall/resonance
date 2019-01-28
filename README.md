@@ -6,14 +6,7 @@
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/fileSize/resonance.min.js?label=minified)
 ![](http://img.badgesize.io/sghall/resonance/gh-pages/fileSize/resonance.min.js?compression=gzip)
 
-React components for animated state transitions that update with your data. 
-This library uses [d3-timer](https://github.com/d3/d3-timer) to efficiently manage thousands of state tweens.
-You can apply high-performance state animations using an approachable, easy to implement syntax.
+React components for animated state transitions that update with your data.
 
-## [Resonance is now react-move 2.0!!](https://github.com/react-tools/react-move)
+## [Resonance is now react-move!!](https://github.com/react-tools/react-move)
 
-Work on this project will continue in the react-move repo.  To get the latest version:
-
-```
-npm install react-move
-```
