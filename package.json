@@ -2,12 +2,11 @@
   "name": "resonance",
   "version": "4.0.1",
   "private": true,
-  "description": "Beautiful, data-driven animations for React.",
+  "description": "Data-driven transitions in React.",
   "main": "./index.js",
   "types": "./index.d.ts",
   "repository": "git+https://github.com/react-tools/resonance.git",
   "keywords": [
-    "resonance",
     "resonance",
     "d3",
     "svg",
@@ -23,11 +22,6 @@
       "name": "Steven Hall",
       "email": "hall.steven.g@gmail.com",
       "url": "http://www.delimited.io"
-    },
-    {
-      "name": "Tanner Linsley",
-      "email": "tannerlinsley@gmail.com",
-      "url": "http://nozzle.io"
     }
   ],
   "license": "MIT",
