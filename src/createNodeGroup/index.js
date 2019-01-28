@@ -6,7 +6,7 @@ import { ENTER, UPDATE, LEAVE } from '../core/types'
 
 export default function createNodeGroup(getInterpolater, displayName = 'NodeGroup') {
   if (!getInterpolater || typeof getInterpolater !== 'function') {
-    throw new Error('[react-move] getInterpolator function is required.')
+    throw new Error('[resonance] getInterpolator function is required.')
   }
 
   class Node extends BaseNode {

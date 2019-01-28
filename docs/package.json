@@ -1,11 +1,11 @@
 {
-  "name": "react-move-docs",
+  "name": "resonance-docs",
   "private": true,
   "version": "4.0.1",
   "description": "React move docs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-tools/react-move.git"
+    "url": "https://github.com/react-tools/resonance.git"
   },
   "scripts": {
     "start": "cross-env npm run clean && ../node_modules/.bin/babel-node webpack.dev.server.js",

@@ -8,4 +8,4 @@
 import { assert } from 'chai'
 import * as ReactMove from './index'
 
-describe('React-Move', () => it('should have exports', () => assert.ok(ReactMove)))
+describe('resonance', () => it('should have exports', () => assert.ok(ReactMove)))

@@ -1,4 +1,4 @@
-import { createAnimate } from 'react-move'
+import { createAnimate } from 'resonance'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 
 export default createAnimate(function getInterpolator(begValue, endValue, attr) {

@@ -1,10 +1,10 @@
 {
-  "build/dist/react-move.js": {
+  "build/dist/resonance.js": {
     "bundled": 54140,
     "minified": 18091,
     "gzipped": 6160
   },
-  "build/dist/react-move.min.js": {
+  "build/dist/resonance.min.js": {
     "bundled": 9829,
     "minified": 9790,
     "gzipped": 3591

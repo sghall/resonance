@@ -7,12 +7,12 @@ React Move exports just two factory functions:
 To get some components to work with in your app you can use this code to create them with some good defaults:
 
 ```
-npm install react-move d3-interpolate
+npm install resonance d3-interpolate
 ```
 
 Then in your app:
 ```js
-import { createNodeGroup, createAnimate } from 'react-move'
+import { createNodeGroup, createAnimate } from 'resonance'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 
 function getInterpolator(begValue, endValue, attr, namespace) {

@@ -1,13 +1,13 @@
 {
-  "name": "react-move",
+  "name": "resonance",
   "version": "4.0.1",
   "private": true,
   "description": "Beautiful, data-driven animations for React.",
   "main": "./index.js",
   "types": "./index.d.ts",
-  "repository": "git+https://github.com/react-tools/react-move.git",
+  "repository": "git+https://github.com/react-tools/resonance.git",
   "keywords": [
-    "react-move",
+    "resonance",
     "resonance",
     "d3",
     "svg",
@@ -32,9 +32,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-tools/react-move/issues"
+    "url": "https://github.com/react-tools/resonance/issues"
   },
-  "homepage": "https://github.com/react-tools/react-move#readme",
+  "homepage": "https://github.com/react-tools/resonance#readme",
   "scripts": {
     "docs": "cd docs && npm install && npm run start",
     "prebuild": "npm run build:cln",

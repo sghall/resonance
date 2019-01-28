@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Link from 'react-router/lib/Link'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import logo from './logo-react-move.png'
+import logo from './logo-resonance.png'
 
 const styles = () => ({
   root: {
@@ -25,7 +25,7 @@ function Home(props) {
           style={{ marginLeft: '10%' }}
           width="80%"
           src={logo}
-          alt="react-move"
+          alt="resonance"
         />
       </Grid>
       <Grid item xs={12} className={classes.root}>

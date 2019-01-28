@@ -62,7 +62,7 @@ module.exports = {
   resolve: {
     alias: {
       docs: path.resolve(__dirname, '../docs'),
-      'react-move': path.resolve(__dirname, '../src'),
+      'resonance': path.resolve(__dirname, '../src'),
     },
   },
   plugins: [],
