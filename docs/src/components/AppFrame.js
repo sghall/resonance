@@ -166,7 +166,7 @@ class ResponsiveDrawer extends React.Component {
             </Link>
             <a
               style={{ color: 'inherit' }}
-              href="https://github.com/react-tools/resonance"
+              href="https://github.com/sghall/resonance"
             >
               <IconButton color="inherit">
                 <GitHub />
