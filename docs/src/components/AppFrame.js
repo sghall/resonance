@@ -134,27 +134,6 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary="Simple" />
             </ListItem>
           </Link>
-          <Link to="/demos/animated-bar">
-            <ListItem button>
-              <ListItemText primary="Animated Bars" secondary={'CodeSandbox'} />
-            </ListItem>
-          </Link>
-          <Link to="/demos/collapsible-tree">
-            <ListItem button>
-              <ListItemText
-                primary="Collapsible Tree"
-                secondary={'CodeSandbox'}
-              />
-            </ListItem>
-          </Link>
-          <Link to="/demos/draggable-list">
-            <ListItem button>
-              <ListItemText
-                primary="Draggable List"
-                secondary={'CodeSandbox'}
-              />
-            </ListItem>
-          </Link>
         </List>
       </div>
     )
