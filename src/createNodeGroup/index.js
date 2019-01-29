@@ -143,7 +143,9 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
         if (prop === 'children') {
           if (typeof template.props.children === 'function') {
             const value = template.props.children(state, data, key, index)
-            child.innerText = value
+            const textNode = document.createTextNode(value)
+            
+            child.appendChild(textNode)
           } else {
             React.Children.forEach(template.props.children, c => {
               this.createChild(c, node, child, key, index)
