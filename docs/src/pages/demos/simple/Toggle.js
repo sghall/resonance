@@ -50,7 +50,7 @@ class Example extends PureComponent {
                     height: 50,
                     borderRadius: 4,
                     opacity: 0.7,
-                    backgroundColor: '#ff69b4',
+                    backgroundColor: '#fd8d3c',
                     WebkitTransform: `translate3d(${x}px, 0, 0)`,
                     transform: `translate3d(${x}px, 0, 0)`,
                   }}

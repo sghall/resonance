@@ -117,7 +117,7 @@ class Example extends PureComponent {
               <rect
                 height={(s, d) => dims[1] - y(d.frequency)}
                 y={(s, d) => y(d.frequency)}
-                fill="#ff69b4"
+                fill="#fd8d3c"
                 width={width}
                 opacity={s => s.opacity}
               />
