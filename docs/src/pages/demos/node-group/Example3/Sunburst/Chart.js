@@ -26,6 +26,7 @@ export class Chart extends Component {
     .endAngle(d => Math.max(0, Math.min(2 * Math.PI, this.x(d.x1))))
     .innerRadius(d => Math.max(0, this.y(d.y0)))
     .outerRadius(d => Math.max(0, this.y(d.y1)))
+    .padAngle(0.002)
 
   pathEnd = arc()
     .startAngle(d =>
@@ -34,6 +35,7 @@ export class Chart extends Component {
     .endAngle(d => Math.max(0, Math.min(2 * Math.PI, this.props.xScale(d.x1))))
     .innerRadius(d => Math.max(0, this.props.yScale(d.y0)))
     .outerRadius(d => Math.max(0, this.props.yScale(d.y1)))
+    .padAngle(0.002)
 
   getScaleInterpolators = props => ({
     xd: interpolate(this.x.domain(), props.xScale.domain()),

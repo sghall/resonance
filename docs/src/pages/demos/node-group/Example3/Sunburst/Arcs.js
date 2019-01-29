@@ -26,6 +26,7 @@ const Arcs = props => {
     arcs,
     arcTween,
     duration,
+    setActiveNode,
   } = props
 
   return (
@@ -57,10 +58,12 @@ const Arcs = props => {
         d={s => s.d}
         style="cursor: pointer;"
         fill={(s, d) => COLORS[d.depth]}
-        opacity={0.3}
-        stroke='#fff'
-        strokeOpacity={0.7}
+        opacity={0.8}
+        stroke="none"
         strokeWidth={0.5}
+        onClick={(s, d) => {
+          return () => setActiveNode(d)
+        }}
       />
     </NodeGroup>
   )
@@ -71,6 +74,7 @@ Arcs.propTypes = {
   arcs: PropTypes.array.isRequired,
   arcTween: PropTypes.func.isRequired,
   duration: PropTypes.number.isRequired,
+  setActiveNode: PropTypes.func.isRequired
 }
 
 export default Arcs

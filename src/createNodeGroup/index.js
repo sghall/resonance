@@ -4,6 +4,14 @@ import { BaseNode, interval } from 'kapellmeister'
 import mergeKeys from '../core/mergeKeys'
 import { ENTER, UPDATE, LEAVE } from '../core/types'
 
+const MATCH = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+
+function kebabCase(str) {
+  return str.replace(MATCH, function (match) {
+    return '-' + match.toLowerCase()
+  })
+}
+
 export default function createNodeGroup(getInterpolater, displayName = 'NodeGroup') {
   if (!getInterpolater || typeof getInterpolater !== 'function') {
     throw new Error('[resonance] getInterpolator function is required.')
@@ -131,6 +139,8 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
       parent.appendChild(child)
 
       for (const prop in template.props) {
+        const attr = kebabCase(prop)
+
         if (prop === 'children') {
           if (typeof template.props.children === 'function') {
             const value = template.props.children(state, data, key, index)
@@ -144,13 +154,18 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
           typeof template.props[prop] === 'string' ||
           typeof template.props[prop] === 'number'
         ) {
-          child.setAttribute(prop, template.props[prop])
+          child.setAttribute(attr, template.props[prop])
         } else if (typeof template.props[prop] === 'function') {
           const value = template.props[prop]
-          child.setAttribute(prop, value(state, data, key, index))
-          node.updaters.push(function(k, i) {
-            child.setAttribute(prop, value(this.state, this.data, k, i))
-          })
+
+          if (prop === 'onClick') {
+            child.addEventListener('click', value(state, data, key, index))
+          } else {
+            child.setAttribute(attr, value(state, data, key, index))
+            node.updaters.push(function(k, i) {
+              child.setAttribute(attr, value(this.state, this.data, k, i))
+            })
+          }
         }
       }
 
