@@ -1,6 +1,6 @@
 ##### Installation
 
-React Move is available as an [npm package](https://www.npmjs.org/package/resonance).
+Resonance is available as an [npm package](https://www.npmjs.org/package/resonance).
 
 ##### npm
 
