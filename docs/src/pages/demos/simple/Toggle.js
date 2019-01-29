@@ -38,7 +38,6 @@ class Example extends PureComponent {
             timing: { duration: 750, ease: easeExpOut },
           })}
 
-          wrapper="div"
           wrapperStyle={trackStyles}
         >
           <div

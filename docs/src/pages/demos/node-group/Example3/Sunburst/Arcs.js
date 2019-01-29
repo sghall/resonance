@@ -18,6 +18,7 @@ const Arcs = props => {
     <NodeGroup
       data={arcs}
       keyAccessor={d => d.filePath}
+      wrapper='g'
 
       start={d => ({
         d: path(d)

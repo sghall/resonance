@@ -89,6 +89,7 @@ class Example extends PureComponent {
           <NodeGroup
             data={sorted}
             keyAccessor={(d) => d.letter}
+            wrapper='g'
 
             start={() => ({
               opacity: 1e-6,

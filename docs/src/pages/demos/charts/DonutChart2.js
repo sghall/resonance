@@ -114,6 +114,7 @@ class Example extends PureComponent {
             <NodeGroup
               data={arcs}
               keyAccessor={(d) => d.data.name}
+              wrapper='g'
 
               start={({ startAngle }) => ({
                 startAngle,

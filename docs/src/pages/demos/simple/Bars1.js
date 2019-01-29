@@ -85,6 +85,7 @@ class Example extends PureComponent {
           <NodeGroup
             data={this.state.data}
             keyAccessor={(d) => d.name}
+            wrapper='g'
 
             start={() => ({
               opacity: 1e-6,

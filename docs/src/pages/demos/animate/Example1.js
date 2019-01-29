@@ -38,6 +38,8 @@ class Example extends PureComponent {
         <button onClick={update}>Update</button>
         <Surface view={view} trbl={trbl}>
           <Animate
+            wrapper='g'
+
             start={{
               opacity: 0,
               d: interpolator(1),

@@ -82,7 +82,6 @@ export default class Example extends Component {
               },
             ])}
 
-            wrapper="div"
             wrapperStyle={{ margin: 10, height: count * 20, position: 'relative' }}
             nameSpace="http://www.w3.org/1999/xhtml"
           >

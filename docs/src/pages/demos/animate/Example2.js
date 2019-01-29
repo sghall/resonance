@@ -38,7 +38,6 @@ class Example extends PureComponent {
         ) : null}
         <Animate
           show={show}
-          wrapper="div"
 
           start={{
             opacity: 0,
