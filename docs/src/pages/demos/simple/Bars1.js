@@ -114,36 +114,26 @@ class Example extends PureComponent {
               timing: { duration: 750 },
             })}
           >
-            {(nodes) => {
-              return (
-                <g>
-                  {nodes.map(({ key, data, state }) => {
-                    const { x, opacity, ...rest } = state
-
-                    return (
-                      <g key={key} opacity={opacity} transform={`translate(${x},0)`}>
-                        <rect
-                          height={dims[1]}
-                          {...rest}
-                        />
-                        <text
-                          x="0"
-                          y="20"
-                          fill="white"
-                          transform="rotate(90 5,20)"
-                        >{`x: ${Math.round(x)}`}</text>
-                        <text
-                          x="0"
-                          y="5"
-                          fill="white"
-                          transform="rotate(90 5,20)"
-                        >{`name: ${data.name}`}</text>
-                      </g>
-                    )
-                  })}
-                </g>
-              )
-            }}
+            <g opacity={s => s.opacity} transform={s => `translate(${s.x},0)`}>
+              <rect
+                height={dims[1]}
+                width={s => s.width}
+                fill={s => s.fill}
+                opacity={s => s.opacity}
+              />
+              <text
+                x="0"
+                y="20"
+                fill="white"
+                transform="rotate(90 5,20)"
+              >{s => `x: ${Math.round(s.x)}`}</text>
+              <text
+                x="0"
+                y="5"
+                fill="white"
+                transform="rotate(90 5,20)"
+              >{(s, d) => `name: ${d.name}`}</text>
+            </g>
           </NodeGroup>
         </Surface>
       </div>
