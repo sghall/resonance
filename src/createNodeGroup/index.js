@@ -25,7 +25,6 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     static displayName = displayName
 
     static propTypes = {
-      nameSpace: PropTypes.string,
       wrapper: PropTypes.string,
       wrapperStyle: PropTypes.object,
       data: PropTypes.array.isRequired,
@@ -133,7 +132,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
 
     createChild(template, node, parent, key, index) {
       const { state, data } = node
-      const { nameSpace = 'http://www.w3.org/2000/svg' } = this.props
+      const nameSpace = this.ref.current.namespaceURI
 
       const child = document.createElementNS(nameSpace, template.type)
       parent.appendChild(child)

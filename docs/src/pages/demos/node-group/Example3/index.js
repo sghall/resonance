@@ -4,7 +4,9 @@ import data from './data'
 
 class Example extends Component {
   render() {
-    return <SunBurst data={data} />
+    return (
+      <SunBurst data={data} />
+    )
   }
 }
 

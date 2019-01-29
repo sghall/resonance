@@ -3,22 +3,7 @@ import PropTypes from 'prop-types'
 import NodeGroup from './NodeGroup'
 import { easeLinear } from 'd3-ease'
 
-const COLORS = [
-  '#6C6B74',
-  '#2E303E',
-  '#9199BE',
-  '#54678F',
-  '#212624',
-  '#3A4751',
-  '#1E272E',
-  '#0A151D',
-  '#030C12',
-  '#253517',
-  '#5D704E',
-  '#324027',
-  '#19280C',
-  '#0D1903'
-]
+const COLORS = ['#a63603', '#feedde','#fdbe85','#fd8d3c','#e6550d']
 
 const Arcs = props => {
   const {

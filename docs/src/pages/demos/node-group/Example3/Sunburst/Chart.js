@@ -2,16 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { interval } from 'd3-timer'
 import { easeQuad } from 'd3-ease'
-import { format } from 'd3-format'
 import { arc } from 'd3-shape'
 import { interpolate } from 'd3-interpolate'
 import { scaleLinear, scaleSqrt } from 'd3-scale'
 import Surface from './Surface'
-import { formatBytes } from './utils'
 import Arcs from './Arcs'
 import { VIEW, TRBL, DIMS } from './constants'
-
-const percentFormat = format('.2%')
 
 export class Chart extends Component {
   state = {
@@ -97,31 +93,13 @@ export class Chart extends Component {
   transition = null
 
   render() {
-    const { arcs, size, setActiveNode } = this.props
-    const { duration, activePath, activeSize } = this.state
-    const percentage = percentFormat(activeSize / size)
+    const { arcs, setActiveNode } = this.props
+    const { duration } = this.state
 
     return (
       <div style={{ width: '100%' }}>
         <Surface view={VIEW} trbl={TRBL}>
-          <text fill='rgba(0,0,0,0.5)' y={35} fontSize='10px'>
-            {activePath}
-          </text>
           <g transform={`translate(${DIMS[0] / 2},${DIMS[1] / 2})`}>
-            <text
-              fill='rgba(0,0,0,0.5)'
-              x={-DIMS[0] / 2}
-              y={-DIMS[1] / 3 - 10}
-              textAnchor='middle'
-              fontSize='20px'
-            >{`${percentage}`}</text>
-            <text
-              fill='rgba(0,0,0,0.5)'
-              x={-DIMS[0] / 2}
-              y={-DIMS[1] / 3 + 10}
-              textAnchor='middle'
-              fontSize='10px'
-            >{`${formatBytes(activeSize)}`}</text>
             <Arcs
               arcs={arcs}
               path={this.pathEnd}
