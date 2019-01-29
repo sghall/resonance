@@ -159,8 +159,9 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
         } else if (typeof template.props[prop] === 'function') {
           const value = template.props[prop]
 
-          if (prop === 'onClick') {
-            child.addEventListener('click', value(state, data, key, index))
+          if (prop.startsWith('on')) {
+            const event = prop.slice(2).toLowerCase()
+            child.addEventListener(event, value.call(child, state, data, key, index))
           } else {
             child.setAttribute(attr, value(state, data, key, index))
             node.updaters.push(function(k, i) {
