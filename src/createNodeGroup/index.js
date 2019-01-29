@@ -236,7 +236,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
   
         if (n.type === LEAVE && !isTransitioning) {
           if (n.mounted === true) {
-            n.release()
+            n.unmount()
           }
 
           delete nodeHash[k]
@@ -258,7 +258,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
           const child = this.createChild(this.props.children, n, parent, k, i)
           
           n.mounted = true
-          n.release = () => {
+          n.unmount = () => {
             parent.removeChild(child)
           }
         } else {
