@@ -157,7 +157,7 @@ class ResponsiveDrawer extends React.Component {
               noWrap
               className={classes.grow}
             >
-              React Move
+              Resonance
             </Typography>
             <Link style={{ color: 'inherit' }} to="/">
               <IconButton color="inherit">
