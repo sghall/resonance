@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import SunBurst from './Sunburst'
+import Sunburst from './Sunburst'
 import data from './data'
 
 class Example extends Component {
   render() {
     return (
-      <SunBurst data={data} />
+      <Sunburst data={data} />
     )
   }
 }
