@@ -2,13 +2,14 @@ import { scaleOrdinal } from 'd3-scale'
 import { arc, pie } from 'd3-shape'
 import { shuffle } from 'd3-array'
 import { easeExpOut } from 'd3-ease'
+import memoizedOne from 'memoize-one'
 import sortBy from 'lodash/sortBy'
 import Surface from 'docs/src/components/Surface'
 import React, { PureComponent } from 'react'
 import NodeGroup from 'docs/src/components/NodeGroup'
 
 const colors = scaleOrdinal()
-  .range(['#fff7f3','#fde0dd','#fcc5c0','#fa9fb5','#f768a1','#dd3497','#ae017e','#7a0177','#49006a'])
+  .range(['#d94801','#a63603','#7f2704', '#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913'])
 
 // **************************************************
 //  SVG Layout
@@ -40,9 +41,7 @@ const mockData = [
     name: 'Layo',
   }, {
     name: 'Oyoba',
-  }, {
-    name: 'Ntags',
-  },
+  }
 ]
 
 const radius = (dims[1] / 2) * 0.70
@@ -62,7 +61,21 @@ const outerArcPath = arc()
 function mid(d) {
   return Math.PI > (d.startAngle + (d.endAngle - d.startAngle))
 }
+  
+const getPolylinePoints = (startAngle, endAngle) => {
+  const arc = { startAngle, endAngle }
+  const p0 = innerArcPath.centroid(arc)
+  const p1 = outerArcPath.centroid(arc)
+  const p2 = [
+    mid(arc) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
+    p1[1],
+  ]
 
+  return { p0, p1, p2 }
+}
+
+const memoizedPoints = memoizedOne(getPolylinePoints)
+  
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - (min + 1))) + min
 }
@@ -118,40 +131,31 @@ class Example extends PureComponent {
                 timing: { duration: 350, ease: easeExpOut },
               })}
             >
-              {(nodes) => {
-                return (
-                  <g>
-                    {nodes.map(({ key, data, state }) => {
-                      const p1 = outerArcPath.centroid(state)
-                      const p2 = [
-                        mid(state) ? p1[0] + (radius * 0.5) : p1[0] - (radius * 0.5),
-                        p1[1],
-                      ]
-                      return (
-                        <g key={key}>
-                          <path
-                            d={innerArcPath(state)}
-                            fill={colors(data.data.name)}
-                            opacity={0.9}
-                          />
-                          <text
-                            dy="4px"
-                            fontSize="12px"
-                            fill="#fff"
-                            transform={`translate(${p2.toString()})`}
-                            textAnchor={mid(state) ? 'start' : 'end'}
-                          >{data.data.name}</text>
-                          <polyline
-                            fill="none"
-                            stroke="rgba(255,255,255,0.5)"
-                            points={`${innerArcPath.centroid(state)},${p1},${p2.toString()}`}
-                          />
-                        </g>
-                      )
-                    })}
-                  </g>
-                )
-              }}
+              <g className="pie-arc">
+                <path
+                  d={s => innerArcPath(s)}
+                  fill={(s, d) => colors(d.data.name)}
+                  opacity={0.9}
+                />
+                <text
+                  dy="4px"
+                  fontSize="12px"
+                  fill="#fff"
+                  transform={({ startAngle, endAngle }) => {
+                    const { p2 } = memoizedPoints(startAngle, endAngle)
+                    return `translate(${p2})`
+                  }}
+                  textAnchor={s => mid(s) ? 'start' : 'end'}
+                >{(s, d) => d.data.name}</text>
+                <polyline
+                  fill="none"
+                  stroke="rgba(255,255,255,0.5)"
+                  points={({ startAngle, endAngle }) => {
+                    const { p0, p1, p2 } = memoizedPoints(startAngle, endAngle)
+                    return `${p0},${p1},${p2}`
+                  }}
+                />
+              </g>
             </NodeGroup>
           </g>
         </Surface>
