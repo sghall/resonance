@@ -18,6 +18,13 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
   }
 
   class Node extends BaseNode {
+    constructor(key, data) {
+      super()
+      this.key = key
+      this.data = data
+      this.type = ENTER
+    }
+
     getInterpolator = getInterpolater
   }
 
@@ -77,11 +84,8 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
           nextNodeKeys.push(k)
   
           if (keyIndex[k] === undefined) {
-            const node = new Node()
+            const node = new Node(k, d)
             node.updaters = []
-            node.key = k
-            node.data = d
-            node.type = ENTER
             nodeHash[k] = node
           }
         }
@@ -158,6 +162,8 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
               this.createChild(c, node, child, key, index)
             })
           }
+        } else if (prop === 'className') {
+          child.setAttribute('class', template.props[prop])
         } else if (
           typeof template.props[prop] === 'string' ||
           typeof template.props[prop] === 'number'
@@ -229,7 +235,10 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
         }
   
         if (n.type === LEAVE && !isTransitioning) {
-          n.eject()
+          if (n.mounted === true) {
+            n.release()
+          }
+
           delete nodeHash[k]
           nodeKeys.splice(i, 1)
           i--
@@ -240,16 +249,16 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
         this.interval.stop()
       }
 
-      const parent = this.ref.current
-
       for (let i = 0; i < nodeKeys.length; i++) {
         const k = nodeKeys[i]
         const n = nodeHash[k]
 
-        if (n.type === ENTER && n.updaters.length === 0) {
+        if (n.type === ENTER && !n.mounted) {
+          const parent = this.ref.current
           const child = this.createChild(this.props.children, n, parent, k, i)
           
-          n.eject = () => {
+          n.mounted = true
+          n.release = () => {
             parent.removeChild(child)
           }
         } else {
@@ -264,7 +273,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     unmounting = false
   
     render() {
-      const { wrapper = 'g', wrapperClass = '', wrapperStyle = {} } = this.props
+      const { wrapper = 'div', wrapperClass = '', wrapperStyle = {} } = this.props
 
       return React.createElement(wrapper, {
         ref: this.ref,
