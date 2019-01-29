@@ -210,7 +210,7 @@ NodeGroup.propTypes = {
    */
   leave: PropTypes.func,
   /**
-   * A function that renders the nodes. It should accept an array of nodes as its only argument.  Each node is an object with the key, data, state and a type of 'ENTER', 'UPDATE' or 'LEAVE'.
+   * A React component tree.  The tree will be used as a template for each node. No custom components.
    */
   children: PropTypes.func.isRequired,
 }

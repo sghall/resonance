@@ -75,7 +75,7 @@ Animate.propTypes = {
     PropTypes.object,
   ]),
   /**
-   * A function that renders the node.  The function is passed the data and state.
+   * A React component tree. No custom components.
    */
   children: PropTypes.func.isRequired,
 }
