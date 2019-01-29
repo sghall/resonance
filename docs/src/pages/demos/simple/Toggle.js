@@ -37,27 +37,21 @@ class Example extends PureComponent {
             x: [this.state.open ? 200 : 0],
             timing: { duration: 750, ease: easeExpOut },
           })}
-        >
-          {(state) => {
-            const { x } = state
 
-            return (
-              <div style={trackStyles}>
-                <div
-                  style={{
-                    position: 'absolute',
-                    width: 50,
-                    height: 50,
-                    borderRadius: 4,
-                    opacity: 0.7,
-                    backgroundColor: '#fd8d3c',
-                    WebkitTransform: `translate3d(${x}px, 0, 0)`,
-                    transform: `translate3d(${x}px, 0, 0)`,
-                  }}
-                />
-              </div>
-            )
-          }}
+          wrapper="div"
+          wrapperStyle={trackStyles}
+        >
+          <div
+            style={s => (`
+              position: absolute;
+              width: 50px;
+              height: 50px;
+              border-radius: 4px;
+              opacity: 0.7;
+              background-color: #fd8d3c;
+              transform: translate3d(${s.x}px, 0, 0);
+            `)}
+          />
         </Animate>
       </div>
     )

@@ -33,7 +33,10 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
       enter: PropTypes.func,
       update: PropTypes.func,
       leave: PropTypes.func,
-      children: PropTypes.object.isRequired,
+      children: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func
+      ]).isRequired 
     }
 
     ref = React.createRef()

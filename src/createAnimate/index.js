@@ -28,7 +28,9 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
         PropTypes.array,
         PropTypes.object,
       ]),
-      children: PropTypes.func.isRequired,
+      wrapper: PropTypes.string,
+      wrapperStyle: PropTypes.object,
+      children: PropTypes.object.isRequired,
     }
 
     static defaultProps = {
@@ -36,7 +38,7 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
     }
 
     render() {
-      const { show, start, enter, update, leave, children } = this.props
+      const { show, start, enter, update, leave, wrapper, wrapperStyle, children } = this.props
       const data = typeof start === 'function' ? start() : start
 
       return (
@@ -47,15 +49,10 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
           enter={typeof enter === 'function' ? enter : () => enter}
           update={typeof update === 'function' ? update : () => update}
           leave={typeof leave === 'function' ? leave : () => leave}
+          wrapper={wrapper}
+          wrapperStyle={wrapperStyle}
         >
-          {nodes => {
-            if (!nodes[0]) {
-              return null
-            }
-    
-            const renderedChildren = children(nodes[0].state)
-            return renderedChildren && React.Children.only(renderedChildren)
-          }}
+          {children}
         </NodeGroup>
       )
     }
