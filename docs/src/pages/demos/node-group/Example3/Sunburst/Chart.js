@@ -11,7 +11,7 @@ import { VIEW, TRBL, DIMS } from './constants'
 
 export class Chart extends Component {
   state = {
-    duration: 750,
+    duration: 350,
   }
 
   x = scaleLinear()
