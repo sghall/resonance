@@ -20,20 +20,17 @@ const Arcs = props => {
       keyAccessor={d => d.filePath}
 
       start={d => ({
-        opacity: 0.6,
         d: path(d)
       })}
 
       update={d => {
         if (d.noTransition) {
           return {
-            opacity: 0.6,
             d: path(d)
           }
         }
 
         return {
-          opacity: d.angle === 0 ? [1e-6] : 0.6,
           d: arcTween(d),
           timing: { duration, ease: easeLinear }
         }
