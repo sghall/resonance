@@ -43,9 +43,6 @@ const Arcs = props => {
         d={s => s.d}
         style="cursor: pointer;"
         fill={(s, d) => COLORS[d.depth]}
-        opacity={0.8}
-        stroke="none"
-        strokeWidth={0.5}
         onClick={(s, d) => {
           return () => setActiveNode(d)
         }}

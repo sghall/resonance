@@ -4,10 +4,10 @@ import { BaseNode, interval } from 'kapellmeister'
 import mergeKeys from '../core/mergeKeys'
 import { ENTER, UPDATE, LEAVE } from '../core/types'
 
-const MATCH = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+const REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 
 function kebabCase(str) {
-  return str.replace(MATCH, function (match) {
+  return str.replace(REGEX, function (match) {
     return '-' + match.toLowerCase()
   })
 }
