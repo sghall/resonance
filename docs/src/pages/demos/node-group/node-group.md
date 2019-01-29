@@ -1,4 +1,4 @@
-##### Bar Chart
+##### Sunburst
 {{demo='pages/demos/node-group/Example3/index.js'}}
 
 ##### Bar Chart
