@@ -56,7 +56,7 @@ export class Sunburst extends Component {
 }
 
 Sunburst.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.object.isRequired
 }
 
 export default Sunburst

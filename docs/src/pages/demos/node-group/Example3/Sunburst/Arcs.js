@@ -55,7 +55,7 @@ const Arcs = props => {
     >
       <path
         d={s => s.d}
-        style="cursor: 'pointer'"
+        style="cursor: pointer;"
         fill={(s, d) => COLORS[d.depth]}
         opacity={0.3}
         stroke='#fff'

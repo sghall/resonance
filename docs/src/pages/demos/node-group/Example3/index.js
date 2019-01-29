@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import SunBurst from './Sunburst'
 import data from './data'
-import './styles.css'
 
 class Example extends Component {
   render() {
