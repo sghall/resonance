@@ -17,6 +17,9 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     static displayName = displayName
 
     static propTypes = {
+      nameSpace: PropTypes.string,
+      wrapper: PropTypes.string,
+      wrapperStyle: PropTypes.object,
       data: PropTypes.array.isRequired,
       keyAccessor: PropTypes.func.isRequired,
       start: PropTypes.func.isRequired,
@@ -120,20 +123,21 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
       this.startInterval()
     }
 
-    createChild(template, node, parent) {
+    createChild(template, node, parent, key, index) {
       const { state, data } = node
+      const { nameSpace = 'http://www.w3.org/2000/svg' } = this.props
 
-      const child = document.createElementNS('http://www.w3.org/2000/svg', template.type)
+      const child = document.createElementNS(nameSpace, template.type)
       parent.appendChild(child)
 
       for (const prop in template.props) {
         if (prop === 'children') {
           if (typeof template.props.children === 'function') {
-            const value = template.props.children(state, data)
+            const value = template.props.children(state, data, key, index)
             child.innerText = value
           } else {
             React.Children.forEach(template.props.children, c => {
-              this.createChild(c, node, child)
+              this.createChild(c, node, child, key, index)
             })
           }
         } else if (
@@ -143,12 +147,14 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
           child.setAttribute(prop, template.props[prop])
         } else if (typeof template.props[prop] === 'function') {
           const value = template.props[prop]
-          child.setAttribute(prop, value(state, data))
-          node.updaters.push(function() {
-            child.setAttribute(prop, value(this.state, this.data))
+          child.setAttribute(prop, value(state, data, key, index))
+          node.updaters.push(function(k, i) {
+            child.setAttribute(prop, value(this.state, this.data, k, i))
           })
         }
       }
+
+      return child
     }
   
     componentDidUpdate(prevProps) {
@@ -199,8 +205,9 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
         }
   
         if (n.type === LEAVE && !isTransitioning) {
+          n.eject()
           delete nodeHash[k]
-          nodeKeys.splice(i)
+          nodeKeys.splice(i, 1)
           i--
         }
       }
@@ -216,10 +223,14 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
         const n = nodeHash[k]
 
         if (n.type === ENTER && n.updaters.length === 0) {
-          this.createChild(this.props.children, n, parent)
+          const child = this.createChild(this.props.children, n, parent, k, i)
+          
+          n.eject = () => {
+            parent.removeChild(child)
+          }
         } else {
           n.updaters.forEach(updater => {
-            updater.call(n)
+            updater.call(n, k, i)
           })
         }
       }
@@ -229,7 +240,12 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     unmounting = false
   
     render() {
-      return <g ref={this.ref} />
+      const { wrapper = 'g', wrapperStyle = {} } = this.props
+
+      return React.createElement(wrapper, {
+        ref: this.ref,
+        style: wrapperStyle
+      })
     }
   }
 }

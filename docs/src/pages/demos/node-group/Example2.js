@@ -48,13 +48,13 @@ export default class Example extends Component {
             start={() => ({
               x: 0,
               opacity: 0,
-              color: '#ff69b4',
+              color: 'green',
             })}
 
             enter={() => ([
               {
                 x: [width * 0.4],
-                color: ['#00cf77'],
+                color: ['yellow'],
                 timing: { delay: 500, duration: 500, ease: easeBackOut },
               },
               {
@@ -66,14 +66,14 @@ export default class Example extends Component {
             update={() => ({
               x: [width * 0.4], // handle interrupt, if already at value, nothing happens
               opacity: 1, // make sure opacity set to 1 on interrupt
-              color: '#00a7d8',
+              color: 'orange',
               timing: { duration: 500, ease: easeBackOut },
             })}
 
             leave={() => ([
               {
                 x: [width * 0.8],
-                color: ['#ff0063', '#bff69b4'],
+                color: ['white', 'red'],
                 timing: { duration: 750, ease: easeBackInOut },
               },
               {
@@ -81,24 +81,21 @@ export default class Example extends Component {
                 timing: { delay: 750, duration: 500 },
               },
             ])}
+
+            wrapper="div"
+            wrapperStyle={{ margin: 10, height: count * 20, position: 'relative' }}
+            nameSpace="http://www.w3.org/1999/xhtml"
           >
-            {(nodes) => (
-              <div style={{ margin: 10, height: count * 20, position: 'relative' }}>
-                {nodes.map(({ key, state: { x, opacity, color } }) => (
-                  <div
-                    key={key}
-                    style={{
-                      position: 'absolute',
-                      transform: `translate(${x}px, ${key * 20}px)`,
-                      opacity,
-                      color,
-                    }}
-                  >
-                    {key + 1} - {Math.round(x)}
-                  </div>
-                ))}
-              </div>
-            )}
+            <div
+              style={(s, d, k) => (`
+                position: absolute;
+                transform: translate(${s.x}px, ${+k * 20}px);
+                opacity: ${s.opacity};
+                color: ${s.color};
+              `)}
+            >
+              {(s, d, k) => `${k + 1} - ${Math.round(s.x)}`}
+            </div>
           </NodeGroup>
         )}
       </div>
