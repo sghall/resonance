@@ -38,10 +38,11 @@ class Example extends PureComponent {
         ) : null}
         <Animate
           show={show}
+          wrapper="div"
 
           start={{
             opacity: 0,
-            backgroundColor: color,
+            color: color,
           }}
 
           enter={{
@@ -51,14 +52,14 @@ class Example extends PureComponent {
 
           update={{
             opacity: [1],
-            backgroundColor: [color],
+            color: [color],
             timing: { duration: 500, ease: easeExpInOut },
           }}
 
           leave={[
             {
-              backgroundColor: ['#ff0063'],
-              timing: { duration: 500, ease: easeExpInOut },
+              color: ['#ff0063'],
+              timing: { duration: 1000, ease: easeExpInOut },
             },
             {
               opacity: [0],
@@ -66,21 +67,17 @@ class Example extends PureComponent {
             },
           ]}
         >
-          {({ opacity, backgroundColor }) => {
-            return (
-              <div style={{
-                opacity,
-                width: 200,
-                height: 200,
-                marginTop: 10,
-                color: 'white',
-                backgroundColor,
-              }}
-              >
-                {opacity.toFixed(3)}
-              </div>
-            )
-          }}
+          <div style={s => (`
+            opacity: ${s.opacity};
+            width: 200px;
+            height: 200px;
+            margin-top: 10px;
+            color: white;
+            background-color: ${s.color};
+          `)}
+          >
+            {s =>  s.opacity.toFixed(3)}
+          </div>
         </Animate>
       </div>
     )

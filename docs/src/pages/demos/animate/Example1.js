@@ -55,16 +55,13 @@ class Example extends PureComponent {
               timing: { duration: 1000, ease: easeQuadOut },
             }}
           >
-            {(state) => {
-              return (
-                <g transform="translate(100, 0) scale(0.8)">
-                  <path
-                    fill="#fd8d3c"
-                    {...state}
-                  />
-                </g>
-              )
-            }}
+            <g transform="translate(100, 0) scale(0.8)">
+              <path
+                fill="#fd8d3c"
+                d={s => s.d}
+                opacity={s => s.opacity}
+              />
+            </g>
           </Animate>
         </Surface>
       </div>
