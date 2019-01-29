@@ -29,6 +29,7 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
         PropTypes.object,
       ]),
       wrapper: PropTypes.string,
+      wrapperClass: PropTypes.string,
       wrapperStyle: PropTypes.object,
       children: PropTypes.object.isRequired,
     }
@@ -38,7 +39,7 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
     }
 
     render() {
-      const { show, start, enter, update, leave, wrapper, wrapperStyle, children } = this.props
+      const { show, start, enter, update, leave, wrapper, wrapperClass, wrapperStyle, children } = this.props
       const data = typeof start === 'function' ? start() : start
 
       return (
@@ -50,6 +51,7 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
           update={typeof update === 'function' ? update : () => update}
           leave={typeof leave === 'function' ? leave : () => leave}
           wrapper={wrapper}
+          wrapperClass={wrapperClass}
           wrapperStyle={wrapperStyle}
         >
           {children}

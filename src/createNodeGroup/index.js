@@ -26,6 +26,7 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
 
     static propTypes = {
       wrapper: PropTypes.string,
+      wrapperClass: PropTypes.string,
       wrapperStyle: PropTypes.object,
       data: PropTypes.array.isRequired,
       keyAccessor: PropTypes.func.isRequired,
@@ -263,10 +264,11 @@ export default function createNodeGroup(getInterpolater, displayName = 'NodeGrou
     unmounting = false
   
     render() {
-      const { wrapper = 'g', wrapperStyle = {} } = this.props
+      const { wrapper = 'g', wrapperClass = '', wrapperStyle = {} } = this.props
 
       return React.createElement(wrapper, {
         ref: this.ref,
+        className: wrapperClass,
         style: wrapperStyle
       })
     }

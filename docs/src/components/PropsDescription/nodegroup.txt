@@ -174,6 +174,18 @@ class NodeGroup extends Component {
 
 NodeGroup.propTypes = {
   /**
+   * Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'.
+   */
+  wrapper: PropTypes.string,
+  /**
+   * Class to be applied to wrapper.
+   */
+  wrapperClass: PropTypes.string,
+  /**
+   * Style object for wrapper.
+   */
+  wrapperStyles: PropTypes.object,
+  /**
    * An array.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
    */
   data: PropTypes.array.isRequired,
@@ -207,6 +219,7 @@ NodeGroup.defaultProps = {
   enter: () => {},
   update: () => {},
   leave: () => {},
+  wrapper: 'g'
 }
 
 export default NodeGroup
