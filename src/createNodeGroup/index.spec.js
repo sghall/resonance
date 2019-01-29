@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 
-import React, { Component } from 'react'
+import React from 'react'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import sinon from 'sinon'
 import { assert } from 'chai'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import createNodeGroup from '.'
 
 const NodeGroup = createNodeGroup(function getInterpolator(begValue, endValue, attr) {
@@ -21,45 +21,42 @@ function getData() {
 
 const keyAccessor = d => d.key
 
-class Node extends Component {
-  render() {
-    return <div />
-  }
-}
-
-const renderChildren = nodes => (
-  <div>
-    {nodes.map(({ key }) => (
-      <Node key={key} />
-    ))}
-  </div>
-)
-
 describe('<NodeGroup />', () => {
-  it('should render nodes wrapped in the outer element', () => {
-    const wrapper = shallow(
-      <NodeGroup data={getData()} keyAccessor={keyAccessor} start={() => ({})}>
-        {renderChildren}
+  it('should render nodes wrapped in the outer element', done => {
+    const wrapper = mount(
+      <NodeGroup
+        data={getData()}
+        keyAccessor={keyAccessor}
+        start={() => ({})}
+        wrapperClass="node-wrapper"
+      >
+        <div className="node">{() => 'Node Text'}</div>
       </NodeGroup>,
     )
 
-    assert.strictEqual(wrapper.is('div'), true, 'should be true')
+    setTimeout(() => {
+      assert.strictEqual(wrapper.find('.node-wrapper').length, 1)
+      done()
+    }, 50)
   })
 
-  it('should render a node for each data item', () => {
-    const data = getData()
-
+  it('should render a node for each data item', done => {
     const wrapper = mount(
-      <NodeGroup data={data} keyAccessor={keyAccessor} start={() => ({})}>
-        {renderChildren}
+      <NodeGroup
+        data={getData()}
+        keyAccessor={keyAccessor}
+        start={() => ({})}
+      >
+        <div className="node" />
       </NodeGroup>,
     )
 
-    assert.strictEqual(
-      wrapper.find(Node).length,
-      data.length,
-      'should be equal',
-    )
+    setTimeout(() => {
+      assert.strictEqual(
+        wrapper.html(), 
+        '<div class=""><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div></div>')
+      done()
+    }, 50)
   })
 
   it('should remove nodes that are not transitioning', (done) => {
@@ -67,11 +64,11 @@ describe('<NodeGroup />', () => {
 
     const wrapper = mount(
       <NodeGroup
-        data={data}
+        data={getData()}
         keyAccessor={keyAccessor}
         start={() => ({})}
       >
-        {renderChildren}
+        <div className="node" />
       </NodeGroup>,
     )
 
@@ -80,7 +77,7 @@ describe('<NodeGroup />', () => {
     wrapper.setProps({ data: data2 })
 
     setTimeout(() => {
-      assert.strictEqual(wrapper.state().nodes.length, data2.length)
+      assert.strictEqual(wrapper.state().nodeKeys.length, data2.length)
       done()
     }, 500)
   })
@@ -90,7 +87,7 @@ describe('<NodeGroup />', () => {
 
     const wrapper = mount(
       <NodeGroup data={data} keyAccessor={keyAccessor} start={() => ({})}>
-        {renderChildren}
+        <div className="node" />
       </NodeGroup>,
     )
 
@@ -109,7 +106,7 @@ describe('<NodeGroup />', () => {
 
     const wrapper = mount(
       <NodeGroup data={data} keyAccessor={d => d.val} start={() => ({})}>
-        {renderChildren}
+        <div className="node" />
       </NodeGroup>,
     )
 
