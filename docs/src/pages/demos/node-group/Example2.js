@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { shuffle, range } from 'd3-array'
 import { easeBackOut, easeBackInOut } from 'd3-ease'
 import { NodeGroup } from 'resonance'
-
+import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 
 const count = 15
 
@@ -82,6 +82,14 @@ export default class Example extends Component {
                 timing: { delay: 750, duration: 500 },
               },
             ])}
+
+            interpolate={(begValue, endValue, attr) => {
+              if (attr === 'transform') {
+                return interpolateTransformSvg(begValue, endValue)
+              }
+            
+              return interpolate(begValue, endValue)
+            }}
 
             wrapperStyle={{ margin: 10, height: count * 20, position: 'relative' }}
             nameSpace="http://www.w3.org/1999/xhtml"

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { NodeGroup } from 'resonance'
-
+import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import Surface from 'docs/src/components/Surface'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import { shuffle, max } from 'd3-array'
@@ -143,6 +143,14 @@ class Example extends PureComponent {
               fill: '#ff0063',
               timing: { duration: 1000 },
             })}
+
+            interpolate={(begValue, endValue, attr) => {
+              if (attr === 'transform') {
+                return interpolateTransformSvg(begValue, endValue)
+              }
+            
+              return interpolate(begValue, endValue)
+            }}
           >
             <g transform={s => `translate(${s.x},0)`}>
               <rect

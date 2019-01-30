@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import { range } from 'd3-array'
 import { easeExpInOut } from 'd3-ease'
 import { Animate } from 'resonance'
@@ -65,6 +66,14 @@ class Example extends PureComponent {
               timing: { delay: 500, duration: 500, ease: easeExpInOut },
             },
           ]}
+
+          interpolate={(begValue, endValue, attr) => {
+            if (attr === 'transform') {
+              return interpolateTransformSvg(begValue, endValue)
+            }
+          
+            return interpolate(begValue, endValue)
+          }}
         >
           <div style={s => (`
             opacity: ${s.opacity};

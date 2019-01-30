@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { NodeGroup } from 'resonance'
-
+import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import Surface from 'docs/src/components/Surface'
 import { easeExpInOut } from 'd3-ease'
 import { scaleBand } from 'd3-scale'
@@ -135,6 +135,14 @@ class Example extends PureComponent {
               },
               timing: { duration: 1000, ease: easeExpInOut },
             })}
+
+            interpolate={(begValue, endValue, attr) => {
+              if (attr === 'transform') {
+                return interpolateTransformSvg(begValue, endValue)
+              }
+            
+              return interpolate(begValue, endValue)
+            }}
           >
             <g opacity={s => s.g.opacity} transform={s => s.g.transform} >
               <circle
