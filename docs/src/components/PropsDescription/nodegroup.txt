@@ -174,7 +174,7 @@ class NodeGroup extends Component {
 
 NodeGroup.propTypes = {
   /**
-   * Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'.
+   * Tag for wrapping elment: 'g', 'span', etc.  No custom components.
    */
   wrapper: PropTypes.string,
   /**
@@ -219,7 +219,7 @@ NodeGroup.defaultProps = {
   enter: () => {},
   update: () => {},
   leave: () => {},
-  wrapper: 'g'
+  wrapper: 'div'
 }
 
 export default NodeGroup

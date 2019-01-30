@@ -31,7 +31,7 @@ function Animate(props) {
 
 Animate.propTypes = {
   /**
-   * Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'.
+   * Tag for wrapping elment: 'g', 'span', etc.  No custom components.
    */
   wrapper: PropTypes.string,
   /**
@@ -82,7 +82,7 @@ Animate.propTypes = {
 
 Animate.defaultProps = {
   show: true,
-  wrapper: 'g',
+  wrapper: 'div',
 }
 
 export default Animate
