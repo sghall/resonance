@@ -7,9 +7,15 @@
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
 
 
-## Resonance 1.0 Beta is almost here!
+## Resonance
 
-Resonance runs your react animations by manipulating the DOM for you. 
+This is a fork of [react-move](https://github.com/react-tools/react-move) that animates by modifying the DOM directly.  It is much faster in some cases.  Resonance is currently working towards a 1.0.0 release. You can install the beta version:
+
+```
+npm install resonance@beta
+```
+
+Feedback is welcome!  Cheers.
 
 # Getting Started
 
