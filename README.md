@@ -15,6 +15,8 @@ This is a fork of [react-move](https://github.com/react-tools/react-move) that a
 npm install resonance@beta
 ```
 
+### [Documentation & Demos](https://sghall.github.io/resonance)
+
 Feedback is welcome!  Cheers.
 
 # Getting Started
