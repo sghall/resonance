@@ -23,69 +23,10 @@ Feedback is welcome!  Cheers.
 
 # Getting Started
 
-Resonance exports just two factory functions:
-- **createNodeGroup(getInterpolator [, displayName]) => NodeGroup** - Use `NodeGroup` if you have an **array of items** that enter, update and leave.
-- **createAnimate(getInterpolator [, displayName]) => Animate** - Use `Animate` if you have a **singe item** that enters, updates and leaves.
+Resonance exports just two components:
+- **NodeGroup** - Use `NodeGroup` if you have an **array of items** that enter, update and leave.
+- **Animate** - Use `Animate` if you have a **singe item** that enters, updates and leaves.
 
-### The `getInterpolator` function
-
-You can wire your components in `resonance` to handle different types of interpolation.  The code for interpolating strings or SVG paths can be bulky and, in many cases, it's not needed.  For that reason, Resonance exports factory functions that let you wire up your components in whatever way makes sense to you.
-
-Your `getInterpolator` function should avoid a lot of logic and computation.  It will get called at high frequency when transitions fire in your components.  You get the begin and end values and what the attribute name (string) is.  You will also get the namespace string (less common) if you are using them in your state.  **See the sections below on starting states and transitions for more on attrs and namespaces.**
-
-#### Cadillac Interpolation  - Depends on d3-interpolate
-
-To wire up a full service set of components that will interpolate colors, paths, numbers and SVG transforms you can use a setup like this:
-
-```
-npm install resonance d3-interpolate
-```
-
-Then in your app:
-```js
-import { createNodeGroup, createAnimate } from 'resonance'
-import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
-
-function getInterpolator(begValue, endValue, attr, namespace) {
-  if (attr === 'transform') {
-    return interpolateTransformSvg(begValue, endValue)
-  }
-
-  return interpolate(begValue, endValue)
-}
-
-export const NodeGroup = createNodeGroup(getInterpolator)
-export const Animate = createAnimate(getInterpolator)
-```
-Then just import them in other parts of your app. This setup mimics how `d3.js` works for selecting interpolators and will not force you to think too much about the values your are using.  For example, if you use colors (in any format) they will be recognized and interpolated correctly.
-
-#### Numeric Interpolation Only - No dependencies
- 
-The `interpolate` function exported from d3-interpolate does a great job of guessing what you're trying to do and handles it for you but it also includes a lot of code (e.g. d3-color) that may not be needed for your project. For example, if you are just interpolating numbers in your components you could replace all that code with just a simple a interpolation function.  Resonance will apply easing functions (see [d3-ease](https://github.com/d3/d3-ease)) to your transitions to get a variety of effects.  A basic numeric interpolator would look like this:
-
-```js
-import { createNodeGroup, createAnimate } from 'resonance'
-
-const numeric = (beg, end) => {
-  const a = +beg
-  const b = +end - a
-  
-  return function(t) {
-    return a + b * t
-  } 
-}
-
-function getInterpolator(begValue, endValue, attr, namespace) {
-  return numeric(begValue, endValue)
-}
-
-export const NodeGroupNumeric = createNodeGroup(getInterpolator)
-export const AnimateNumeric = createAnimate(getInterpolator)
-```
-
-
-
-Of course you can create as many custom components as you want and organize them in a way that makes sense to you.  You can use any interpolation library or write your own. 
 
 ## Starting state
 
@@ -406,6 +347,84 @@ Using Events:
 | <span style="color: #31a148">children *</span> | function |  |  A React component tree. No custom components. |
 
 * required props
+
+
+### Interpolation
+
+You can wire your components in `resonance` to handle different types of interpolation using the `interpolation` prop in both `NodeGroup` and `Animate`.  The code for interpolating strings or SVG paths can be bulky and, in many cases, it's not needed so by default components only handle numeric interpolation. 
+
+Your `interpolation` prop is a function that should avoid a lot of logic and computation.  It will get called at high frequency when transitions fire in your components.  You get the begin and end values and what the attribute name (string) is.  You will also get the namespace string (less common) if you are using them in your state.  **See the sections on starting states and transitions for more on attrs and namespaces.**
+
+#### Cadillac Interpolation  - Depends on d3-interpolate
+
+To wire up a full service set of components that will interpolate colors, paths, numbers and SVG transforms you can use a setup like this:
+
+```
+npm install resonance d3-interpolate
+```
+
+Then in your app:
+```js
+import { createNodeGroup, createAnimate } from 'resonance'
+import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
+
+function getInterpolator
+
+...
+
+<NodeGroup
+  data={this.state.data}
+  keyAccessor={(d) => d.name}
+
+  start={(data, index) => ({
+    ...
+  })}
+
+  enter={(data, index) => ([ // An array
+    ...
+  ])}
+
+  update={(data) => ({
+    ...
+  })}
+
+  leave={() => ({
+    ...
+  })}
+  
+  interpolation ={(begValue, endValue, attr, namespace) => {
+    if (attr === 'transform') {
+      return interpolateTransformSvg(begValue, endValue)
+    }
+
+    return interpolate(begValue, endValue)
+  }}
+>
+  ...children
+</NodeGroup>
+```
+
+```
+This setup mimics how `d3.js` works for selecting interpolators and will not force you to think too much about the values your are using.  For example, if you use colors (in any format) they will be recognized and interpolated correctly. The `interpolate` function exported from d3-interpolate does a great job of guessing what you're trying to do and handles it for you but it also includes a lot of code (e.g. d3-color) that may not be needed for your project.
+
+#### Numeric Interpolation Only - Default - No dependencies
+ 
+To do numeric interpolation you don't need to do anything in your components.  The default numeric interpolator looks like this:
+
+```js
+// The default interpolator used in NodeGroup and Animate
+
+const numeric = (beg, end) => {
+  const a = +beg
+  const b = +end - a
+  
+  return function(t) {
+    return a + b * t
+  } 
+}
+
+```
+
 
 ## Contributing
 
