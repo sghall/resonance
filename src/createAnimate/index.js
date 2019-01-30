@@ -4,8 +4,14 @@ import createNodeGroup from '../createNodeGroup'
 
 const keyAccessor = () => '$$key$$'
 
-export default function createAnimate(getInterpolater, displayName = 'Animate') {
-  const NodeGroup = createNodeGroup(getInterpolater, `${displayName}(NodeGroup)`)
+export default function createAnimate(
+  getInterpolater,
+  displayName = 'Animate',
+) {
+  const NodeGroup = createNodeGroup(
+    getInterpolater,
+    `${displayName}(NodeGroup)`,
+  )
 
   return class Animate extends Component {
     static displayName = displayName
@@ -39,7 +45,17 @@ export default function createAnimate(getInterpolater, displayName = 'Animate') 
     }
 
     render() {
-      const { show, start, enter, update, leave, wrapper, wrapperClass, wrapperStyle, children } = this.props
+      const {
+        show,
+        start,
+        enter,
+        update,
+        leave,
+        wrapper,
+        wrapperClass,
+        wrapperStyle,
+        children,
+      } = this.props
       const data = typeof start === 'function' ? start() : start
 
       return (

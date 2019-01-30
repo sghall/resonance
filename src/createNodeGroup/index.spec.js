@@ -7,7 +7,11 @@ import { assert } from 'chai'
 import { mount } from 'enzyme'
 import createNodeGroup from '.'
 
-const NodeGroup = createNodeGroup(function getInterpolator(begValue, endValue, attr) {
+const NodeGroup = createNodeGroup(function getInterpolator(
+  begValue,
+  endValue,
+  attr,
+) {
   if (attr === 'transform') {
     return interpolateTransformSvg(begValue, endValue)
   }
@@ -42,32 +46,25 @@ describe('<NodeGroup />', () => {
 
   it('should render a node for each data item', done => {
     const wrapper = mount(
-      <NodeGroup
-        data={getData()}
-        keyAccessor={keyAccessor}
-        start={() => ({})}
-      >
+      <NodeGroup data={getData()} keyAccessor={keyAccessor} start={() => ({})}>
         <div className="node" />
       </NodeGroup>,
     )
 
     setTimeout(() => {
       assert.strictEqual(
-        wrapper.html(), 
-        '<div class=""><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div></div>')
+        wrapper.html(),
+        '<div class=""><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div></div>',
+      )
       done()
     }, 50)
   })
 
-  it('should remove nodes that are not transitioning', (done) => {
+  it('should remove nodes that are not transitioning', done => {
     const data = getData()
 
     const wrapper = mount(
-      <NodeGroup
-        data={getData()}
-        keyAccessor={keyAccessor}
-        start={() => ({})}
-      >
+      <NodeGroup data={getData()} keyAccessor={keyAccessor} start={() => ({})}>
         <div className="node" />
       </NodeGroup>,
     )

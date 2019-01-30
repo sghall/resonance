@@ -6,7 +6,11 @@ import { assert } from 'chai'
 import { mount } from 'enzyme'
 import createAnimate from '.'
 
-const Animate = createAnimate(function getInterpolator(begValue, endValue, attr) {
+const Animate = createAnimate(function getInterpolator(
+  begValue,
+  endValue,
+  attr,
+) {
   if (attr === 'transform') {
     return interpolateTransformSvg(begValue, endValue)
   }
@@ -17,10 +21,7 @@ const Animate = createAnimate(function getInterpolator(begValue, endValue, attr)
 describe('<Animate />', () => {
   it('should render nodes wrapped in the outer element', done => {
     const wrapper = mount(
-      <Animate
-        start={{}}
-        wrapperClass="node-wrapper"
-      >
+      <Animate start={{}} wrapperClass="node-wrapper">
         <div className="node">{() => 'Node Text'}</div>
       </Animate>,
     )
