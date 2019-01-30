@@ -8,9 +8,10 @@ import { GetInterpolator } from '..'
 export interface INodeGroupProps {
   wrapper?: string;
   wrapperClass?: string;
-  wrapperStyles?: object;
+  wrapperStyle?: object;
   data: Array<any>;
   keyAccessor: (data: any, index: number) => string | number;
+  interpolation: (begValue?: any, endValue?: any, attr?: string, namespace?: string) => (t: number) => any
   start: (data: any, index: number) => PlainObject;
   enter?: (data: any, index: number) => Transition | Array<Transition>;
   update?: (data: any, index: number) => Transition | Array<Transition>;
@@ -18,6 +19,6 @@ export interface INodeGroupProps {
   children: React.ReactElement<any>;
 }
 
-export declare class INodeGroup extends React.Component<INodeGroupProps> { }
+declare class INodeGroup extends React.Component<INodeGroupProps> { }
 
-export default function createNodeGroup(func: GetInterpolator, displayName?: string): typeof INodeGroup;
+export default INodeGroup
