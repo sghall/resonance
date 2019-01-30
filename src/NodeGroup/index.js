@@ -3,20 +3,13 @@ import PropTypes from 'prop-types'
 import { BaseNode, interval } from 'kapellmeister'
 import mergeKeys from '../core/mergeKeys'
 import { ENTER, UPDATE, LEAVE } from '../core/types'
+import { numeric, kebabCase } from '../utils'
 
-const REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
-
-function kebabCase(str) {
-  return str.replace(REGEX, function(match) {
-    return '-' + match.toLowerCase()
-  })
-}
-  
 class NodeGroup extends Component {
   constructor(props) {
     super(props)
 
-    const { interpolate } = props
+    const { interpolation } = props
 
     class Node extends BaseNode {
       constructor(key, data) {
@@ -27,7 +20,7 @@ class NodeGroup extends Component {
         this.type = ENTER
       }
 
-      getInterpolator = interpolate
+      getInterpolator = interpolation
     }
 
     this.state = {
@@ -285,19 +278,19 @@ NodeGroup.propTypes = {
    */
   wrapperStyle: PropTypes.object,
   /**
-   * An array.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
+   * An array. The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
    */
   data: PropTypes.array.isRequired,
   /**
-   * Function that returns a string key given the data and its index.  Used to track which nodes are entering, updating and leaving.
+   * Function that returns a string key given the data and its index. Used to track which nodes are entering, updating and leaving.
    */
   keyAccessor: PropTypes.func.isRequired,
   /**
-   * A function that returns an interpolator fiven the begin value, end value, atrr and namespace. See docs for more.
+   * A function that returns an interpolator given the begin value, end value, attr and namespace. Defaults to numeric interpolation. See docs for more.
    */
-  interpolate: PropTypes.func,
+  interpolation: PropTypes.func,
   /**
-   * A function that returns the starting state.  The function is passed the data and index and must return an object.
+   * A function that returns the starting state. The function is passed the data and index and must return an object.
    */
   start: PropTypes.func.isRequired,
   /**
@@ -313,7 +306,7 @@ NodeGroup.propTypes = {
    */
   leave: PropTypes.func,
   /**
-   * A React component tree.  The tree will be used as a template for each node. No custom components.
+   * A React node. The node will be used as a template for each node. No custom components.
    */
   children: PropTypes.node.isRequired,
 }
@@ -323,14 +316,7 @@ NodeGroup.defaultProps = {
   update: () => {},
   leave: () => {},
   wrapper: 'div',
-  interpolate: (beg, end) => {
-    const a = +beg
-    const b = +end - a
-    
-    return function(t) {
-      return a + b * t
-    } 
-  }
+  interpolation: numeric
 }
 
 export default NodeGroup

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import NodeGroup from '../NodeGroup'
+import { numeric } from '../utils'
 
 const keyAccessor = () => '$$key$$'
 
@@ -15,7 +16,7 @@ class Animate extends Component {
       wrapper,
       wrapperClass,
       wrapperStyle,
-      interpolate,
+      interpolation,
       children,
     } = this.props
     const data = typeof start === 'function' ? start() : start
@@ -23,9 +24,9 @@ class Animate extends Component {
     return (
       <NodeGroup
         data={show ? [data] : []}
-        start={() => data}
+        start={() => data || {}}
         keyAccessor={keyAccessor}
-        interpolate={interpolate}
+        interpolation={interpolation}
         enter={typeof enter === 'function' ? enter : () => enter}
         update={typeof update === 'function' ? update : () => update}
         leave={typeof leave === 'function' ? leave : () => leave}
@@ -57,9 +58,9 @@ Animate.propTypes = {
    */
   show: PropTypes.bool.isRequired,
   /**
-   * A function that returns an interpolator fiven the begin value, end value, atrr and namespace. See docs for more.
+   * A function that returns an interpolator given the begin value, end value, atrr and namespace. See docs for more.
    */
-  interpolate: PropTypes.func,
+  interpolation: PropTypes.func,
   /**
    * An object or function that returns an obejct to be used as the starting state.
    */
@@ -90,7 +91,7 @@ Animate.propTypes = {
     PropTypes.object,
   ]),
   /**
-   * A React component tree. No custom components.
+   * A React node. No custom components.
    */
   children: PropTypes.node,
 }
@@ -98,6 +99,7 @@ Animate.propTypes = {
 Animate.defaultProps = {
   show: true,
   wrapper: 'div',
+  interpolation: numeric
 }
 
 export default Animate
