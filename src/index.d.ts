@@ -13,5 +13,5 @@ export {
 
 export type GetInterpolator = (begValue?: any, endValue?: any, attr?: string, namespace?: string) => (t: number) => any
 
-export { default as createAnimate, IAnimate } from './createAnimate';
-export { default as createNodeGroup, INodeGroup } from './createNodeGroup';
+export { default as Animate } from './Animate';
+export { default as NodeGroup } from './NodeGroup';
