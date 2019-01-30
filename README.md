@@ -368,8 +368,6 @@ Then in your app:
 import { createNodeGroup, createAnimate } from 'resonance'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 
-function getInterpolator
-
 ...
 
 <NodeGroup
@@ -392,7 +390,7 @@ function getInterpolator
     ...
   })}
   
-  interpolation ={(begValue, endValue, attr, namespace) => {
+  interpolation ={(begValue, endValue, attr, namespace) => { // pass as a prop to NodeGroup or Animate
     if (attr === 'transform') {
       return interpolateTransformSvg(begValue, endValue)
     }
