@@ -19,6 +19,8 @@ npm install resonance@beta
 
 Feedback is welcome!  Cheers.
 
+[Sunburst on CodeSandbox](https://codesandbox.io/s/my65y6jlp)
+
 # Getting Started
 
 Resonance exports just two factory functions:
