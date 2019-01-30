@@ -313,7 +313,7 @@ const defaultTiming = {
 
 For the ease key, just provide the function. You can use any easing function, like those from d3-ease...
 
-[List of ease functions exported from d3-ease](https://github.com/d3/d3-ease/blob/master/index.js)
+[List of ease functions exported from d3-ease](https://github.com/d3/d3-ease/blob/master/src/index.js)
 
 ## Events
 
