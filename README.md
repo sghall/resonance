@@ -11,11 +11,8 @@ Resonance runs your react animations by manipulating the DOM for you.
 # Getting Started
 
 Resonance exports just two factory functions:
-- createNodeGroup => NodeGroup - If you have an **array of items** that enter, update and leave
-- createAnimate => Animate - If you have a **singe item** that enters, updates and leaves
-
-To get some components to work with in your app you can use this code to create them with some good defaults:
-
+- **createNodeGroup(getInterpolator, displayName) => NodeGroup** - Use `NodeGroup` if you have an **array of items** that enter, update and leave.
+- **createAnimate(getInterpolator, displayName) => Animate** - Use `Animate` if you have a **singe item** that enters, updates and leaves.
 
 ### The `getInterpolator` function
 
