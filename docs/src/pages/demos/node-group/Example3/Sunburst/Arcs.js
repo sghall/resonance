@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NodeGroup from './NodeGroup'
+import { NodeGroup } from 'resonance'
 import { easeLinear } from 'd3-ease'
 
 const COLORS = ['#a63603', '#feedde','#fdbe85','#fd8d3c','#e6550d']
