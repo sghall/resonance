@@ -16,17 +16,18 @@ class NodeGroup extends Component {
   constructor(props) {
     super(props)
 
-    const { interpolation } = props
+    const { interpolate } = props
 
     class Node extends BaseNode {
       constructor(key, data) {
         super()
+
         this.key = key
         this.data = data
         this.type = ENTER
       }
 
-      getInterpolator = interpolation
+      getInterpolator = interpolate
     }
 
     this.state = {
@@ -43,7 +44,7 @@ class NodeGroup extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.data !== prevState.data) {
       const { data, keyAccessor, start, enter, update, leave } = nextProps
-      const { nodeKeys, nodeHash } = prevState
+      const { Node, nodeKeys, nodeHash } = prevState
 
       const keyIndex = {}
 
@@ -292,9 +293,9 @@ NodeGroup.propTypes = {
    */
   keyAccessor: PropTypes.func.isRequired,
   /**
-   * A function that returns the starting state.  The function is passed the data and index and must return an object.
+   * A function that returns an interpolator fiven the begin value, end value, atrr and namespace. See docs for more.
    */
-  interpolation: PropTypes.func,
+  interpolate: PropTypes.func,
   /**
    * A function that returns the starting state.  The function is passed the data and index and must return an object.
    */
@@ -322,7 +323,7 @@ NodeGroup.defaultProps = {
   update: () => {},
   leave: () => {},
   wrapper: 'div',
-  interpolation: (beg, end) => {
+  interpolate: (beg, end) => {
     const a = +beg
     const b = +end - a
     

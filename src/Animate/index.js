@@ -15,6 +15,7 @@ class Animate extends Component {
       wrapper,
       wrapperClass,
       wrapperStyle,
+      interpolate,
       children,
     } = this.props
     const data = typeof start === 'function' ? start() : start
@@ -24,6 +25,7 @@ class Animate extends Component {
         data={show ? [data] : []}
         start={() => data}
         keyAccessor={keyAccessor}
+        interpolate={interpolate}
         enter={typeof enter === 'function' ? enter : () => enter}
         update={typeof update === 'function' ? update : () => update}
         leave={typeof leave === 'function' ? leave : () => leave}
@@ -55,8 +57,13 @@ Animate.propTypes = {
    */
   show: PropTypes.bool.isRequired,
   /**
+   * A function that returns an interpolator fiven the begin value, end value, atrr and namespace. See docs for more.
+   */
+  interpolate: PropTypes.func,
+  /**
    * An object or function that returns an obejct to be used as the starting state.
    */
+
   start: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   /**
    * An object, array of objects, or function that returns an object or array of objects describing how the state should transform on enter.

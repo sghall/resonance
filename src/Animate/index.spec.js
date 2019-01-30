@@ -1,22 +1,9 @@
 /* eslint-env mocha */
 
 import React from 'react'
-import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import { assert } from 'chai'
 import { mount } from 'enzyme'
-import createAnimate from '.'
-
-const Animate = createAnimate(function getInterpolator(
-  begValue,
-  endValue,
-  attr,
-) {
-  if (attr === 'transform') {
-    return interpolateTransformSvg(begValue, endValue)
-  }
-
-  return interpolate(begValue, endValue)
-})
+import Animate from '.'
 
 describe('<Animate />', () => {
   it('should render nodes wrapped in the outer element', done => {
