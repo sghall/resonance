@@ -315,7 +315,7 @@ NodeGroup.propTypes = {
   /**
    * A React component tree.  The tree will be used as a template for each node. No custom components.
    */
-  children: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 NodeGroup.defaultProps = {

@@ -33,7 +33,7 @@ class Animate extends Component {
         wrapperClass={wrapperClass}
         wrapperStyle={wrapperStyle}
       >
-        {children}
+        {children || <div />}
       </NodeGroup>
     )
   }
@@ -92,7 +92,7 @@ Animate.propTypes = {
   /**
    * A React component tree. No custom components.
    */
-  children: PropTypes.func.isRequired,
+  children: PropTypes.node,
 }
 
 Animate.defaultProps = {
