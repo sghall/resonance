@@ -83,7 +83,7 @@ export default class Example extends Component {
               },
             ])}
 
-            interpolate={(begValue, endValue, attr) => {
+            interpolation={(begValue, endValue, attr) => {
               if (attr === 'transform') {
                 return interpolateTransformSvg(begValue, endValue)
               }

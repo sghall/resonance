@@ -144,7 +144,7 @@ class Example extends PureComponent {
               timing: { duration: 1000 },
             })}
 
-            interpolate={(begValue, endValue, attr) => {
+            interpolation={(begValue, endValue, attr) => {
               if (attr === 'transform') {
                 return interpolateTransformSvg(begValue, endValue)
               }
