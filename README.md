@@ -1,6 +1,6 @@
 <div style="text-align:center;">
   <a href="https://sghall.github.io/resonance" target="\_parent">
-  <img src="https://user-images.githubusercontent.com/4615775/51954538-d7755600-23fd-11e9-8ef8-786463a55e2f.png"/></a>
+  <img src="https://user-images.githubusercontent.com/4615775/51954763-b5300800-23fe-11e9-98db-557956e32289.png"/></a>
 </div>
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
