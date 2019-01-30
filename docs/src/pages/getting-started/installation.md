@@ -7,5 +7,5 @@ Resonance is available as an [npm package](https://www.npmjs.org/package/resonan
 To install and save in your `package.json` dependencies, run:
 
 ```
-npm install resonance
+npm install resonance@beta
 ```
