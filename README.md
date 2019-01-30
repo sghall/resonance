@@ -160,7 +160,7 @@ In `NodeGroup` you are working with an array of items and you pass a start prop 
 
 #### Starting state in Animate
 
-In `Animate` you are animating a single item and pass a start prop that is an object or a function.  The start prop will be called when that the item enters.  Note it could leave and come back by toggling the show prop.  Immediately after the starting state is set your enter transition (optional) is called allowing you to transform that state.
+In `Animate` you are animating a single item and pass a start prop that is an object or a function.  The start prop will be called the item enters.  Note it could leave and come back by toggling the show prop.  Immediately after the starting state is set your enter transition (optional) is called allowing you to transform that state.
 
 ```js
 <Animate
