@@ -363,7 +363,7 @@ Using Events:
 
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
-| wrapper | string | 'g' |  Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'. |
+| wrapper | string | 'div' |  Tag for wrapping elment: 'g', 'span', etc.  No custom components.|
 | wrapperClass | string |  |  Class to be applied to wrapper. |
 | wrapperStyles | object |  |  Style object for wrapper. |
 | <span style="color: #31a148">data *</span> | array |  |  An array.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data. |
@@ -382,7 +382,7 @@ Using Events:
 
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
-| wrapper | string | 'g' |  Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'. |
+| wrapper | string | 'div' |  Tag for wrapping elment: 'g', 'span', etc.  No custom components.|
 | wrapperClass | string |  |  Class to be applied to wrapper. |
 | wrapperStyles | object |  |  Style object for wrapper. |
 | show | bool | true |  Boolean value that determines if the child should be rendered or not. |
