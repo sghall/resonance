@@ -1,13 +1,7 @@
-<div style="text-align:center;">
-  <a href="https://sghall.github.io/resonance" target="\_parent">
-  <img src="https://user-images.githubusercontent.com/4615775/51954763-b5300800-23fe-11e9-98db-557956e32289.png"/></a>
-</div>
+## Resonance
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
-
-
-## Resonance
 
 ### This library is under heavy active development
 
