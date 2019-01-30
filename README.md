@@ -1,4 +1,7 @@
-## Resonance | Data-driven transitions in React
+<div style="text-align:center;">
+  <a href="https://sghall.github.io/resonance" target="\_parent">
+  <img src="https://user-images.githubusercontent.com/4615775/51954538-d7755600-23fd-11e9-8ef8-786463a55e2f.png"/></a>
+</div>
 
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
