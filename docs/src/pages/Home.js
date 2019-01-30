@@ -7,6 +7,7 @@ import Link from 'react-router/lib/Link'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import SunburstDemo from './demos/node-group/Example3'
 
 const styles = () => ({
   root: {
@@ -28,9 +29,12 @@ function Home(props) {
           React Animation Library
         </Typography>
       </Grid>
+      <Grid item xs={12} md={8} className={classes.root}>
+        <SunburstDemo />
+      </Grid>
       <Grid item xs={12} className={classes.root}>
         <Button component={Link} variant="outlined" to="/demos/node-group">
-          Demos
+          More Demos
         </Button>
       </Grid>
     </Grid>
