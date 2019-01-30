@@ -195,7 +195,7 @@ To support this you can return four different types of values to specify how you
 Example config object:
 ```js
 {
-  attr1: [200],
+  attr1: [200], // Arrays are good in a config object. Array means transition from the current value to this value.
   attr2: 300,
   attr3: ['#dadada']
   timing: { duration: 300, delay: 100 }
