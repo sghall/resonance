@@ -6,6 +6,6 @@
  */
 
 import { assert } from 'chai'
-import * as ReactMove from './index'
+import * as Resonance from './index'
 
-describe('resonance', () => it('should have exports', () => assert.ok(ReactMove)))
+describe('resonance', () => it('should have exports', () => assert.ok(Resonance)))

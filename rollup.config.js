@@ -8,7 +8,7 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 const input = 'src/index.js'
-const globalName = 'ReactMove'
+const globalName = 'Resonance'
 
 const globals = {
   react: 'React',
