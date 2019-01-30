@@ -2,11 +2,11 @@
   "build/dist/resonance.js": {
     "bundled": 56914,
     "minified": 19489,
-    "gzipped": 6647
+    "gzipped": 6648
   },
   "build/dist/resonance.min.js": {
     "bundled": 11079,
     "minified": 11040,
-    "gzipped": 4045
+    "gzipped": 4044
   }
 }
