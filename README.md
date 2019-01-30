@@ -361,15 +361,18 @@ Using Events:
 
 ### Component Props
 
-| Name                                               | Type     | Default  | Description                                                                                                                                                                              |
-| :------------------------------------------------- | :------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <span style="color: #31a148">data \*</span>        | Array    |          | An array of data objects. The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.                                                                |
-| <span style="color: #31a148">keyAccessor \*</span> | function |          | Function that returns a string key given a data object and its index. Used to track which nodes are entering, updating and leaving.                                                      |
-| <span style="color: #31a148">start \*</span>       | function |          | A function that returns the starting state. The function is passed the data and index and must return an object.                                                                         |
-| enter                                              | function | () => {} | A function that **returns an object or array of objects** describing how the state should transform on enter. The function is passed the data and index.                                 |
-| update                                             | function | () => {} | A function that **returns an object or array of objects** describing how the state should transform on update. The function is passed the data and index.                                |
-| leave                                              | function | () => {} | A function that **returns an object or array of objects** describing how the state should transform on leave. The function is passed the data and index.                                 |
-| <span style="color: #31a148">children \*</span>    | function |          | A function that renders the nodes. It should accept an array of nodes as its only argument. Each node is an object with the key, data, state and a type of 'ENTER', 'UPDATE' or 'LEAVE'. |
+| Name | Type | Default | Description |
+|:-----|:-----|:-----|:-----|
+| wrapper | string | 'g' |  Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'. |
+| wrapperClass | string |  |  Class to be applied to wrapper. |
+| wrapperStyles | object |  |  Style object for wrapper. |
+| <span style="color: #31a148">data *</span> | array |  |  An array.  The data prop is treated as immutable so the nodes will only update if prev.data !== next.data. |
+| <span style="color: #31a148">keyAccessor *</span> | function |  |  Function that returns a string key given the data and its index.  Used to track which nodes are entering, updating and leaving. |
+| <span style="color: #31a148">start *</span> | function |  |  A function that returns the starting state.  The function is passed the data and index and must return an object. |
+| enter | function | () => {} |  A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index. |
+| update | function | () => {} |  A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data and index. |
+| leave | function | () => {} |  A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the data and index. |
+| <span style="color: #31a148">children *</span> | function |  |  A React component tree.  The tree will be used as a template for each node. No custom components. |
 
 * required props
 
@@ -379,12 +382,15 @@ Using Events:
 
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
+| wrapper | string | 'g' |  Tag for wrapping elment: 'div', 'span', etc.  No custom components. Defaults to 'g'. |
+| wrapperClass | string |  |  Class to be applied to wrapper. |
+| wrapperStyles | object |  |  Style object for wrapper. |
 | show | bool | true |  Boolean value that determines if the child should be rendered or not. |
 | <span style="color: #31a148">start *</span> | union:<br>&nbsp;func<br>&nbsp;object<br> |  |  An object or function that returns an obejct to be used as the starting state. |
 | enter | union:<br>&nbsp;func<br>&nbsp;array<br>&nbsp;object<br> |  |  An object, array of objects, or function that returns an object or array of objects describing how the state should transform on enter. |
 | update | union:<br>&nbsp;func<br>&nbsp;array<br>&nbsp;object<br> |  |  An object, array of objects, or function that returns an object or array of objects describing how the state should transform on update. ***Note:*** although not required, in most cases it make sense to specify an update prop to handle interrupted enter and leave transitions. |
 | leave | union:<br>&nbsp;func<br>&nbsp;array<br>&nbsp;object<br> |  |  An object, array of objects, or function that returns an object or array of objects describing how the state should transform on leave. |
-| <span style="color: #31a148">children *</span> | function |  |  A function that renders the node.  The function is passed the data and state. |
+| <span style="color: #31a148">children *</span> | function |  |  A React component tree. No custom components. |
 
 * required props
 
