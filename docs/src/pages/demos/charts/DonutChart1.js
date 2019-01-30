@@ -6,7 +6,8 @@ import memoizedOne from 'memoize-one'
 import sortBy from 'lodash/sortBy'
 import Surface from 'docs/src/components/Surface'
 import React, { PureComponent } from 'react'
-import NodeGroup from 'docs/src/components/NodeGroup'
+import { NodeGroup } from 'resonance'
+
 
 const colors = scaleOrdinal()
   .range(['#d94801','#a63603','#7f2704', '#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913'])

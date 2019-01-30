@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import NodeGroup from 'docs/src/components/NodeGroup'
+import { NodeGroup } from 'resonance'
+
 import Surface from 'docs/src/components/Surface'
 import { easeExpInOut } from 'd3-ease'
 import { scaleBand } from 'd3-scale'
