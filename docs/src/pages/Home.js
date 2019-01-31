@@ -23,12 +23,8 @@ function Home(props) {
   return (
     <Grid container alignItems="center" justify="space-around">
       <Grid item xs={12} className={classes.root}>
-        <Typography variant="h3">
-          Resonance
-        </Typography>
-        <Typography variant="body1">
-          React Animation Library
-        </Typography>
+        <Typography variant="h3">Resonance</Typography>
+        <Typography variant="body1">React Animation Library</Typography>
       </Grid>
       <Grid item xs={12} md={8} className={classes.root}>
         <Paper>
