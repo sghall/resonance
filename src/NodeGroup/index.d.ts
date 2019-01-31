@@ -1,8 +1,8 @@
 import * as React from "react";
 import {
-  Transition,
-  PlainObject,
-} from '../core';
+  Config,
+  HashMap,
+} from 'kapellmeister';
 import { GetInterpolator } from '..'
 
 export interface INodeGroupProps {
@@ -12,10 +12,10 @@ export interface INodeGroupProps {
   data: Array<any>;
   keyAccessor: (data: any, index: number) => string | number;
   interpolation: GetInterpolator;
-  start: (data: any, index: number) => PlainObject;
-  enter?: (data: any, index: number) => Transition | Array<Transition>;
-  update?: (data: any, index: number) => Transition | Array<Transition>;
-  leave?: (data: any, index: number) => Transition | Array<Transition>;
+  start: (data: any, index: number) => HashMap;
+  enter?: (data: any, index: number) => (Config | Array<Config>);
+  update?: (data: any, index: number) => (Config | Array<Config>);
+  leave?: (data: any, index: number) => (Config | Array<Config>);
   children: React.ReactElement<any>;
 }
 

@@ -1,10 +1,8 @@
 import * as React from "react";
 import {
-  Transition,
-  TransitionFunction,
-  PlainObject,
-  PlainObjectFunction,
-} from '../core';
+  Config,
+  HashMap
+} from 'kapellmeister';
 import { GetInterpolator } from '..'
 
 export interface IAnimateProps {
@@ -13,10 +11,10 @@ export interface IAnimateProps {
   wrapperStyles?: object;
   show?: boolean;
   interpolation: GetInterpolator;
-  start: PlainObjectFunction | PlainObject;
-  enter?: TransitionFunction | Transition | Array<Transition>
-  update?: TransitionFunction | Transition | Array<Transition>
-  leave?: TransitionFunction | Transition | Array<Transition>
+  start: () => HashMap | HashMap;
+  enter?: () => (Config | Array<Config>) | Config | Array<Config>;
+  update?: () => (Config | Array<Config>) | Config | Array<Config>;
+  leave?: () => (Config | Array<Config>) | Config | Array<Config>;
   children: React.ReactElement<any>;
 }
 
