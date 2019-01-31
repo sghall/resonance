@@ -23,7 +23,7 @@ Feedback is welcome!  Cheers.
 
 # The idea
 
-The children of `NodeGroup` and `Animate` are used like a "template" and dynamic elements are defined as a function of the state, data, key and index.  Resonance reads in the children and generates a DOM representation. On each frame it updates the dynamic attributes.  For now, you **can't** use custom components in children. Seems to work pretty well.
+The children of `NodeGroup` and `Animate` are used like a "template" and dynamic attributes are defined as a function of the state, data, key and index.  Resonance reads in the children and generates a DOM representation. On each frame it updates the dynamic attributes.  For now, you **can't** use custom components in children. Seems to work pretty well.
 
 
 [From the second example here](https://sghall.github.io/resonance/#/demos/node-group)
