@@ -42,7 +42,7 @@ class Animate extends Component {
 
 Animate.propTypes = {
   /**
-   * Tag for wrapping elment: 'g', 'span', etc.  No custom components.
+   * Tag for wrapping element: 'g', 'span', etc.  No custom components.
    */
   wrapper: PropTypes.string,
   /**

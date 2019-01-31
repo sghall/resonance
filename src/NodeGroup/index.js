@@ -261,7 +261,7 @@ class NodeGroup extends Component {
 
 NodeGroup.propTypes = {
   /**
-   * Tag for wrapping elment: 'g', 'span', etc.  No custom components.
+   * Tag for wrapping element: 'g', 'span', etc.  No custom components.
    */
   wrapper: PropTypes.string,
   /**

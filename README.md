@@ -27,7 +27,7 @@ Resonance exports just two components:
 
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
-| wrapper | string | 'div' |  Tag for wrapping elment: 'g', 'span', etc.  No custom components. |
+| wrapper | string | 'div' |  Tag for wrapping element: 'g', 'span', etc.  No custom components. |
 | wrapperClass | string |  |  Class to be applied to wrapper. |
 | wrapperStyle | object |  |  Style object for wrapper. |
 | <span style="color: #31a148">data *</span> | array |  |  An array. The data prop is treated as immutable so the nodes will only update if prev.data !== next.data. |
@@ -47,7 +47,7 @@ Resonance exports just two components:
 
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
-| wrapper | string | 'div' |  Tag for wrapping elment: 'g', 'span', etc.  No custom components. |
+| wrapper | string | 'div' |  Tag for wrapping element: 'g', 'span', etc.  No custom components. |
 | wrapperClass | string |  |  Class to be applied to wrapper. |
 | wrapperStyle | object |  |  Style object for wrapper. |
 | show | bool | true |  Boolean value that determines if the child should be rendered or not. |
