@@ -29,8 +29,8 @@ function AppContent(props) {
 # Summary
 
 ${route.childRoutes
-    .map(childRoute => `- [${childRoute.title}](${childRoute.path})`)
-    .join('\n')}
+      .map(childRoute => `- [${childRoute.title}](${childRoute.path})`)
+      .join('\n')}
 `
     children = <MarkdownElement text={text} />
   }
