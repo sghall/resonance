@@ -21,6 +21,67 @@ Sandboxes:
 
 Feedback is welcome!  Cheers.
 
+# The idea
+
+The children of `NodeGroup` and `Animate` are used like a "template" and dynamic elements are defined as a function of the state, data, key and index.  Resonance reads in the children and generates a DOM representation. On each frame it updates the dynamic attributes.  For now, you **can't** use custom components in children. Seems to work pretty well.
+
+
+[From the second example here](https://sghall.github.io/resonance/#/demos/node-group)
+```js
+<NodeGroup
+  data={sorted}
+  keyAccessor={(d) => d.letter}
+  wrapper='g'
+  start={() => ({
+    opacity: 1e-6,
+    x: 1e-6,
+  })}
+  enter={(d) => ({
+    opacity: [0.7],
+    x: [scale(d.letter)],
+    timing: { duration: 750, ease: easeExpInOut },
+  })}
+  update={(d, i) => ({
+    ...
+  })}
+  leave={() => ({
+    ...
+  })}
+>
+  <g transform={s => `translate(${s.x},0)`}> // transform is a function of state.
+    <rect
+      height={(s, d) => dims[1] - y(d.frequency)} // if you need the data use the second param.
+      y={(s, d) => y(d.frequency)}
+      fill="#fd8d3c"
+      width={width}
+      opacity={s => s.opacity}
+    />
+    <text
+      x={scale.bandwidth() / 2}
+      y={dims[1] + 15}
+      dx="-.35em"
+      fill="#dadada"
+    >{(s, d) => d.letter}</text>
+  </g>
+</NodeGroup>
+```
+
+For styles just use a string template and regular CSS styles.  Could use the style parser in React, but seems like this would alway be more performant.
+
+[From the third example here](https://sghall.github.io/resonance/#/demos/node-group)
+```js
+  <div
+    style={(s, d, k) => (` // styles as string template.  You also use className for non-dynamic styles.
+      position: absolute;
+      transform: translate(${s.x}px, ${+k * 20}px);
+      opacity: ${s.opacity};
+      color: ${s.color};
+    `)}
+  >
+    {(s, d, k) => `${k + 1} - ${Math.round(s.x)}`}
+  </div>
+```
+
 # Getting Started
 
 Resonance exports just two components:
