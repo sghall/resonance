@@ -82,11 +82,7 @@ class Example extends Component {
               keyAccessor={(d, i) => i}
               wrapper='g'
               wrapperClass='arcs-container'
-              start={d => {
-                return {
-                  path: this.arc(d)
-                }
-              }}
+              start={d => ({ path: this.arc(d) })}
               update={d => ({
                 path: () => this.arc(d),
                 timing: { duration }
