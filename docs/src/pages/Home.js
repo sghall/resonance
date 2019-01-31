@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Link from 'react-router/lib/Link'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import SunburstDemo from './demos/node-group/Example3'
 
@@ -30,7 +31,9 @@ function Home(props) {
         </Typography>
       </Grid>
       <Grid item xs={12} md={8} className={classes.root}>
-        <SunburstDemo />
+        <Paper>
+          <SunburstDemo />
+        </Paper>
       </Grid>
       <Grid item xs={12} className={classes.root}>
         <Button component={Link} variant="outlined" to="/demos/node-group">
