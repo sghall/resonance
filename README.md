@@ -70,6 +70,7 @@ For styles just use a string template and regular CSS styles.  Could use the sty
 
 [From the third example here](https://sghall.github.io/resonance/#/demos/node-group)
 ```js
+...
   <div
     style={(s, d, k) => (` // styles as string template.  You also use className for non-dynamic styles.
       position: absolute;
@@ -80,6 +81,7 @@ For styles just use a string template and regular CSS styles.  Could use the sty
   >
     {(s, d, k) => `${k + 1} - ${Math.round(s.x)}`}
   </div>
+...
 ```
 
 # Getting Started
