@@ -229,7 +229,7 @@ class NodeGroup extends Component {
       const k = nodeKeys[i]
       const n = nodeHash[k]
 
-      if (n.type === ENTER && !n.mounted) {
+      if (!n.mounted) {
         const parent = this.ref.current
         const child = this.createChild(this.props.children, n, parent, k, i)
 
