@@ -11,7 +11,7 @@ export interface INodeGroupProps {
   wrapperStyle?: object;
   data: Array<any>;
   keyAccessor: (data: any, index: number) => string | number;
-  interpolation: GetInterpolator;
+  interpolation?: GetInterpolator;
   start: (data: any, index: number) => HashMap;
   enter?: (data: any, index: number) => (Config | Array<Config>);
   update?: (data: any, index: number) => (Config | Array<Config>);

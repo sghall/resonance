@@ -10,12 +10,12 @@ export interface IAnimateProps {
   wrapperClass?: string;
   wrapperStyles?: object;
   show?: boolean;
-  interpolation: GetInterpolator;
-  start: () => HashMap | HashMap;
+  interpolation?: GetInterpolator;
+  start?: () => HashMap | HashMap;
   enter?: () => (Config | Array<Config>) | Config | Array<Config>;
   update?: () => (Config | Array<Config>) | Config | Array<Config>;
   leave?: () => (Config | Array<Config>) | Config | Array<Config>;
-  children: React.ReactElement<any>;
+  children?: React.ReactElement<any>;
 }
 
 declare class IAnimate extends React.Component<IAnimateProps> { }
