@@ -99,7 +99,7 @@ Animate.propTypes = {
 Animate.defaultProps = {
   show: true,
   wrapper: 'div',
-  interpolation: numeric
+  interpolation: numeric,
 }
 
 export default Animate

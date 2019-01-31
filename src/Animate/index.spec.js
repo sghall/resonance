@@ -20,9 +20,7 @@ describe('<Animate />', () => {
   })
 
   it('should work with no props', done => {
-    const wrapper = mount(
-      <Animate />
-    )
+    const wrapper = mount(<Animate />)
 
     setTimeout(() => {
       assert.strictEqual(wrapper.find('div').length, 1)
@@ -37,10 +35,8 @@ describe('<Animate />', () => {
       last = t
       return t
     }
-    
-    mount(
-      <Animate enter={{ t: i }} />
-    )
+
+    mount(<Animate enter={{ t: i }} />)
 
     setTimeout(() => {
       assert.strictEqual(last, 1)
@@ -55,10 +51,8 @@ describe('<Animate />', () => {
       last = t
       return t
     }
-    
-    const wrapper = mount(
-      <Animate update={{ t: i }} />
-    )
+
+    const wrapper = mount(<Animate update={{ t: i }} />)
 
     setTimeout(() => {
       assert.strictEqual(last, 0)

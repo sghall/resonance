@@ -249,11 +249,7 @@ class NodeGroup extends Component {
   unmounting = false
 
   render() {
-    const {
-      wrapper = 'div',
-      wrapperClass = '',
-      wrapperStyle = {},
-    } = this.props
+    const { wrapper = 'div', wrapperClass = '', wrapperStyle = {} } = this.props
 
     return React.createElement(wrapper, {
       ref: this.ref,
@@ -262,7 +258,6 @@ class NodeGroup extends Component {
     })
   }
 }
-
 
 NodeGroup.propTypes = {
   /**
@@ -316,8 +311,7 @@ NodeGroup.defaultProps = {
   update: () => {},
   leave: () => {},
   wrapper: 'div',
-  interpolation: numeric
+  interpolation: numeric,
 }
 
 export default NodeGroup
-
