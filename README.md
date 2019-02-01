@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/sghall/resonance.svg?branch=master)](https://travis-ci.org/sghall/resonance)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/resonance/badge.svg?branch=master)](https://coveralls.io/github/sghall/resonance?branch=master)
 
-### This library is under heavy development
+### This library is experimental
 
 This is a fork of [react-move](https://github.com/react-tools/react-move) that animates by modifying the DOM directly.  It is much faster in some cases and the entire library (including all dependencies) is just 4kb.  Resonance is currently working towards a 1.0.0 release. You can install the beta version:
 
@@ -428,7 +428,7 @@ npm install resonance d3-interpolate
 
 Then in your app:
 ```js
-import { createNodeGroup, createAnimate } from 'resonance'
+import { NodeGroup, Animate } from 'resonance'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 
 ...
