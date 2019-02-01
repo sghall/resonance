@@ -5,7 +5,7 @@
 
 ### This library is experimental
 
-This is a fork of [react-move](https://github.com/react-tools/react-move) that animates by modifying the DOM directly.  It is much faster in some cases and the entire library (including all dependencies) is just 4kb.  Resonance is currently working towards a 1.0.0 release. You can install the beta version:
+This is a fork of [react-move](https://github.com/react-tools/react-move) that animates by modifying the DOM directly.  It is much faster in some cases and the entire library (including all dependencies) is just 4kb. You can install the beta version:
 
 ```
 npm install resonance@beta
