@@ -4,12 +4,13 @@ import React from 'react'
 import { assert } from 'chai'
 import { mount } from 'enzyme'
 import Animate from '.'
+import { animated } from '..'
 
 describe('<Animate />', () => {
   it('should render nodes wrapped in the outer element', done => {
     const wrapper = mount(
       <Animate start={{}} wrapperClass="node-wrapper">
-        <div className="node">{() => 'Node Text'}</div>
+        <animated.div className="node">{() => 'Node Text'}</animated.div>
       </Animate>,
     )
 

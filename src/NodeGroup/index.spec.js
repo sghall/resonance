@@ -5,6 +5,7 @@ import sinon from 'sinon'
 import { assert } from 'chai'
 import { mount } from 'enzyme'
 import NodeGroup from '.'
+import { animated } from '..'
 
 function getData() {
   return [1, 2, 3, 4, 5].map(d => ({ val: d, key: `key-${d}` }))
@@ -21,7 +22,7 @@ describe('<NodeGroup />', () => {
         start={() => ({})}
         wrapperClass="node-wrapper"
       >
-        <div className="node">{() => 'Node Text'}</div>
+        <animated.div className="node">{() => 'Node Text'}</animated.div>
       </NodeGroup>,
     )
 
@@ -34,14 +35,14 @@ describe('<NodeGroup />', () => {
   it('should render a node for each data item', done => {
     const wrapper = mount(
       <NodeGroup data={getData()} keyAccessor={keyAccessor} start={() => ({})}>
-        <div className="node" />
+        <animated.div className="node" />
       </NodeGroup>,
     )
 
     setTimeout(() => {
       assert.strictEqual(
         wrapper.html(),
-        '<div class=""><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div></div>',
+        '<div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div></div>',
       )
       done()
     }, 50)
@@ -52,7 +53,7 @@ describe('<NodeGroup />', () => {
 
     const wrapper = mount(
       <NodeGroup data={getData()} keyAccessor={keyAccessor} start={() => ({})}>
-        <div className="node" />
+        <animated.div className="node" />
       </NodeGroup>,
     )
 
@@ -71,7 +72,7 @@ describe('<NodeGroup />', () => {
 
     const wrapper = mount(
       <NodeGroup data={data} keyAccessor={keyAccessor} start={() => ({})}>
-        <div className="node" />
+        <animated.div className="node" />
       </NodeGroup>,
     )
 
@@ -90,7 +91,7 @@ describe('<NodeGroup />', () => {
 
     const wrapper = mount(
       <NodeGroup data={data} keyAccessor={d => d.val} start={() => ({})}>
-        <div className="node" />
+        <animated.div className="node" />
       </NodeGroup>,
     )
 
