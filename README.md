@@ -23,11 +23,12 @@ Feedback is welcome!  Cheers.
 
 # The idea
 
-The children of `NodeGroup` and `Animate` are used like a "template" and dynamic attributes are defined as a function of the state, data, key and index.  Resonance reads in the children and generates a DOM representation. On each frame it updates the dynamic attributes.  For now, you **can't** use custom components in children. Seems to work pretty well.
-
+The children of `NodeGroup` and `Animate` are used like a template and dynamic attributes are defined as a function of the state, data, key and index.  Resonance reads in the children and generates a DOM representation. On each frame it updates the dynamic attributes. Seems to work pretty well.
 
 [From the second example here](https://sghall.github.io/resonance/#/demos/node-group)
 ```js
+import { NodeGroup, animated } from 'resonance'
+
 <NodeGroup
   data={sorted}
   keyAccessor={(d) => d.letter}
@@ -48,21 +49,25 @@ The children of `NodeGroup` and `Animate` are used like a "template" and dynamic
     ...
   })}
 >
-  <g transform={s => `translate(${s.x},0)`}> // transform is a function of state.
-    <rect
-      height={(s, d) => dims[1] - y(d.frequency)} // if you need the data use the second param.
+  <animated.g
+    transform={s => `translate(${s.x},0)`}  // transform is a function of state
+  >  
+    <animated.rect
+      height={(s, d) => dims[1] - y(d.frequency)} // height is a function of the data
       y={(s, d) => y(d.frequency)}
       fill="#fd8d3c"
       width={width}
       opacity={s => s.opacity}
     />
-    <text
+    <animated.text
       x={scale.bandwidth() / 2}
       y={dims[1] + 15}
       dx="-.35em"
       fill="#dadada"
-    >{(s, d) => d.letter}</text>
-  </g>
+    >
+      {(s, d) => d.letter}
+    </animated.text>
+  </animated.g>
 </NodeGroup>
 ```
 
@@ -70,9 +75,11 @@ For styles just use a string template and regular CSS styles.  Could use the sty
 
 [From the third example here](https://sghall.github.io/resonance/#/demos/node-group)
 ```js
+import { NodeGroup, animated } from 'resonance'
+
 ...
-  <div
-    style={(s, d, k) => (` // styles as string template.  You also use className for non-dynamic styles.
+  <animated.div
+    style={(s, d, k) => (` // Use template strings for style
       position: absolute;
       transform: translate(${s.x}px, ${+k * 20}px);
       opacity: ${s.opacity};
@@ -80,7 +87,7 @@ For styles just use a string template and regular CSS styles.  Could use the sty
     `)}
   >
     {(s, d, k) => `${k + 1} - ${Math.round(s.x)}`}
-  </div>
+  </animated.div>
 ...
 ```
 
