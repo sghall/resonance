@@ -5,7 +5,7 @@
 
 ### This library is experimental
 
-This is a fork of [react-move](https://github.com/react-tools/react-move) that animates by modifying the DOM directly.  It is much faster in some cases and the entire library (including all dependencies) is just 4kb. You can install the beta version:
+This is a fork of [react-move](https://github.com/react-tools/react-move) that animates by modifying the DOM directly.  It is much faster in some cases and the entire library (including all dependencies) is just 5kb. You can install the beta version:
 
 ```
 npm install resonance@beta
@@ -93,7 +93,7 @@ import { NodeGroup, animated } from 'resonance'
 
 # Getting Started
 
-Resonance exports just two components:
+Resonance exports two main components:
 - **NodeGroup** - Use `NodeGroup` if you have an **array of items** that enter, update and leave.
 - **Animate** - Use `Animate` if you have a **singe item** that enters, updates and leaves.
 
@@ -492,7 +492,6 @@ const numeric = (beg, end) => {
 }
 
 ```
-
 
 ## Contributing
 
