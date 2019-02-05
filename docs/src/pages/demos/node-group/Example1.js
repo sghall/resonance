@@ -1,7 +1,7 @@
 // example from https://bl.ocks.org/mbostock/3885705
 
 import React, { PureComponent } from 'react'
-import { NodeGroup } from 'resonance'
+import { NodeGroup, animated } from 'resonance'
 import Surface from 'docs/src/components/Surface' // this is just a responsive SVG
 import { scaleLinear, scaleBand } from 'd3-scale'
 import { easeExpInOut } from 'd3-ease'
@@ -114,21 +114,23 @@ class Example extends PureComponent {
               timing: { duration: 750, ease: easeExpInOut },
             })}
           >
-            <g transform={s => `translate(${s.x},0)`}>
-              <rect
+            <animated.g transform={s => `translate(${s.x},0)`}>
+              <animated.rect
                 height={(s, d) => dims[1] - y(d.frequency)}
                 y={(s, d) => y(d.frequency)}
                 fill="#fd8d3c"
                 width={width}
                 opacity={s => s.opacity}
               />
-              <text
+              <animated.text
                 x={scale.bandwidth() / 2}
                 y={dims[1] + 15}
                 dx="-.35em"
                 fill="#dadada"
-              >{(s, d) => d.letter}</text>
-            </g>
+              >
+                {(s, d) => d.letter}
+              </animated.text>
+            </animated.g>
           </NodeGroup>
         </Surface>
       </div>

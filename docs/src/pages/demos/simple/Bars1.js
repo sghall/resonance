@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { NodeGroup } from 'resonance'
+import { NodeGroup, animated } from 'resonance'
 
 import Surface from 'docs/src/components/Surface'
 import { scaleBand } from 'd3-scale'
@@ -116,26 +116,26 @@ class Example extends PureComponent {
               timing: { duration: 750 },
             })}
           >
-            <g opacity={s => s.opacity} transform={s => `translate(${s.x},0)`}>
-              <rect
+            <animated.g opacity={s => s.opacity} transform={s => `translate(${s.x},0)`}>
+              <animated.rect
                 height={dims[1]}
                 width={s => s.width}
                 fill={s => s.fill}
                 opacity={s => s.opacity}
               />
-              <text
+              <animated.text
                 x="0"
                 y="20"
                 fill="white"
                 transform="rotate(90 5,20)"
-              >{s => `x: ${Math.round(s.x)}`}</text>
-              <text
+              >{s => `x: ${Math.round(s.x)}`}</animated.text>
+              <animated.text
                 x="0"
                 y="5"
                 fill="white"
                 transform="rotate(90 5,20)"
-              >{(s, d) => `name: ${d.name}`}</text>
-            </g>
+              >{(s, d) => `name: ${d.name}`}</animated.text>
+            </animated.g>
           </NodeGroup>
         </Surface>
       </div>

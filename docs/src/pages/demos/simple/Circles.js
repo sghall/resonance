@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { NodeGroup } from 'resonance'
+import { NodeGroup, animated } from 'resonance'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import Surface from 'docs/src/components/Surface'
 import { easeExpInOut } from 'd3-ease'
@@ -144,27 +144,27 @@ class Example extends PureComponent {
               return interpolate(begValue, endValue)
             }}
           >
-            <g opacity={s => s.g.opacity} transform={s => s.g.transform} >
-              <circle
+            <animated.g opacity={s => s.g.opacity} transform={s => s.g.transform} >
+              <animated.circle
                 stroke="grey"
                 cy={dims[1] / 2}
                 r={s => s.circle.r}
                 fill={s => s.circle.fill}
                 strokeWidth={s => s.circle.strokeWidth}
               />
-              <text
+              <animated.text
                 x="0"
                 y="20"
                 fill="#fff"
                 transform="rotate(-45 5,20)"
-              >{s => `x: ${s.g.transform}`}</text>
-              <text
+              >{s => `x: ${s.g.transform}`}</animated.text>
+              <animated.text
                 x="0"
                 y="5"
                 fill="#fff"
                 transform="rotate(-45 5,20)"
-              >{(s, d) => `name: ${d.name}`}</text>
-            </g>
+              >{(s, d) => `name: ${d.name}`}</animated.text>
+            </animated.g>
           </NodeGroup>
         </Surface>
       </div>

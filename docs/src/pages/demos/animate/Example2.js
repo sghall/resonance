@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 import { range } from 'd3-array'
 import { easeExpInOut } from 'd3-ease'
-import { Animate } from 'resonance'
+import { Animate, animated } from 'resonance'
 
 function getRandomColor() {
   return range(6).reduce((m) => {
@@ -75,7 +75,7 @@ class Example extends PureComponent {
             return interpolate(begValue, endValue)
           }}
         >
-          <div style={s => (`
+          <animated.div style={s => (`
             opacity: ${s.opacity};
             width: 200px;
             height: 200px;
@@ -85,7 +85,7 @@ class Example extends PureComponent {
           `)}
           >
             {s =>  s.opacity.toFixed(3)}
-          </div>
+          </animated.div>
         </Animate>
       </div>
     )

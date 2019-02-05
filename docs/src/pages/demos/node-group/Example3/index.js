@@ -4,7 +4,7 @@ import { hierarchy, partition } from 'd3-hierarchy'
 import { arc as d3arc } from 'd3-shape'
 import { scaleLinear, scaleSqrt, scaleOrdinal } from 'd3-scale'
 import { interpolate } from 'd3-interpolate'
-import { NodeGroup, Animate } from 'resonance'
+import { NodeGroup, Animate, animated } from 'resonance'
 import Surface from 'docs/src/components/Surface'
 import data from './data'
 
@@ -88,7 +88,7 @@ class Example extends Component {
                 timing: { duration }
               })}
             >
-              <path
+              <animated.path
                 style='cursor: pointer;'
                 d={s => s.path}
                 stroke="#424242"

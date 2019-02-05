@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { feature } from 'topojson'
 import { easeQuadOut } from 'd3-ease'
-import { Animate } from 'resonance'
+import { Animate, animated } from 'resonance'
 import { interpolate } from 'flubber'
 import Surface from 'docs/src/components/Surface' // this is just a responsive SVG
 import statesJSON from './states.json'
@@ -57,13 +57,13 @@ class Example extends PureComponent {
               timing: { duration: 1000, ease: easeQuadOut },
             }}
           >
-            <g transform="translate(100, 0) scale(0.8)">
-              <path
+            <animated.g transform="translate(100, 0) scale(0.8)">
+              <animated.path
                 fill="#fd8d3c"
                 d={s => s.d}
                 opacity={s => s.opacity}
               />
-            </g>
+            </animated.g>
           </Animate>
         </Surface>
       </div>

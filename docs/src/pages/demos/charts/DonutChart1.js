@@ -6,7 +6,7 @@ import memoizedOne from 'memoize-one'
 import sortBy from 'lodash/sortBy'
 import Surface from 'docs/src/components/Surface'
 import React, { PureComponent } from 'react'
-import { NodeGroup } from 'resonance'
+import { NodeGroup, animated } from 'resonance'
 
 
 const colors = scaleOrdinal()
@@ -133,13 +133,13 @@ class Example extends PureComponent {
                 timing: { duration: 350, ease: easeExpOut },
               })}
             >
-              <g className="pie-arc">
-                <path
+              <animated.g className="pie-arc">
+                <animated.path
                   d={s => innerArcPath(s)}
                   fill={(s, d) => colors(d.data.name)}
                   opacity={0.9}
                 />
-                <text
+                <animated.text
                   dy="4px"
                   fontSize="12px"
                   fill="#fff"
@@ -148,8 +148,8 @@ class Example extends PureComponent {
                     return `translate(${p2})`
                   }}
                   textAnchor={s => mid(s) ? 'start' : 'end'}
-                >{(s, d) => d.data.name}</text>
-                <polyline
+                >{(s, d) => d.data.name}</animated.text>
+                <animated.polyline
                   fill="none"
                   stroke="rgba(255,255,255,0.5)"
                   points={({ startAngle, endAngle }) => {
@@ -157,7 +157,7 @@ class Example extends PureComponent {
                     return `${p0},${p1},${p2}`
                   }}
                 />
-              </g>
+              </animated.g>
             </NodeGroup>
           </g>
         </Surface>

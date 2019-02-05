@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { shuffle, range } from 'd3-array'
 import { easeBackOut, easeBackInOut } from 'd3-ease'
-import { NodeGroup } from 'resonance'
+import { NodeGroup, animated } from 'resonance'
 import { interpolate, interpolateTransformSvg } from 'd3-interpolate'
 
 const count = 15
@@ -94,7 +94,7 @@ export default class Example extends Component {
             wrapperStyle={{ margin: 10, height: count * 20, position: 'relative' }}
             nameSpace="http://www.w3.org/1999/xhtml"
           >
-            <div
+            <animated.div
               style={(s, d, k) => (`
                 position: absolute;
                 transform: translate(${s.x}px, ${+k * 20}px);
@@ -103,7 +103,7 @@ export default class Example extends Component {
               `)}
             >
               {(s, d, k) => `${k + 1} - ${Math.round(s.x)}`}
-            </div>
+            </animated.div>
           </NodeGroup>
         )}
       </div>

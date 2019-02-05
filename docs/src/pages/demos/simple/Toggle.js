@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Animate } from 'resonance'
+import { Animate, animated } from 'resonance'
 import { easeExpOut } from 'd3-ease'
 
 const trackStyles = {
@@ -40,7 +40,7 @@ class Example extends PureComponent {
 
           wrapperStyle={trackStyles}
         >
-          <div
+          <animated.div
             style={s => (`
               position: absolute;
               width: 50px;
