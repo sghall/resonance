@@ -4,6 +4,7 @@ import { BaseNode, interval } from 'kapellmeister'
 import mergeKeys from '../core/mergeKeys'
 import { ENTER, UPDATE, LEAVE } from '../core/types'
 import { numeric, kebabCase } from '../utils'
+import warning from 'warning'
 
 class NodeGroup extends Component {
   constructor(props) {
@@ -114,7 +115,21 @@ class NodeGroup extends Component {
     const { state, data } = node
     const nameSpace = this.ref.current.namespaceURI
 
-    const child = document.createElementNS(nameSpace, template.type)
+    let qualifiedName = template.type.baseType
+
+    warning(qualifiedName !== undefined, `
+      [resonance]: You must only use the animated.[tag] components exported from resonance as descendents of NodeGroup and Animate.
+    `)
+
+    if (!qualifiedName) {
+      return
+    }
+
+    if (typeof qualifiedName !== 'string') {
+      qualifiedName = qualifiedName.baseType
+    }
+
+    const child = document.createElementNS(nameSpace, qualifiedName)
     parent.appendChild(child)
 
     for (const prop in template.props) {
@@ -249,7 +264,7 @@ class NodeGroup extends Component {
   unmounting = false
 
   render() {
-    const { wrapper = 'div', wrapperClass = '', wrapperStyle = {} } = this.props
+    const { wrapper = 'div', wrapperClass = null, wrapperStyle = {} } = this.props
 
     return React.createElement(wrapper, {
       ref: this.ref,

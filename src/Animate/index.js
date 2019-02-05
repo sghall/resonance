@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import NodeGroup from '../NodeGroup'
+import { NodeGroup, animated } from '..'
 import { numeric } from '../utils'
 
 const keyAccessor = () => '$$key$$'
@@ -34,7 +34,7 @@ class Animate extends Component {
         wrapperClass={wrapperClass}
         wrapperStyle={wrapperStyle}
       >
-        {children || <div />}
+        {children || <animated.div />}
       </NodeGroup>
     )
   }
