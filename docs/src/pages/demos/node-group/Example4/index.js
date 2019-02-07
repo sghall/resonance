@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { scaleLinear, scaleBand } from 'd3-scale'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 import BarChart from './BarChart'
 import { dims, getSortByKey } from './utils'
 import rawData from './data'
+
+const barCount = 10
 
 class Example extends Component {
 
@@ -21,8 +25,8 @@ class Example extends Component {
       '85 Years and Over',
     ],
     data: [],
-    xScale: () => 0,
-    yScale: () => 0,
+    xScale: scaleLinear(),
+    yScale: scaleBand(),
   }
 
   componentDidMount() {
@@ -32,7 +36,7 @@ class Example extends Component {
 
   setSelected = selected => {
     const sort = getSortByKey(selected)
-    const data = rawData.sort(sort).slice(0, 10)
+    const data = rawData.sort(sort).slice(0, barCount)
 
     const xExtent = [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
     const yDomain = {}
@@ -55,7 +59,7 @@ class Example extends Component {
       .padding(0.1)
       .domain(Object.keys(yDomain))
 
-    return {
+    this.setState({
       selected,
       data: data.map((d) => ({
         name: d.State,
@@ -64,12 +68,35 @@ class Example extends Component {
       })),
       xScale,
       yScale,
-    }
+    })
   }
 
   render() {
+    const { data, options, selected, xScale, yScale } = this.state 
+
     return (
-      <BarChart />
+      <Grid container style={{ paddingTop: 20 }}>
+        <Grid item xs={12} sm={3}>
+          {options.map(option => (
+            <Button
+              key={option}
+              variant="outlined"
+              fullWidth
+              disabled={selected === option}
+              onClick={() => this.setSelected(option)}
+            >
+              {option}
+            </Button>
+          ))}
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <BarChart
+            data={data}
+            xScale={xScale}
+            yScale={yScale}
+          />
+        </Grid>
+      </Grid>
     )
   }
 }

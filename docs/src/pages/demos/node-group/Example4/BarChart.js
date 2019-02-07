@@ -1,61 +1,74 @@
 import React, { PureComponent } from 'react'
 import { NodeGroup, animated } from 'resonance'
-import Surface from 'docs/src/components/Surface'
-import palette from 'docs/src/utils/palette'
 import PropTypes from 'prop-types'
 import { easePoly, easeExp } from 'd3-ease'
 import { view, trbl, dims, percentFormat } from './utils'
+import Surface from 'docs/src/components/Surface'
+
+const textColor = '#fff'
+const fillColor = '#fd8d3c'
+
+const duration = 1500
 
 class BarChart extends PureComponent {
-  static propTypes = {
-    data: PropTypes.array.isRequired,
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
-    duration: PropTypes.number.isRequired,
-  }
 
   state = {
-    xScale0: this.props.xScale,
-    xScale1: this.props.xScale,
+    lastXScale: null,
+    currXScale: null
   }
 
-  componentWillReceiveProps(next) {
-    this.setState(() => ({
-      xScale0: this.props.xScale,
-      xScale1: next.xScale,
-    }))
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { xScale } = nextProps
+
+    if (!prevState.currXScale) {
+      return {
+        lastXScale: xScale,
+        currXScale: xScale,
+      }
+    }
+
+    if (prevState.currXScale !== xScale) {
+      return {
+        lastXScale: prevState.currXScale,
+        currXScale: xScale,
+      }     
+    }
+
+    return null
   }
 
   render() {
-    const { data, xScale, yScale, duration } = this.props
-    const { xScale0, xScale1 } = this.state
+    const { data, xScale, yScale } = this.props
+    const { lastXScale } = this.state
 
     return (
       <Surface view={view} trbl={trbl}>
         <NodeGroup
           data={xScale.ticks()}
           keyAccessor={d => d}
+          wrapper='g'
+          wrapperClass='ticks'
 
           start={val => ({
             opacity: 1e-6,
-            x: xScale0(val),
+            x: lastXScale(val),
           })}
 
           enter={val => ({
             opacity: [1],
-            x: [xScale1(val)],
+            x: [xScale(val)],
             timing: { duration, ease: easeExp },
           })}
 
           update={val => ({
             opacity: [1],
-            x: [xScale1(val)],
+            x: [xScale(val)],
             timing: { duration, ease: easeExp },
           })}
 
           leave={val => ({
             opacity: [1e-6],
-            x: [xScale1(val)],
+            x: [xScale(val)],
             timing: { duration, ease: easeExp },
           })}
         >
@@ -65,13 +78,13 @@ class BarChart extends PureComponent {
           >
             <animated.line
               y2={dims[1]}
-              stroke={palette.textColor}
+              stroke={textColor}
               opacity={0.2}
             />
             <animated.text
               y={-5}
               textAnchor="middle"
-              fill={palette.textColor}
+              fill={textColor}
               fontSize="10px"
             >
               {(s, d) => percentFormat(d)}
@@ -81,8 +94,10 @@ class BarChart extends PureComponent {
         <NodeGroup
           data={data}
           keyAccessor={d => d.name}
+          wrapper='g'
+          wrapperClass='bars'
 
-          start={(node) => ({
+          start={node => ({
             node: {
               opacity: 1e-6,
               y: 500,
@@ -93,7 +108,7 @@ class BarChart extends PureComponent {
             },
           })}
 
-          enter={(node) => ({
+          enter={node => ({
             node: {
               opacity: [1],
               y: [node.yVal],
@@ -105,10 +120,10 @@ class BarChart extends PureComponent {
             timing: { duration, ease: easePoly },
           })}
 
-          update={(node) => ({
+          update={node => ({
             node: {
               opacity: [1],
-              y: [`translate(0,${node.yVal})`],
+              y: [node.yVal],
             },
             rect: {
               width: [node.xVal],
@@ -130,7 +145,7 @@ class BarChart extends PureComponent {
             transform={s => `translate(0,${s.node.y})`}
           >
             <animated.rect
-              fill={palette.primary1Color}
+              fill={fillColor}
               opacity={0.4}
               width={s => s.rect.width}
               height={s => s.rect.height}
@@ -139,7 +154,7 @@ class BarChart extends PureComponent {
               dy="0.35em"
               x={-15}
               textAnchor="middle"
-              fill={palette.textColor}
+              fill={textColor}
               fontSize={10}
               y={yScale.bandwidth() / 2}
             >
@@ -153,13 +168,19 @@ class BarChart extends PureComponent {
               y={yScale.bandwidth() / 2}
               x={(s, d) => d.xVal - 3}
             >
-              {(s, d) => percentFormat(xScale1.invert(d.xVal))}
+              {(s, d) => percentFormat(xScale.invert(d.xVal))}
             </animated.text>
           </animated.g>
         </NodeGroup>
       </Surface>
     )
   }
+}
+
+BarChart.propTypes = {
+  data: PropTypes.array.isRequired,
+  xScale: PropTypes.func.isRequired,
+  yScale: PropTypes.func.isRequired,
 }
 
 export default BarChart
