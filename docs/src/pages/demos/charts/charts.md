@@ -1,3 +1,6 @@
+##### Sunburst
+{{demo='pages/demos/charts/Sunburst/index.js'}}
+
 ##### Donut Chart
 {{demo='pages/demos/charts/DonutChart1.js'}}
 
