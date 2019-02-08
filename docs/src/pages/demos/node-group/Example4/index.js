@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { scaleLinear, scaleBand } from 'd3-scale'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 import BarChart from './BarChart'
 import { dims, getSortByKey } from './utils'
 import rawData from './data'
@@ -76,7 +77,10 @@ class Example extends Component {
 
     return (
       <Grid container style={{ paddingTop: 20 }}>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={3} style={{ paddingTop: 20 }}>
+          <Typography gutterBottom variant="h6" align="center">
+            Age Group
+          </Typography>
           {options.map(option => (
             <Button
               key={option}
