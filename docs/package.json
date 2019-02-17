@@ -33,10 +33,10 @@
     "memoize-one": "^5.0.0",
     "prismjs": "^1.15.0",
     "raw-loader": "^1.0.0",
-    "react": "^16.8.1",
+    "react": "^16.8.2",
     "react-compound-slider": "^0.18.1",
     "react-docgen": "^2.21.0",
-    "react-dom": "^16.8.1",
+    "react-dom": "^16.8.2",
     "react-hot-loader": "^4.6.5",
     "react-redux": "^6.0.0",
     "react-router": "^3.2.1",
@@ -47,7 +47,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "topojson": "^3.0.2",
-    "webpack": "^4.29.3",
+    "webpack": "^4.29.4",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
   }
