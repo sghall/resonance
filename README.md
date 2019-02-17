@@ -14,6 +14,7 @@ npm install resonance@beta
 ### [Documentation & Demos](https://sghall.github.io/resonance)
 
 Sandboxes:
+- [Animated Bar Chart](https://codesandbox.io/s/94kzwl47jr)
 - [Zoomable Sunburst](https://codesandbox.io/s/927mplryow)
 - [Draggable List](https://codesandbox.io/s/7k9ymnwpp1)
 - [Animated Boxes](https://codesandbox.io/s/16vowo2wq)
