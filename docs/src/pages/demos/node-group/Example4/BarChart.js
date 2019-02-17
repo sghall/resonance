@@ -1,17 +1,35 @@
 import React, { PureComponent } from 'react'
 import { NodeGroup, animated } from 'resonance'
 import PropTypes from 'prop-types'
-import { easeQuad, easeExp } from 'd3-ease'
+import { withStyles } from '@material-ui/core/styles'
+import { easeQuadOut, easeExpOut } from 'd3-ease'
 import { view, trbl, dims, percentFormat } from './utils'
 import Surface from 'docs/src/components/Surface'
 
-const textColor = '#fff'
-const fillColor = '#fd8d3c'
+const styles = () => ({
+  rect: {
+    fill: '#fd8d3c',
+    opacity: 0.4,
+  },
+  label: {
+    textAnchor: 'middle',
+    fill: '#fff',
+    fontSize: 10,
+  },
+  percent: {
+    textAnchor: 'end',
+    fill: '#fff',
+    fontSize: 10
+  },
+  line: {
+    stroke: '#fff',
+    opacity: 0.2,
+  }
+})
 
 const duration = 1500
 
 class BarChart extends PureComponent {
-
   state = {
     lastXScale: null,
     currXScale: null
@@ -38,7 +56,7 @@ class BarChart extends PureComponent {
   }
 
   render() {
-    const { data, xScale, yScale } = this.props
+    const { data, xScale, yScale, classes } = this.props
     const { lastXScale } = this.state
 
     return (
@@ -57,19 +75,19 @@ class BarChart extends PureComponent {
           enter={val => ({
             opacity: [1],
             x: [xScale(val)],
-            timing: { duration, ease: easeExp },
+            timing: { duration, ease: easeExpOut },
           })}
 
           update={val => ({
             opacity: [1],
             x: [xScale(val)],
-            timing: { duration, ease: easeExp },
+            timing: { duration, ease: easeExpOut },
           })}
 
           leave={val => ({
             opacity: [1e-6],
             x: [xScale(val)],
-            timing: { duration, ease: easeExp },
+            timing: { duration, ease: easeExpOut },
           })}
         >
           <animated.g
@@ -77,15 +95,12 @@ class BarChart extends PureComponent {
             transform={s => `translate(${s.x},0)`}   
           >
             <animated.line
+              className={classes.line}
               y2={dims[1]}
-              stroke={textColor}
-              opacity={0.2}
             />
             <animated.text
+              className={classes.label}
               y={-5}
-              textAnchor="middle"
-              fill={textColor}
-              fontSize="10px"
             >
               {(s, d) => percentFormat(d)}
             </animated.text>
@@ -117,7 +132,7 @@ class BarChart extends PureComponent {
               width: node.xVal,
               height: yScale.bandwidth()
             },
-            timing: { duration, ease: easeQuad },
+            timing: { duration, ease: easeQuadOut },
           })}
 
           update={node => ({
@@ -129,7 +144,7 @@ class BarChart extends PureComponent {
               width: [node.xVal],
               height: [yScale.bandwidth()]
             },
-            timing: { duration, ease: easeQuad },
+            timing: { duration, ease: easeQuadOut },
           })}
 
           leave={() => ({
@@ -137,7 +152,7 @@ class BarChart extends PureComponent {
               opacity: [1e-6],
               y: [500],
             },
-            timing: { duration, ease: easeQuad },
+            timing: { duration, ease: easeQuadOut },
           })}
         >
           <animated.g 
@@ -145,28 +160,23 @@ class BarChart extends PureComponent {
             transform={s => `translate(0,${s.node.y})`}
           >
             <animated.rect
-              fill={fillColor}
-              opacity={0.4}
+              className={classes.rect}
               width={s => s.rect.width}
               height={s => s.rect.height}
             />
             <animated.text
-              dy="0.35em"
+              className={classes.label}
+              dy='.35em'
               x={-15}
-              textAnchor="middle"
-              fill={textColor}
-              fontSize={10}
               y={yScale.bandwidth() / 2}
             >
               {(s, d) => d.name}
             </animated.text>
             <animated.text
-              textAnchor="end"
-              dy="0.35em"
-              fill="white"
-              fontSize={10}
-              y={yScale.bandwidth() / 2}
+              className={classes.percent}
+              dy='.35em'
               x={(s, d) => d.xVal - 3}
+              y={yScale.bandwidth() / 2}
             >
               {(s, d) => percentFormat(xScale.invert(d.xVal))}
             </animated.text>
@@ -178,9 +188,10 @@ class BarChart extends PureComponent {
 }
 
 BarChart.propTypes = {
+  classes: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
 }
 
-export default BarChart
+export default withStyles(styles)(BarChart)
