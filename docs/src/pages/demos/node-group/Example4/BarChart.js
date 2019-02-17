@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { NodeGroup, animated } from 'resonance'
 import PropTypes from 'prop-types'
-import { easePoly, easeExp } from 'd3-ease'
+import { easeQuad, easeExp } from 'd3-ease'
 import { view, trbl, dims, percentFormat } from './utils'
 import Surface from 'docs/src/components/Surface'
 
@@ -117,7 +117,7 @@ class BarChart extends PureComponent {
               width: node.xVal,
               height: yScale.bandwidth()
             },
-            timing: { duration, ease: easePoly },
+            timing: { duration, ease: easeQuad },
           })}
 
           update={node => ({
@@ -129,7 +129,7 @@ class BarChart extends PureComponent {
               width: [node.xVal],
               height: [yScale.bandwidth()]
             },
-            timing: { duration, ease: easePoly },
+            timing: { duration, ease: easeQuad },
           })}
 
           leave={() => ({
@@ -137,7 +137,7 @@ class BarChart extends PureComponent {
               opacity: [1e-6],
               y: [500],
             },
-            timing: { duration, ease: easePoly },
+            timing: { duration, ease: easeQuad },
           })}
         >
           <animated.g 
